@@ -28,29 +28,29 @@ export default function ContactPage() {
     mexico: [
       { 
         city: language === 'es' ? 'Ciudad de México' : 'Mexico City', 
-        address: 'Av. Insurgentes sur 546. Piso 7', 
-        phone: '+52 55 6630 8602 - +52 55 2593 6885', 
-        email: 'gerencia@institutomexcol.com' 
+        address: 'Av. Insurgentes Sur 546-piso 7, Roma Sur, Cuauhtémoc, 06760, CDMX', 
+        phone: '+52 55 6630 8602 - 55 2593 6885', 
+        email: 'gerencia@institutomexcolusa.com' 
       },
     ],
     usa: [
       { 
-        city: language === 'es' ? 'Presencia' : 'Presence', 
-        address: language === 'es' ? 'En Los Angeles y Miami' : 'In Los Angeles and Miami', 
+        city: language === 'es' ? 'Eventos Presenciales' : 'In-person events', 
+        address: language === 'es' ? 'Los Angeles California - Miami Florida - Nueva York Nueva York' : 'Los Angeles California - Miami Florida - Nueva York Nueva York', 
         phone: '+1 (407) 454-0524', 
-        email: 'gerencia@institutomexcol.com' 
+        email: 'gerencia@institutomexcolusa.com' 
       },
       { 
-        city: language === 'es' ? 'Orlando - Oficinas administrativas' : 'Orlando - Administrative Offices', 
+        city: language === 'es' ? 'Orlando Florida - Oficinas Administrativas' : 'Orlando Florida - Administrative Offices', 
         address: '2180 Central Florida Parkway. Suite A2. Orlando FL 32837', 
         phone: '+1 (407) 454-0524', 
-        email: 'gerencia@institutomexcol.com' 
+        email: 'gerencia@institutomexcolusa.com' 
       },
       { 
-        city: language === 'es' ? 'Houston - Sede' : 'Houston - Headquarters', 
+        city: language === 'es' ? 'Houston Texas - Sede' : 'Houston Texas - Headquarters', 
         address: '2307 S Texas 6, Houston, TX 77077', 
         phone: '+1 (407) 454-0524', 
-        email: 'gerencia@institutomexcol.com' 
+        email: 'gerencia@institutomexcolusa.com' 
       },
     ],
   } as const;

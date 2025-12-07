@@ -56,7 +56,7 @@ export default function BrandMarquee() {
         }
         .animate-marquee {
           width: max(220%, 1400px);
-          animation: marquee 35s linear infinite;
+          animation: marquee 15s linear infinite;
           display: flex;
         }
       `}</style>

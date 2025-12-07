@@ -248,7 +248,7 @@ export default function Home() {
             </div>
             
             {/* Video Section */}
-            <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex justify-center gap-4">
               <div className="w-full max-w-2xl">
                 <video 
                   controls 
@@ -257,6 +257,18 @@ export default function Home() {
                   data-autopause-video
                 >
                   <source src="/Ponentes.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+              </div>
+
+              <div className="w-full max-w-2xl">
+                <video 
+                  controls 
+                  className="w-full rounded-lg shadow-lg"
+                  preload="metadata"
+                  data-autopause-video
+                >
+                  <source src="/anuncio-mexcol.mp4" type="video/mp4" />
                   Tu navegador no soporta el elemento de video.
                 </video>
               </div>
