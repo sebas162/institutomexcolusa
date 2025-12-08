@@ -66,13 +66,13 @@ const ListItem = React.forwardRef<
 ListItem.displayName = 'ListItem';
 
 // Componente para el underline deslizante
-function SlidingUnderline({ 
-  activeIndex, 
-  hoverIndex, 
+function SlidingUnderline({
+  activeIndex,
+  hoverIndex,
   containerRef,
   language
-}: { 
-  activeIndex: number; 
+}: {
+  activeIndex: number;
   hoverIndex: number | null;
   containerRef: React.RefObject<HTMLDivElement>;
   language: 'en' | 'es';
@@ -87,11 +87,11 @@ function SlidingUnderline({
         const container = containerRef.current;
         const items = container.querySelectorAll('[data-nav-item]');
         const activeItem = items[activeIndex] as HTMLElement;
-        
+
         if (activeItem) {
           const containerRect = container.getBoundingClientRect();
           const itemRect = activeItem.getBoundingClientRect();
-          
+
           setActiveUnderlineStyle({
             left: itemRect.left - containerRect.left,
             width: itemRect.width,
@@ -110,11 +110,11 @@ function SlidingUnderline({
         const container = containerRef.current;
         const items = container.querySelectorAll('[data-nav-item]');
         const hoverItem = items[hoverIndex] as HTMLElement;
-        
+
         if (hoverItem) {
           const containerRect = container.getBoundingClientRect();
           const itemRect = hoverItem.getBoundingClientRect();
-          
+
           setHoverUnderlineStyle({
             left: itemRect.left - containerRect.left,
             width: itemRect.width,
@@ -134,13 +134,13 @@ function SlidingUnderline({
       {/* Underline activo */}
       {activeIndex >= 0 && (
         <div
-          className="absolute -bottom-3 h-1 bg-primary rounded-full pointer-events-none"
+          className="absolute -bottom-5 h-1 bg-primary rounded-full pointer-events-none"
           style={activeUnderlineStyle}
         />
       )}
       {/* Underline hover */}
       <div
-        className="absolute -bottom-3 h-1 bg-primary/40 rounded-full pointer-events-none"
+        className="absolute -bottom-5 h-1 bg-primary/40 rounded-full pointer-events-none"
         style={hoverUnderlineStyle}
       />
     </>
@@ -155,7 +155,7 @@ export function Navbar() {
   const { language, setLanguage } = useLanguage();
   const t = translations[language].navbar;
   const navContainerRef = React.useRef<HTMLDivElement>(null);
-  
+
   const navLinks = t.navLinks;
   const academicPrograms = t.academicPrograms;
   const firstTwoLinks = navLinks.slice(0, 2);
@@ -174,25 +174,25 @@ export function Navbar() {
   const handleLanguageChange = (lang: 'en' | 'es') => {
     setLanguage(lang);
   };
-  
+
   const isAdminPage = pathname.startsWith('/admin');
 
   if (loading) {
     return (
-       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center"></div>
       </header>
     )
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="container flex h-20 items-center">
         {/* Logo - izquierda */}
         <div className="hidden md:flex">
           <PrefetchLink href="/" className="flex items-center space-x-2">
-            <Image className='h-12 w-12' src={logo} alt="Instituto MEXCOL"/>
-{/*             <span className="font-bold">Instituto MEXCOL</span>
+            <Image className='h-16 w-16' src={logo} alt="Instituto MEXCOL" />
+            {/*             <span className="font-bold">Instituto MEXCOL</span>
  */}          </PrefetchLink>
         </div>
 
@@ -218,8 +218,8 @@ export function Navbar() {
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
-              <SlidingUnderline 
-                activeIndex={activeIndex} 
+              <SlidingUnderline
+                activeIndex={activeIndex}
                 hoverIndex={hoverIndex}
                 containerRef={navContainerRef}
                 language={language}
@@ -232,7 +232,7 @@ export function Navbar() {
         <div className="flex flex-1 items-center justify-between md:hidden">
           {/* Logo a la izquierda */}
           <PrefetchLink href="/" className="flex items-center">
-            <Image className='h-10 w-10' src={logo} alt="Instituto MEXCOL"/>
+            <Image className='h-14 w-14' src={logo} alt="Instituto MEXCOL" />
           </PrefetchLink>
 
           {/* Controles a la derecha */}
@@ -240,19 +240,19 @@ export function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                  <span className="text-lg">{language === 'es' ? '🇪🇸' : '🇺🇸'}</span>
+                  <span className="text-lg">{language === 'es' ? '🇲🇽' : '🇺🇸'}</span>
                   <span className="sr-only">Change language</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-white border border-border/50 shadow-lg">
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={() => handleLanguageChange('es')}
                   className="cursor-pointer hover:bg-teal-50 hover:text-teal-700 focus:bg-teal-50 focus:text-teal-700"
                 >
-                  <span className="mr-2">🇪🇸</span>
+                  <span className="mr-2">🇲🇽</span>
                   Español
                 </DropdownMenuItem>
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={() => handleLanguageChange('en')}
                   className="cursor-pointer hover:bg-teal-50 hover:text-teal-700 focus:bg-teal-50 focus:text-teal-700"
                 >
@@ -275,7 +275,7 @@ export function Navbar() {
                   className="flex items-center"
                   onClick={() => setOpen(false)}
                 >
-                  <Image className='h-8 w-8 mr-2' src={logo} alt="Instituto MEXCOL"/>
+                  <Image className='h-8 w-8 mr-2' src={logo} alt="Instituto MEXCOL" />
                   <span className="font-bold text-foreground">Instituto Mex - Col - Usa</span>
                 </PrefetchLink>
                 <div className="mt-6 flex flex-col space-y-2 flex-1">
@@ -324,28 +324,28 @@ export function Navbar() {
                     © 2025 Instituto Mex - Col - Usa. Todos los derechos reservados.
                   </p>
                   <div className='block justify-center items-center space-x-3'>
-                  <PrefetchLink
-                    href="/terms"
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      'block text-center text-xs transition-colors duration-200',
-                      'hover:text-primary',
-                      pathname === '/terms' ? 'text-primary font-semibold' : 'text-muted-foreground'
-                    )}
-                  >
-                    Términos y Condiciones
-                  </PrefetchLink>
-                  <PrefetchLink
-                    href="/privacy"
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      'block text-center text-xs transition-colors duration-200',
-                      'hover:text-primary',
-                      pathname === '/privacy' ? 'text-primary font-semibold' : 'text-muted-foreground'
-                    )}
-                  >
-                    Aviso de Privacidad
-                  </PrefetchLink>
+                    <PrefetchLink
+                      href="/terms"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'block text-center text-xs transition-colors duration-200',
+                        'hover:text-primary',
+                        pathname === '/terms' ? 'text-primary font-semibold' : 'text-muted-foreground'
+                      )}
+                    >
+                      Términos y Condiciones
+                    </PrefetchLink>
+                    <PrefetchLink
+                      href="/privacy"
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'block text-center text-xs transition-colors duration-200',
+                        'hover:text-primary',
+                        pathname === '/privacy' ? 'text-primary font-semibold' : 'text-muted-foreground'
+                      )}
+                    >
+                      Aviso de Privacidad
+                    </PrefetchLink>
                   </div>
                 </div>
               </SheetContent>
@@ -358,19 +358,19 @@ export function Navbar() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                <span className="text-lg">{language === 'es' ? '🇪🇸' : '🇺🇸'}</span>
+                <span className="text-lg">{language === 'es' ? '🇲🇽' : '🇺🇸'}</span>
                 <span className="sr-only">Change language</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white border border-border/50 shadow-lg">
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => handleLanguageChange('es')}
                 className="cursor-pointer hover:bg-teal-50 hover:text-teal-700 focus:bg-teal-50 focus:text-teal-700"
               >
-                <span className="mr-2">🇪🇸</span>
+                <span className="mr-2">🇲🇽</span>
                 Español
               </DropdownMenuItem>
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => handleLanguageChange('en')}
                 className="cursor-pointer hover:bg-teal-50 hover:text-teal-700 focus:bg-teal-50 focus:text-teal-700"
               >

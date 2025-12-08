@@ -6,13 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { 
-  Clock, 
-  Calendar, 
-  MapPin, 
-  DollarSign, 
-  Users, 
-  CheckCircle2, 
+import {
+  Clock,
+  Calendar,
+  MapPin,
+  DollarSign,
+  Users,
+  CheckCircle2,
   GraduationCap,
   ArrowLeft,
   Award,
@@ -108,13 +108,13 @@ export default function CourseDetailPage() {
               />
             </div>
           </div>
-          <div className="mt-auto flex flex-col text-white gap-3 pb-6 md:pb-12 lg:pb-16 ml-5">
+          <div className="mt-60 md:mt-auto flex flex-col text-white gap-3 pb-6 md:pb-12 lg:pb-16 ml-5">
             <Badge className="w-fit bg-primary text-primary-foreground">
               <MapPin className="mr-1 h-3 w-3" />
               USA
             </Badge>
             <div className="flex flex-col gap-3 w-full md:max-w-3xl">
-              <h1 className="font-headline text-2xl md:text-4xl font-semibold tracking-tight">
+              <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
                 {courseDetails.title}
               </h1>
             </div>
@@ -230,14 +230,14 @@ export default function CourseDetailPage() {
                 <Separator />
 
                 {/* Inverted buttons: WhatsApp first, Enroll second */}
-                <Button 
-                  className="w-full btn-modern" 
-                  size="lg" 
+                <Button
+                  className="w-full btn-modern"
+                  size="lg"
                   asChild
                 >
-                  <a 
+                  <a
                     href={`https://wa.me/${language === 'es' ? '5215566308602' : '14074540524'}?text=${encodeURIComponent(
-                      language === 'es' 
+                      language === 'es'
                         ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
                         : `Hello! I would love to receive more information about the ${courseDetails.title} from USA`
                     )}`}
@@ -249,9 +249,9 @@ export default function CourseDetailPage() {
                   </a>
                 </Button>
 
-                <Button 
-                  variant="outline" 
-                  className="w-full" 
+                <Button
+                  variant="outline"
+                  className="w-full"
                   size="lg"
                   asChild
                 >
@@ -319,7 +319,7 @@ export default function CourseDetailPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <GraduationCap className="h-6 w-6 text-primary" />
-                    {language === 'es' ? 'Plan de Estudios' : 'Curriculum'}
+                    {language === 'es' ? 'Estructura del curso' : 'Course structure'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -338,10 +338,10 @@ export default function CourseDetailPage() {
                           const startsWithNumber = /^\d+\./.test(topic.trim());
                           const showBullet = topicIdx !== 0 && !topic.startsWith('**') && !topic.includes('Master modeling techniques in:') && !topic.includes('Domina técnicas de modelado en:') && !topic.includes('Learn to relax facial muscles to prevent and treat expression lines in:') && !topic.includes('Aprende a relajar los músculos faciales para prevenir y tratar líneas de expresión en:') && !topic.includes('Apply rejuvenation protocols with immediate lifting effect in:') && !topic.includes('Aplica protocolos de rejuvenecimiento con efecto lifting inmediato en:') && !topic.includes('Know the main biostimulators available in the market and their application in:') && !topic.includes('Conoce los principales bioestimuladores disponibles en el mercado y su aplicación en:') && !topic.includes('Learn about the main bio-stimulators available in the market and their application in:') && !topic.includes('Demonstrative Practice') && !topic.includes('Práctica Demostrativa') && !topic.includes('Delivery of Certificates') && !topic.includes('Entrega de Certificados') && !topic.includes('Photographic record') && !topic.includes('Registro fotográfico') && !topic.includes('Final Exam') && !topic.includes('Examen Final') && !topic.includes('Upon passing') && !topic.includes('Al aprobar') && !isLongText && !isLongParagraph && !startsWithNewline && !startsWithNumber;
                           return (
-                          <li key={topicIdx} className={`text-sm ${isLongText || isLongParagraph ? 'block' : 'flex items-start gap-2'} ${topicIdx === 0 && !isLongText && !isLongParagraph ? 'text-[#475569] font-semibold' : 'text-[#475569]'} ${hasSpacing ? '!mt-8' : ''} ${startsWithNumber || isLongParagraph ? 'list-none' : ''}`}>
-                            {showBullet && <span className="text-[#475569]">•</span>}
-                            <span className={`${topicIdx === 0 && !isLongText ? '' : ''} whitespace-pre-line`}>{formatText(topic)}</span>
-                          </li>
+                            <li key={topicIdx} className={`text-sm ${isLongText || isLongParagraph ? 'block' : 'flex items-start gap-2'} ${topicIdx === 0 && !isLongText && !isLongParagraph ? 'text-[#475569] font-semibold' : 'text-[#475569]'} ${hasSpacing ? '!mt-8' : ''} ${startsWithNumber || isLongParagraph ? 'list-none' : ''}`}>
+                              {showBullet && <span className="text-[#475569]">•</span>}
+                              <span className={`${topicIdx === 0 && !isLongText ? '' : ''} whitespace-pre-line`}>{formatText(topic)}</span>
+                            </li>
                           );
                         })}
                       </ul>
@@ -360,30 +360,30 @@ export default function CourseDetailPage() {
                     {language === 'es' ? 'El Curso Incluye' : 'Course Includes'}
                   </CardTitle>
                 </CardHeader>
-                                 <CardContent>
-                   <ul className="space-y-2">
-                     {(courseDetails as any).includes.map((item: string, idx: number) => {
-                       const isBulletItem = item.startsWith('•');
-                       const displayText = isBulletItem ? item.substring(2) : item;
-                       const isTitle = !isBulletItem && (displayText.startsWith('**') || displayText.includes('**Digital Support Material**') || displayText.includes('**Material de Apoyo Digital**') || displayText.includes('**Exclusive Audiovisual Content:**') || displayText.includes('**Contenido Audiovisual Exclusivo:**'));
-                       const isIntroText = !isBulletItem && !isTitle && (displayText.includes('At the end of the course') || displayText.includes('Al finalizar el curso'));
-                       const isFinalText = !isBulletItem && displayText.startsWith('✨');
-                       const showIcon = !isTitle && !isIntroText && !isFinalText && !isBulletItem;
-                       
-                       return (
-                         <li key={idx} className={isBulletItem ? "flex items-start gap-2 text-sm ml-6" : isTitle ? "flex items-start gap-2 text-sm font-semibold" : "flex items-start gap-2 text-sm"}>
-                           {isBulletItem && (
-                             <span className="text-[#475569] mt-0.5 flex-shrink-0 font-bold">•</span>
-                           )}
-                           {showIcon && (
-                             <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                           )}
-                           <span className={`text-[#475569] ${isTitle || isIntroText || isFinalText ? "whitespace-pre-line" : ""}`}>{formatText(displayText)}</span>
-                         </li>
-                       );
-                     })}
-                   </ul>
-                 </CardContent>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {(courseDetails as any).includes.map((item: string, idx: number) => {
+                      const isBulletItem = item.startsWith('•');
+                      const displayText = isBulletItem ? item.substring(2) : item;
+                      const isTitle = !isBulletItem && (displayText.startsWith('**') || displayText.includes('**Digital Support Material**') || displayText.includes('**Material de Apoyo Digital**') || displayText.includes('**Exclusive Audiovisual Content:**') || displayText.includes('**Contenido Audiovisual Exclusivo:**'));
+                      const isIntroText = !isBulletItem && !isTitle && (displayText.includes('At the end of the course') || displayText.includes('Al finalizar el curso'));
+                      const isFinalText = !isBulletItem && displayText.startsWith('✨');
+                      const showIcon = !isTitle && !isIntroText && !isFinalText && !isBulletItem;
+
+                      return (
+                        <li key={idx} className={isBulletItem ? "flex items-start gap-2 text-sm ml-6" : isTitle ? "flex items-start gap-2 text-sm font-semibold" : "flex items-start gap-2 text-sm"}>
+                          {isBulletItem && (
+                            <span className="text-[#475569] mt-0.5 flex-shrink-0 font-bold">•</span>
+                          )}
+                          {showIcon && (
+                            <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                          )}
+                          <span className={`text-[#475569] ${isTitle || isIntroText || isFinalText ? "whitespace-pre-line" : ""}`}>{formatText(displayText)}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </CardContent>
               </Card>
             )}
 
@@ -481,28 +481,28 @@ export default function CourseDetailPage() {
         <div className="mt-12 lg:hidden">
           <Card>
             <CardContent className="pt-6 space-y-4">
-              <Button 
-                className="w-full btn-modern" 
-                size="lg" 
+              <Button
+                className="w-full btn-modern"
+                size="lg"
                 asChild
               >
-                <a 
+                <a
                   href={`https://wa.me/${language === 'es' ? '5215566308602' : '14074540524'}?text=${encodeURIComponent(
-                    language === 'es' 
+                    language === 'es'
                       ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
                       : `Hello! I would love to receive more information about the course: ${courseDetails.title} from USA`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  >
-                    <FaWhatsapp className="w-7 h-7 mr-2" />
-                    {language === 'es' ? 'Solicitar Información' : 'Request Information'}
+                >
+                  <FaWhatsapp className="w-7 h-7 mr-2" />
+                  {language === 'es' ? 'Solicitar Información' : 'Request Information'}
                 </a>
               </Button>
 
-              <Button 
-                variant="outline" 
-                className="w-full" 
+              <Button
+                variant="outline"
+                className="w-full"
                 size="lg"
                 asChild
               >
@@ -516,7 +516,7 @@ export default function CourseDetailPage() {
 
         {/* Back to Programs Button at the end */}
         <div className="mt-12 text-center">
-          <Link 
+          <Link
             href="/academic-programs?country=usa"
             className="inline-flex items-center gap-2 text-foreground hover:text-[#10b981] transition-colors duration-200 underline-offset-4 hover:underline decoration-[#10b981]"
           >

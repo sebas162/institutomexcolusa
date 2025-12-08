@@ -75,8 +75,7 @@ export const home = {
         googleUsa: 'Google USA',
       },
       brands: {
-        title: 'Trusted By',
-        optional: 'We have strategic partnerships with industry leaders.',
+        title: 'We have the best international partnerships',
         logos: [
           'Allergan', 'Botox', 'Juvederm', 'Harmonyca', 'Belotero', 'Radiesse', 'Merz', 'Xeomeen', 'American Alliance'
         ],
@@ -88,18 +87,12 @@ export const home = {
         locations: {
           coBogota: {
             title: 'Colombia',
-            subtitle: 'Bogotá',
-            address: 'Carrera 4 Este #14-04, 2nd Floor, Sector La Esmeralda, Tocancipá, Cundinamarca',
           },
           mx: {
             title: 'Mexico',
-            subtitle: 'Mexico City',
-            address: 'Av. Uno #18, Colonia San Pedro de los Pinos, Benito Juárez, 03800',
           },
           usaOrlando: {
             title: 'United States',
-            subtitle: 'Los Angeles – Houston',
-            address: '2180 Central Florida Parkway, Suite A2, Orlando, FL 32837',
           },
           usaHouston: {
             title: 'Houston',

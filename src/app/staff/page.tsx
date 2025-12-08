@@ -208,12 +208,12 @@ export default function StaffPage() {
                 src={LogoUSAVerde}
                 alt="Instituto MexCol USA Logo"
                 fill
-                className="object-contain drop-shadow-2xl"
+                className="object-contain drop-shadow-2xl mt-6"
                 priority
               />
             </div>
           </div>
-          <div className="mt-auto flex flex-col items-center text-center md:items-start md:text-left text-white gap-3 pb-6 md:pb-12 lg:pb-16 md:ml-5">
+          <div className="mt-60 flex flex-col items-center text-center md:items-start md:text-left text-white gap-3 pb-6 md:pb-12 lg:pb-16 md:ml-5">
             <h1 className="font-headline mt-24 text-4xl md:text-6xl font-bold tracking-tight w-full md:max-w-4xl">
               {heroTitle[lang]}
             </h1>

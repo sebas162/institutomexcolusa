@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Music2 } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { useLanguage } from '@/hooks/use-language';
 import { translations } from '@/lib/i18n';
@@ -16,44 +17,55 @@ export default function ContactPage() {
   const t = translations[language].contact;
   const [selectedCountry, setSelectedCountry] = useState<'colombia' | 'mexico' | 'usa'>('usa');
 
-  const offices = {
+  interface Office {
+    city: string;
+    address: string;
+    phone?: string;
+    phones?: { number: string; type: 'phone' | 'whatsapp' }[];
+    email: string;
+  }
+
+  const offices: Record<'colombia' | 'mexico' | 'usa', Office[]> = {
     colombia: [
-      { 
-        city: language === 'es' ? 'Bogotá - oficinas administrativas' : 'Bogotá - Administrative Offices', 
-        address: 'Carrera 4 este # 14-04 Segundo piso Sector la Esmeralda Tocancipá-cundinamarca', 
-        phone: '+57 322 432 4933', 
-        email: 'gerencia@institutomexcol.com' 
+      {
+        city: language === 'es' ? 'Bogotá - oficinas administrativas' : 'Bogotá - Administrative Offices',
+        address: 'Carrera 16A # 80-16. Consultorio 206 Barrio el lago Contry',
+        phone: '+57 322 432 4933',
+        email: 'gerencia@institutomexcolusa.com'
       },
     ],
     mexico: [
-      { 
-        city: language === 'es' ? 'Ciudad de México' : 'Mexico City', 
-        address: 'Av. Insurgentes Sur 546-piso 7, Roma Sur, Cuauhtémoc, 06760, CDMX', 
-        phone: '+52 55 6630 8602 - 55 2593 6885', 
-        email: 'gerencia@institutomexcolusa.com' 
+      {
+        city: language === 'es' ? 'Ciudad de México' : 'Mexico City',
+        address: 'Av. Insurgentes Sur 546-piso 7, Roma Sur, Cuauhtémoc, 06760, CDMX',
+        phones: [
+          { number: '+52 55 6630 8602', type: 'whatsapp' },
+          { number: '55 2593 6885', type: 'phone' }
+        ],
+        email: 'gerencia@institutomexcolusa.com'
       },
     ],
     usa: [
-      { 
-        city: language === 'es' ? 'Eventos Presenciales' : 'In-person events', 
-        address: language === 'es' ? 'Los Angeles California - Miami Florida - Nueva York Nueva York' : 'Los Angeles California - Miami Florida - Nueva York Nueva York', 
-        phone: '+1 (407) 454-0524', 
-        email: 'gerencia@institutomexcolusa.com' 
+      {
+        city: language === 'es' ? 'Eventos Presenciales' : 'In-person events',
+        address: language === 'es' ? 'Los Angeles California - Miami Florida - Nueva York Nueva York' : 'Los Angeles California - Miami Florida - Nueva York Nueva York',
+        phone: '+1 (407) 454-0524',
+        email: 'gerencia@institutomexcolusa.com'
       },
-      { 
-        city: language === 'es' ? 'Orlando Florida - Oficinas Administrativas' : 'Orlando Florida - Administrative Offices', 
-        address: '2180 Central Florida Parkway. Suite A2. Orlando FL 32837', 
-        phone: '+1 (407) 454-0524', 
-        email: 'gerencia@institutomexcolusa.com' 
+      {
+        city: language === 'es' ? 'Orlando Florida - Oficinas Administrativas' : 'Orlando Florida - Administrative Offices',
+        address: '2180 Central Florida Parkway. Suite A2. Orlando FL 32837',
+        phone: '+1 (407) 454-0524',
+        email: 'gerencia@institutomexcolusa.com'
       },
-      { 
-        city: language === 'es' ? 'Houston Texas - Sede' : 'Houston Texas - Headquarters', 
-        address: '2307 S Texas 6, Houston, TX 77077', 
-        phone: '+1 (407) 454-0524', 
-        email: 'gerencia@institutomexcolusa.com' 
+      {
+        city: language === 'es' ? 'Houston Texas - Sede' : 'Houston Texas - Headquarters',
+        address: '2307 S Texas 6, Houston, TX 77077',
+        phone: '+1 (407) 454-0524',
+        email: 'gerencia@institutomexcolusa.com'
       },
     ],
-  } as const;
+  };
 
   const social = t.followUs.links;
 
@@ -63,7 +75,7 @@ export default function ContactPage() {
       <section
         /* className="relative overflow-hidden mb-10"
         style={{ height: "458.14px" }} */
-        className="relative w-full section-modern h-screen -mt-16"
+        className="relative w-full section-modern h-screen -mt-20"
       >
         <div className="absolute inset-0">
           <Image
@@ -82,12 +94,12 @@ export default function ContactPage() {
                 src={LogoUSAVerde}
                 alt="Instituto MexCol USA Logo"
                 fill
-                className="object-contain drop-shadow-2xl"
+                className="object-contain drop-shadow-2xl mt-6"
                 priority
               />
             </div>
           </div>
-          <div className="mt-auto flex flex-col items-center text-center md:items-start md:text-left text-white gap-3 pb-6 md:pb-12 lg:pb-16 md:ml-5">
+          <div className="mt-60 flex flex-col items-center text-center md:items-start md:text-left text-white gap-3 pb-6 md:pb-12 lg:pb-16 md:ml-5">
             <div className="flex flex-col gap-3 w-full md:max-w-3xl">
               <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
                 {t.heroTitle}
@@ -99,45 +111,60 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      
+
       <div className="container mx-auto px-4 pb-10 pt-20">
 
-      <section>
-        <Tabs
-          value={selectedCountry}
-          onValueChange={(v) => setSelectedCountry(v as 'colombia' | 'mexico' | 'usa')}
-          className="w-full"
-        >
-          <div className="flex justify-center">
-            <TabsList>
-              <TabsTrigger value="usa">{t.countries.usa}</TabsTrigger>
-              <TabsTrigger value="mexico">{t.countries.mexico}</TabsTrigger>
-              <TabsTrigger value="colombia">{t.countries.colombia}</TabsTrigger>
-            </TabsList>
-          </div>
-        </Tabs>
-      </section>
+        <section>
+          <Tabs
+            value={selectedCountry}
+            onValueChange={(v) => setSelectedCountry(v as 'colombia' | 'mexico' | 'usa')}
+            className="w-full"
+          >
+            <div className="flex justify-center">
+              <TabsList>
+                <TabsTrigger value="usa">{t.countries.usa}</TabsTrigger>
+                <TabsTrigger value="mexico">{t.countries.mexico}</TabsTrigger>
+                <TabsTrigger value="colombia">{t.countries.colombia}</TabsTrigger>
+              </TabsList>
+            </div>
+          </Tabs>
+        </section>
 
-      <section className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div>
-          <ContactForm />
-        </div>
-        <div className="w-full space-y-6">
-          <div className="flex flex-col gap-4">
-            {offices[selectedCountry].map((o) => (
-              <Card key={`${selectedCountry}-${o.city}`} className="w-full">
-                <CardHeader>
-                  <CardTitle className="font-headline text-foreground font-semibold">{o.city}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm text-muted-foreground">
-                  <div className="flex items-start gap-3"><MapPin className="h-4 w-4 text-primary mt-1" /><span>{o.address}</span></div>
-                  <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-primary" /><span>{o.phone}</span></div>
-                  <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-primary" /><span>{o.email}</span></div>
-                </CardContent>
-              </Card>
-            ))}
+        <section className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="order-last md:order-none">
+            <ContactForm />
           </div>
-          {/* <div>
+          <div className="w-full space-y-6">
+            <div className="flex flex-col gap-4">
+              {offices[selectedCountry].map((o) => (
+                <Card key={`${selectedCountry}-${o.city}`} className="w-full">
+                  <CardHeader>
+                    <CardTitle className="font-headline text-foreground font-semibold">{o.city}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-sm text-muted-foreground">
+                    <div className="flex items-start gap-3"><MapPin className="h-4 w-4 text-primary mt-1" /><span>{o.address}</span></div>
+                    <div className="flex flex-col gap-1">
+                      {o.phones ? (
+                        o.phones.map((phone, idx) => (
+                          <div key={idx} className="flex items-center gap-3">
+                            {phone.type === 'whatsapp' ? (
+                              <FaWhatsapp className="h-4 w-4 text-primary" />
+                            ) : (
+                              <Phone className="h-4 w-4 text-primary" />
+                            )}
+                            <span>{phone.number}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="flex items-center gap-3"><Phone className="h-4 w-4 text-primary" /><span>{o.phone}</span></div>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-primary" /><span>{o.email}</span></div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            {/* <div>
             <h3 className="font-headline text-xl font-semibold">{t.followUs.title}</h3>
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
               <a href="https://www.facebook.com/profile.php?id=100064823553168#" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline"><Facebook className="h-4 w-4" />{t.followUs.facebook}</a>
@@ -146,8 +173,8 @@ export default function ContactPage() {
               <a href="https://www.youtube.com/@institutomexcol9788/featured" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline"><Youtube className="h-4 w-4" />{t.followUs.youtube}</a>
             </div>
           </div> */}
-        </div>
-      </section>
+          </div>
+        </section>
       </div>
     </div>
   );

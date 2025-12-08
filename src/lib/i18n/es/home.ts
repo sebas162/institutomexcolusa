@@ -1,6 +1,6 @@
 export const home = {
   hero: {
-        main: 'Instituto Mex - Col - USA',
+        main: 'Instituto Mex - Col - Usa',
         sub: 'Educación continua internacional en medicina estética.',
       },
       onlineTraining: {
@@ -75,8 +75,7 @@ export const home = {
         googleUsa: 'Google USA',
       },
       brands: {
-        title: 'Confían en nosotros',
-        optional: 'Contamos con alianzas estratégicas con líderes en el sector.',
+        title: 'Contamos con los mejores partnership internacional',
         logos: [
           'Allergan', 'Botox', 'Juvederm', 'Harmonyca', 'Belotero', 'Radiesse', 'Merz', 'Xeomeen', 'Alianza americana'
         ],
@@ -88,13 +87,9 @@ export const home = {
         locations: {
           coBogota: {
             title: 'Colombia',
-            subtitle: 'Bogotá',
-            address: 'Carrera 4 Este #14-04, Segundo piso, Sector La Esmeralda, Tocancipá, Cundinamarca',
           },
           mx: {
             title: 'México',
-            subtitle: 'Ciudad de México',
-            address: 'Av. Uno #18, Col. San Pedro de los Pinos, Benito Juárez, 03800',
           },
           usaOrlando: {
             title: 'Estados Unidos',

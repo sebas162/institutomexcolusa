@@ -2,7 +2,6 @@ export const academicPrograms = {
 title: 'Programas Académicos',
         subtitle: 'Formación internacional con programas especializados, prácticos y actualizados en USA, México y Colombia.',
         description: 'texto del parrafo de la seccion academica internacional',
-        heroHeadlineTop: 'Mex - Col - Usa',
         heroHeadlineBottom: 'Programas Académicos',
         heroSubheadline: 'Formación internacional con programas especializados, prácticos y actualizados en Usa, México y Colombia.',
         tabs: { usa: 'Usa', mexico: 'México', colombia: 'Colombia' },

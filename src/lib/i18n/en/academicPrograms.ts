@@ -2,7 +2,6 @@ export const academicPrograms = {
 title: 'Academic Programs',
         subtitle: 'International training with specialized, hands-on, and up-to-date programs in the USA, Mexico, and Colombia.',
         description: 'International academic section paragraph text',
-        heroHeadlineTop: 'Mex - Col - Usa',
         heroHeadlineBottom: 'Academic Programs',
         heroSubheadline: 'International training with specialized, hands-on, and up-to-date programs in the Usa, Mexico, and Colombia.',
         tabs: { usa: 'Usa', mexico: 'Mexico', colombia: 'Colombia' },
