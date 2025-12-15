@@ -170,7 +170,7 @@ title: 'Academic Programs',
                 title: 'Rejuvenation Techniques Course: "Mini Lifting 3 Points" (Minimally Invasive)',
                 subtitle: 'Professional Facial Rejuvenation Training',
                 description: 'Hands-on training in minimally invasive facial rejuvenation techniques.',
-                heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-USA.png',
+                heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png',
                 format: 'In-person',
                 duration: '2 theoretical days 2 intensive practice days',
                 schedule: '9:00 am - 7:00 pm Approx',
@@ -249,13 +249,13 @@ title: 'Academic Programs',
           mexico: {
             courses: [
               {
-                title: 'Course in Modeling, Profiling, and Facial Harmonization with "Botulinum Toxin / Hyaluronic Acid / Biostimulators / PDO Threads"',
+                title: 'Facial Modeling, Profiling, and Harmonization with Botulinum Toxin, Hyaluronic Acid, Biostimulators, and PDO Threads',
                 description: 'Learn advanced facial harmonization techniques for natural, precise results.',
                 image: '@/assets/img-heros/img-hero-cursos/master-class-MX.png',
                 slug: 'facial-harmonization-course',
               },
               {
-                title: 'Serum Therapy-Chelation and Principles of Applied Regenerative Medicine Course',
+                title: 'Intravenous Therapy, Chelation, and Principles of Applied Regenerative Medicine',
                 description: 'Master chelation and regenerative medicine fundamentals applied to aesthetic treatments.',
                 image: '@/assets/img-heros/img-hero-cursos/suero-MX.png',
                 slug: 'intravenous-therapy-mexico',
@@ -283,43 +283,52 @@ title: 'Academic Programs',
                 targetAudience: {
                   title: 'Course Directed To:',
                   highlighted: 'Physicians and Dentists',
-                  description: 'Around the world, numerous complications have arisen from aesthetic medicine procedures—many performed by **individuals who are not properly qualified or trained** to carry out these procedures.\n\nAt **INSTITUTO MEX-COL-USA**, we take seriously the responsibility to prevent such negligence from happening anywhere in the world.\n\nTherefore, we are **committed to training and educating medical professionals, their different specialties, and dentists**, ensuring that every treatment is performed with the highest standards of safety, ethics, and scientific knowledge.\n\nOur mission is clear: **to prepare specialists who protect the health, safety, and well-being of patients in every aesthetic procedure.**'
+                  description: 'Around the world, numerous complications have arisen from aesthetic medicine procedures—many performed by individuals who are not properly qualified or trained\n\nAt the **INSTITUTO MEX-COL-USA**, we take seriously the responsibility to prevent such negligence from happening anywhere.\n\nWe are committed to training and educating medical professionals and dentists in various specialties, ensuring that every aesthetic procedure is performed with the highest standards of **safety, ethics, and scientific knowledge**.\n\nOur mission is clear: **to prepare specialists who protect the health, safety, and well-being of their patients in every treatment.**'
                 },
                 objectives: [
-                  'Acquire comprehensive knowledge about **protocols, indications, contraindications, and management of adverse events** in each of the most innovative aesthetic medicine techniques:'
+                  'Gain comprehensive knowledge about protocols, indications, contraindications, and the management of adverse events for the most advanced techniques in aesthetic medicine:'
                 ],
                 curriculum: [
                   {
-                    title: 'Hyaluronic Acid',
+                    title: '',
                     topics: [
-                      'Master modeling techniques for: Non-surgical rhinoplasty, Cheek enhancement, Nasolabial folds, Lips'
-                    ]
-                  },
-                  {
-                    title: 'Botulinum Toxin',
-                    topics: [
-                      'Learn to relax facial muscles to prevent and treat expression lines in: Forehead, Glabella, Crow\'s feet, Bunny lines'
-                    ]
-                  },
-                  {
-                    title: 'PDO Threads (Smooth or Mono)',
-                    topics: [
-                      'Apply rejuvenation protocols with **immediate lifting effect** for: Jawline, Double chin, Abdomen, Buttocks, Other body areas'
-                    ]
-                  },
-                  {
-                    title: 'Collagen Biostimulators',
-                    topics: [
-                      'Discover the main biostimulators available on the market and their applications for: Arms, Abdomen, Legs, Buttocks, Neck, Face and more'
+                      'Gain comprehensive knowledge about **protocols, indications, contraindications, and management of adverse events** in each of the most innovative aesthetic medicine techniques:\n',
+                      '**Hyaluronic Acid**',
+                      'Master modeling techniques for:',
+                      'Non-surgical rhinoplasty',
+                      'Cheek enhancement',
+                      'Nasolabial folds',
+                      'Lips\n',
+                      '**Botulinum Toxin**',
+                      'Learn to relax facial muscles to prevent and treat expression lines in:',
+                      '1. Forehead',
+                      '2. Glabella',
+                      '3. Crow’s feet',
+                      '4. Bunny lines\n',
+                      '**PDO Threads (Smooth or Mono)**',
+                      'Apply rejuvenation protocols with **immediate lifting effect** for:',
+                      '1. Jawline contour',
+                      '2. Double chin',
+                      '3. Abdomen',
+                      '4. Buttocks',
+                      '5. Other body areas\n',
+                      '**Collagen Biostimulators**',
+                      'Discover the main biostimulators available on the market and their application for:',
+                      '1. Arms',
+                      '2. Abdomen',
+                      '3. Legs',
+                      '4. Buttocks',
+                      '5. Neck',
+                      '6. Face and more'
                     ]
                   }
                 ],
                 accreditations: [
-                  '**Accreditations and Institutional Support:**\n\nAll continuing education programs are registered with the Secretariat of Labor and Social Welfare (In Mexico). Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant passed with at least **80%**\n\n• **Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical-practical course modules, providing academic and formative support.\n\n• **Certificate with Curricular Value:**\n Issued and registered with the **Secretariat of Labor and Social Welfare (STPS)**, certifying the participant\'s training as formal and recognized education in Mexico. (Valid only for Mexican nationals).\n\n• **Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **authenticate training in the United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
+                  '**Accreditations and Institutional Support:**\n\nAll continuing education programs are **registered with the Secretariat of Labor and Social Welfare (STPS) in Mexico**. At the end of your training, you will take a knowledge and skills assessment. A minimum score of **80%** is required to obtain certification.\n\n• **Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical and practical modules.\n\n• **Certificate with Curricular Value (STPS):**\n Registered with the **Secretariat of Labor and Social Welfare (STPS)**\n *Valid only for Mexican nationals*.\n\n• **Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (Aesthetic Medicine Society of the United States)**, valid throughout **the U.S., Latin America, the Caribbean, and Spain** as recognized continuing education.'
                 ],
                 productQuality: {
                   title: 'Premium Products - Quality & Safety Guaranteed',
-                  description: 'In aesthetic medicine, **product choice is as important as the technique applied**, as patient safety and treatment effectiveness depend on it.\n\nFor this reason, **Instituto Mex-Col-Usa** works exclusively with the **three best laboratories worldwide**, recognized for innovation, experience, and high-quality standards.\n\nAll our products have official registration and certifications from major international regulatory entities, such as:\n\n• **INVIMA** (Colombia)\n• **FDA** (United States)\n• **COFEPRIS** (Mexico)\n• And other competent global health authorities\n\nIn this way, we guarantee that each procedure is performed with safe, reliable, and approved supplies, offering our students and patients peace of mind in working with the best on the market.',
+                  description: 'In aesthetic medicine, the product’s quality is as crucial as the practitioner’s skill.\n\nThat’s why **INSTITUTO MEX-COL-USA** works only with the **three leading laboratories worldwide**, known for innovation and safety.\n\nAll products are certified by major global health authorities:\n\n• **INVIMA** (Colombia)\n• **FDA** (United States)\n• **COFEPRIS** (Mexico)\n• And other competent global health authorities\n\n',
                   certifications: [
                     'All products are certified by major global health authorities:',
                     '**INVIMA** (Colombia)',
@@ -356,19 +365,19 @@ title: 'Academic Programs',
                 targetAudience: {
                   title: 'Course Directed To:',
                   highlighted: 'Health professionals',
-                  description: '**Regenerative Medicine and Intravenous Therapy** have proven to be areas of great impact on patient health and well-being. However, worldwide, complications have arisen from the improper practice of these treatments, often performed by personnel without adequate training.\n\nFor this reason, our program is designed for **health professionals**, providing them with the tools and knowledge necessary to apply these therapies safely and effectively.\n\nAt **INSTITUTO MEX-COL-USA**, we take seriously the responsibility of preventing such situations from occurring, promoting proper training for all specialists involved in these practices.\n\n**We focus on preparing professionals who apply Regenerative Medicine and Intravenous Therapy with safety, ethics, and excellence, always safeguarding the health and well-being of their patients.**'
+                  description: '**Regenerative Medicine and Intravenous Therapy** have proven to be areas of great impact on patient health and well-being. However, worldwide, complications have arisen from the improper practice of these treatments, often performed by individuals without adequate training.\n\nFor this reason, our program is specifically designed for **health professionals**, providing them with the tools and knowledge necessary to apply these therapies safely and effectively.\n\nAt the **INSTITUTO MEX-COL-USA**, we take seriously the responsibility of preventing such situations by promoting proper education and training for all professionals involved in these practices.\n\nOur focus is to prepare healthcare providers who practice **Regenerative Medicine and Intravenous Therapy with safety, ethics, and excellence**, always safeguarding the health and well-being of their patients.'
                 },
                 curriculum: [
                   {
                     title: 'Day 1 – Intravenous Therapy:',
                     topics: [
-                      'In this **Intravenous Therapy** course, participants will gain comprehensive knowledge of advanced techniques to optimize patient health, energy, and well-being. You will learn to apply therapies that enhance **neurostimulation, cellular oxygenation, and general revitalization**, as well as specific treatments to **strengthen the immune system, stimulate metabolism, and combat signs of aging.**\n\nAdditionally, you will learn the safe and effective use of **key active ingredients**, from vitamins and minerals to specialized compounds, understanding their biochemical and pharmacological properties and therapeutic applications for conditions such as **obesity, overweight, psoriasis, osteoarticular pain, and autoimmune diseases.**\n\nThe course also provides tools for **heavy metal elimination, reduction of atheroma plaque, and optimization of cardiovascular health**, all with a focus on **safety, ethics, and clinical efficacy.**\n\nBy the end, you will be prepared to **implement Intravenous Therapy protocols** professionally, safely, and oriented toward the holistic well-being of your patients.'
+                      'In this **Intravenous Therapy** course, participants will gain comprehensive knowledge of advanced techniques to optimize patient health, energy, and overal well-being. You will learn to apply therapies that enhance **neurostimulation, cellular oxygenation, and general revitalization**, as well as specific treatments to **strengthen the immune system, stimulate metabolism, and combat signs of aging.**\n\nYou will also learn the safe and effective use of key active ingredients, from **vitamins and minerals** to specialized compounds, understanding their biochemical and pharmacological properties and their therapeutic applications for conditions such as **obesity, overweight, psoriasis, osteoarticular pain, and autoimmune diseases.**\n\nThe course will also provides tools for **heavy metal elimination, reduction of atheroma plaque, and optimization of cardiovascular health**, all with a focus on **safety, ethics, and clinical efficacy.**\n\nBy the end of this day, you will be prepared to implement Intravenous Therapy protocols in a professional, safe, and patient-centered manner.'
                     ]
                   },
                   {
                     title: 'Day 2 - Regenerative Medicine',
                     topics: [
-                      'On this second day, you will delve into the **principles, processing, and biological functions of regenerative therapies**, learning their indications, medical uses, proper dosages, and safety considerations. You will learn the fundamentals of **cell differentiation, angiogenesis, and immunomodulation**, as well as the practical application of **Mesenchymal Stem Cells** through audiovisual material.\n\nYou will explore the **biological functions of exosomes**, their indications and safe usage, and observe practical application examples through instructional videos. Likewise, you will become familiar with **placenta implants**, understanding their principles, indications, dosage, and safety profile, accompanied by video demonstrations.\n\nThe day also includes **Intravenous Therapy** sessions, addressing revitalizing and immune-stimulating therapies focused on obesity and overweight, and **basic chelation for heavy metal elimination**, allowing you to integrate these protocols safely and effectively into your professional practice.\n\nUpon completion of this module, you will be prepared to **apply advanced Regenerative Medicine and Intravenous Therapy techniques**, combining theoretical and practical knowledge to offer safe, effective treatments oriented toward the holistic well-being of your patients.'
+                      'On the second day, you will delve into the **principles, processing, and biological functions of regenerative therapies**, learning their indications, medical uses, proper dosages, and safety considerations. You will explore the biological foundations of **cellular differentiation, angiogenesis, and immunomodulation**, as well as the practical application of **Mesenchymal Stem Cells** through audiovisual material.\n\nYou will also examine the **biological functions of exosomes**, their indications and safe usage, and watch practical application examples via instructional videos. In addition, you will become familiar with **placenta implants**, understanding their principles, indications, dosage, and safety profile, accompanied by video demonstrations.\n\nThe day also includes **Intravenous Therapy** sessions, covering revitalizing and immune-stimulating therapies focused on obesity and overweight, and **basic chelation for metal elimination**, allowing you to safely and effectively integrate these protocols into your professional practice.\n\nUpon completion of this module, you will be prepared to **apply advanced Regenerative Medicine and Intravenous Therapy techniques**, combining theoretical and practical knowledge to deliver safe, effective, and patient-centered treatments.'
                     ]
                   }
                 ],
@@ -376,11 +385,11 @@ title: 'Academic Programs',
                   'Digital reference and study materials'
                 ],
                 accreditations: [
-                  '**Accreditations and Institutional Support:**\n\nAll continuing education programs are registered with the Secretariat of Labor and Social Welfare (In Mexico). Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant passed with at least **80%**\n\n• **Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical-practical course modules, providing academic and formative support.\n\n• **Certificate with Curricular Value:**\n Issued and registered with the **Secretariat of Labor and Social Welfare (STPS)**, certifying the participant\'s training as formal and recognized education in Mexico. (Valid only for Mexican nationals).\n\n• **Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **authenticate training in the United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
+                  '**Accreditations and Institutional Support:**\n\nAll continuing education programs are registered **with the Secretariat of Labor and Social Welfare (STPS) In Mexico**. At the end of your training, you will take a knowledge and skills assessment. A minimum score of **80%** is required to obtain certification.\n\n• **Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical and practical modules.\n\n• **Certificate with Curricular Value:**\n Registered with the **Secretariat of Labor and Social Welfare (STPS)**. *Valid only for Mexican nationals.*\n\n• **Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (Aesthetic Medicine Society of the United States)**, valid throughout **the U.S., Latin America, the Caribbean, and Spain** as recognized continuing education.'
                 ],
                 productQuality: {
                   title: 'Products of Guaranteed Quality and Safety:',
-                  description: '**INSTITUTO MEX-COL-USA** works with laboratories that **guarantee reliability and confidence in their products**, ensuring quality in every practice conducted, and sharing information about these providers at our locations.\n\nIt is important to note that **we do not sell products on-site nor promote specific brands**, as acquisition choices must be **freely and responsibly made by each student**. Each participant is responsible for verifying purchase sources, as well as reviewing local permits, registrations, regulations, and any other legal aspects in their city or country before purchasing any product.\n\nThe course **includes the products necessary for practice**, such as those used in **Intravenous Therapy** and a **placenta implant**, ensuring students can safely and effectively apply procedures during hands-on practice sessions.',
+                  description: '**INSTITUTO MEX-COL-USA** collaborates with laboratories that **guarantee reliability and quality of products**, ensuring safety in every practice, while sharing information about these suppliers at our campuses.\n\nIt is important to note that **we do not sell products on-site or promote specific brands**, as the acquisition choice is the sole responsibility of the student. Each participant must verify purchase sources and comply with local permits, registrations, regulations, and legal requirements in their city or country before acquiring any product.\n\nThe course **includes all products necessary for practice session**, such as those used in **Intravenous Therapy** and a **placenta implant**, ensuring students can safely and effectively apply procedures during hands-on practice.',
                   includedProducts: [
                     'Included products for hands-on training:',
                     'Products used in Intravenous Therapy',
@@ -389,9 +398,9 @@ title: 'Academic Programs',
                 }
               },
               'mini-lifting-techniques': {
-                title: 'Course with "Mini Lifting 3 Points" Rejuvenation Techniques (Minimally Invasive)',
-                subtitle: 'Advanced Facial Rejuvenation',
-                description: 'Training in strategic facial lifting techniques for visible and natural rejuvenation.',
+                title: 'Rejuvenation Techniques Course: "Mini Lifting 3 Points" (Minimally Invasive)',
+                subtitle: 'Professional Facial Rejuvenation Training',
+                description: 'Hands-on training in minimally invasive facial rejuvenation techniques.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png',
                 format: 'In-person',
                 duration: '2 theoretical days 2 intensive practice days',
@@ -403,38 +412,27 @@ title: 'Academic Programs',
                 targetAudience: {
                   title: 'Course Directed To:',
                   highlighted: 'Medical professionals worldwide',
-                  description: 'The **course "Mini Lifting Facial 3 Points Rejuvenation Technique" (Minimally Invasive)** is designed for **medical professionals worldwide** who wish to expand their knowledge and perfect their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** can participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients and stay at the forefront in the field of facial medical aesthetics**. Although no previous experience in this specific technique is required, having previous clinical training will be valued.\n\nUpon completion of the course, participants will be trained to **safely and effectively apply the Mini Lifting Facial 3 Points technique**, achieving **visible aesthetic results** and increasing opportunities within their medical practice.\n\n**This course is taught only at our Colombia and Mexico venues**, offering participants the opportunity to train in person in a professional environment fully equipped for safe practice of the technique.'
+                  description: 'The **"Mini Facial Lifting 3 Points" (Minimally Invasive) Rejuvenation Technique** course is designed for **medical professionals worldwide** who wish to expand their knowledge and refine their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** may participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and remain at the forefront of facial medical aesthetics**. While prior experience in this specific technique is not required, previous clinical training is valued.\n\nUpon completing the course, participants will be qualified to **safely and effectively perform the Mini Facial Lifting 3 Points technique**, achieving **visible aesthetic results** and enhancing opportunities within their medical practice.\n\n**This course is offered exclusively at our Colombia and Mexico campuses**, giving participants the opportunity to train in person in a professional and fully equipped environment for safe practice.'
                 },
                 curriculum: [
                   {
                     title: 'Course Content',
                     topics: [
-                      'Medical specialists in aesthetic medicine, dermatology, plastic surgery and aesthetic dentistry will be instructed to train in this innovative minimally invasive technique, designed to reverse up to 10 years of the facial aging process and offer immediate and visible results to their patients.',
-                      'The course combines **advanced theoretical explanation**, which includes a **historical account of facial rejuvenation techniques**, the study of **facial figure and aspects to consider by facial areas, as well as the concept of facial beauty and aging**. Participants will deepen **facial anatomy and structures to consider**, also evaluating **current rhytidoplasty techniques and their disadvantages**, to understand the advantages of minimally invasive procedures.',
-                      'In addition, **patient assessment and appropriate selection according to their profile** will be addressed, ensuring optimal and personalized results. Training includes **applied surgical technique**, review of **clinical cases** and **supervised practice with patients**, allowing doctors to apply the technique safely and effectively.',
-                      'Using three strategic facial points, through a proprietary and specialized methodology, doctors will learn to achieve **rejuvenating effects comparable to surgical lifting**, but without the need to resort to invasive procedures or major surgeries.',
-                      'This training provides participants with the necessary competencies to apply treatments of **high efficacy and precision**, strengthening their professional profile in aesthetic medicine and expanding opportunities to offer innovative and safe solutions to their patients.'
+                      'Medical professionals specializing in aesthetic medicine, dermatology, plastic surgery, and aesthetic dentistry will be trained in this innovative minimally invasive technique, designed to reverse up to 10 years of facial aging and provide immediate, visible results for patients.\n\nThe course combines **advanced theoretical instruction**, including a **historical overview of facial rejuvenation techniques**, study of **facial structure and key considerations by facial areas**, as well as the **concepts of facial beauty and aging**. Participants will gain a deep understanding of **facial anatomy and structures to consider**, evaluating **current rhytidectomy techniques and their limitations** to appreciate the advantages of minimally invasive procedures.\n\n**Patient evaluation and appropriate selection according to individual profiles** will also be addressed, ensuring optimal and personalized results. The training includes **applied surgical technique**, review of **clinical cases** and **supervised patient practice**, allowing physicians to apply the technique safely and effectively.\n\nUsing three strategic facial points, through a proprietary and specialized methodology, doctors will learn to achieve **rejuvenating effects comparable to surgical lifting**, but without the need to resort to invasive procedures or major surgeries.\n\nThis training provides participants with the necessary competencies to apply treatments of **high efficacy and precision**, strengthening their professional profile in aesthetic medicine and expanding opportunities to offer innovative and safe solutions to patients.'
                     ]
                   }
                 ],
                 includes: [
-                  'Includes Reference and study material',
-                  'Personalized practice',
+                  'Reference and study material',
+                  'Personalized practice training',
                   'Practice supplies and materials'
                 ],
                 accreditations: [
-                  'All continuing education programs are registered with the Secretariat of Labor and Social Welfare (In Mexico). Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant passed with at least **80%** \n\n**Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical-practical course modules, providing academic and formative support.\n\n**Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **authenticate training in the United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
+                  'Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant has passed with at least **80%**.\n\n**Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical and practical course modules, providing academic and professional recognition.\n\n**Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **certify training in the United States, Latin America, the Caribbean, and Spain** as recognized continuing education.'
                 ],
                 productQuality: {
-                  title: 'Premium Products - Quality & Safety Guaranteed',
-                  description: 'At **INSTITUTO MEX-COL-USA**, we have **first-class facilities**, designed to provide a safe, hygienic, and professional environment where every practice and procedure is conducted under the highest standards of quality and safety.\n\nOur commitment is to ensure that every student can **learn and practice in a reliable**, fully equipped space, providing the best educational experience. This guarantees that training is conducted in a **secure, professional, and excellent environment**, reinforcing learning and student confidence.',
-                  certifications: [
-                    'All products are certified by major global health authorities:',
-                    'INVIMA (Colombia)',
-                    'FDA (United States)',
-                    'COFEPRIS (Mexico)'
-                  ],
-                  includedProducts: []
+                  title: 'Quality Products, Supplies and Facilities with Guaranteed Safety',
+                  description: 'At **INSTITUTO MEX-COL-USA**, we have **first-class facilities**, designed to provide a safe, hygienic, and professional environment where every practice and procedure is conducted under the highest standards of quality and safety.\n\nOur commitment is to ensure that every student can **learn and practice in a reliable**, fully equipped space, providing the best educational experience. This guarantees that training is conducted in a **secure, professional, and excellent environment**, reinforcing learning and student confidence.'
                 }
               },
             },
@@ -654,54 +652,41 @@ title: 'Academic Programs',
                 },
               },
               'mini-lifting-colombia': {
-                title: 'Rejuvenation Techniques Course "Mini 3-Point Lifting" (Minimally Invasive)',
-                subtitle: 'Minimally Invasive Facial Rejuvenation Technique',
-                description: '4-day in-person course (2 theoretical + 2 practical) for medical professionals who wish to specialize in minimally invasive facial rejuvenation techniques with immediate and visible results.',
+                title: 'Rejuvenation Techniques Course: "Mini Lifting 3 Points" (Minimally Invasive)',
+                subtitle: 'Professional Facial Rejuvenation Training',
+                description: 'Hands-on training in minimally invasive facial rejuvenation techniques.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-Col.png',
                 format: 'In-person',
-                duration: '2 theoretical days + 2 intensive practice days',
-                schedule: '9:00 AM - 7:00 PM Approx.',
+                duration: '2 theoretical days 2 intensive practice days',
+                schedule: '9:00 am - 7:00 pm Approx',
                 location: 'Colombia - Mexico',
+                price: 'Contact for pricing',
+                capacity: 'Limited enrollment',
                 certification: 'Yes',
                 targetAudience: {
-                  title: 'Course Intended For:',
-                  highlighted: 'Aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics',
-                  description: [
-                    'The **course "Mini Lifting Facial 3 Points Rejuvenation Technique" (Minimally Invasive)** is designed for **medical professionals worldwide** who wish to expand their knowledge and perfect their skills in minimally invasive facial rejuvenation techniques.',
-                    '**Aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics** can participate.',
-                    'This program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and stay at the forefront of facial medical aesthetics**. Although prior experience in this specific technique is not required, previous clinical training will be valued.',
-                    'Upon completion of the course, participants will be trained to **safely and effectively apply the Mini Lifting Facial 3 Points technique**, achieving **visible aesthetic results** and increasing opportunities within their medical practice.',
-                    '**This course is taught exclusively at our Colombia and Mexico locations**, offering participants the opportunity to train in person in a professional environment fully equipped for safe practice of the technique.'
-                  ]
+                  title: 'Course Directed To:',
+                  highlighted: 'Medical professionals worldwide',
+                  description: 'The **"Mini Facial Lifting 3 Points" (Minimally Invasive) Rejuvenation Technique** course is designed for **medical professionals worldwide** who wish to expand their knowledge and refine their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** may participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and remain at the forefront of facial medical aesthetics**. While prior experience in this specific technique is not required, previous clinical training is valued.\n\nUpon completing the course, participants will be qualified to **safely and effectively perform the Mini Facial Lifting 3 Points technique**, achieving **visible aesthetic results** and enhancing opportunities within their medical practice.\n\n**This course is offered exclusively at our Colombia and Mexico campuses**, giving participants the opportunity to train in person in a professional and fully equipped environment for safe practice.'
                 },
                 curriculum: [
                   {
                     title: 'Course Content',
                     topics: [
-                      'Comprehensive Training in Minimally Invasive Technique',
-                      'Medical specialists in aesthetic medicine, dermatology, plastic surgery, and aesthetic dentistry will be instructed in this innovative minimally invasive technique, designed to reverse up to 10 years of the facial aging process and offer immediate and visible results to their patients.',
-                      'The course combines **advanced theoretical explanation**, including a **historical review of facial rejuvenation techniques**, the study of **facial structure and aspects to consider by facial areas**, as well as the **concept of facial beauty and aging**. Participants will delve into **facial anatomy and structures to consider**, also evaluating **current rhytidoplasty techniques and their disadvantages**, to understand the advantages of minimally invasive procedures.',
-                      'Additionally, **patient assessment and appropriate selection according to their profile** will be addressed, ensuring optimal and personalized results. The training includes **applied surgical technique**, review of **clinical cases** and **supervised practice with patients**, allowing physicians to apply the technique safely and effectively.',
-                      'Using three strategic facial points, through a proprietary and specialized methodology, physicians will learn to achieve **rejuvenating effects comparable to surgical lifting**, but without the need for invasive procedures or major surgeries.',
-                      'This training provides participants with the necessary skills to apply treatments of **high efficacy and precision**, strengthening their professional profile in aesthetic medicine and expanding opportunities to offer innovative and safe solutions to their patients.'
+                      'Medical professionals specializing in aesthetic medicine, dermatology, plastic surgery, and aesthetic dentistry will be trained in this innovative minimally invasive technique, designed to reverse up to 10 years of facial aging and provide immediate, visible results for patients.\n\nThe course combines **advanced theoretical instruction**, including a **historical overview of facial rejuvenation techniques**, study of **facial structure and key considerations by facial areas**, as well as the **concepts of facial beauty and aging**. Participants will gain a deep understanding of **facial anatomy and structures to consider**, evaluating **current rhytidectomy techniques and their limitations** to appreciate the advantages of minimally invasive procedures.\n\n**Patient evaluation and appropriate selection according to individual profiles** will also be addressed, ensuring optimal and personalized results. The training includes **applied surgical technique**, review of **clinical cases** and **supervised patient practice**, allowing physicians to apply the technique safely and effectively.\n\nUsing three strategic facial points, through a proprietary and specialized methodology, doctors will learn to achieve **rejuvenating effects comparable to surgical lifting**, but without the need to resort to invasive procedures or major surgeries.\n\nThis training provides participants with the necessary competencies to apply treatments of **high efficacy and precision**, strengthening their professional profile in aesthetic medicine and expanding opportunities to offer innovative and safe solutions to patients.'
                     ]
                   }
                 ],
                 includes: [
-                  'Reference and study materials',
-                  'Personalized practice',
+                  'Reference and study material',
+                  'Personalized practice training',
                   'Practice supplies and materials'
                 ],
                 accreditations: [
-                  'Upon completion of your training practice, a knowledge, skills, and proficiency evaluation will be applied, which is subject to the minimum score to obtain your certificate, which is issued after **INSTITUTO MEX-COL-USA** has evaluated and reported that the evaluation was passed by each attendee. It must be passed with a minimum percentage of **80%**',
-                  '**Certificate of attendance and participation:** Issued by **INSTITUTO MEX-COL-USA**, certifies active participation and completion of the course\'s theoretical-practical modules, providing academic and training support.',
-                  '**Diploma:** Issued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Association of Aesthetic Medicine)**, valid to **authenticate training in the United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
+                  'Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant has passed with at least **80%**.\n\n**Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical and practical course modules, providing academic and professional recognition.\n\n**Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **certify training in the United States, Latin America, the Caribbean, and Spain** as recognized continuing education.'
                 ],
                 productQuality: {
-                  title: 'Quality Products, Supplies, and Facilities with Guaranteed Safety',
-                  description: 'At **INSTITUTO MEX-COL-USA** we have **first-class facilities**, designed to offer a safe, hygienic, and professional environment, where each practice and procedure is performed under the highest standards of quality and safety.\n\nOur commitment is to guarantee that each student can **learn and practice in a reliable**, equipped, and prepared space to provide the best educational experience. Thus, we ensure that training takes place in a **secure, professional, and excellent environment**, strengthening the learning and confidence of each participant.',
-                  certifications: [],
-                  footer: ''
+                  title: 'Quality Products, Supplies and Facilities with Guaranteed Safety',
+                  description: 'At **INSTITUTO MEX-COL-USA**, we have **first-class facilities**, designed to provide a safe, hygienic, and professional environment where every practice and procedure is conducted under the highest standards of quality and safety.\n\nOur commitment is to ensure that every student can **learn and practice in a reliable**, fully equipped space, providing the best educational experience. This guarantees that training is conducted in a **secure, professional, and excellent environment**, reinforcing learning and student confidence.'
                 },
               },
             },
