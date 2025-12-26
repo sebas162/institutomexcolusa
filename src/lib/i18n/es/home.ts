@@ -13,7 +13,7 @@ export const home = {
         cards: [
           {
             country: 'USA',
-            course: 'Master class – 4 técnicas: toxina botulínica / ácido hialurónico / bioestimuladores / hilos PDO',
+            course: 'Master class 4 técnicas armonización, moderación y perfilación facial “toxina botulínica/ácido hialurónico / bioestimuladores / hilos pdo”',
             description: 'Aprende técnicas avanzadas de armonización facial con resultados profesionales a través de capacitación práctica.',
             image: 'https://picsum.photos/seed/usa/600/400',
           },
@@ -25,7 +25,7 @@ export const home = {
           },
           {
             country: 'Colombia',
-            course: 'Curso con técnicas de rejuvenecimiento mini Lifting 3 puntos',
+            course: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
             description: 'Domina las técnicas de lifting facial estratégicas para resultados de rejuvenecimiento visibles y naturales.',
             image: 'https://picsum.photos/seed/col/600/400',
           },

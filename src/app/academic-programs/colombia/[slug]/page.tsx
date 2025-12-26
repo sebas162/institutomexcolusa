@@ -1,5 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -33,6 +34,9 @@ import LogoUSAVerde from '@/assets/logo-sello-blanco2.png';
 import MasterClassCol from '@/assets/img-heros/img-hero-cursos/master-class-col.png';
 import SueroCol from '@/assets/img-heros/img-hero-cursos/suero-col.png';
 import MiniLiftingCol from '@/assets/img-heros/img-hero-cursos/mini-lifting-Col.png';
+import comentario1 from '@/assets/img-comentarios/comentario-1.jpeg';
+import comentario2 from '@/assets/img-comentarios/comentario-2.jpeg';
+import comentario3 from '@/assets/img-comentarios/comentario-3.jpeg';
 import { useAutoPauseVideos } from '@/hooks/use-auto-pause-videos';
 
 // Mapeo de rutas de imágenes a imports
@@ -48,8 +52,21 @@ export default function CourseDetailPage() {
   const { language } = useLanguage();
   const t = translations[language].academicPrograms;
   const courseDetails = (t.countries.colombia.courseDetails as any)?.[slug];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useAutoPauseVideos();
+
+  // Carrusel automático para móvil
+  useEffect(() => {
+    if (slug !== 'intravenous-therapy-online') return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 4000); // Cambia cada 4 segundos
+
+    return () => clearInterval(interval);
+  }, [slug]);
 
   if (!courseDetails) {
     return (
@@ -431,6 +448,96 @@ export default function CourseDetailPage() {
                       <ProductsMarquee />
                     </div>
                   )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Comentarios - Solo para curso de sueroterapia de Colombia */}
+            {slug === 'intravenous-therapy-online' && (
+              <Card className="border-primary/20 overflow-hidden">
+                <CardContent className="pt-6">
+                  {/* Desktop: Grid con 3 imágenes lado a lado */}
+                  <div className="hidden md:grid md:grid-cols-3 gap-6">
+                    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-primary/10 shadow-sm bg-muted/50">
+                      <Image
+                        src={comentario1}
+                        alt="Comentario 1"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-primary/10 shadow-sm bg-muted/50 p-4">
+                      <Image
+                        src={comentario2}
+                        alt="Comentario 2"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-primary/10 shadow-sm bg-muted/50 p-4">
+                      <Image
+                        src={comentario3}
+                        alt="Comentario 3"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mobile: Carrusel con transición automática */}
+                  <div className="md:hidden relative w-full overflow-hidden rounded-lg pb-12">
+                    <div 
+                      ref={carouselRef}
+                      className="flex transition-transform duration-500 ease-in-out"
+                      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                    >
+                      <div className="min-w-full relative aspect-[4/3] bg-muted/50 p-2">
+                        <Image
+                          src={comentario1}
+                          alt="Comentario 1"
+                          fill
+                          className="object-contain"
+                          sizes="100vw"
+                        />
+                      </div>
+                      <div className="min-w-full relative aspect-[4/3] bg-muted/50 p-2">
+                        <Image
+                          src={comentario2}
+                          alt="Comentario 2"
+                          fill
+                          className="object-contain"
+                          sizes="100vw"
+                        />
+                      </div>
+                      <div className="min-w-full relative aspect-[4/3] bg-muted/50 p-2">
+                        <Image
+                          src={comentario3}
+                          alt="Comentario 3"
+                          fill
+                          className="object-contain"
+                          sizes="100vw"
+                        />
+                      </div>
+                    </div>
+                    {/* Indicadores de slide */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3 items-center">
+                      {[0, 1, 2].map((index) => (
+                        <button
+                          key={index}
+                          className={`rounded-full transition-all ${
+                            currentSlide === index 
+                              ? 'w-6 h-2 bg-primary' 
+                              : 'w-2 h-2 bg-primary/40 hover:bg-primary/60'
+                          }`}
+                          onClick={() => setCurrentSlide(index)}
+                          aria-label={`Ir a comentario ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             )}

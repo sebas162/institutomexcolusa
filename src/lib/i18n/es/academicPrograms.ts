@@ -10,7 +10,7 @@ title: 'Programas Académicos',
           usa: {
             courses: [
               {
-                title: 'Master class 4 técnicas armonización, moderación y perfilación facial "toxina botulinica/acido aluronico / bioestimuladores / hilos pdo"',
+                title: 'Master class 4 técnicas armonización, moderación y perfilación facial “toxina botulínica/ácido hialurónico / bioestimuladores / hilos pdo”',
                 description: 'Aprende técnicas avanzadas para armonización facial con resultados profesionales.',
                 image: '@/assets/img-heros/img-hero-cursos/master-class-USA.png',
                 slug: 'master-class-4-techniques',
@@ -22,7 +22,7 @@ title: 'Programas Académicos',
                 slug: 'intravenous-therapy-chelation',
               },
               {
-                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (Minimamente invasivo)',
+                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
                 description: 'Capacitación práctica en técnicas de rejuvenecimiento facial mínimamente invasivas.',
                 image: '@/assets/img-heros/img-hero-cursos/mini-lifting-USA.png',
                 slug: 'phlebotomy-technician',
@@ -36,7 +36,7 @@ title: 'Programas Académicos',
             ],
             courseDetails: {
               'master-class-4-techniques': {
-                title: 'Master class 4 técnicas armonización, moderación y perfilación facial "toxina botulinica/acido aluronico / bioestimuladores / hilos pdo"',
+                title: 'Master class 4 técnicas armonización, moderación y perfilación facial “toxina botulínica/ácido hialurónico / bioestimuladores / hilos pdo”',
                 subtitle: 'Capacitación Avanzada en Armonización Facial',
                 description: 'Capacitación práctica integral en las cuatro técnicas esenciales de la medicina estética moderna.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/master-class-USA.png',
@@ -54,7 +54,7 @@ title: 'Programas Académicos',
                 },
                 curriculum: [
                   {
-                    title: 'Día 1',
+                    title: 'Día 1 explicación teoría.',
                     topics: [
                       'Adquiere conocimientos completos sobre **protocolos, indicaciones, contraindicaciones y manejo de eventos adversos** en cada una de las técnicas más innovadoras en medicina estética:\n',
                       '**Ácido Hialurónico**',
@@ -124,11 +124,11 @@ title: 'Programas Académicos',
                 }
               },
               'intravenous-therapy-chelation': {
-                title: 'Curso suero terapia quelación y principios de medicina regenerativa aplicada',
+                title: 'Curso de sueroterapia, quelación y principios de medicina regenerativa aplicada',
                 subtitle: 'Capacitación Avanzada en Medicina Regenerativa',
                 description: 'Capacitación integral en técnicas de terapia intravenosa y quelación.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/suero-USA.png',
-                format: 'Presencial',
+                format: 'Presencial y online',
                 duration: '2 días',
                 schedule: '9:00 am - 6:00 pm aprox',
                 location: 'Los Angeles, CA',
@@ -142,24 +142,24 @@ title: 'Programas Académicos',
                 },
                 curriculum: [
                   {
-                    title: '**Día 1 – Sueroterapia:**',
+                    title: '**Día 1 – Sueroterapia Explicación Teórica:**',
                     topics: [
                       'En este curso de **Sueroterapia**, los participantes adquirirán conocimientos integrales sobre técnicas avanzadas para optimizar la salud, la energía y el bienestar de los pacientes. Aprenderás a aplicar terapias que favorecen la **neuroestimulación, la oxigenación celular y la revitalización general**, así como tratamientos específicos para **fortalecer el sistema inmunológico, estimular el metabolismo y combatir los signos del envejecimiento**.\n\nAdemás, conocerás el uso seguro y efectivo de **principios activos clave**, desde vitaminas y minerales hasta compuestos especializados, comprendiendo sus propiedades bioquímicas, farmacológicas y sus aplicaciones terapéuticas en condiciones como **obesidad, sobrepeso, psoriasis, dolor osteoarticular y enfermedades autoinmunes**.\n\nEl curso también te brindará herramientas para **la eliminación de metales pesados, la reducción de placa de ateroma y la optimización de la salud cardiovascular**, todo con un enfoque en la **seguridad, ética y eficacia clínica**.\n\nAl finalizar, estarás preparado para **implementar protocolos de Sueroterapia** con un enfoque profesional, seguro y orientado al bienestar integral de tus pacientes.'
                     ]
                   },
                   {
-                    title: '**Día 2 – Medicina Regenerativa:**',
+                    title: '**Día 2 – Medicina Regenerativa Explicación Teórica:**',
                     topics: [
-                      'En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **Celulas Madre Mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes e inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.'
+                      'En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes e inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.'
                     ]
                   }
                 ],
                 includes: [
                   'Incluye Material de referencia y de estudio',
-                  'Practica demostrativa en vivo'
+                  'Práctica demostrativa en video'
                 ],
                 accreditations: [
-                  '**Avales y Respaldo Institucional :**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teóricos y prácticos, brindando respaldo académico y formativo.\n\n**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
+                  '**Avales y Respaldo Institucional :**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teóricos y prácticos, brindando respaldo académico y formativo.\n\n**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
                 ],
                 productQuality: {
                   title: 'Productos de Calidad y Seguridad Garantizada',
@@ -167,7 +167,7 @@ title: 'Programas Académicos',
                 }
               },
               'phlebotomy-technician': {
-                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (Minimamente invasivo)',
+                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
                 subtitle: 'Capacitación Profesional en Rejuvenecimiento Facial',
                 description: 'Capacitación práctica en técnicas de rejuvenecimiento facial mínimamente invasivas.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-USA.png',
@@ -181,14 +181,14 @@ title: 'Programas Académicos',
                 targetAudience: {
                   title: 'Curso Dirigido:',
                   highlighted: 'Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética',
-                  description: 'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (Minimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética**.\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.'
+                  description: 'El **curso "Técnica de rejuvenecimiento "Mini Lifting Facial 3 puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética**.\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.'
                 },
                 curriculum: [
                   {
                     title: 'Contenido del curso',
                     topics: [
                       'Se instruirá a los médicos especialistas en medicina estética, dermatología, cirugía plástica y odontología estética a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.',
-                      'El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la **figura facial y los aspectos a tener en cuenta por áreas faciales**, así como el **concepto de belleza facial y envejecimiento**. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventaja**, para comprender las ventajas de los procedimientos mínimamente invasivos.',
+                      'El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la **figura facial y los aspectos a tener en cuenta por áreas faciales**, así como el **concepto de belleza facial y envejecimiento**. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.',
                       'Además, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada**, revisión de **casos clínicos** y **práctica supervisada con pacientes**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.',
                       'Utilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.',
                       'Esta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.'
@@ -197,11 +197,11 @@ title: 'Programas Académicos',
                 ],
                 includes: [
                   'Incluye Material de referencia y de estudio',
-                  'Practica personalizada',
-                  'Insumos y materiales de practicas'
+                  'Práctica personalizada',
+                  'Insumos y materiales de prácticas'
                 ],
                 accreditations: [
-                  'Los cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certificando la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, el Caribe y España** como educación continua reconocida.'
+                  'Los cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certificando la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, el Caribe y España** como educación continua reconocida.'
                 ],
                 productQuality: {
                   title: 'Productos insumos e instalaciones de Calidad y Seguridad Garantizada',
@@ -214,7 +214,7 @@ title: 'Programas Académicos',
                 description: 'Capacitación práctica en técnicas de extracción de sangre seguras y profesionales.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/flebotomia-USA.png',
                 format: 'Presencial',
-                duration: '2 días – Teorico & Practico',
+                duration: '2 días – Teórico & Práctico',
                 schedule: '9:00 am – 5:00 pm aprox.',
                 location: 'Los Angeles, CA',
                 price: 'Contactar para precios',
@@ -233,16 +233,16 @@ title: 'Programas Académicos',
                       'El **Curso de Flebotomía** está diseñado para proporcionar a los participantes los conocimientos teóricos y prácticos necesarios para realizar extracciones sanguíneas de manera segura, eficiente y profesional. A lo largo del programa, los estudiantes aprenderán los **principios fundamentales de la flebotomía**, las técnicas de punción y las normas éticas y de seguridad que deben seguirse en el entorno clínico.',
                       '\nDurante el curso se abordarán temas esenciales como la **introducción a la flebotomía**, los **aspectos anatómicos del sistema venoso** y los **requisitos generales de seguridad en el área de trabajo**. Los participantes conocerán los **protocolos y procedimientos paso a paso**, así como las **indicaciones y contraindicaciones** más comunes en la práctica diaria.',
                       '\nTambién se estudiará la **preparación del material e instrumental**, junto con la **técnica correcta de punción venosa**, garantizando una práctica segura tanto para el profesional como para el paciente. Además, se tratarán los **cuidados generales del paciente después de la venopunción**, las **posibles complicaciones** que pueden presentarse y el **rol del flebotomista** dentro del equipo de salud.',
-                      '\nEl programa incluye**ejercicios guiados y prácticas en vivo**, donde los estudiantes podrán aplicar los conocimientos adquiridos bajo la supervisión de instructores especializados. Finalmente, se realizará un **examen evaluativo** para certificar las competencias adquiridas durante el curso.',
+                      '\nEl programa incluye **ejercicios guiados y prácticas en vivo**, donde los estudiantes podrán aplicar los conocimientos adquiridos bajo la supervisión de instructores especializados. Finalmente, se realizará un **examen evaluativo** para certificar las competencias adquiridas durante el curso.',
                       '\nEste curso está orientado a **profesionales y estudiantes del área de la salud** que deseen ampliar sus habilidades clínicas y fortalecer su perfil profesional en el ámbito médico y hospitalario.'
                     ]
                   }
                 ],
                 includes: [
                   'Copia de la presentación en físico',
-                  'Certificado de tecnico en flebotomia',
-                  'ID Card valido por 2 años a nivel nacional',
-                  'Practica personalizada'
+                  'Certificado de técnico en flebotomía',
+                  'ID Card válido por 2 años a nivel nacional',
+                  'Práctica personalizada'
                 ],
                 accreditations: [
                   '**Avales y Respaldos Institucionales:**\n\nAl finalizar satisfactoriamente el **Curso de Flebotomía**, el participante recibe una **triple certificación**, que respalda su formación y le permite ejercer con reconocimiento a nivel nacional dentro de los Estados Unidos\n\n•   **Certificado de Técnico en Flebotomía:** \nAcredita las competencias teóricas y prácticas adquiridas durante el programa, certificando que el participante está capacitado para realizar procedimientos de extracción sanguínea de manera profesional y segura.\n\n•   **ID Card válida por 2 años a nivel nacional:** \nIdentificación oficial que avala al egresado como técnico certificado en flebotomía, reconocida en todo el territorio estadounidense y requerida por diversas instituciones médicas, clínicas y laboratorios.\n\n•   **Constancia de Asistencia y Participación:** \nEmitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teóricos y\n    prácticos del curso, brindando respaldo académico y formativo.\n\nEsta combinación de documentos garantiza al egresado una **formación sólida, avalada y reconocida**, abriendo la posibilidad de **laborar en hospitales, clínicas, laboratorios y centros de salud en todo Estados Unidos**, con la confianza y respaldo de una institución comprometida con la excelencia profesional.'
@@ -253,7 +253,7 @@ title: 'Programas Académicos',
           mexico: {
             courses: [
               {
-                title: 'Curso de modelación, perfilación y armonización facial con "toxina botulinica/acido aluronico / bioestimuladores / hilos pdo"',
+                title: 'Master class 4 técnicas armonización, moderación y perfilación facial “toxina botulínica/ácido hialurónico / bioestimuladores / hilos pdo”',
                 description: 'Aprende técnicas avanzadas para armonización facial con resultados naturales y precisos.',
                 image: '@/assets/img-heros/img-hero-cursos/master-class-MX.png',
                 slug: 'facial-harmonization-course',
@@ -265,7 +265,7 @@ title: 'Programas Académicos',
                 slug: 'intravenous-therapy-mexico',
               },
               {
-                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (Minimamente invasivo)',
+                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
                 description: 'Capacitación en técnicas de lifting facial estratégicas para rejuvenecimiento visible y natural.',
                 image: '@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png',
                 slug: 'mini-lifting-techniques',
@@ -273,7 +273,7 @@ title: 'Programas Académicos',
             ],
             courseDetails: {
               'facial-harmonization-course': {
-                title: 'Curso de Master class 4 técnicas armonización, moderación y perfilación facial con "toxina botulinica/acido aluronico / bioestimuladores / hilos pdo"',
+                title: 'Curso de modelación, perfilación y armonización facial con “toxina botulínica/ácido hialurónico/bioestimuladores/hilos PDO”',
                 subtitle: 'Capacitación Avanzada en Medicina Estética',
                 description: 'Capacitación integral en técnicas de armonización facial con los más altos estándares de seguridad, ética y conocimiento científico.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/master-class-MX.png',
@@ -291,7 +291,7 @@ title: 'Programas Académicos',
                 },
                 curriculum: [
                   {
-                    title: '',
+                    title: 'Teórico y práctico',
                     topics: [
                       'Adquiere conocimientos completos sobre **protocolos, indicaciones, contraindicaciones y manejo de eventos adversos** en cada una de las técnicas más innovadoras en medicina estética:\n',
                       '**Ácido Hialurónico**',
@@ -334,7 +334,7 @@ title: 'Programas Académicos',
                   'Acceso a práctica con pacientes reales'
                 ],
                 accreditations: [
-                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**\n\n• **Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**,  certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n• **Constancia con Valor Curricular:**\n Emitida y registrada ante la **Secretaría del Trabajo y Previsión Social (STPS)**, avalando la formación del participante como educación formal y reconocida en México.(Valido solo para nativos mexicanos).\n\n• **Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
+                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**\n\n• **Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**,  certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n• **Constancia con Valor Curricular:**\n Emitida y registrada ante la **Secretaría del Trabajo y Previsión Social (STPS)**, avalando la formación del participante como educación formal y reconocida en México. (válido solo para nativos mexicanos).\n\n• **Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
                 ],
                 productQuality: {
                   title: 'Incluye Productos de Calidad y Seguridad Garantizada',
@@ -362,7 +362,7 @@ title: 'Programas Académicos',
                 subtitle: 'Capacitación en Medicina Regenerativa',
                 description: 'Domina la quelación y los fundamentos de medicina regenerativa aplicados a tratamientos estéticos.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/suero-MX.png',
-                format: 'Presencial',
+                format: 'Presencial y online',
                 duration: '2 días',
                 schedule: '9:00 am - 6:00 pm Aprox',
                 location: 'Ciudad de México, México',
@@ -376,15 +376,15 @@ title: 'Programas Académicos',
                 },
                 curriculum: [
                   {
-                    title: 'Día 1 en Sueroterapia',
+                    title: 'Día 1 Sueroterapia Explicación Teórica',
                     topics: [
                       'En este curso de **Sueroterapia**, los participantes adquirirán conocimientos integrales sobre técnicas avanzadas para optimizar la salud, la energía y el bienestar de los pacientes. Aprenderás a aplicar terapias que favorecen la **neuroestimulación, la oxigenación celular y la revitalización general**, así como tratamientos específicos para **fortalecer el sistema inmunológico, estimular el metabolismo y combatir los signos del envejecimiento.**\n\nAdemás, conocerás el uso seguro y efectivo de **principios activos clave**, desde vitaminas y minerales hasta compuestos especializados, comprendiendo sus propiedades bioquímicas, farmacológicas y sus aplicaciones terapéuticas en condiciones como **obesidad, sobrepeso, psoriasis, dolor osteoarticular y enfermedades autoinmunes.**\n\nEl curso también te brindará herramientas para la **eliminación de metales pesados, la reducción de placa de ateroma y la optimización de la salud cardiovascular**, todo con un enfoque en la **seguridad, ética y eficacia clínica.**\n\nAl finalizar, estarás preparado para **implementar protocolos de Sueroterapia** con un enfoque profesional, seguro y orientado al bienestar integral de tus pacientes.'
                     ]
                   },
                   {
-                    title: 'Día 2 en Medicina Regenerativa',
+                    title: 'Día 2 Medicina Regenerativa Explicación Teórica',
                     topics: [
-                      'En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **Celulas Madre Mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.'
+                      'En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.'
                     ]
                   }
                 ],
@@ -392,7 +392,7 @@ title: 'Programas Académicos',
                   'Incluye Material de apoyo digital'
                 ],
                 accreditations: [
-                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**\n\n• **Constancia de Asistencia y Participación:**\nEmitida por el **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n• **Constancia con Valor Curricular:**\n Emitida y registrada ante la **Secretaría del Trabajo y Previsión Social (STPS)**, avalando la formación del participante como educación formal y reconocida en México.(Valido solo para nativos mexicanos).\n\n• **Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para ** autenticar la formación en Estados Unidos, Latinoamérica, el Caribe y España** como educación continua reconocida.'
+                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**\n\n• **Constancia de Asistencia y Participación:**\nEmitida por el **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n• **Constancia con Valor Curricular:**\n Emitida y registrada ante la **Secretaría del Trabajo y Previsión Social (STPS)**, avalando la formación del participante como educación formal y reconocida en México.(válido solo para nativos mexicanos).\n\n• **Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para ** autenticar la formación en Estados Unidos, Latinoamérica, el Caribe y España** como educación continua reconocida.'
                 ],
                 productQuality: {
                   title: 'Productos de Calidad y Seguridad Garantizada:',
@@ -405,7 +405,7 @@ title: 'Programas Académicos',
                 }
               },
               'mini-lifting-techniques': {
-                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (Minimamente invasivo)',
+                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
                 subtitle: 'Rejuvenecimiento Facial Avanzado',
                 description: 'Capacitación en técnicas de lifting facial estratégicas para rejuvenecimiento visible y natural.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png',
@@ -419,7 +419,7 @@ title: 'Programas Académicos',
                 targetAudience: {
                   title: 'Curso Dirigido:',
                   highlighted: 'Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética',
-                  description: 'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (Minimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética.**\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.'
+                  description: 'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética.**\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.'
                 },
                 curriculum: [
                   {
@@ -435,11 +435,11 @@ title: 'Programas Académicos',
                 ],
                 includes: [
                   'Incluye Material de referencia y de estudio',
-                  'Practica personalizada',
-                  'Insumos y materiales de practicas'
+                  'Práctica personalizada',
+                  'Insumos y materiales de prácticas'
                 ],
                 accreditations: [
-                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
+                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
                 ],
                 productQuality: {
                   title: 'Productos de Calidad y Seguridad Garantizada',
@@ -453,7 +453,7 @@ title: 'Programas Académicos',
           colombia: {
             courses: [
               {
-                title: 'Master class en moderación, perfilando y armonización facial con "toxina botulinica/acido aluronico / bioestimuladores / hilos pdo".',
+                title: 'Master class 4 técnicas armonización, moderación y perfilación facial “toxina botulínica/ácido hialurónico/bioestimuladores/hilos PDO”.',
                 description: 'Aprende técnicas avanzadas de armonización facial para resultados profesionales y naturales.',
                 image: '@/assets/img-heros/img-hero-cursos/master-class-col.png',
                 slug: 'master-class-facial-modeling',
@@ -465,7 +465,7 @@ title: 'Programas Académicos',
                 slug: 'intravenous-therapy-online',
               },
               {
-                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (Minimamente invasivo)',
+                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
                 description: 'Curso presencial de 4 días (2 teóricos + 2 prácticos) para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.',
                 image: '@/assets/img-heros/img-hero-cursos/mini-lifting-Col.png',
                 slug: 'mini-lifting-colombia',
@@ -473,7 +473,7 @@ title: 'Programas Académicos',
             ],
             courseDetails: {
               'master-class-facial-modeling': {
-                title: 'Curso de Master class 4 técnicas armonización, moderación y perfilación facial "toxina botulinica/acido aluronico / bioestimuladores / hilos pdo"',
+                title: 'Master class 4 técnicas armonización, moderación y perfilación facial “toxina botulínica/ácido hialurónico/bioestimuladores/hilos PDO”',
                 subtitle: 'Formación Integral en Medicina Estética Facial y Corporal',
                 description: 'Curso presencial con 2 días teóricos y 2 días de práctica intensiva. Aprende las técnicas más innovadoras en medicina estética con productos de los mejores laboratorios mundiales certificados por INVIMA, FDA y COFEPRIS.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/master-class-col.png',
@@ -505,7 +505,7 @@ title: 'Programas Académicos',
                 },
                 curriculum: [
                   {
-                    title: '',
+                    title: 'Teórico y práctico',
                     topics: [
                       'Adquiere conocimientos completos sobre **protocolos, indicaciones, contraindicaciones y manejo de eventos adversos** en cada una de las técnicas más innovadoras en medicina estética:'
                     ]
@@ -561,7 +561,7 @@ title: 'Programas Académicos',
                   'No se requiere experiencia previa en medicina estética',
                 ],
                 accreditations: [
-                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**\n\n**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
+                  '**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**\n\n**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
                 ],
                 includes: [
                   'Ácido Hialurónico Juvederm-Allergan (certificado FDA, INVIMA, COFEPRIS)',
@@ -579,7 +579,7 @@ title: 'Programas Académicos',
                     '**INVIMA (Colombia)**',
                     '**FDA (Estados Unidos)**',
                     '**COFEPRIS (México)**',
-                    'Y otras autoridades sanitarias competentes a nivel global'
+                    'y otras autoridades sanitarias competentes a nivel global'
                   ],
                   footer: 'De esta manera, garantizamos que cada procedimiento se realice con insumos seguros, confiables y aprobados, ofreciendo a nuestros estudiantes y pacientes la tranquilidad de trabajar con lo mejor del mercado.'
                 },
@@ -590,7 +590,7 @@ title: 'Programas Académicos',
                 },
               },
               'intravenous-therapy-online': {
-                title: 'Curso sueroterapia-quelación y principios de medicina regenerativa aplicada',
+                title: 'Curso sueroterapia-quelación y principios de medicina regenerativa aplicada online',
                 subtitle: 'Formación Online en Medicina Regenerativa y Sueroterapia',
                 description: 'Curso online de 2 días sobre técnicas avanzadas de Sueroterapia y principios de Medicina Regenerativa con enfoque práctico y seguro.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/suero-col.png',
@@ -611,7 +611,7 @@ title: 'Programas Académicos',
                 },
                 curriculum: [
                   {
-                    title: 'Día 1 - Sueroterapia',
+                    title: 'Día 1 - Sueroterapia Explicación Teórica',
                     topics: [
                       'Contenido del curso',
                       'En este curso de **Sueroterapia**, los participantes adquirirán conocimientos integrales sobre técnicas avanzadas para optimizar la salud, la energía y el bienestar de los pacientes. Aprenderás a aplicar terapias que favorecen la **neuroestimulación, la oxigenación celular y la revitalización general**, así como tratamientos específicos para **fortalecer el sistema inmunológico, estimular el metabolismo y combatir los signos del envejecimiento**.',
@@ -620,10 +620,10 @@ title: 'Programas Académicos',
                     ]
                   },
                   {
-                    title: 'Día 2 - Medicina Regenerativa',
+                    title: 'Día 2 - Medicina Regenerativa Explicación Teórica',
                     topics: [
                       'Contenido del curso',
-                      'En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **Celulas Madre Mesenquimales** a través de material audiovisual.',
+                      'En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.',
                       '\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.',
                       '\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.',
                       '\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.'
@@ -636,7 +636,7 @@ title: 'Programas Académicos',
                   'Grabaciones del curso'
                 ],
                 accreditations: [
-                  'Los cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaria del trabajo y previsión social (En Mexico). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**',
+                  'Los cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**',
                   '• **Constancia de asistencia y participación:** Emitida por el **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.',
                   '• **Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.'
                 ],
@@ -648,7 +648,7 @@ title: 'Programas Académicos',
                 },
               },
               'mini-lifting-colombia': {
-                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (Minimamente invasivo)',
+                title: 'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
                 subtitle: 'Técnica de Rejuvenecimiento Facial Mínimamente Invasiva',
                 description: 'Curso presencial de 4 días (2 teóricos + 2 prácticos) para profesionales médicos que deseen especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos y visibles.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/mini-lifting-Col.png',
@@ -661,7 +661,7 @@ title: 'Programas Académicos',
                   title: 'Curso Dirigido:',
                   highlighted: 'Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética',
                   description: [
-                    'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (Minimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.',
+                    'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.',
                     'Pueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética**.',
                     'Este programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.',
                     'Al finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.',

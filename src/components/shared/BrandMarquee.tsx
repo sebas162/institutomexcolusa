@@ -34,7 +34,7 @@ export default function BrandMarquee() {
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
 
-        <div className="marquee-track animate-scroll gap-10 will-change-transform" aria-hidden="true">
+        <div className="marquee-track animate-scroll-desktop gap-10 will-change-transform" aria-hidden="true">
           {items.map((img, idx) => (
             <div
               key={idx}
@@ -140,6 +140,10 @@ export default function BrandMarquee() {
 
         .animate-scroll {
           animation: scroll 9s linear infinite;
+        }
+
+        .animate-scroll-desktop {
+          animation: scroll 15s linear infinite;
         }
 
         .animate-scroll-reverse {

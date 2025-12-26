@@ -25,7 +25,7 @@ import InicioBanner from '@/assets/img-heros/Hero Home.png';
 import LogoUSAVerde from '@/assets/logo-sello-blanco2.png';
 import MasterclassUSA from '@/assets/img-heros/masterclass-usa.png';
 import SueroMexico from '@/assets/img-heros/suero mexico .png';
-import MiniLiftingColombia from '@/assets/img-heros/mini lifting colombia.png';
+import MiniLiftingColombia from '@/assets/img-heros/3 puntos colombia.png';
 
 const CouponForm = dynamic(() => import('@/components/home/CouponForm'), {
   ssr: false,
