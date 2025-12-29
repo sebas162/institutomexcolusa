@@ -22,6 +22,24 @@ export const onlineTraining = {
       speaker: 'Dr. Martin Bravo',
       duration: '16 hours',
       image: '/placeholder-course-2.jpg'
+    },
+    {
+      name: 'Theoretical and Practical Course on Facial Harmonization with Botulinum Toxin',
+      speaker: 'Dr. Aldo Rendon',
+      duration: '7 hours',
+      image: '/placeholder-course-2.jpg'
+    },
+    {
+      name: 'Theoretical and Practical Course on Facial Modeling with Hyaluronic Acid',
+      speaker: 'Dr. Aldo Rendon',
+      duration: '7 hours',
+      image: '/placeholder-course-2.jpg'
+    },
+    {
+      name: 'Theoretical and Practical Course on Plasma Gel, 4th Generation and Mono PDO Threads',
+      speaker: 'Dr. Aldo Rendon',
+      duration: '6 hours',
+      image: '/placeholder-course-2.jpg'
     }
   ],
   ctaButton: 'Request Access via WhatsApp'

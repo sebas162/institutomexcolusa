@@ -10,6 +10,9 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { formatText } from '@/lib/utils/text-formatting';
 import Curso1Image from '@/assets/logos-cursos/formacion en linea curso 1.png';
 import Curso2Image from '@/assets/logos-cursos/formacion en linea curso 2.png';
+import Curso3Image from '@/assets/logos-cursos/formacion en linea curso 3.png';
+import Curso4Image from '@/assets/logos-cursos/formacion en linea curso 4.png';
+import Curso5Image from '@/assets/logos-cursos/formacion en linea curso 5.png';
 import HeroFormacionEnLinea from '@/assets/img-heros/hero-formacion-en-linea.png';
 
 export default function OnlineTrainingPage() {
@@ -89,7 +92,7 @@ export default function OnlineTrainingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {t.courses.map((course, index) => {
-              const courseImages = [Curso1Image, Curso2Image];
+              const courseImages = [Curso1Image, Curso2Image, Curso3Image, Curso4Image, Curso5Image];
               return (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative h-48 w-full overflow-hidden">

@@ -12,15 +12,33 @@ export const onlineTraining = {
   },
   courses: [
     {
-      name: 'Beyond hydration (skinvive-harmonyca-botox)',
+      name: 'Beyond Hydration (Skinvive–HarmonyCa–Botox)',
       speaker: 'Dr Luigi Palermo',
       duration: '5 horas',
       image: '/placeholder-course-1.jpg'
     },
     {
-      name: 'sueroterapia-quelación y principios de medicina regenerativa aplicada',
+      name: 'Sueroterapia-quelación y principios de medicina regenerativa aplicada',
       speaker: 'Dr Martin Bravo',
       duration: '16 horas',
+      image: '/placeholder-course-2.jpg'
+    },
+    {
+      name: 'Curso teórico práctico de armonización facial con toxina botulínica.',
+      speaker: 'Dr Aldo Rendon',
+      duration: '7 horas',
+      image: '/placeholder-course-2.jpg'
+    },
+    {
+      name: 'Curso teórico práctico de modelación facial con ácido hialurónico',
+      speaker: 'Dr Aldo Rendon',
+      duration: '7 horas',
+      image: '/placeholder-course-2.jpg'
+    },
+    {
+      name: 'Curso teórico práctico de plasma gel, 4.ª generación e hilos mono PDO',
+      speaker: 'Dr Aldo Rendon',
+      duration: '6 horas',
       image: '/placeholder-course-2.jpg'
     }
   ],

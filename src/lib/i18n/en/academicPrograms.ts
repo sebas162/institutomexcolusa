@@ -285,9 +285,7 @@ title: 'Academic Programs',
                   highlighted: 'Physicians and Dentists',
                   description: 'Around the world, numerous complications have arisen from aesthetic medicine procedures—many performed by individuals who are not properly qualified or trained\n\nAt the **INSTITUTO MEX-COL-USA**, we take seriously the responsibility to prevent such negligence from happening anywhere.\n\nWe are committed to training and educating medical professionals and dentists in various specialties, ensuring that every aesthetic procedure is performed with the highest standards of **safety, ethics, and scientific knowledge**.\n\nOur mission is clear: **to prepare specialists who protect the health, safety, and well-being of their patients in every treatment.**'
                 },
-                objectives: [
-                  'Gain comprehensive knowledge about protocols, indications, contraindications, and the management of adverse events for the most advanced techniques in aesthetic medicine:'
-                ],
+                
                 curriculum: [
                   {
                     title: '',
@@ -365,13 +363,13 @@ title: 'Academic Programs',
                 targetAudience: {
                   title: 'Course Directed To:',
                   highlighted: 'Health professionals',
-                  description: '**Regenerative Medicine and Intravenous Therapy** have proven to be areas of great impact on patient health and well-being. However, worldwide, complications have arisen from the improper practice of these treatments, often performed by individuals without adequate training.\n\nFor this reason, our program is specifically designed for **health professionals**, providing them with the tools and knowledge necessary to apply these therapies safely and effectively.\n\nAt the **INSTITUTO MEX-COL-USA**, we take seriously the responsibility of preventing such situations by promoting proper education and training for all professionals involved in these practices.\n\nOur focus is to prepare healthcare providers who practice **Regenerative Medicine and Intravenous Therapy with safety, ethics, and excellence**, always safeguarding the health and well-being of their patients.'
+                  description: '**Regenerative Medicine** and **Intravenous Therapy** have proven to be areas of great impact on patient health and overall well-being. However, worldwide, complications have arisen from the improper practice of these treatments—often performed by individuals without adequate training.\n\nFor this reason, our program is specifically designed for **health professionals**, providing them with the tools and knowledge necessary to apply these therapies safely and effectively.\n\nAt the **INSTITUTO MEX-COL-USA**, we take seriously the responsibility of preventing such situations by promoting proper education and training for all professionals involved in these practices.\n\nOur focus is to prepare healthcare providers who practice **Regenerative Medicine and Intravenous Therapy** with **safety, ethics, and excellence**, always safeguarding the health and well-being of their patients.'
                 },
                 curriculum: [
                   {
                     title: 'Day 1 – Intravenous Therapy:',
                     topics: [
-                      'In this **Intravenous Therapy** course, participants will gain comprehensive knowledge of advanced techniques to optimize patient health, energy, and overal well-being. You will learn to apply therapies that enhance **neurostimulation, cellular oxygenation, and general revitalization**, as well as specific treatments to **strengthen the immune system, stimulate metabolism, and combat signs of aging.**\n\nYou will also learn the safe and effective use of key active ingredients, from **vitamins and minerals** to specialized compounds, understanding their biochemical and pharmacological properties and their therapeutic applications for conditions such as **obesity, overweight, psoriasis, osteoarticular pain, and autoimmune diseases.**\n\nThe course will also provides tools for **heavy metal elimination, reduction of atheroma plaque, and optimization of cardiovascular health**, all with a focus on **safety, ethics, and clinical efficacy.**\n\nBy the end of this day, you will be prepared to implement Intravenous Therapy protocols in a professional, safe, and patient-centered manner.'
+                      'In this **Intravenous Therapy** course, participants will gain comprehensive knowledge of advanced techniques to optimize patient health, energy, and overal well-being. You will learn therapies that support **neurostimulation, cellular oxygenation, and general revitalization**, as well as specific treatments to **strengthen the immune system, stimulate metabolism, and combat signs of aging.**\n\nYou will also learn the safe and effective use of key active ingredients, from **vitamins and minerals** to specialized compounds, understanding their biochemical and pharmacological properties and their therapeutic applications for conditions such as **obesity, overweight, psoriasis, osteoarticular pain, and autoimmune diseases.**\n\nThe course will also provides tools for **heavy metal elimination, reduction of atheroma plaque, and optimization of cardiovascular health**, all with a focus on **safety, ethics, and clinical efficacy.**\n\nBy the end of this day, you will be prepared to implement Intravenous Therapy protocols in a professional, safe, and patient-centered manner.'
                     ]
                   },
                   {
@@ -440,13 +438,13 @@ title: 'Academic Programs',
           colombia: {
             courses: [
               {
-                title: 'Master Class in Facial Modeling, Profiling, and Harmonization – Botulinum Toxin / Hyaluronic Acid / Biostimulators / PDO Threads',
+                title: 'Masterclass in Facial Modeling, Profiling, and Harmonization – Botulinum Toxin / Hyaluronic Acid / Biostimulators / PDO Threads',
                 description: 'Learn advanced facial harmonization techniques for professional, natural results.',
                 image: '@/assets/img-heros/img-hero-cursos/master-class-col.png',
                 slug: 'master-class-facial-modeling',
               },
               {
-                title: 'Online Course: Serum Therapy-Chelation and Principles of Applied Regenerative Medicine',
+                title: 'Online Course: Intravenous Therapy, Chelation, and Principles of Applied Regenerative Medicine',
                 description: '2-day online course on advanced Serum Therapy techniques and Regenerative Medicine principles with a practical and safe approach.',
                 image: '@/assets/img-heros/img-hero-cursos/suero-col.png',
                 slug: 'intravenous-therapy-online',
@@ -460,17 +458,17 @@ title: 'Academic Programs',
             ],
             courseDetails: {
               'master-class-facial-modeling': {
-                title: 'Master Class in Facial Modeling, Profiling, and Harmonization with "Botulinum Toxin/Hyaluronic Acid/Biostimulators/PDO Threads"',
+                title: 'Masterclass in Facial Modeling, Profiling, and Harmonization with "Botulinum Toxin/Hyaluronic Acid/Biostimulators/PDO Threads"',
                 subtitle: 'Comprehensive Training in Facial and Body Aesthetic Medicine',
                 description: 'In-person course with 2 theoretical days and 2 intensive practice days. Learn the most innovative techniques in aesthetic medicine with products from the world\'s best laboratories certified by INVIMA, FDA, and COFEPRIS.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/master-class-col.png',
                 format: 'In-person',
-                duration: '4 days (2 theoretical days + 2 intensive practice days)',
+                duration: '4 days (2 days theoretical + 2 days intensive practice)',
                 schedule: '9:00 AM - 7:00 PM Approx.',
                 location: 'Bogotá, Colombia',
                 price: 'Contact for pricing',
                 capacity: 'Small groups',
-                certification: 'Yes - Internationally valid diploma',
+                certification: 'Yes',
                 overview: [
                   'Responsible training with the highest standards of safety, ethics, and scientific knowledge',
                   '2-day intensive practice with internationally certified quality products',
@@ -482,77 +480,48 @@ title: 'Academic Programs',
                 ],
                 targetAudience: {
                   title: 'Course Intended For',
-                  highlighted: 'Physicians and Dentists',
+                  highlighted: 'Doctors and Dentists',
                   description: [
-                    'Worldwide, numerous complications have occurred in aesthetic medicine treatments, many caused by procedures performed by **unqualified or untrained personnel** to carry out these procedures.',
-                    'At **INSTITUTO MEX-COL-USA**, we responsibly accept the challenge of contributing to preventing these negligences from happening anywhere in the world.',
-                    'Therefore, we are **committed to training and educating medical professionals, their different specialties, and dentists**, ensuring that each treatment is performed with the highest standards of safety, ethics, and scientific knowledge.',
-                    'Our mission is clear: **to prepare specialists who protect the health, safety, and well-being of patients in every aesthetic procedure.**'
+                    'Worldwide, numerous complications have occurred in aesthetic medicine treatments, often due to procedures being performed by unqualified or insufficiently trained personnel.',
+                    'At **INSTITUTO MEX-COL-USA**, we take the responsibility seriously to ensure these issues do not happen anywhere in the world.',
+                    'We are **committed to training and educating medical professionals, across specialties, and dentists**, ensuring that every treatment is performed with the highest standards of safety, ethics, and scientific knowledge.',
+                    'Our goal is clear: **to train specialists who prioritize the health, safety, and well-being of patients in every aesthetic procedure**.'
                   ]
                 },
                 objectives: [
-                  'Acquire comprehensive knowledge about **protocols, indications, contraindications, and management of adverse events** in each of the most innovative aesthetic medicine techniques:',
-                  'Master modeling techniques with **Hyaluronic Acid** in rhinoplasty, cheekbones, nasolabial folds, and lips',
-                  'Apply **Botulinum Toxin** to relax facial muscles and prevent expression lines on forehead, glabella, eye contour, and bunny lines',
-                  'Implement rejuvenation protocols with **PDO Threads** for **immediate lifting effect** on jawline, double chin, abdomen, buttocks, and other areas',
-                  'Learn and apply Collagen Biostimulators on arms, abdomen, legs, buttocks, neck, and face',
-                  'Properly manage safety protocols and adverse events for each technique',
+                  'Gain comprehensive knowledge on protocols, indications, contraindications, and management of adverse events in the latest aesthetic medicine techniques',
                 ],
                 curriculum: [
                   {
-                    title: 'Module 1: Hyaluronic Acid',
+                    title: '',
                     topics: [
-                      'Applied facial anatomy',
-                      'Types and densities of hyaluronic acid',
-                      'Rhinoplasty techniques',
-                      'Cheekbone volumization and profiling',
-                      'Nasolabial fold correction',
-                      'Lip profiling and volumization techniques',
-                      'Safety protocols and complication management',
-                      'Supervised practice with real patients',
-                    ]
-                  },
-                  {
-                    title: 'Module 2: Botulinum Toxin',
-                    topics: [
-                      'Botulinum toxin fundamentals',
-                      'Facial muscle anatomy',
-                      'Application techniques on forehead',
-                      'Glabella treatment',
-                      'Eye contour and crow\'s feet',
-                      'Bunny lines correction',
-                      'Expression line prevention and treatment',
-                      'Proper dosage and dilution',
-                      'Patient practice',
-                    ]
-                  },
-                  {
-                    title: 'Module 3: PDO Threads (Smooth or Mono)',
-                    topics: [
-                      'Types of PDO threads and their applications',
-                      'Facial lifting techniques with **immediate lifting effect**',
-                      'Jawline treatment',
-                      'Double chin correction',
-                      'Abdominal application',
-                      'Buttock lifting',
-                      'Protocols for other body areas',
-                      'Vectorization techniques',
-                      'Supervised intensive practice',
-                    ]
-                  },
-                  {
-                    title: 'Module 4: Collagen Biostimulators',
-                    topics: [
-                      'Main biostimulators on the market',
-                      'Harmonyca and Radiesse: differences and applications',
-                      'Application techniques on arms',
-                      'Abdominal treatment',
-                      'Leg biostimulation',
-                      'Buttock techniques',
-                      'Neck rejuvenation',
-                      'Facial applications',
-                      'Safety protocols',
-                      'Practice with certified products',
+                      '**Hyaluronic Acid**',
+                      'Master modeling techniques for:',
+                      'Rhinomodelling',
+                      'Cheeks',
+                      'Nasolabial folds',
+                      'Lips\n',
+                      '**Botulinum Toxin**',
+                      'Learn to relax facial muscles to prevent and treat expression lines in:',
+                      'Forehead',
+                      'Glabella (between eyebrows)',
+                      'Eye contour',
+                      'Bunny lines\n',
+                      '**PDO Threads (Smooth / Mono)**',
+                      'Apply rejuvenation protocols with immediate lifting effects in:',
+                      'Jawline',
+                      'Double chin',
+                      'Abdomen',
+                      'Buttocks',
+                      'Other body areas\n',
+                      '**Collagen Biostimulators**',
+                      'Learn about leading biostimulators available in the market and their applications in:',
+                      'Arms',
+                      'Abdomen',
+                      'Legs',
+                      'Buttocks',
+                      'Neck',
+                      'Face and more'
                     ]
                   },
                 ],
@@ -563,20 +532,11 @@ title: 'Academic Programs',
                   'No prior experience in aesthetic medicine required',
                 ],
                 accreditations: [
-                  '**Accreditations and Institutional Support:**\n\nAll continuing education programs are registered with the Secretariat of Labor and Social Welfare (In Mexico). Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant passed with at least **80%**\n\n**Certificate of Attendance and Participation:** Issued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical-practical course modules, providing academic and formative support.\n\n**Diploma:** Issued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **authenticate training in the United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
-                ],
-                includes: [
-                  'Juvederm-Allergan Hyaluronic Acid (FDA, INVIMA, COFEPRIS certified)',
-                  'Botox-Allergan Botulinum Toxin (FDA, INVIMA, COFEPRIS certified)',
-                  'Smooth or Mono PDO Threads (internationally certified)',
-                  'Harmonyca or Radiesse Biostimulator (internationally certified)',
-                  'Complete educational materials',
-                  'International certificate upon passing',
-                  'Access to practice with real patients',
+                  '**Accreditations and Institutional Support:**\n\nOur courses and continuing education programs are registered with the Secretariat of Labor and Social Welfare (Mexico). At the end of the practical training, participants will undergo an evaluation of knowledge, skills, and competence, which must meet a minimum score to obtain certification. Certificates are issued once **INSTITUTO MEX-COL-USA** verifies successful completion with a minimum passing score of **80%**.\n\n**Certificate of Attendance and Participation:** Issued by **INSTITUTO MEX-COL-USA**, confirming active participation and completion of theoretical-practical modules, providing academic and professional recognition.\n\n**Diploma:** Issued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid in the **United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
                 ],
                 productQuality: {
                   title: 'Quality Products and Guaranteed Safety',
-                  description: 'In aesthetic medicine, **product selection is as important as the technique applied**, as patient safety and result effectiveness depend on it. For this reason, at **Instituto Mex-Col-Usa** we work exclusively with the **three best laboratories worldwide**, recognized for their innovation, track record, and high quality standards.\n\nAll our products have official registration and certifications from major international regulatory entities, such as:\n\n• **INVIMA** (Colombia)\n• **FDA** (United States)\n• **COFEPRIS** (Mexico)',
+                  description: 'In aesthetic medicine, the choice of product is as important as the technique applied, as patient safety and results depend on it. \n\nAt **INSTITUTO MEX-COL-USA**, we work exclusively with the top three global laboratories recognized for innovation, experience, and high-quality standards.\n\nAll products are registered and certified by major international regulatory authorities, including:\n\n• **INVIMA** (Colombia)\n• **FDA** (United States)\n• **COFEPRIS** (Mexico)\n• Other competent global health authorities \n\nWe guarantee that every procedure uses safe, reliable, and approved materials, offering students and patients peace of mind.',
                   certifications: [
                     '**INVIMA** (Colombia)',
                     '**FDA** (United States)',
@@ -593,7 +553,7 @@ title: 'Academic Programs',
                 },
               },
               'intravenous-therapy-online': {
-                title: 'Online Course: Serum Therapy-Chelation and Principles of Applied Regenerative Medicine',
+                title: 'Online Course: Intravenous Therapy, Chelation, and Principles of Applied Regenerative Medicine',
                 subtitle: 'Online Training in Regenerative Medicine and Serum Therapy',
                 description: '2-day online course on advanced Serum Therapy techniques and Regenerative Medicine principles with a practical and safe approach.',
                 heroImage: '@/assets/img-heros/img-hero-cursos/suero-col.png',
@@ -606,47 +566,37 @@ title: 'Academic Programs',
                   title: 'Course Intended For:',
                   highlighted: 'Healthcare professionals',
                   description: [
-                    '**Regenerative Medicine and Serum Therapy** have proven to be areas of great impact on patient health and well-being. However, complications have occurred worldwide due to inadequate practice of these treatments, often performed by personnel without sufficient training.',
-                    'Therefore, our program is designed for **healthcare professionals**, providing them with the tools and knowledge necessary to apply these therapies safely and effectively.',
-                    'At **INSTITUTO MEX-COL-USA**, we responsibly accept the challenge of contributing to preventing these situations from occurring, promoting proper training for all specialists involved in these practices.',
-                    '**We focus on preparing professionals who apply Regenerative Medicine and Serum Therapy with safety, ethics, and excellence, always caring for patient health and well-being.**'
+                    '**Regenerative Medicine and Intravenous Therapy** have proven to be areas of great impact on patients’ health and overall wellness. However, worldwide there have been complications resulting from improper application of these treatments, often carried out by individuals without sufficient training.',
+                    'For this reason, our program is specifically designed for **healthcare professionals**, providing them with the tools and knowledge necessary to apply these therapies safely and effectively.',
+                    'At **INSTITUTO MEX-COL-USA**, we take seriously the responsibility of preventing such situations by promoting the proper education and training of all specialists involved in these practices.',
+                    '**We are committed to preparing professionals to apply Regenerative Medicine and Intravenous Therapy with safety, ethics, and excellence, always prioritizing the health and well-being of their patients.**'
                   ]
                 },
                 curriculum: [
                   {
-                    title: 'Day 1 - Serum Therapy',
+                    title: '**Day 1 – Intravenous Therapy, Chelation, and Applied Regenerative Principles**',
                     topics: [
-                      'Course Content',
-                      'In this **Serum Therapy** course, participants will acquire comprehensive knowledge about advanced techniques to optimize patient health, energy, and well-being. You will learn to apply therapies that promote **neurostimulation, cellular oxygenation, and general revitalization**, as well as specific treatments to **strengthen the immune system, stimulate metabolism, and combat signs of aging**.',
-                      'Additionally, you will learn the safe and effective use of **key active ingredients**, from vitamins and minerals to specialized compounds, understanding their biochemical and pharmacological properties and therapeutic applications in conditions such as **obesity, overweight, psoriasis, osteoarticular pain, and autoimmune diseases**.',
-                      'The course also provides tools for **heavy metal elimination, atheroma plaque reduction, and cardiovascular health optimization**, all with a focus on **safety, ethics, and clinical efficacy**.',
-                      'Upon completion, you will be prepared to **implement Serum Therapy protocols** professionally, safely, and oriented toward the holistic well-being of your patients.'
+                      'In this first module, participants will acquire comprehensive knowledge of advanced techniques to optimize patients\' health, energy, and overall vitality. You will learn to apply therapies that promote neurostimulation, cellular oxygenation, and general revitalization, as well as specific treatments to strengthen the immune system, boost metabolism, and combat the signs of aging.\n\nYou will also gain an understanding of the safe and effective use of key active ingredients—from vitamins and minerals to specialized compounds—by exploring their biochemical and pharmacological properties and their therapeutic applications in conditions such as obesity, overweight, psoriasis, osteoarticular pain, and autoimmune diseases.\n\nThe course will also provide tools for **heavy metal detoxification**, **atheromatous plaque reduction**, and **cardiovascular health optimization**, all approached with clinical safety, ethics, and efficacy in mind.\n\nBy the end of this session, you will be prepared to implement professional and safe **Intravenous Therapy and Chelation** protocols focused on your patients\' integral well-being.'
                     ]
                   },
                   {
-                    title: 'Day 2 - Regenerative Medicine',
+                    title: '**Day 2 – Regenerative Medicine**',
                     topics: [
-                      'Course Content',
-                      'In this second day, you will delve into the **principles, processing, and biological functions of regenerative therapies**, learning their indications, medical uses, appropriate doses, and safety considerations. You will learn the fundamentals of **cell differentiation, angiogenesis, and immunomodulation**, as well as the practical application of **Mesenchymal Stem Cells** through audiovisual material.',
-                      'You will explore the **biological functions of exosomes**, their indications and safe use, and observe practical application examples through instructional videos. Likewise, you will become familiar with **placenta implants**, understanding their principles, indications, doses, and safety profile, accompanied by practical video demonstrations.',
-                      'The day also includes **Serum Therapy** sessions, addressing revitalizing therapies, immunostimulants, focused on obesity and overweight, and **basic chelation for heavy metal elimination**, allowing you to integrate these protocols safely and effectively into your professional practice.',
-                      'Upon completing this module, you will be prepared to **apply advanced Regenerative Medicine and Serum Therapy techniques**, combining theoretical and practical knowledge to offer safe, effective treatments oriented toward the holistic well-being of your patients.'
+                      'In this second day, you will delve into the **principles, processing, and biological functions of regenerative therapies**, learning their indications, medical uses, proper dosages, and safety considerations. You will learn the fundamentals of **cell differentiation**, **angiogenesis**, and **immunomodulation**, as well as the practical application of **Mesenchymal Stem Cells** through audiovisual materials.\n\nYou will explore the **biological functions of exosomes**, their indications and safe usage, and observe practical application examples through instructional videos. Likewise, you will become familiar with **placental implants**, understanding their principles, indications, dosages, and safety profiles, accompanied by live demonstrations.\n\nThe day also includes **Intravenous Therapy** sessions, addressing revitalizing and immune-boosting therapies, obesity and overweight management, and **basic chelation for metal detoxification**, allowing you to integrate these protocols safely and effectively into your professional practice.\n\nBy the end of this module, you will be prepared to **apply advanced Regenerative Medicine and Intravenous Therapy techniques**, combining theoretical and practical knowledge to provide safe, effective, and holistic treatments for your patients.'
                     ]
                   }
                 ],
                 includes: [
-                  'Reference and study materials',
-                  'Live demonstrative practice',
-                  'Course recordings'
+                  'Study and reference materials',
+                  'Live demonstration practice',
+                  'Access to recorded sessions'
                 ],
                 accreditations: [
-                  'The courses and updates we teach, being continuing education, are registered with the Ministry of Labor and Social Welfare (In Mexico). Upon completion of your training practice, a knowledge, skills, and proficiency evaluation will be applied, which is subject to the minimum score to obtain your certificate, which is issued after **INSTITUTO MEX-COL-USA** has evaluated and reported that the evaluation was passed by each attendee. It must be passed with a minimum percentage of **80%**',
-                  '• **Certificate of attendance and participation:** Issued by **INSTITUTO MEX-COL-USA**, certifies active participation and completion of the course\'s theoretical-practical modules, providing academic and training support.',
-                  '• **Diploma:** Issued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Association of Aesthetic Medicine)**, valid to **authenticate training in the United States, Latin America, Caribbean, and Spain** as recognized continuing education.'
+                  '**Accreditations and Institutional Support**\n\nAll our training programs and continuing education courses are registered with the **Mexican Secretariat of Labor and Social Welfare (STPS)**.\n\nAt the end of the training, participants will undergo an evaluation of knowledge, skills, and competencies, which must be passed with a **minimum score of 80%** to obtain certification.\n\nCertificates are issued once the **INSTITUTO MEX-COL-USA** has verified and reported satisfactory completion.\n\n**Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, this document certifies active participation and completion of both theoretical and practical modules, providing academic and professional recognition.\n\n**Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (Society of Aesthetic Medicine of the United States)**. This diploma is valid to authenticate continuing education in the **United States, Latin America, the Caribbean, and Spain**.'
                 ],
                 productQuality: {
-                  title: 'Quality Products and Guaranteed Safety',
-                  description: '**INSTITUTO MEX-COL-USA** works with laboratories that **guarantee reliability and confidence in their products**, ensuring quality in each of the practices performed, and sharing information about these providers at our locations.\n\nIt is important to note that **we do not sell products at our facilities nor promote specific brands**, as acquisition choices must be **freely and responsibly made by each student**. Each participant is responsible for verifying from whom to purchase, as well as reviewing permits, registrations, local regulations, and any other legal aspect in force in their city or country before purchasing any product.',
+                  title: 'Quality and Safety Assurance',
+                  description: '**INSTITUTO MEX-COL-USA** collaborates with laboratories that ensure quality and reliability in all products used during training, guaranteeing safety in every practical session and sharing information about these suppliers at our locations.\n\nIt is important to highlight that we **do not sell products** or promote specific brands at our facilities. The acquisition of any product is a personal and responsible decision of each participant. Students are encouraged to verify suppliers, permits, local regulations, and any applicable legal requirements in their country or city before making any purchase.',
                   certifications: [],
                   footer: ''
                 },
