@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import Image, { type StaticImageData } from 'next/image';
+import * as React from "react";
+import Image, { type StaticImageData } from "next/image";
 
-import product1 from '@/assets/logos-cursos/curso-colombia-1.1.webp';
-import product2 from '@/assets/logos-cursos/curso-colombia-1.2.webp';
-import product3 from '@/assets/logos-cursos/curso-colombia-1.3.webp';
-import product4 from '@/assets/logos-cursos/curso-colombia-1.4.png';
-import product5 from '@/assets/logos-cursos/curso-colombia-1.5.png';
-import product6 from '@/assets/logos-cursos/curso-colombia-1.6.png';
+import product1 from "@/assets/logos-cursos/curso-colombia-1.1.webp";
+import product2 from "@/assets/logos-cursos/curso-colombia-1.2.webp";
+import product3 from "@/assets/logos-cursos/curso-colombia-1.3.webp";
+import product4 from "@/assets/logos-cursos/curso-colombia-1.4.webp";
+import product5 from "@/assets/logos-cursos/curso-colombia-1.5.webp";
+import product6 from "@/assets/logos-cursos/curso-colombia-1.6.webp";
 
 const products: StaticImageData[] = [
   product1,
@@ -24,8 +24,14 @@ export default function ProductsMarquee() {
   const items = React.useMemo(() => [...products, ...products], []);
   const firstRowProducts = React.useMemo(() => products.slice(0, 3), []);
   const secondRowProducts = React.useMemo(() => products.slice(3), []);
-  const firstRowItems = React.useMemo(() => [...firstRowProducts, ...firstRowProducts], []);
-  const secondRowItems = React.useMemo(() => [...secondRowProducts, ...secondRowProducts], []);
+  const firstRowItems = React.useMemo(
+    () => [...firstRowProducts, ...firstRowProducts],
+    []
+  );
+  const secondRowItems = React.useMemo(
+    () => [...secondRowProducts, ...secondRowProducts],
+    []
+  );
 
   return (
     <div>
@@ -34,7 +40,10 @@ export default function ProductsMarquee() {
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
 
-        <div className="marquee-track animate-scroll gap-10 will-change-transform" aria-hidden="true">
+        <div
+          className="marquee-track animate-scroll gap-10 will-change-transform"
+          aria-hidden="true"
+        >
           {items.map((img, idx) => (
             <div
               key={idx}
@@ -47,9 +56,9 @@ export default function ProductsMarquee() {
                 height={128}
                 sizes="(max-width: 640px) 180px, (max-width: 1024px) 220px, 240px"
                 style={{
-                  objectFit: 'contain',
-                  width: '100%',
-                  height: '100%',
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "100%",
                 }}
                 className="drop-shadow-sm"
               />
@@ -62,7 +71,10 @@ export default function ProductsMarquee() {
       <div className="md:hidden space-y-4">
         {/* Row 1: reverse */}
         <div className="relative w-full overflow-hidden">
-          <div className="marquee-track animate-scroll-reverse gap-10 will-change-transform" aria-hidden="true">
+          <div
+            className="marquee-track animate-scroll-reverse gap-10 will-change-transform"
+            aria-hidden="true"
+          >
             {firstRowItems.map((img, idx) => (
               <div
                 key={idx}
@@ -75,9 +87,9 @@ export default function ProductsMarquee() {
                   height={128}
                   sizes="180px"
                   style={{
-                    objectFit: 'contain',
-                    width: '100%',
-                    height: '100%',
+                    objectFit: "contain",
+                    width: "100%",
+                    height: "100%",
                   }}
                   className="drop-shadow-sm"
                 />
@@ -88,7 +100,10 @@ export default function ProductsMarquee() {
 
         {/* Row 2: normal */}
         <div className="relative w-full overflow-hidden">
-          <div className="marquee-track animate-scroll gap-10 will-change-transform" aria-hidden="true">
+          <div
+            className="marquee-track animate-scroll gap-10 will-change-transform"
+            aria-hidden="true"
+          >
             {secondRowItems.map((img, idx) => (
               <div
                 key={idx}
@@ -101,9 +116,9 @@ export default function ProductsMarquee() {
                   height={128}
                   sizes="180px"
                   style={{
-                    objectFit: 'contain',
-                    width: '100%',
-                    height: '100%',
+                    objectFit: "contain",
+                    width: "100%",
+                    height: "100%",
                   }}
                   className="drop-shadow-sm"
                 />
@@ -138,15 +153,28 @@ export default function ProductsMarquee() {
           }
         }
 
-        .animate-scroll {
-          animation: scroll 6s linear infinite;
+        /* Desktop only */
+        @media (min-width: 768px) {
+          .animate-scroll {
+            animation: scroll 6s linear infinite;
+          }
+
+          .animate-scroll-reverse {
+            animation: scroll-reverse 6s linear infinite;
+          }
         }
 
-        .animate-scroll-reverse {
-          animation: scroll-reverse 6s linear infinite;
+        /* Mobile */
+        @media (max-width: 767px) {
+          .animate-scroll {
+            animation: scroll 6s linear infinite;
+          }
+
+          .animate-scroll-reverse {
+            animation: scroll-reverse 6s linear infinite;
+          }
         }
       `}</style>
     </div>
   );
 }
-

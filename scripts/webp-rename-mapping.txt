@@ -1,0 +1,51 @@
+
+SKIP: comentario-1.webp (ya normalizado)
+SKIP: comentario-2.webp (ya normalizado)
+SKIP: comentario-3.webp (ya normalizado)
+SKIP: salon-1.webp (ya normalizado)
+RENAME: src/assets/img-heros/3 puntos colombia.webp → src/assets/img-heros/3-puntos-colombia.webp
+RENAME: src/assets/img-heros/Hero Home.webp → src/assets/img-heros/hero-home.webp
+RENAME: src/assets/img-heros/Hero Home3.webp → src/assets/img-heros/hero-home3.webp
+RENAME: src/assets/img-heros/Sueroterapia1.webp → src/assets/img-heros/sueroterapia1.webp
+SKIP: contactanos.webp (ya normalizado)
+SKIP: hero-conferencias.webp (ya normalizado)
+SKIP: hero-conocenos.webp (ya normalizado)
+SKIP: hero-directores.webp (ya normalizado)
+SKIP: hero-formacion-en-linea.webp (ya normalizado)
+SKIP: hero-programas-academico.webp (ya normalizado)
+RENAME: src/assets/img-heros/img-hero-cursos/flebotomia-USA.webp → src/assets/img-heros/img-hero-cursos/flebotomia-usa.webp
+RENAME: src/assets/img-heros/img-hero-cursos/master-class-MX.webp → src/assets/img-heros/img-hero-cursos/master-class-mx.webp
+RENAME: src/assets/img-heros/img-hero-cursos/master-class-USA.webp → src/assets/img-heros/img-hero-cursos/master-class-usa.webp
+SKIP: master-class-col.webp (ya normalizado)
+RENAME: src/assets/img-heros/img-hero-cursos/mini-lifting-Col - copia.webp → src/assets/img-heros/img-hero-cursos/mini-lifting-col-copia.webp
+RENAME: src/assets/img-heros/img-hero-cursos/mini-lifting-Col.webp → src/assets/img-heros/img-hero-cursos/mini-lifting-col.webp
+RENAME: src/assets/img-heros/img-hero-cursos/mini-lifting-MX.webp → src/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp
+RENAME: src/assets/img-heros/img-hero-cursos/mini-lifting-USA.webp → src/assets/img-heros/img-hero-cursos/mini-lifting-usa.webp
+RENAME: src/assets/img-heros/img-hero-cursos/suero-MX.webp → src/assets/img-heros/img-hero-cursos/suero-mx.webp
+RENAME: src/assets/img-heros/img-hero-cursos/suero-USA.webp → src/assets/img-heros/img-hero-cursos/suero-usa.webp
+SKIP: suero-col.webp (ya normalizado)
+SKIP: masterclass-usa.webp (ya normalizado)
+RENAME: src/assets/img-heros/mini lifting colombia.webp → src/assets/img-heros/mini-lifting-colombia.webp
+RENAME: src/assets/img-heros/suero mexico .webp → src/assets/img-heros/suero-mexico-.webp
+SKIP: curso-colombia-1.1.webp (ya normalizado)
+SKIP: curso-colombia-1.2.webp (ya normalizado)
+SKIP: curso-colombia-1.3.webp (ya normalizado)
+SKIP: curso-colombia-1.4.webp (ya normalizado)
+SKIP: curso-colombia-1.5.webp (ya normalizado)
+SKIP: curso-colombia-1.6.webp (ya normalizado)
+RENAME: src/assets/logos-cursos/formacion en linea curso 1.webp → src/assets/logos-cursos/formacion-en-linea-curso-1.webp
+RENAME: src/assets/logos-cursos/formacion en linea curso 2.webp → src/assets/logos-cursos/formacion-en-linea-curso-2.webp
+RENAME: src/assets/logos-cursos/formacion en linea curso 3.webp → src/assets/logos-cursos/formacion-en-linea-curso-3.webp
+RENAME: src/assets/logos-cursos/formacion en linea curso 4.webp → src/assets/logos-cursos/formacion-en-linea-curso-4.webp
+RENAME: src/assets/logos-cursos/formacion en linea curso 5.webp → src/assets/logos-cursos/formacion-en-linea-curso-5.webp
+SKIP: image-20250917-224335.webp (ya normalizado)
+SKIP: image-20250917-225606.webp (ya normalizado)
+SKIP: image-20250917-225655.webp (ya normalizado)
+SKIP: image-20250917-225738.webp (ya normalizado)
+SKIP: image-20250917-225836.webp (ya normalizado)
+SKIP: image-20250917-225915.webp (ya normalizado)
+SKIP: image-20250917-235949.webp (ya normalizado)
+SKIP: image-20250918-000534.webp (ya normalizado)
+SKIP: logo-marca-1.webp (ya normalizado)
+SKIP: logo-marca-2.webp (ya normalizado)
+RENAME: src/assets/logos-marcas/logos 2.webp → src/assets/logos-marcas/logos-2.webp

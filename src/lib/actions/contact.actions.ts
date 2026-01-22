@@ -1,9 +1,10 @@
-
-"use server";
+// NOTA: 'use server' comentado para permitir static export
+// Si necesitas funcionalidad server-side, considera usar API routes externas
+// "use server";
 
 import { z } from "zod";
 import { translations } from "@/lib/i18n";
-import { sendContactEmail } from "@/lib/email";
+// import { sendContactEmail } from "@/lib/email"; // Comentado para static export - nodemailer no es compatible con el bundle del cliente
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -25,7 +26,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     message: formData.get("message"),
     language: lang,
   });
-  
+
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -37,8 +38,18 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   }
 
   try {
-    // Enviar el correo directamente usando la función de email
-    await sendContactEmail(validatedFields.data);
+    // Enviar a Formspree (compatible con static export)
+    const response = await fetch("https://formspree.io/f/mpqwgnqv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedFields.data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send email");
+    }
 
     return {
       errors: {},
@@ -50,15 +61,16 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     };
   } catch (error) {
     console.error("Error enviando formulario de contacto:", error);
-    
+
     let errorMessage: string;
-    
+
     if (error instanceof Error && error.message) {
       errorMessage = error.message;
     } else {
-      errorMessage = lang === "es"
-        ? "No pudimos enviar tu mensaje en este momento. Intenta más tarde."
-        : "We could not send your message right now. Please try again later.";
+      errorMessage =
+        lang === "es"
+          ? "No pudimos enviar tu mensaje en este momento. Intenta más tarde."
+          : "We could not send your message right now. Please try again later.";
     }
 
     return {

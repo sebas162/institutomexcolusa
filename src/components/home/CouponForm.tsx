@@ -1,7 +1,7 @@
-
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,11 @@ function SubmitButton() {
   const t = translations[language].coupon;
 
   return (
-    <Button type="submit" disabled={pending} className="w-full sm:w-auto btn-modern bg-white text-white hover:bg-white/90 px-8 py-4 text-lg">
+    <Button
+      type="submit"
+      disabled={pending}
+      className="w-full sm:w-auto btn-modern bg-white text-white hover:bg-white/90 px-8 py-4 text-lg"
+    >
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -33,13 +37,17 @@ function SubmitButton() {
 export default function CouponForm() {
   const [error, setError] = useState<string | null>(null);
   const { language } = useLanguage();
+  const router = useRouter();
   const t = translations[language].coupon;
 
   const handleSubmit = async (formData: FormData) => {
-    formData.append('language', language);
+    formData.append("language", language);
     const result = await validateCoupon(formData);
     if (result?.error) {
       setError(result.error);
+    } else if (result?.redirectUrl) {
+      // Navegación manual en lugar de server-side redirect
+      router.push(result.redirectUrl);
     } else {
       setError(null);
     }
@@ -61,7 +69,7 @@ export default function CouponForm() {
       {error && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>{language === 'es' ? 'Error' : 'Error'}</AlertTitle>
+          <AlertTitle>{language === "es" ? "Error" : "Error"}</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
