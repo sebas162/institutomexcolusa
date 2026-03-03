@@ -43,7 +43,7 @@ export default function ContactClient() {
             ? "Bogotá - oficinas administrativas"
             : "Bogotá - Administrative Offices",
         address: "Carrera 16A # 80-16. Consultorio 206 Barrio el lago Contry",
-        phone: "+57 322 432 4933",
+        phone: "+57 321 627 3790",
         email: "gerencia@institutomexcolusa.com",
       },
     ],
