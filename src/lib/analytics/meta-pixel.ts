@@ -5,6 +5,9 @@ type MetaEventParams = Record<
   string | number | boolean | null | undefined
 >;
 
+const MAX_RETRIES = 20;
+const RETRY_DELAY_MS = 250;
+
 declare global {
   interface Window {
     fbq?: (...args: any[]) => void;
@@ -15,15 +18,40 @@ function isMetaPixelAvailable() {
   return typeof window !== "undefined" && typeof window.fbq === "function";
 }
 
-export function trackEvent(eventName: MetaEventName, params?: MetaEventParams) {
-  if (!isMetaPixelAvailable()) return;
+function sendEvent(eventName: MetaEventName, params?: MetaEventParams) {
+  const cleanedParams = params
+    ? Object.fromEntries(
+        Object.entries(params).filter(([, value]) => value !== undefined),
+      )
+    : undefined;
 
-  if (params && Object.keys(params).length > 0) {
-    window.fbq?.("track", eventName, params);
+  if (cleanedParams && Object.keys(cleanedParams).length > 0) {
+    window.fbq?.("track", eventName, cleanedParams);
     return;
   }
 
   window.fbq?.("track", eventName);
+}
+
+function dispatchWithRetry(
+  eventName: MetaEventName,
+  params?: MetaEventParams,
+  attempt = 0,
+) {
+  if (isMetaPixelAvailable()) {
+    sendEvent(eventName, params);
+    return;
+  }
+
+  if (typeof window === "undefined" || attempt >= MAX_RETRIES) return;
+
+  window.setTimeout(() => {
+    dispatchWithRetry(eventName, params, attempt + 1);
+  }, RETRY_DELAY_MS);
+}
+
+export function trackEvent(eventName: MetaEventName, params?: MetaEventParams) {
+  dispatchWithRetry(eventName, params);
 }
 
 export function trackViewContent(contentName: string) {
