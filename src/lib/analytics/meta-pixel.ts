@@ -5,8 +5,8 @@ type MetaEventParams = Record<
   string | number | boolean | null | undefined
 >;
 
-const MAX_RETRIES = 20;
-const RETRY_DELAY_MS = 250;
+type MetaCountry = "usa" | "mexico" | "colombia";
+type WhatsAppLocation = "floating_button" | "course_detail" | "online_training";
 
 declare global {
   interface Window {
@@ -18,79 +18,60 @@ function isMetaPixelAvailable() {
   return typeof window !== "undefined" && typeof window.fbq === "function";
 }
 
-function sendEvent(eventName: MetaEventName, params?: MetaEventParams) {
-  const cleanedParams = params
-    ? Object.fromEntries(
-        Object.entries(params).filter(([, value]) => value !== undefined),
-      )
-    : undefined;
+function cleanPayload(params: MetaEventParams) {
+  return Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined),
+  );
+}
 
-  if (cleanedParams && Object.keys(cleanedParams).length > 0) {
-    window.fbq?.("track", eventName, cleanedParams);
+function trackEvent(eventName: MetaEventName, params: MetaEventParams) {
+  if (typeof window === "undefined") return;
+
+  if (!window.fbq) {
+    console.warn(`[META] ${eventName} skipped: fbq unavailable`, params);
     return;
   }
 
-  window.fbq?.("track", eventName);
+  const payload = cleanPayload(params);
+  console.log(`[META] ${eventName}`, payload);
+  window.fbq("track", eventName, payload);
 }
 
-function dispatchWithRetry(
-  eventName: MetaEventName,
-  params?: MetaEventParams,
-  attempt = 0,
+export function trackViewContent(
+  contentName: string,
+  country: MetaCountry,
+  slug: string,
 ) {
-  if (isMetaPixelAvailable()) {
-    sendEvent(eventName, params);
-    return;
-  }
-
-  if (typeof window === "undefined" || attempt >= MAX_RETRIES) return;
-
-  window.setTimeout(() => {
-    dispatchWithRetry(eventName, params, attempt + 1);
-  }, RETRY_DELAY_MS);
-}
-
-export function trackEvent(eventName: MetaEventName, params?: MetaEventParams) {
-  dispatchWithRetry(eventName, params);
-}
-
-export function trackViewContent(contentName: string) {
-  if (typeof window !== "undefined" && window.fbq) {
-    window.fbq("track", "ViewContent", {
-      content_name: contentName,
-      content_category: "Curso Medicina Estética",
-    });
-    return;
-  }
-
   trackEvent("ViewContent", {
     content_name: contentName,
     content_category: "Curso Medicina Estética",
+    country,
+    slug,
   });
 }
 
-export function trackLead(contentName: string) {
-  if (typeof window !== "undefined" && window.fbq) {
-    window.fbq("track", "Lead", {
-      content_name: contentName,
-    });
-    return;
-  }
-
+export function trackLead(
+  contentName: string,
+  country: MetaCountry,
+  slug: string,
+) {
   trackEvent("Lead", {
     content_name: contentName,
+    content_category: "Curso Medicina Estética",
+    country,
+    slug,
   });
 }
 
-export function trackWhatsAppContact() {
-  if (typeof window !== "undefined" && window.fbq) {
-    window.fbq("track", "Contact", {
-      contact_method: "whatsapp",
-    });
-    return;
-  }
-
+export function trackWhatsAppContact(
+  location: WhatsAppLocation,
+  contentName?: string,
+  country?: MetaCountry,
+) {
   trackEvent("Contact", {
     contact_method: "whatsapp",
+    location,
+    course_name: contentName,
+    country,
   });
 }

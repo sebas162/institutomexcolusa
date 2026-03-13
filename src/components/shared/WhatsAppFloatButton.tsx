@@ -32,12 +32,21 @@ export default function WhatsAppFloatButton() {
   const config = whatsappConfig[language];
   const whatsappUrl = `https://wa.me/${config.phone}?text=${encodeURIComponent(config.message)}`;
 
+  const handleWhatsAppClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    trackWhatsAppContact("floating_button");
+
+    window.setTimeout(() => {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }, 150);
+  };
+
   return (
     <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={trackWhatsAppContact}
+      onClick={handleWhatsAppClick}
       className="fixed bottom-6 right-6 z-50 flex items-center gap-0 sm:gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white px-1 sm:px-1 sm:pr-2 py-1 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
       aria-label={
         language === "es"

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 import heroimg from "@/assets/img-heros/hero-programas-academico.webp";
@@ -40,6 +40,7 @@ const imageMap: Record<string, any> = {
 export default function AcademicProgramsClient() {
   const { language } = useLanguage();
   const t = translations[language].academicPrograms;
+  const router = useRouter();
   const searchParams = useSearchParams();
   const countryParam = searchParams.get("country");
 
@@ -60,6 +61,22 @@ export default function AcademicProgramsClient() {
       setSelectedTab(countryParam);
     }
   }, [countryParam]);
+
+  const handleMoreInfoClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    courseTitle: string,
+    country: "usa" | "mexico" | "colombia",
+    courseSlug?: string,
+  ) => {
+    event.preventDefault();
+
+    const targetUrl = `/academic-programs/${country}/${courseSlug || ""}`;
+    trackLead(courseTitle, country, courseSlug || "");
+
+    window.setTimeout(() => {
+      router.push(targetUrl);
+    }, 150);
+  };
 
   const countries = [
     {
@@ -191,9 +208,14 @@ export default function AcademicProgramsClient() {
                               href={`/academic-programs/${c.key}/${
                                 course.slug || ""
                               }`}
-                              onClick={(e) => {
-                                trackLead(course.title);
-                              }}
+                              onClick={(event) =>
+                                handleMoreInfoClick(
+                                  event,
+                                  course.title,
+                                  c.key,
+                                  course.slug,
+                                )
+                              }
                             >
                               {t.cta}
                             </a>

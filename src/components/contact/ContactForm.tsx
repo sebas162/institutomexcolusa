@@ -22,7 +22,6 @@ import { submitContactForm } from "@/lib/actions/contact.actions";
 import { Loader2 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
-import { trackLead } from "@/lib/analytics/meta-pixel";
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -54,8 +53,6 @@ export function ContactForm() {
   });
 
   const onSubmit = (data: ContactFormValues) => {
-    trackLead(data.message.trim() || "Consulta de curso");
-
     startTransition(async () => {
       const formData = new FormData();
       formData.append("name", data.name);

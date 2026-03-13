@@ -35,9 +35,8 @@ import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 import { resolveHeroImage } from "@/lib/utils/hero-image-resolver";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
-  trackLead,
   trackViewContent,
   trackWhatsAppContact,
 } from "@/lib/analytics/meta-pixel";
@@ -57,13 +56,21 @@ export default function ClientPage({ slug }: { slug: string }) {
   const { language } = useLanguage();
   const t = translations[language].academicPrograms;
   const courseDetails = (t.countries.usa.courseDetails as any)?.[slug];
+  const hasTrackedViewContent = useRef(false);
 
   useAutoPauseVideos();
   const isMobile = useIsMobile();
 
-  const handleRequestInfoClick = () => {
-    trackLead(courseDetails.title);
-    trackWhatsAppContact();
+  const handleWhatsAppClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    whatsappUrl: string,
+  ) => {
+    event.preventDefault();
+    trackWhatsAppContact("course_detail", courseDetails?.title || slug, "usa");
+
+    window.setTimeout(() => {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }, 150);
   };
 
   // Inject Course + Breadcrumb JSON-LD schemas
@@ -142,10 +149,11 @@ export default function ClientPage({ slug }: { slug: string }) {
   }, [courseDetails, slug]);
 
   useEffect(() => {
-    if (!courseDetails || !courseDetails.title) return;
+    if (hasTrackedViewContent.current) return;
 
-    trackViewContent(courseDetails.title);
-  }, [courseDetails]);
+    trackViewContent(courseDetails?.title || slug, "usa", slug);
+    hasTrackedViewContent.current = true;
+  }, [courseDetails, slug]);
 
   if (!courseDetails) {
     return (
@@ -361,25 +369,33 @@ export default function ClientPage({ slug }: { slug: string }) {
                 <Separator />
 
                 {/* Inverted buttons: WhatsApp first, Enroll second */}
-                <Button className="w-full btn-modern" size="lg" asChild>
-                  <a
-                    href={`https://wa.me/${
-                      language === "es" ? "5215566308602" : "14074540524"
-                    }?text=${encodeURIComponent(
-                      language === "es"
-                        ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
-                        : `Hello! I would love to receive more information about the ${courseDetails.title} from USA`,
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={handleRequestInfoClick}
-                  >
-                    <FaWhatsapp className="w-7 h-7 mr-2" />
-                    {language === "es"
-                      ? "Solicitar Información"
-                      : "Request Information"}
-                  </a>
-                </Button>
+                {(() => {
+                  const whatsappUrl = `https://wa.me/${
+                    language === "es" ? "5215566308602" : "14074540524"
+                  }?text=${encodeURIComponent(
+                    language === "es"
+                      ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
+                      : `Hello! I would love to receive more information about the ${courseDetails.title} from USA`,
+                  )}`;
+
+                  return (
+                    <Button className="w-full btn-modern" size="lg" asChild>
+                      <a
+                        href={whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) =>
+                          handleWhatsAppClick(event, whatsappUrl)
+                        }
+                      >
+                        <FaWhatsapp className="w-7 h-7 mr-2" />
+                        {language === "es"
+                          ? "Solicitar Información"
+                          : "Request Information"}
+                      </a>
+                    </Button>
+                  );
+                })()}
 
                 <Button variant="outline" className="w-full" size="lg" asChild>
                   <Link href="/contact">
@@ -780,25 +796,33 @@ export default function ClientPage({ slug }: { slug: string }) {
         <div className="mt-12 lg:hidden">
           <Card>
             <CardContent className="pt-6 space-y-4">
-              <Button className="w-full btn-modern" size="lg" asChild>
-                <a
-                  href={`https://wa.me/${
-                    language === "es" ? "5215566308602" : "14074540524"
-                  }?text=${encodeURIComponent(
-                    language === "es"
-                      ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
-                      : `Hello! I would love to receive more information about the course: ${courseDetails.title} from USA`,
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={handleRequestInfoClick}
-                >
-                  <FaWhatsapp className="w-7 h-7 mr-2" />
-                  {language === "es"
-                    ? "Solicitar Información"
-                    : "Request Information"}
-                </a>
-              </Button>
+              {(() => {
+                const whatsappUrl = `https://wa.me/${
+                  language === "es" ? "5215566308602" : "14074540524"
+                }?text=${encodeURIComponent(
+                  language === "es"
+                    ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
+                    : `Hello! I would love to receive more information about the course: ${courseDetails.title} from USA`,
+                )}`;
+
+                return (
+                  <Button className="w-full btn-modern" size="lg" asChild>
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) =>
+                        handleWhatsAppClick(event, whatsappUrl)
+                      }
+                    >
+                      <FaWhatsapp className="w-7 h-7 mr-2" />
+                      {language === "es"
+                        ? "Solicitar Información"
+                        : "Request Information"}
+                    </a>
+                  </Button>
+                );
+              })()}
 
               <Button variant="outline" className="w-full" size="lg" asChild>
                 <Link href="/contact">

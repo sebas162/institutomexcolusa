@@ -20,6 +20,19 @@ export default function OnlineTrainingClient() {
   const { language } = useLanguage();
   const t = translations[language].onlineTraining;
 
+  const handleWhatsAppClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    whatsappUrl: string,
+    courseName: string,
+  ) => {
+    event.preventDefault();
+    trackWhatsAppContact("online_training", courseName);
+
+    window.setTimeout(() => {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }, 150);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -103,6 +116,14 @@ export default function OnlineTrainingClient() {
                   Curso4Image,
                   Curso5Image,
                 ];
+                const whatsappUrl = `https://wa.me/${
+                  language === "es" ? "5215566308602" : "14074540524"
+                }?text=${encodeURIComponent(
+                  language === "es"
+                    ? `Hola, estoy interesado en el curso: ${course.name}`
+                    : `Hello, I'm interested in the course: ${course.name}`,
+                )}`;
+
                 return (
                   <Card
                     key={index}
@@ -132,16 +153,12 @@ export default function OnlineTrainingClient() {
                     <CardContent>
                       <Button className="w-full btn-modern" size="lg" asChild>
                         <a
-                          href={`https://wa.me/${
-                            language === "es" ? "5215566308602" : "14074540524"
-                          }?text=${encodeURIComponent(
-                            language === "es"
-                              ? `Hola, estoy interesado en el curso: ${course.name}`
-                              : `Hello, I'm interested in the course: ${course.name}`,
-                          )}`}
+                          href={whatsappUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={trackWhatsAppContact}
+                          onClick={(event) =>
+                            handleWhatsAppClick(event, whatsappUrl, course.name)
+                          }
                         >
                           <FaWhatsapp className="w-5 h-5 mr-1" />
                           {t.ctaButton}
