@@ -36,6 +36,11 @@ import { resolveHeroImage } from "@/lib/utils/hero-image-resolver";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect } from "react";
+import {
+  trackLead,
+  trackViewContent,
+  trackWhatsAppContact,
+} from "@/lib/analytics/meta-pixel";
 
 // Dynamic imports for below-the-fold components
 const ProductsMarquee = dynamic(
@@ -45,7 +50,7 @@ const ProductsMarquee = dynamic(
       <div className="min-h-[150px] animate-pulse bg-muted rounded-lg" />
     ),
     ssr: false,
-  }
+  },
 );
 
 export default function ClientPage({ slug }: { slug: string }) {
@@ -55,6 +60,11 @@ export default function ClientPage({ slug }: { slug: string }) {
 
   useAutoPauseVideos();
   const isMobile = useIsMobile();
+
+  const handleRequestInfoClick = () => {
+    trackLead(courseDetails.title);
+    trackWhatsAppContact();
+  };
 
   // Inject Course + Breadcrumb JSON-LD schemas
   useEffect(() => {
@@ -130,6 +140,11 @@ export default function ClientPage({ slug }: { slug: string }) {
       document.head.appendChild(script);
     }
   }, [courseDetails, slug]);
+
+  useEffect(() => {
+    if (!courseDetails?.title) return;
+    trackViewContent(courseDetails.title);
+  }, [courseDetails?.title]);
 
   if (!courseDetails) {
     return (
@@ -352,10 +367,11 @@ export default function ClientPage({ slug }: { slug: string }) {
                     }?text=${encodeURIComponent(
                       language === "es"
                         ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
-                        : `Hello! I would love to receive more information about the ${courseDetails.title} from USA`
+                        : `Hello! I would love to receive more information about the ${courseDetails.title} from USA`,
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={handleRequestInfoClick}
                   >
                     <FaWhatsapp className="w-7 h-7 mr-2" />
                     {language === "es"
@@ -426,7 +442,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                             {objective}
                           </span>
                         </li>
-                      )
+                      ),
                     )}
                   </ul>
                 </CardContent>
@@ -475,49 +491,49 @@ export default function ClientPage({ slug }: { slug: string }) {
                               topic.length > 200 && !topic.includes("\n");
                             const startsWithNewline = topic.startsWith("\n");
                             const startsWithNumber = /^\d+\./.test(
-                              topic.trim()
+                              topic.trim(),
                             );
                             const showBullet =
                               topicIdx !== 0 &&
                               !topic.startsWith("**") &&
                               !topic.includes(
-                                "Master modeling techniques in:"
+                                "Master modeling techniques in:",
                               ) &&
                               !topic.includes(
-                                "Master modeling techniques for:"
+                                "Master modeling techniques for:",
                               ) &&
                               !topic.includes(
-                                "Domina técnicas de modelado en:"
+                                "Domina técnicas de modelado en:",
                               ) &&
                               !topic.includes(
-                                "Learn to relax facial muscles to prevent and treat expression lines in:"
+                                "Learn to relax facial muscles to prevent and treat expression lines in:",
                               ) &&
                               !topic.includes(
-                                "Aprende a relajar los músculos faciales para prevenir y tratar líneas de expresión en:"
+                                "Aprende a relajar los músculos faciales para prevenir y tratar líneas de expresión en:",
                               ) &&
                               !topic.includes(
-                                "Apply rejuvenation protocols with immediate lifting effect in:"
+                                "Apply rejuvenation protocols with immediate lifting effect in:",
                               ) &&
                               !topic.includes(
-                                "Apply rejuvenation protocols with immediate lifting effect for:"
+                                "Apply rejuvenation protocols with immediate lifting effect for:",
                               ) &&
                               !topic.includes(
-                                "Apply rejuvenation protocols with **immediate lifting effect** for:"
+                                "Apply rejuvenation protocols with **immediate lifting effect** for:",
                               ) &&
                               !topic.includes(
-                                "Aplica protocolos de rejuvenecimiento con efecto lifting inmediato en:"
+                                "Aplica protocolos de rejuvenecimiento con efecto lifting inmediato en:",
                               ) &&
                               !topic.includes(
-                                "Know the main biostimulators available in the market and their application in:"
+                                "Know the main biostimulators available in the market and their application in:",
                               ) &&
                               !topic.includes(
-                                "Conoce los principales bioestimuladores disponibles en el mercado y su aplicación en:"
+                                "Conoce los principales bioestimuladores disponibles en el mercado y su aplicación en:",
                               ) &&
                               !topic.includes(
-                                "Learn about the main bio-stimulators available in the market and their application in:"
+                                "Learn about the main bio-stimulators available in the market and their application in:",
                               ) &&
                               !topic.includes(
-                                "Discover the main biostimulators available on the market and their application for:"
+                                "Discover the main biostimulators available on the market and their application for:",
                               ) &&
                               !isLongText &&
                               !isLongParagraph &&
@@ -554,7 +570,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                                 </span>
                               </li>
                             );
-                          }
+                          },
                         )}
                       </ul>
                     </div>
@@ -583,16 +599,16 @@ export default function ClientPage({ slug }: { slug: string }) {
                         const isTitle =
                           !isBulletItem &&
                           (displayText.includes(
-                            "**Digital Support Material**"
+                            "**Digital Support Material**",
                           ) ||
                             displayText.includes(
-                              "**Material de Apoyo Digital**"
+                              "**Material de Apoyo Digital**",
                             ) ||
                             displayText.includes(
-                              "**Exclusive Audiovisual Content:**"
+                              "**Exclusive Audiovisual Content:**",
                             ) ||
                             displayText.includes(
-                              "**Contenido Audiovisual Exclusivo:**"
+                              "**Contenido Audiovisual Exclusivo:**",
                             ));
                         const isIntroText =
                           !isBulletItem &&
@@ -614,8 +630,8 @@ export default function ClientPage({ slug }: { slug: string }) {
                               isBulletItem
                                 ? "flex items-start gap-2 text-sm ml-6"
                                 : isTitle
-                                ? "flex items-start gap-2 text-sm font-semibold"
-                                : "flex items-start gap-2 text-sm"
+                                  ? "flex items-start gap-2 text-sm font-semibold"
+                                  : "flex items-start gap-2 text-sm"
                             }
                           >
                             {isBulletItem && (
@@ -637,7 +653,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                             </span>
                           </li>
                         );
-                      }
+                      },
                     )}
                   </ul>
                 </CardContent>
@@ -665,7 +681,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                         >
                           {formatText(accr)}
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 </CardContent>
@@ -688,7 +704,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                   {(courseDetails as any).productQuality.description && (
                     <div className="text-sm text-[#475569] leading-relaxed whitespace-pre-line">
                       {formatText(
-                        (courseDetails as any).productQuality.description
+                        (courseDetails as any).productQuality.description,
                       )}
                     </div>
                   )}
@@ -770,10 +786,11 @@ export default function ClientPage({ slug }: { slug: string }) {
                   }?text=${encodeURIComponent(
                     language === "es"
                       ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
-                      : `Hello! I would love to receive more information about the course: ${courseDetails.title} from USA`
+                      : `Hello! I would love to receive more information about the course: ${courseDetails.title} from USA`,
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={handleRequestInfoClick}
                 >
                   <FaWhatsapp className="w-7 h-7 mr-2" />
                   {language === "es"

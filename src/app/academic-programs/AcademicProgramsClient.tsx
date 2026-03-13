@@ -21,6 +21,7 @@ import MiniLiftingUSA from "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.
 import MiniLiftingMX from "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp";
 import MiniLiftingCol from "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp";
 import FlebotomiaUSA from "@/assets/img-heros/img-hero-cursos/flebotomia-usa.webp";
+import { trackLead } from "@/lib/analytics/meta-pixel";
 
 // Mapeo de rutas de imágenes a imports
 const imageMap: Record<string, any> = {
@@ -47,7 +48,7 @@ export default function AcademicProgramsClient() {
       countryParam === "mexico" ||
       countryParam === "usa"
       ? countryParam
-      : "usa"
+      : "usa",
   );
 
   useEffect(() => {
@@ -190,6 +191,7 @@ export default function AcademicProgramsClient() {
                               href={`/academic-programs/${c.key}/${
                                 course.slug || ""
                               }`}
+                              onClick={() => trackLead(course.title)}
                             >
                               {t.cta}
                             </a>

@@ -14,6 +14,7 @@ import Curso3Image from "@/assets/logos-cursos/formacion en linea curso 3.png";
 import Curso4Image from "@/assets/logos-cursos/formacion en linea curso 4.png";
 import Curso5Image from "@/assets/logos-cursos/formacion en linea curso 5.png";
 import HeroFormacionEnLinea from "@/assets/img-heros/hero-formacion-en-linea.webp";
+import { trackWhatsAppContact } from "@/lib/analytics/meta-pixel";
 
 export default function OnlineTrainingClient() {
   const { language } = useLanguage();
@@ -136,10 +137,11 @@ export default function OnlineTrainingClient() {
                           }?text=${encodeURIComponent(
                             language === "es"
                               ? `Hola, estoy interesado en el curso: ${course.name}`
-                              : `Hello, I'm interested in the course: ${course.name}`
+                              : `Hello, I'm interested in the course: ${course.name}`,
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={trackWhatsAppContact}
                         >
                           <FaWhatsapp className="w-5 h-5 mr-1" />
                           {t.ctaButton}

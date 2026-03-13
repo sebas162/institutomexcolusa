@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useTransition } from "react";
@@ -23,13 +22,16 @@ import { submitContactForm } from "@/lib/actions/contact.actions";
 import { Loader2 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
+import { trackLead } from "@/lib/analytics/meta-pixel";
 
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   country: z.string().min(2, { message: "Please select your country." }),
   email: z.string().email({ message: "Please enter a valid email." }),
   phone: z.string().min(6, { message: "Please enter a valid phone number." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+  message: z
+    .string()
+    .min(10, { message: "Message must be at least 10 characters." }),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -52,6 +54,8 @@ export function ContactForm() {
   });
 
   const onSubmit = (data: ContactFormValues) => {
+    trackLead(data.message.trim() || "Consulta de curso");
+
     startTransition(async () => {
       const formData = new FormData();
       formData.append("name", data.name);
@@ -157,12 +161,14 @@ export function ContactForm() {
               )}
             />
             <Button type="submit" className="w-full" disabled={isPending}>
-               {isPending ? (
+              {isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   {t.submitting}
                 </>
-               ) : t.submit}
+              ) : (
+                t.submit
+              )}
             </Button>
           </form>
         </Form>
