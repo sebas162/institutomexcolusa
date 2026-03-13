@@ -191,7 +191,9 @@ export default function AcademicProgramsClient() {
                               href={`/academic-programs/${c.key}/${
                                 course.slug || ""
                               }`}
-                              onClick={() => trackLead(course.title)}
+                              onClick={(e) => {
+                                trackLead(course.title);
+                              }}
                             >
                               {t.cta}
                             </a>

@@ -55,6 +55,14 @@ export function trackEvent(eventName: MetaEventName, params?: MetaEventParams) {
 }
 
 export function trackViewContent(contentName: string) {
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "ViewContent", {
+      content_name: contentName,
+      content_category: "Curso Medicina Estética",
+    });
+    return;
+  }
+
   trackEvent("ViewContent", {
     content_name: contentName,
     content_category: "Curso Medicina Estética",
@@ -62,12 +70,26 @@ export function trackViewContent(contentName: string) {
 }
 
 export function trackLead(contentName: string) {
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "Lead", {
+      content_name: contentName,
+    });
+    return;
+  }
+
   trackEvent("Lead", {
     content_name: contentName,
   });
 }
 
 export function trackWhatsAppContact() {
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", "Contact", {
+      contact_method: "whatsapp",
+    });
+    return;
+  }
+
   trackEvent("Contact", {
     contact_method: "whatsapp",
   });

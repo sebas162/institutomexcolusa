@@ -182,9 +182,10 @@ export default function ClientPage({ slug }: { slug: string }) {
   }, [language, slug, courseDetails]);
 
   useEffect(() => {
-    if (!courseDetails?.title) return;
+    if (!courseDetails || !courseDetails.title) return;
+
     trackViewContent(courseDetails.title);
-  }, [courseDetails?.title]);
+  }, [courseDetails]);
 
   // Carrusel automático para móvil
   useEffect(() => {

@@ -142,9 +142,10 @@ export default function ClientPage({ slug }: { slug: string }) {
   }, [courseDetails, slug]);
 
   useEffect(() => {
-    if (!courseDetails?.title) return;
+    if (!courseDetails || !courseDetails.title) return;
+
     trackViewContent(courseDetails.title);
-  }, [courseDetails?.title]);
+  }, [courseDetails]);
 
   if (!courseDetails) {
     return (
