@@ -203,14 +203,14 @@ export default function AcademicProgramsClient() {
                         <div className="mt-auto">
                           <Button className="w-full btn-modern" asChild>
                             <a
-                              href={`/academic-programs/${c.key}/${
-                                course.slug || ""
-                              }`}
-                              onClick={(e) => {
+                              href={`/academic-programs/${c.key}/${course.slug || ""}`}
+                              onClick={() => {
                                 if (
-                                  course.slug ===
-                                    "facial-harmonization-course" &&
-                                  c.key === "mexico"
+                                  course.slug &&
+                                  course.slug.includes(
+                                    "facial-harmonization",
+                                  ) &&
+                                  window.location.pathname.includes("mexico")
                                 ) {
                                   trackViewContent(course.title);
                                 }
