@@ -35,10 +35,7 @@ import { resolveHeroImage } from "@/lib/utils/hero-image-resolver";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useRef } from "react";
-import {
-  trackViewContent,
-  trackWhatsAppContact,
-} from "@/lib/analytics/meta-pixel";
+import { trackLead } from "@/lib/analytics/meta-pixel";
 
 // Dynamic imports for below-the-fold components
 const ProductsMarquee = dynamic(
@@ -78,15 +75,12 @@ export default function ClientPage({ slug }: { slug: string }) {
     whatsappUrl: string,
   ) => {
     event.preventDefault();
-    trackWhatsAppContact(
-      "course_detail",
-      courseDetails?.title || slug,
-      "mexico",
-    );
-
-    window.setTimeout(() => {
+    if (courseDetails?.slug === "facial-harmonization-course") {
+      trackLead(courseDetails.title);
+    }
+    setTimeout(() => {
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    }, 150);
+    }, 300);
   };
 
   // Inject Course + Breadcrumb JSON-LD schemas
@@ -164,12 +158,7 @@ export default function ClientPage({ slug }: { slug: string }) {
     }
   }, [courseDetails, slug]);
 
-  useEffect(() => {
-    if (hasTrackedViewContent.current) return;
-
-    trackViewContent(courseDetails?.title || slug, "mexico", slug);
-    hasTrackedViewContent.current = true;
-  }, [courseDetails, slug]);
+  // Removed duplicate ViewContent tracking for all courses
 
   if (!courseDetails) {
     return (

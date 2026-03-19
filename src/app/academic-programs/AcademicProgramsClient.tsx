@@ -21,7 +21,7 @@ import MiniLiftingUSA from "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.
 import MiniLiftingMX from "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp";
 import MiniLiftingCol from "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp";
 import FlebotomiaUSA from "@/assets/img-heros/img-hero-cursos/flebotomia-usa.webp";
-import { trackLead } from "@/lib/analytics/meta-pixel";
+import { trackViewContent } from "@/lib/analytics/meta-pixel";
 
 // Mapeo de rutas de imágenes a imports
 const imageMap: Record<string, any> = {
@@ -71,8 +71,6 @@ export default function AcademicProgramsClient() {
     event.preventDefault();
 
     const targetUrl = `/academic-programs/${country}/${courseSlug || ""}`;
-    trackLead(courseTitle, country, courseSlug || "");
-
     window.setTimeout(() => {
       router.push(targetUrl);
     }, 150);
@@ -208,14 +206,15 @@ export default function AcademicProgramsClient() {
                               href={`/academic-programs/${c.key}/${
                                 course.slug || ""
                               }`}
-                              onClick={(event) =>
-                                handleMoreInfoClick(
-                                  event,
-                                  course.title,
-                                  c.key,
-                                  course.slug,
-                                )
-                              }
+                              onClick={(e) => {
+                                if (
+                                  course.slug ===
+                                    "facial-harmonization-course" &&
+                                  c.key === "mexico"
+                                ) {
+                                  trackViewContent(course.title);
+                                }
+                              }}
                             >
                               {t.cta}
                             </a>

@@ -3,7 +3,7 @@
 import { useLanguage } from "@/hooks/use-language";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { trackWhatsAppContact } from "@/lib/analytics/meta-pixel";
+// ...existing code...
 
 export default function WhatsAppFloatButton() {
   const { language } = useLanguage();
@@ -34,7 +34,7 @@ export default function WhatsAppFloatButton() {
 
   const handleWhatsAppClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    trackWhatsAppContact("floating_button");
+    // ...existing code...
 
     window.setTimeout(() => {
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");

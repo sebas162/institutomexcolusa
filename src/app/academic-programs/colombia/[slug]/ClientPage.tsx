@@ -38,10 +38,6 @@ import comentario2 from "@/assets/img-comentarios/comentario-2.jpeg";
 import comentario3 from "@/assets/img-comentarios/comentario-3.jpeg";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {
-  trackViewContent,
-  trackWhatsAppContact,
-} from "@/lib/analytics/meta-pixel";
 
 // Dynamic imports for below-the-fold components
 const ProductsMarquee = dynamic(
@@ -77,22 +73,6 @@ export default function ClientPage({ slug }: { slug: string }) {
 
   useAutoPauseVideos();
   const isMobile = useIsMobile();
-
-  const handleWhatsAppClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    whatsappUrl: string,
-  ) => {
-    event.preventDefault();
-    trackWhatsAppContact(
-      "course_detail",
-      courseDetails?.title || slug,
-      "colombia",
-    );
-
-    window.setTimeout(() => {
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    }, 150);
-  };
 
   // Course Schema + Breadcrumb Schema para Colombia (JSON-LD invisible)
   useEffect(() => {
@@ -191,13 +171,6 @@ export default function ClientPage({ slug }: { slug: string }) {
       if (breadcrumbEl) breadcrumbEl.remove();
     };
   }, [language, slug, courseDetails]);
-
-  useEffect(() => {
-    if (hasTrackedViewContent.current) return;
-
-    trackViewContent(courseDetails?.title || slug, "colombia", slug);
-    hasTrackedViewContent.current = true;
-  }, [courseDetails, slug]);
 
   // Carrusel automático para móvil
   useEffect(() => {
@@ -425,9 +398,6 @@ export default function ClientPage({ slug }: { slug: string }) {
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(event) =>
-                          handleWhatsAppClick(event, whatsappUrl)
-                        }
                       >
                         <FaWhatsapp className="w-7 h-7 mr-2" />
                         {language === "es"
@@ -971,33 +941,18 @@ export default function ClientPage({ slug }: { slug: string }) {
         <div className="mt-12 lg:hidden">
           <Card>
             <CardContent className="pt-6 space-y-4">
-              {(() => {
-                const whatsappUrl = `https://wa.me/${
-                  language === "es" ? "5215566308602" : "14074540524"
-                }?text=${encodeURIComponent(
-                  language === "es"
-                    ? `¡Hola! estoy interesado en el ${courseDetails.title} de Colombia`
-                    : `Hello! I would love to receive more information about the course: ${courseDetails.title} from Colombia`,
-                )}`;
-
-                return (
-                  <Button className="w-full btn-modern" size="lg" asChild>
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(event) =>
-                        handleWhatsAppClick(event, whatsappUrl)
-                      }
-                    >
-                      <FaWhatsapp className="w-7 h-7 mr-2" />
-                      {language === "es"
-                        ? "Solicitar Información"
-                        : "Request Information"}
-                    </a>
-                  </Button>
-                );
-              })()}
+              <Button className="w-full btn-modern" size="lg" asChild>
+                <a
+                  href="https://wa.me/5215566308602?text=¡Hola! estoy interesado en el curso de sueroterapia de Colombia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaWhatsapp className="w-7 h-7 mr-2" />
+                  {language === "es"
+                    ? "Solicitar Información"
+                    : "Request Information"}
+                </a>
+              </Button>
 
               <Button variant="outline" className="w-full" size="lg" asChild>
                 <Link href="/contact">

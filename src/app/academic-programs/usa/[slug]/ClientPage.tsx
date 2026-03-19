@@ -36,10 +36,6 @@ import { resolveHeroImage } from "@/lib/utils/hero-image-resolver";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useRef } from "react";
-import {
-  trackViewContent,
-  trackWhatsAppContact,
-} from "@/lib/analytics/meta-pixel";
 
 // Dynamic imports for below-the-fold components
 const ProductsMarquee = dynamic(
@@ -60,18 +56,6 @@ export default function ClientPage({ slug }: { slug: string }) {
 
   useAutoPauseVideos();
   const isMobile = useIsMobile();
-
-  const handleWhatsAppClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    whatsappUrl: string,
-  ) => {
-    event.preventDefault();
-    trackWhatsAppContact("course_detail", courseDetails?.title || slug, "usa");
-
-    window.setTimeout(() => {
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    }, 150);
-  };
 
   // Inject Course + Breadcrumb JSON-LD schemas
   useEffect(() => {
@@ -146,13 +130,6 @@ export default function ClientPage({ slug }: { slug: string }) {
       });
       document.head.appendChild(script);
     }
-  }, [courseDetails, slug]);
-
-  useEffect(() => {
-    if (hasTrackedViewContent.current) return;
-
-    trackViewContent(courseDetails?.title || slug, "usa", slug);
-    hasTrackedViewContent.current = true;
   }, [courseDetails, slug]);
 
   if (!courseDetails) {
@@ -384,9 +361,6 @@ export default function ClientPage({ slug }: { slug: string }) {
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(event) =>
-                          handleWhatsAppClick(event, whatsappUrl)
-                        }
                       >
                         <FaWhatsapp className="w-7 h-7 mr-2" />
                         {language === "es"
@@ -796,33 +770,18 @@ export default function ClientPage({ slug }: { slug: string }) {
         <div className="mt-12 lg:hidden">
           <Card>
             <CardContent className="pt-6 space-y-4">
-              {(() => {
-                const whatsappUrl = `https://wa.me/${
-                  language === "es" ? "5215566308602" : "14074540524"
-                }?text=${encodeURIComponent(
-                  language === "es"
-                    ? `Hola, estoy interesado en el ${courseDetails.title} de Estados Unidos`
-                    : `Hello! I would love to receive more information about the course: ${courseDetails.title} from USA`,
-                )}`;
-
-                return (
-                  <Button className="w-full btn-modern" size="lg" asChild>
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(event) =>
-                        handleWhatsAppClick(event, whatsappUrl)
-                      }
-                    >
-                      <FaWhatsapp className="w-7 h-7 mr-2" />
-                      {language === "es"
-                        ? "Solicitar Información"
-                        : "Request Information"}
-                    </a>
-                  </Button>
-                );
-              })()}
+              <Button className="w-full btn-modern" size="lg" asChild>
+                <a
+                  href={`https://wa.me/${language === "es" ? "5215566308602" : "14074540524"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaWhatsapp className="w-7 h-7 mr-2" />
+                  {language === "es"
+                    ? "Solicitar Información"
+                    : "Request Information"}
+                </a>
+              </Button>
 
               <Button variant="outline" className="w-full" size="lg" asChild>
                 <Link href="/contact">

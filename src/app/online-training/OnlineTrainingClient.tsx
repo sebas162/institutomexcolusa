@@ -14,7 +14,7 @@ import Curso3Image from "@/assets/logos-cursos/formacion en linea curso 3.png";
 import Curso4Image from "@/assets/logos-cursos/formacion en linea curso 4.png";
 import Curso5Image from "@/assets/logos-cursos/formacion en linea curso 5.png";
 import HeroFormacionEnLinea from "@/assets/img-heros/hero-formacion-en-linea.webp";
-import { trackWhatsAppContact } from "@/lib/analytics/meta-pixel";
+// ...existing code...
 
 export default function OnlineTrainingClient() {
   const { language } = useLanguage();
@@ -26,7 +26,7 @@ export default function OnlineTrainingClient() {
     courseName: string,
   ) => {
     event.preventDefault();
-    trackWhatsAppContact("online_training", courseName);
+    // ...existing code...
 
     window.setTimeout(() => {
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
