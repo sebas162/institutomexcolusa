@@ -82,8 +82,8 @@ export default function ClientPage({ slug }: { slug: string }) {
       trackLead(courseDetails?.title || "curso armonizacion");
     }
     setTimeout(() => {
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    }, 300);
+      window.open(whatsappUrl, "_blank");
+    }, 400);
   };
 
   // Inject Course + Breadcrumb JSON-LD schemas
