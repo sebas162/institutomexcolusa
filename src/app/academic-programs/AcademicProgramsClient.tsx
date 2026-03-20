@@ -200,12 +200,26 @@ export default function AcademicProgramsClient() {
                           </p>
                         )}
                         <div className="mt-auto">
-                          <Button className="w-full btn-modern" asChild>
-                            <a
-                              href={`/academic-programs/${c.key}/${course.slug || ""}`}
-                            >
-                              {t.cta}
-                            </a>
+                          <Button
+                            className="w-full btn-modern"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              console.log("CLICK VIEW CONTENT");
+                              if (typeof window !== "undefined" && window.fbq) {
+                                window.fbq("track", "ViewContent", {
+                                  content_name: course.title,
+                                  content_category: c.key,
+                                });
+                                console.log("✅ ViewContent enviado");
+                              }
+                              setTimeout(() => {
+                                router.push(
+                                  `/academic-programs/${c.key}/${course.slug || ""}`,
+                                );
+                              }, 1000);
+                            }}
+                          >
+                            {t.cta}
                           </Button>
                         </div>
                       </CardContent>

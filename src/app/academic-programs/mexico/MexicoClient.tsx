@@ -70,32 +70,21 @@ export default function MexicoClient() {
                   </div>
 
                   <Button
-                    onClick={() => {
+                    style={{ background: "red" }}
+                    onClick={(e) => {
+                      e.preventDefault();
                       console.log("CLICK VIEW CONTENT");
-
-                      const fireEvent = () => {
-                        if (
-                          typeof window !== "undefined" &&
-                          (window as any).fbq
-                        ) {
-                          console.log("COURSE SLUG:", course.slug);
-                          (window as any).fbq("track", "ViewContent", {
-                            content_name: course.title,
-                            content_category: "Curso México",
-                          });
-                          console.log("✅ ViewContent enviado");
-                          setTimeout(() => {
-                            router.push(
-                              `/academic-programs/mexico/${course.slug}`,
-                            );
-                          }, 500);
-                        } else {
-                          console.log("⏳ fbq no listo...");
-                          setTimeout(fireEvent, 200);
-                        }
-                      };
-
-                      fireEvent();
+                      console.log("COURSE SLUG:", course.slug);
+                      if (typeof window !== "undefined" && window.fbq) {
+                        window.fbq("track", "ViewContent", {
+                          content_name: course.title,
+                          content_category: "Curso México",
+                        });
+                        console.log("✅ ViewContent enviado");
+                      }
+                      setTimeout(() => {
+                        router.push(`/academic-programs/mexico/${course.slug}`);
+                      }, 1000);
                     }}
                   >
                     Más información
@@ -108,8 +97,22 @@ export default function MexicoClient() {
       </section>
 
       <div className="text-center mt-16">
-        <Button asChild>
-          <Link href="/academic-programs">{t.backToPrograms}</Link>
+        <Button
+          onClick={() => {
+            console.log("CLICK VIEW CONTENT");
+            if (typeof window !== "undefined" && window.fbq) {
+              window.fbq("track", "ViewContent", {
+                content_name: "Back to Programs",
+                content_category: "Curso México",
+              });
+              console.log("✅ ViewContent enviado");
+            }
+            setTimeout(() => {
+              router.push("/academic-programs");
+            }, 800);
+          }}
+        >
+          {t.backToPrograms}
         </Button>
       </div>
     </div>
