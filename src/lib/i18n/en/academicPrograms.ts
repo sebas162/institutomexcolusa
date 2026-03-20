@@ -323,7 +323,7 @@ export const academicPrograms = {
             "Facial Modeling, Profiling, and Harmonization with Botulinum Toxin, Hyaluronic Acid, Biostimulators, and PDO Threads",
           description:
             "Learn advanced facial harmonization techniques for natural, precise results.",
-          image: "@/assets/img-heros/img-hero-cursos/master-class-MX.png",
+          image: "@/assets/img-heros/img-hero-cursos/master-class-mx.webp",
           slug: "facial-harmonization-course",
         },
         {
@@ -331,7 +331,7 @@ export const academicPrograms = {
             "Intravenous Therapy, Chelation, and Principles of Applied Regenerative Medicine",
           description:
             "Master chelation and regenerative medicine fundamentals applied to aesthetic treatments.",
-          image: "@/assets/img-heros/img-hero-cursos/suero-MX.png",
+          image: "@/assets/img-heros/img-hero-cursos/suero-mx.webp",
           slug: "intravenous-therapy-mexico",
         },
         {
@@ -339,7 +339,7 @@ export const academicPrograms = {
             'Course with "Mini Lifting 3 Points" Rejuvenation Techniques (Minimally Invasive)',
           description:
             "Training in strategic facial lifting techniques for visible, natural rejuvenation.",
-          image: "@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png",
+          image: "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp",
           slug: "mini-lifting-techniques",
         },
       ],
