@@ -10,6 +10,7 @@ export const programMexico = {
         "Programa de alta especialidad enfocado en procedimientos cardiológicos mínimamente invasivos.",
       duration: "2 años",
       image: "/img-academicos/cardio.jpg",
+      slug: "interventional-cardiology-course",
     },
     {
       title: "Gestión de Calidad en Sistemas de Salud",
@@ -17,6 +18,7 @@ export const programMexico = {
         "Formación para líderes de la salud en la implementación de modelos de calidad y seguridad del paciente.",
       duration: "1 año",
       image: "/img-academicos/calidad.jpg",
+      slug: "quality-management-course",
     },
     {
       title: "Taller de Suturas y Manejo de Heridas",
@@ -24,6 +26,7 @@ export const programMexico = {
         "Curso práctico intensivo para desarrollar destrezas quirúrgicas fundamentales para médicos y residentes.",
       duration: "2 días",
       image: "/img-academicos/suturas.jpg",
+      slug: "suture-workshop-course",
     },
   ],
   enrollNow: "Inscribirse Ahora",

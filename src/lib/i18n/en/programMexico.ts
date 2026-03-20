@@ -10,6 +10,7 @@ export const programMexico = {
         "High-specialty program focused on minimally invasive cardiological procedures.",
       duration: "2 years",
       image: "/img-academicos/cardio.jpg",
+      slug: "interventional-cardiology-course",
     },
     {
       title: "Quality Management in Health Systems",
@@ -17,6 +18,7 @@ export const programMexico = {
         "Training for health leaders in the implementation of quality and patient safety models.",
       duration: "1 year",
       image: "/img-academicos/calidad.jpg",
+      slug: "quality-management-course",
     },
     {
       title: "Suture and Wound Management Workshop",
@@ -24,6 +26,7 @@ export const programMexico = {
         "Intensive practical course to develop fundamental surgical skills for doctors and residents.",
       duration: "2 days",
       image: "/img-academicos/suturas.jpg",
+      slug: "suture-workshop-course",
     },
   ],
   enrollNow: "Enroll Now",

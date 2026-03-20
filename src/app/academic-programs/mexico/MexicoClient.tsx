@@ -6,11 +6,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
+import { useRouter } from "next/navigation";
+
+declare global {
+  interface Window {
+    fbq: any;
+  }
+}
 
 export default function MexicoClient() {
   const { language } = useLanguage();
   const t = translations[language].programMexico;
   const { courses } = t;
+  const router = useRouter();
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -42,24 +50,52 @@ export default function MexicoClient() {
           {t.featuredTitle}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course) => (
-            <Card key={course.title}>
-              <CardHeader>
-                <CardTitle>{course.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">{course.description}</p>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <CheckCircle className="mr-2 h-4 w-4 text-primary" />
-                  <span>
-                    {language === "es" ? "Duración" : "Duration"}:{" "}
-                    {course.duration}
-                  </span>
-                </div>
-                <Button className="w-full btn-modern">{t.enrollNow}</Button>
-              </CardContent>
-            </Card>
-          ))}
+          {courses.map((course) => {
+            const isTargetCourse =
+              course.slug === "facial-harmonization-course";
+            return (
+              <Card key={course.title}>
+                <CardHeader>
+                  <CardTitle>{course.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">{course.description}</p>
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <CheckCircle className="mr-2 h-4 w-4 text-primary" />
+                    <span>
+                      {language === "es" ? "Duración" : "Duration"}:{" "}
+                      {course.duration}
+                    </span>
+                  </div>
+                  <Link href={`/academic-programs/mexico/${course.slug}`}>
+                    <Button
+                      onClick={(e) => {
+                        if (
+                          isTargetCourse &&
+                          typeof window !== "undefined" &&
+                          typeof window.fbq === "function"
+                        ) {
+                          e.preventDefault();
+                          window.fbq("track", "ViewContent", {
+                            content_name: course.title,
+                            content_category: "Curso México",
+                          });
+                          console.log("📘 ViewContent México disparado");
+                          setTimeout(() => {
+                            router.push(
+                              `/academic-programs/mexico/${course.slug}`,
+                            );
+                          }, 300);
+                        }
+                      }}
+                    >
+                      Más información
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </section>
 
