@@ -372,11 +372,6 @@ export default function ClientPage({ slug }: { slug: string }) {
                       size="lg"
                       onClick={() => {
                         console.log("CLICK OK");
-                        if (
-                          courseDetails?.slug === "facial-harmonization-course"
-                        ) {
-                          trackLead(courseDetails.title);
-                        }
                         setTimeout(() => {
                           window.open(
                             whatsappUrl,
