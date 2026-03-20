@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { useEffect } from "react";
 import { AuthProvider } from "@/components/auth-provider";
 import { Footer } from "@/components/shared/Footer";
 import { Navbar } from "@/components/shared/Navbar";
@@ -21,6 +22,8 @@ export default function RootLayoutClient({
 }: {
   children: React.ReactNode;
 }) {
+  // ...existing code...
+
   return (
     <>
       {/* Preconnect to Firebase for faster loading */}
@@ -30,7 +33,7 @@ export default function RootLayoutClient({
       {/* Meta Pixel Code - deferred loading after interactive */}
       <Script
         id="meta-pixel"
-        strategy="afterInteractive"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
@@ -43,6 +46,7 @@ export default function RootLayoutClient({
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '3322506657916381');
             fbq('track', 'PageView');
+            console.log('[MetaPixel] Pixel script injected, fbq:', typeof window.fbq);
           `,
         }}
       />
