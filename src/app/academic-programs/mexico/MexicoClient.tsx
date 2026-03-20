@@ -14,37 +14,6 @@ declare global {
   }
 }
 
-export default function MexicoClient() {
-  const { language } = useLanguage();
-  const t = translations[language].programMexico;
-  const { courses } = t;
-  const router = useRouter();
-
-  return (
-    <div className="container mx-auto px-4 py-16">
-      <section className="text-center">
-        <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-          {t.title}
-        </h1>
-        <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-          {t.subtitle}
-        </p>
-      </section>
-
-      <section className="my-16">
-        <div className="relative w-full h-80 rounded-lg overflow-hidden shadow-xl">
-          <Image
-            src="https://picsum.photos/1200/400?random=11"
-            alt="Monumento icónico de México"
-            data-ai-hint="Mexico landmark"
-            width={1200}
-            height={400}
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-primary/30" />
-        </div>
-      </section>
-
       <section className="my-16">
         <h2 className="font-headline text-3xl font-bold text-center mb-12">
           {t.featuredTitle}
@@ -69,24 +38,26 @@ export default function MexicoClient() {
                   </div>
                   <Button
                     onClick={() => {
-                      const isReady =
-                        typeof window !== "undefined" &&
-                        typeof window.fbq === "function";
-
                       console.log("CLICK VIEW CONTENT");
-                      console.log("fbq:", typeof window.fbq);
 
-                      if (isTargetCourse && isReady) {
-                        window.fbq("track", "ViewContent", {
-                          content_name: course.title,
-                          content_category: "Curso México",
-                        });
-                        console.log("📘 ViewContent México disparado");
-                        setTimeout(() => {
-                          router.push(
-                            `/academic-programs/mexico/${course.slug}`,
-                          );
-                        }, 500);
+                      const fireEvent = () => {
+                        if (typeof window !== "undefined" && (window as any).fbq) {
+                          (window as any).fbq("track", "ViewContent", {
+                            content_name: course.title,
+                            content_category: "Curso México",
+                          });
+                          console.log("✅ ViewContent enviado");
+                          setTimeout(() => {
+                            router.push(`/academic-programs/mexico/${course.slug}`);
+                          }, 500);
+                        } else {
+                          console.log("⏳ fbq no listo, reintentando...");
+                          setTimeout(fireEvent, 200);
+                        }
+                      };
+
+                      if (isTargetCourse) {
+                        fireEvent();
                       } else {
                         router.push(`/academic-programs/mexico/${course.slug}`);
                       }
