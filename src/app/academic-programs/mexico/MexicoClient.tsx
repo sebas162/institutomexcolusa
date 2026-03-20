@@ -67,31 +67,33 @@ export default function MexicoClient() {
                       {course.duration}
                     </span>
                   </div>
-                  <Link href={`/academic-programs/mexico/${course.slug}`}>
-                    <Button
-                      onClick={(e) => {
-                        if (
-                          isTargetCourse &&
-                          typeof window !== "undefined" &&
-                          typeof window.fbq === "function"
-                        ) {
-                          e.preventDefault();
-                          window.fbq("track", "ViewContent", {
-                            content_name: course.title,
-                            content_category: "Curso México",
-                          });
-                          console.log("📘 ViewContent México disparado");
-                          setTimeout(() => {
-                            router.push(
-                              `/academic-programs/mexico/${course.slug}`,
-                            );
-                          }, 300);
-                        }
-                      }}
-                    >
-                      Más información
-                    </Button>
-                  </Link>
+                  <Button
+                    onClick={() => {
+                      const isReady =
+                        typeof window !== "undefined" &&
+                        typeof window.fbq === "function";
+
+                      console.log("CLICK VIEW CONTENT");
+                      console.log("fbq:", typeof window.fbq);
+
+                      if (isTargetCourse && isReady) {
+                        window.fbq("track", "ViewContent", {
+                          content_name: course.title,
+                          content_category: "Curso México",
+                        });
+                        console.log("📘 ViewContent México disparado");
+                        setTimeout(() => {
+                          router.push(
+                            `/academic-programs/mexico/${course.slug}`,
+                          );
+                        }, 500);
+                      } else {
+                        router.push(`/academic-programs/mexico/${course.slug}`);
+                      }
+                    }}
+                  >
+                    Más información
+                  </Button>
                 </CardContent>
               </Card>
             );
