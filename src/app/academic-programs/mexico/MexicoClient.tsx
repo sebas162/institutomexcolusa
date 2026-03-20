@@ -78,13 +78,12 @@ export default function MexicoClient() {
                           typeof window !== "undefined" &&
                           (window as any).fbq
                         ) {
+                          console.log("COURSE SLUG:", course.slug);
                           (window as any).fbq("track", "ViewContent", {
                             content_name: course.title,
                             content_category: "Curso México",
                           });
-
                           console.log("✅ ViewContent enviado");
-
                           setTimeout(() => {
                             router.push(
                               `/academic-programs/mexico/${course.slug}`,
@@ -96,11 +95,7 @@ export default function MexicoClient() {
                         }
                       };
 
-                      if (isTargetCourse) {
-                        fireEvent();
-                      } else {
-                        router.push(`/academic-programs/mexico/${course.slug}`);
-                      }
+                      fireEvent();
                     }}
                   >
                     Más información
