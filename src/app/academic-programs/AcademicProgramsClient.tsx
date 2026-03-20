@@ -216,7 +216,7 @@ export default function AcademicProgramsClient() {
                                   trackViewContent(course.title);
                                   setTimeout(() => {
                                     window.location.href = `/academic-programs/mexico/${course.slug}`;
-                                  }, 300);
+                                  }, 400);
                                 }
                               }}
                             >

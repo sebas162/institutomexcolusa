@@ -82,8 +82,8 @@ export default function ClientPage({ slug }: { slug: string }) {
       trackLead(courseDetails?.title || "curso armonizacion");
     }
     setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
-    }, 400);
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    }, 600);
   };
 
   // Inject Course + Breadcrumb JSON-LD schemas
@@ -379,12 +379,19 @@ export default function ClientPage({ slug }: { slug: string }) {
                         href={whatsappUrl}
                         onClick={(e) => {
                           e.preventDefault();
-                          if (courseDetails?.slug === "facial-harmonization-course") {
+                          if (
+                            courseDetails?.slug ===
+                            "facial-harmonization-course"
+                          ) {
                             trackLead(courseDetails.title);
                           }
                           setTimeout(() => {
-                            window.open(whatsappUrl, "_blank");
-                          }, 400);
+                            window.open(
+                              whatsappUrl,
+                              "_blank",
+                              "noopener,noreferrer",
+                            );
+                          }, 600);
                         }}
                       >
                         <FaWhatsapp className="w-7 h-7 mr-2" />
@@ -860,12 +867,18 @@ export default function ClientPage({ slug }: { slug: string }) {
                       href={whatsappUrl}
                       onClick={(e) => {
                         e.preventDefault();
-                        if (courseDetails?.slug === "facial-harmonization-course") {
+                        if (
+                          courseDetails?.slug === "facial-harmonization-course"
+                        ) {
                           trackLead(courseDetails.title);
                         }
                         setTimeout(() => {
-                          window.open(whatsappUrl, "_blank");
-                        }, 400);
+                          window.open(
+                            whatsappUrl,
+                            "_blank",
+                            "noopener,noreferrer",
+                          );
+                        }, 600);
                       }}
                     >
                       <FaWhatsapp className="w-7 h-7 mr-2" />
