@@ -75,12 +75,6 @@ export default function ClientPage({ slug }: { slug: string }) {
     whatsappUrl: string,
   ) => {
     event.preventDefault();
-    if (
-      typeof window !== "undefined" &&
-      window.location.pathname.includes("facial-harmonization-course")
-    ) {
-      trackLead(courseDetails?.title || "curso armonizacion");
-    }
     setTimeout(() => {
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     }, 600);

@@ -204,21 +204,6 @@ export default function AcademicProgramsClient() {
                           <Button className="w-full btn-modern" asChild>
                             <a
                               href={`/academic-programs/${c.key}/${course.slug || ""}`}
-                              onClick={(e) => {
-                                if (
-                                  course.slug &&
-                                  course.slug.includes(
-                                    "facial-harmonization",
-                                  ) &&
-                                  window.location.pathname.includes("mexico")
-                                ) {
-                                  e.preventDefault();
-                                  trackViewContent(course.title);
-                                  setTimeout(() => {
-                                    window.location.href = `/academic-programs/mexico/${course.slug}`;
-                                  }, 400);
-                                }
-                              }}
                             >
                               {t.cta}
                             </a>
