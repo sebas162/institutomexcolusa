@@ -1,3 +1,5 @@
+// Lógica para disparar Lead solo en la página y botón correctos
+import { useEffect } from "react";
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,6 +63,28 @@ const VideoCard = dynamic(
 );
 
 export default function ClientPage({ slug }: { slug: string }) {
+    useEffect(() => {
+      if (typeof window === "undefined") return;
+
+      const isCorrectPage = window.location.pathname.includes("facial-harmonization-course");
+      if (!isCorrectPage) return;
+
+      const handleClick = (e: MouseEvent) => {
+        const target = (e.target as HTMLElement)?.closest("a, button");
+        if (!target) return;
+        const text = target.innerText?.toLowerCase() || "";
+        if (text.includes("solicitar información")) {
+          if (typeof window.fbq === "function") {
+            window.fbq("track", "Lead");
+            console.log("✅ Lead SOLO curso México");
+          }
+        }
+      };
+      document.addEventListener("click", handleClick);
+      return () => {
+        document.removeEventListener("click", handleClick);
+      };
+    }, []);
   const { language } = useLanguage();
   const t = translations[language].academicPrograms;
   const courseDetails = (t.countries.mexico.courseDetails as any)?.[slug];
