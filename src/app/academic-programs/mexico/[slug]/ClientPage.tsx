@@ -377,11 +377,15 @@ export default function ClientPage({ slug }: { slug: string }) {
                     <Button className="w-full btn-modern" size="lg" asChild>
                       <a
                         href={whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(event) =>
-                          handleWhatsAppClick(event, whatsappUrl)
-                        }
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (courseDetails?.slug === "facial-harmonization-course") {
+                            trackLead(courseDetails.title);
+                          }
+                          setTimeout(() => {
+                            window.open(whatsappUrl, "_blank");
+                          }, 400);
+                        }}
                       >
                         <FaWhatsapp className="w-7 h-7 mr-2" />
                         {language === "es"
@@ -854,11 +858,15 @@ export default function ClientPage({ slug }: { slug: string }) {
                   <Button className="w-full btn-modern" size="lg" asChild>
                     <a
                       href={whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(event) =>
-                        handleWhatsAppClick(event, whatsappUrl)
-                      }
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (courseDetails?.slug === "facial-harmonization-course") {
+                          trackLead(courseDetails.title);
+                        }
+                        setTimeout(() => {
+                          window.open(whatsappUrl, "_blank");
+                        }, 400);
+                      }}
                     >
                       <FaWhatsapp className="w-7 h-7 mr-2" />
                       {language === "es"
