@@ -21,7 +21,7 @@ export default function OnlineTrainingClient() {
   const t = translations[language].onlineTraining;
 
   const handleWhatsAppClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
+    event: React.MouseEvent<HTMLButtonElement>,
     whatsappUrl: string,
     courseName: string,
   ) => {
