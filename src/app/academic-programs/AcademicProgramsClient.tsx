@@ -21,7 +21,6 @@ import MiniLiftingUSA from "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.
 import MiniLiftingMX from "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp";
 import MiniLiftingCol from "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp";
 import FlebotomiaUSA from "@/assets/img-heros/img-hero-cursos/flebotomia-usa.webp";
-import { trackViewContent } from "@/lib/analytics/meta-pixel";
 
 // Mapeo de rutas de imágenes a imports
 const imageMap: Record<string, any> = {

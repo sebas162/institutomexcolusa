@@ -35,7 +35,6 @@ import { resolveHeroImage } from "@/lib/utils/hero-image-resolver";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEffect, useRef } from "react";
-import { trackLead } from "@/lib/analytics/meta-pixel";
 
 // Dynamic imports for below-the-fold components
 const ProductsMarquee = dynamic(
@@ -858,19 +857,6 @@ export default function ClientPage({ slug }: { slug: string }) {
                     className="w-full btn-modern"
                     size="lg"
                     onClick={() => {
-                      if (
-                        courseDetails?.slug === "facial-harmonization-course"
-                      ) {
-                        console.log("CLICK OK LEAD");
-                        if (
-                          typeof window !== "undefined" &&
-                          typeof window.fbq === "function"
-                        ) {
-                          window.fbq("track", "Lead", {
-                            content_name: courseDetails.title,
-                          });
-                        }
-                      }
                       setTimeout(() => {
                         window.open(
                           whatsappUrl,
