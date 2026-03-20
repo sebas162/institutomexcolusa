@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
@@ -14,44 +15,83 @@ declare global {
   }
 }
 
+export default function MexicoClient() {
+  const { language } = useLanguage();
+  const t = translations[language].programMexico;
+  const { courses } = t;
+  const router = useRouter();
+
+  return (
+    <div className="container mx-auto px-4 py-16">
+      <section className="text-center">
+        <h1 className="text-4xl font-bold md:text-5xl">{t.title}</h1>
+        <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
+          {t.subtitle}
+        </p>
+      </section>
+
       <section className="my-16">
-        <h2 className="font-headline text-3xl font-bold text-center mb-12">
+        <div className="relative w-full h-80 rounded-lg overflow-hidden shadow-xl">
+          <Image
+            src="https://picsum.photos/1200/400?random=11"
+            alt="México"
+            width={1200}
+            height={400}
+            className="object-cover"
+          />
+        </div>
+      </section>
+
+      <section className="my-16">
+        <h2 className="text-3xl font-bold text-center mb-12">
           {t.featuredTitle}
         </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course) => {
             const isTargetCourse =
               course.slug === "facial-harmonization-course";
+
             return (
               <Card key={course.title}>
                 <CardHeader>
                   <CardTitle>{course.title}</CardTitle>
                 </CardHeader>
+
                 <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">{course.description}</p>
-                  <div className="flex items-center text-sm text-muted-foreground">
+                  <p>{course.description}</p>
+
+                  <div className="flex items-center text-sm">
                     <CheckCircle className="mr-2 h-4 w-4 text-primary" />
                     <span>
                       {language === "es" ? "Duración" : "Duration"}:{" "}
                       {course.duration}
                     </span>
                   </div>
+
                   <Button
                     onClick={() => {
                       console.log("CLICK VIEW CONTENT");
 
                       const fireEvent = () => {
-                        if (typeof window !== "undefined" && (window as any).fbq) {
+                        if (
+                          typeof window !== "undefined" &&
+                          (window as any).fbq
+                        ) {
                           (window as any).fbq("track", "ViewContent", {
                             content_name: course.title,
                             content_category: "Curso México",
                           });
+
                           console.log("✅ ViewContent enviado");
+
                           setTimeout(() => {
-                            router.push(`/academic-programs/mexico/${course.slug}`);
+                            router.push(
+                              `/academic-programs/mexico/${course.slug}`,
+                            );
                           }, 500);
                         } else {
-                          console.log("⏳ fbq no listo, reintentando...");
+                          console.log("⏳ fbq no listo...");
                           setTimeout(fireEvent, 200);
                         }
                       };
@@ -73,36 +113,10 @@ declare global {
       </section>
 
       <div className="text-center mt-16">
-        <Button asChild size="lg">
+        <Button asChild>
           <Link href="/academic-programs">{t.backToPrograms}</Link>
         </Button>
       </div>
-
-      {/* SEO Content - Hidden from UI */}
-      <section
-        className="sr-only"
-        aria-label="Mexico aesthetic medicine programs"
-      >
-        <h2>Cursos de Medicina Estética en México</h2>
-        <p>
-          Instituto Mex-Col-USA ofrece programas de formación en medicina
-          estética en México. Nuestros cursos especializados incluyen mini
-          lifting, suero terapia, armonización facial e inyectología. Formación
-          profesional con certificación internacional reconocida en todo el
-          continente.
-        </p>
-        <p>
-          Profesionales médicos y esteticistas en México pueden acceder a
-          capacitación avanzada en técnicas no invasivas, procedimientos seguros
-          y tratamientos estéticos de más alta calidad.
-        </p>
-        <ul>
-          <li>Mini Lifting Facial en México</li>
-          <li>Suero Terapia Avanzada</li>
-          <li>Armonización Facial Profesional</li>
-          <li>Certificación Profesional Mexicana e Internacional</li>
-        </ul>
-      </section>
     </div>
   );
 }
