@@ -1,9 +1,3 @@
-type MetaEventName = "ViewContent" | "Lead";
-
-declare global {
-  interface Window {
-    fbq?: (...args: any[]) => void;
-  }
-}
+// Eliminado: declaración global innecesaria
 
 // Eliminado: funciones Meta Pixel
