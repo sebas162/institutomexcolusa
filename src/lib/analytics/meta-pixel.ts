@@ -6,14 +6,22 @@ declare global {
   }
 }
 
-export function trackViewContent(contentName: string): void {
-  if (typeof window !== "undefined" && window.fbq) {
-    window.fbq("track", "ViewContent", { content_name: contentName });
+function waitForFbq(callback: () => void, retries = 10) {
+  if (typeof window !== "undefined" && (window as any).fbq) {
+    callback();
+  } else if (retries > 0) {
+    setTimeout(() => waitForFbq(callback, retries - 1), 100);
   }
 }
 
+export function trackViewContent(contentName: string): void {
+  waitForFbq(() => {
+    window.fbq("track", "ViewContent", { content_name: contentName });
+  });
+}
+
 export function trackLead(contentName: string): void {
-  if (typeof window !== "undefined" && window.fbq) {
+  waitForFbq(() => {
     window.fbq("track", "Lead", { content_name: contentName });
-  }
+  });
 }
