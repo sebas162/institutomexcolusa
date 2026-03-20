@@ -155,10 +155,10 @@ export default function OnlineTrainingClient() {
                         <Button
                           className="w-full btn-modern"
                           size="lg"
-                          onClick={() => {
+                          onClick={(event) => {
                             console.log("CLICK OK");
                             handleWhatsAppClick(
-                              undefined,
+                              event,
                               whatsappUrl,
                               course.name,
                             );
