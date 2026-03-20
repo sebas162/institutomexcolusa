@@ -152,17 +152,21 @@ export default function OnlineTrainingClient() {
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full btn-modern" size="lg" asChild>
-                        <a
-                          href={whatsappUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(event) =>
-                            handleWhatsAppClick(event, whatsappUrl, course.name)
-                          }
+                        <Button
+                          className="w-full btn-modern"
+                          size="lg"
+                          onClick={() => {
+                            console.log("CLICK OK");
+                            handleWhatsAppClick(
+                              undefined,
+                              whatsappUrl,
+                              course.name,
+                            );
+                          }}
                         >
                           <FaWhatsapp className="w-5 h-5 mr-1" />
                           {t.ctaButton}
-                        </a>
+                        </Button>
                       </Button>
                     </CardContent>
                   </Card>

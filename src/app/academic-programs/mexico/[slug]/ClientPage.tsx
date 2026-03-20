@@ -374,31 +374,29 @@ export default function ClientPage({ slug }: { slug: string }) {
                   )}`;
 
                   return (
-                    <Button className="w-full btn-modern" size="lg" asChild>
-                      <a
-                        href={whatsappUrl}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (
-                            courseDetails?.slug ===
-                            "facial-harmonization-course"
-                          ) {
-                            trackLead(courseDetails.title);
-                          }
-                          setTimeout(() => {
-                            window.open(
-                              whatsappUrl,
-                              "_blank",
-                              "noopener,noreferrer",
-                            );
-                          }, 600);
-                        }}
-                      >
-                        <FaWhatsapp className="w-7 h-7 mr-2" />
-                        {language === "es"
-                          ? "Solicitar Información"
-                          : "Request Information"}
-                      </a>
+                    <Button
+                      className="w-full btn-modern"
+                      size="lg"
+                      onClick={() => {
+                        console.log("CLICK OK");
+                        if (
+                          courseDetails?.slug === "facial-harmonization-course"
+                        ) {
+                          trackLead(courseDetails.title);
+                        }
+                        setTimeout(() => {
+                          window.open(
+                            whatsappUrl,
+                            "_blank",
+                            "noopener,noreferrer",
+                          );
+                        }, 600);
+                      }}
+                    >
+                      <FaWhatsapp className="w-7 h-7 mr-2" />
+                      {language === "es"
+                        ? "Solicitar Información"
+                        : "Request Information"}
                     </Button>
                   );
                 })()}
@@ -862,30 +860,36 @@ export default function ClientPage({ slug }: { slug: string }) {
                 )}`;
 
                 return (
-                  <Button className="w-full btn-modern" size="lg" asChild>
-                    <a
-                      href={whatsappUrl}
-                      onClick={(e) => {
-                        e.preventDefault();
+                  <Button
+                    className="w-full btn-modern"
+                    size="lg"
+                    onClick={() => {
+                      if (
+                        courseDetails?.slug === "facial-harmonization-course"
+                      ) {
+                        console.log("CLICK OK LEAD");
                         if (
-                          courseDetails?.slug === "facial-harmonization-course"
+                          typeof window !== "undefined" &&
+                          typeof window.fbq === "function"
                         ) {
-                          trackLead(courseDetails.title);
+                          window.fbq("track", "Lead", {
+                            content_name: courseDetails.title,
+                          });
                         }
-                        setTimeout(() => {
-                          window.open(
-                            whatsappUrl,
-                            "_blank",
-                            "noopener,noreferrer",
-                          );
-                        }, 600);
-                      }}
-                    >
-                      <FaWhatsapp className="w-7 h-7 mr-2" />
-                      {language === "es"
-                        ? "Solicitar Información"
-                        : "Request Information"}
-                    </a>
+                      }
+                      setTimeout(() => {
+                        window.open(
+                          whatsappUrl,
+                          "_blank",
+                          "noopener,noreferrer",
+                        );
+                      }, 600);
+                    }}
+                  >
+                    <FaWhatsapp className="w-7 h-7 mr-2" />
+                    {language === "es"
+                      ? "Solicitar Información"
+                      : "Request Information"}
                   </Button>
                 );
               })()}
