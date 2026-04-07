@@ -20,6 +20,8 @@ import AlejandroBravoImage from "@/assets/img-ponentes/Dr Alejandro Bravo.png";
 import AlejandroBravoMovil from "@/assets/img-ponentes/Dr Alejandro Bravo-movil.png";
 import CarolinaImage from "@/assets/img-ponentes/DR carolina.png";
 import CarolinaMovil from "@/assets/img-ponentes/DR carolina-movil.png";
+import JazminImage from "@/assets/img-ponentes/DR jazmin.png";
+import JazminMovil from "@/assets/img-ponentes/DR jazmin-movil.png";
 import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 
 type Lang = "es" | "en";
@@ -128,6 +130,12 @@ export default function StaffClient() {
         photo: GenerImage,
         bio: "Médico Cirujano de la Universidad Nacional de Colombia, especialista con maestría en medicina estética por la Universidad de las Islas Baleares, España.\n\nEspecialista en cirugía plástica, estética y reconstructiva por la Universidad de Almeida en Río de Janeiro, Brasil.\n\nActualmente ejerce su profesión y participó como jurado en el certamen de belleza Miss Colombia 2021.",
       },
+      {
+        name: "Dra. Jazmín Aguirre Islas",
+        role: "Médica Cirujana · Medicina Bioestética y Antienvejecimiento",
+        photo: JazminImage,
+        bio: "Médica Cirujana egresada de la Universidad Nacional Autónoma de México, Facultad de Estudios Superiores Iztacala.\n\nMedicina Bioestética y Antienvejecimiento por Instituto Politécnico Nacional.\n\nDirectora de Clínica Éternité en Estado de México.\n\nSpeaker Nacional para Merz Aesthetics México.",
+      },
     ],
     en: [
       {
@@ -165,6 +173,12 @@ export default function StaffClient() {
         role: "Physician and Surgeon · Aesthetic Medicine and Plastic Surgery",
         photo: GenerImage,
         bio: "Physician and Surgeon graduated from Universidad Nacional de Colombia, with a Master's in Aesthetic Medicine from Universidad de las Islas Baleares, Spain.\n\nSpecialist in Plastic, Aesthetic, and Reconstructive Surgery at Universidade de Almeida in Rio de Janeiro, Brazil.\n\nCurrently practices in his field and served as a judge in the Miss Colombia 2021 beauty pageant.",
+      },
+      {
+        name: "Dr. Jazmín Aguirre Islas",
+        role: "Medical Doctor · Bioesthetic and Anti-Aging Medicine",
+        photo: JazminImage,
+        bio: "Medical Doctor graduated from the National Autonomous University of Mexico, Faculty of Higher Studies Iztacala.\n\nBioesthetic and Anti-Aging Medicine from the National Polytechnic Institute.\n\nDirector of Eternite Clinic in the State of Mexico.\n\nNational Speaker for Merz Aesthetics Mexico.",
       },
     ],
   };
@@ -342,6 +356,7 @@ export default function StaffClient() {
                 AlejandroBravoMovil,
                 HerreraMovil,
                 GenerMovil,
+                JazminMovil,
               ];
               const mobileImage = mobileImages[index];
 
