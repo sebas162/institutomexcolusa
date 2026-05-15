@@ -31,7 +31,7 @@ export const academicPrograms = {
           title:
             'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           description:
-            "Curso presencial de 4 días (2 teóricos + 2 prácticos) para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.",
+            "Curso presencial de 2 días teórico y práctico para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.",
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.webp",
           slug: "mini-lifting-usa",
         },
@@ -515,7 +515,7 @@ export const academicPrograms = {
           title:
             'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           description:
-            "Curso presencial de 4 días (2 teóricos + 2 prácticos) para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.",
+            "Curso presencial de 2 días teórico y práctico para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.",
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
           slug: "mini-lifting-colombia",
         },
@@ -708,7 +708,7 @@ export const academicPrograms = {
             'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           subtitle: "Técnica de Rejuvenecimiento Facial Mínimamente Invasiva",
           description:
-            "Curso presencial de 4 días (2 teóricos + 2 prácticos) para profesionales médicos que deseen especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos y visibles.",
+            "Curso presencial de 2 días teórico y práctico para profesionales médicos que deseen especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos y visibles.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
           format: "Presencial",
           duration: "2 días teórico y práctico",

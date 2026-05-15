@@ -31,7 +31,7 @@ export const academicPrograms = {
           title:
             'Course with "Mini Lifting 3 Points" Rejuvenation Techniques (Minimally Invasive)',
           description:
-            "4-day in-person course (2 theoretical + 2 practical) to specialize in minimally invasive facial rejuvenation techniques with immediate results.",
+            "2-day in-person theoretical and practical course to specialize in minimally invasive facial rejuvenation techniques with immediate results.",
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.webp",
           slug: "mini-lifting-usa",
         },
@@ -511,7 +511,7 @@ export const academicPrograms = {
           title:
             'Rejuvenation Techniques Course "Mini 3-Point Lifting" (Minimally Invasive)',
           description:
-            "4-day in-person course (2 theoretical + 2 practical) to specialize in minimally invasive facial rejuvenation techniques with immediate results.",
+            "2-day in-person theoretical and practical course to specialize in minimally invasive facial rejuvenation techniques with immediate results.",
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
           slug: "mini-lifting-colombia",
         },
