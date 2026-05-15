@@ -52,7 +52,7 @@ export const academicPrograms = {
             "Capacitación práctica integral en las cuatro técnicas esenciales de la medicina estética moderna.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-usa.webp",
           format: "Presencial",
-          duration: "2 días Teórico – Práctico Demostrativo",
+          duration: "2 días Teórico y Práctico Demostrativo",
           schedule: "9:00 am – 6:00 pm aprox.",
           location: "Los Angeles, CA",
           price: "Contactar para precios",
@@ -185,54 +185,6 @@ export const academicPrograms = {
               "El **INSTITUTO MEX-COL-USA** trabaja con laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada una de las prácticas realizadas, y compartiendo información sobre estos proveedores en nuestras sedes.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.",
           },
         },
-        "phlebotomy-technician": {
-          title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
-          subtitle: "Capacitación Profesional en Rejuvenecimiento Facial",
-          description:
-            "Capacitación práctica en técnicas de rejuvenecimiento facial mínimamente invasivas.",
-          heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-USA.png",
-          format: "Presencial",
-          duration: "2 días teóricos 2 días de práctica intensiva",
-          schedule: "9:00 am – 7:00 pm aprox",
-          location: "Colombia - México",
-          price: "Contactar para precios",
-          capacity: "Inscripción limitada",
-          certification: "Sí",
-          targetAudience: {
-            title: "Curso Dirigido:",
-            highlighted:
-              "Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética",
-            description:
-              'El **curso "Técnica de rejuvenecimiento "Mini Lifting Facial 3 puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética**.\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.',
-          },
-          curriculum: [
-            {
-              title: "Contenido del curso",
-              topics: [
-                "Se instruirá a los médicos especialistas en medicina estética, dermatología, cirugía plástica y odontología estética a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
-                "El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la **figura facial y los aspectos a tener en cuenta por áreas faciales**, así como el **concepto de belleza facial y envejecimiento**. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
-                "Además, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada**, revisión de **casos clínicos** y **práctica supervisada con pacientes**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
-                "Utilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.",
-                "Esta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.",
-              ],
-            },
-          ],
-          includes: [
-            "Incluye Material de referencia y de estudio",
-            "Práctica personalizada",
-            "Insumos y materiales de prácticas",
-          ],
-          accreditations: [
-            "Los cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certificando la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, el Caribe y España** como educación continua reconocida.",
-          ],
-          productQuality: {
-            title:
-              "Productos insumos e instalaciones de Calidad y Seguridad Garantizada",
-            description:
-              "En el **INSTITUTO MEX-COL-USA** contamos con **instalaciones de primer nivel**, diseñadas para ofrecer un entorno seguro, higiénico y profesional, donde cada práctica y procedimiento se realiza bajo los más altos estándares de calidad y seguridad.\n\nNuestro compromiso es garantizar que cada alumno pueda **aprender y practicar en un espacio confiable**, equipado y preparado para brindar la mejor experiencia educativa. Así, aseguramos que la formación se desarrolle en un **ambiente seguro, profesional y de excelencia**, fortaleciendo el aprendizaje y la confianza de cada participante.",
-          },
-        },
         "mini-lifting-usa": {
           title:
             'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
@@ -241,7 +193,7 @@ export const academicPrograms = {
             "Capacitación práctica en técnicas de rejuvenecimiento facial mínimamente invasivas.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-USA.png",
           format: "Presencial",
-          duration: "2 días teóricos 2 días de práctica intensiva",
+          duration: "2 días teórico y práctico",
           schedule: "9:00 am – 7:00 pm aprox",
           location: "Colombia - México",
           price: "Contactar para precios",
@@ -287,7 +239,7 @@ export const academicPrograms = {
             "Capacitación práctica en técnicas de extracción de sangre seguras y profesionales.",
           heroImage: "@/assets/img-heros/img-hero-cursos/flebotomia-USA.png",
           format: "Presencial",
-          duration: "2 días – Teórico & Práctico",
+          duration: "2 días Teórico y Práctico",
           schedule: "9:00 am – 5:00 pm aprox.",
           location: "Los Angeles, CA",
           price: "Contactar para precios",
@@ -360,7 +312,7 @@ export const academicPrograms = {
             "Capacitación integral en técnicas de armonización facial con los más altos estándares de seguridad, ética y conocimiento científico.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-mx.webp",
           format: "Presencial",
-          duration: "2 días teóricos + 2 días de práctica intensiva",
+          duration: "2 días teórico y práctico",
           schedule: "9:00 am - 7:00 pm Aprox",
           location: "Ciudad de México, México",
           price: "Contactar para precios",
@@ -498,7 +450,7 @@ export const academicPrograms = {
             "Capacitación en técnicas de lifting facial estratégicas para rejuvenecimiento visible y natural.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp",
           format: "Presencial",
-          duration: "2 días teóricos 2 días de práctica intensiva",
+          duration: "2 días teórico y práctico",
           schedule: "9:00 am - 7:00 pm Aprox",
           location: "Colombia - México",
           price: "Contactar para precios",
@@ -577,7 +529,7 @@ export const academicPrograms = {
             "Curso presencial con 2 días teóricos y 2 días de práctica intensiva. Aprende las técnicas más innovadoras en medicina estética con productos de los mejores laboratorios mundiales certificados por INVIMA, FDA y COFEPRIS.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-col.webp",
           format: "presencial",
-          duration: "2 días teóricos 2 días de práctica intensiva",
+          duration: "2 días teórico y práctico",
           schedule: "9:00 am - 7:00 pm Aprox",
           location: "Bogotá, Colombia",
           price: "Contactar para precios",
@@ -759,7 +711,7 @@ export const academicPrograms = {
             "Curso presencial de 4 días (2 teóricos + 2 prácticos) para profesionales médicos que deseen especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos y visibles.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
           format: "Presencial",
-          duration: "2 días teóricos 2 días de práctica intensiva",
+          duration: "2 días teórico y práctico",
           schedule: "9:00 am - 7:00 pm Aprox",
           location: "Colombia - México",
           certification: "Sí",

@@ -52,7 +52,7 @@ export const academicPrograms = {
             "Comprehensive hands-on training in the four essential techniques of modern aesthetic medicine.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-usa.webp",
           format: "In-person",
-          duration: "2-day Theoretical and Demonstrative Practical Course",
+          duration: "2-day Theoretical and Practical Demonstrative Course",
           schedule: "9:00 am – 6:00 pm approx.",
           location: "Los Angeles, CA",
           price: "Contact for pricing",
@@ -185,49 +185,6 @@ export const academicPrograms = {
               "**INSTITUTO MEX-COL-USA** works with laboratories that **ensure reliability and confidence in the quality of their products**, guaranteeing quality in all practices conducted, and sharing information about these providers at our training locations.\n\nIt is important to note that **we do not sell products on-site nor promote specific brands**, as acquisition decisions must be **freely and responsibly made by each student**. Each participant is responsible for verifying suppliers, as well as checking local permissions, registrations, regulations, and any other legal requirements in their city or country before purchasing any product.",
           },
         },
-        "phlebotomy-technician": {
-          title:
-            'Rejuvenation Techniques Course: "Mini Lifting 3 Points" (Minimally Invasive)',
-          subtitle: "Professional Facial Rejuvenation Training",
-          description:
-            "Hands-on training in minimally invasive facial rejuvenation techniques.",
-          heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png",
-          format: "In-person",
-          duration: "2 theoretical days 2 intensive practice days",
-          schedule: "9:00 am – 7:00 pm approx",
-          location: "Colombia - Mexico",
-          price: "Contact for pricing",
-          capacity: "Limited enrollment",
-          certification: "Yes",
-          targetAudience: {
-            title: "Course Directed For:",
-            highlighted: "Medical professionals worldwide",
-            description:
-              'The **"Mini Facial Lifting 3 Points" (Minimally Invasive) Rejuvenation Technique** course is designed for **medical professionals worldwide** who wish to expand their knowledge and refine their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** may participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and remain at the forefront of facial medical aesthetics**. While prior experience in this specific technique is not required, previous clinical training is valued.\n\nUpon completing the course, participants will be qualified to **safely and effectively perform the Mini Facial Lifting 3 Points technique**, achieving **visible aesthetic results** and enhancing opportunities within their medical practice.\n\n**This course is offered exclusively at our Colombia and Mexico campuses**, giving participants the opportunity to train in person in a professional and fully equipped environment for safe practice.',
-          },
-          curriculum: [
-            {
-              title: "Course Content",
-              topics: [
-                "Medical professionals specializing in aesthetic medicine, dermatology, plastic surgery, and aesthetic dentistry will be trained in this innovative minimally invasive technique, designed to reverse up to 10 years of facial aging and provide immediate, visible results for patients.\n\nThe course combines **advanced theoretical instruction**, including a **historical overview of facial rejuvenation techniques**, study of **facial structure and key considerations by facial areas**, as well as the **concepts of facial beauty and aging**. Participants will gain a deep understanding of **facial anatomy and structures to consider**, evaluating **current rhytidectomy techniques and their limitations** to appreciate the advantages of minimally invasive procedures.\n\n**Patient evaluation and appropriate selection according to individual profiles** will also be addressed, ensuring optimal and personalized results. The training includes **applied surgical technique**, review of **clinical cases** and **supervised patient practice**, allowing physicians to apply the technique safely and effectively.\n\nUsing three strategic facial points, through a proprietary and specialized methodology, doctors will learn to achieve **rejuvenating effects comparable to surgical lifting procedures**, but without the need to resort to invasive procedures or major surgeries.\n\nThis training provides participants with the necessary competencies to apply treatments of **high efficacy and precision**, strengthening their professional profile in aesthetic medicine and expanding opportunities to offer innovative and safe solutions to patients.",
-              ],
-            },
-          ],
-          includes: [
-            "Reference and study material",
-            "Personalized practice training",
-            "Practice supplies and materials",
-          ],
-          accreditations: [
-            "Upon completing the practical training, participants will undergo an assessment of knowledge, skills, and proficiency. A minimum score is required to receive the certificate, which will be issued after **INSTITUTO MEX-COL-USA** evaluates and confirms that each participant has passed with at least **80%**.\n\n**Certificate of Attendance and Participation:**\nIssued by **INSTITUTO MEX-COL-USA**, certifying active participation and completion of the theoretical and practical course modules, providing academic and professional recognition.\n\n**Diploma:**\nIssued by the **American Alliance of Aesthetic Medicine** and **SOPEME (United States Aesthetic Medicine Association)**, valid to **certify training in the United States, Latin America, the Caribbean, and Spain** as recognized continuing education.",
-          ],
-          productQuality: {
-            title:
-              "Quality Products, Supplies and Facilities with Guaranteed Safety",
-            description:
-              "At **INSTITUTO MEX-COL-USA**, we have **first-class facilities**, designed to provide a safe, hygienic, and professional environment where every practice and procedure is conducted under the highest standards of quality and safety.\n\nOur commitment is to ensure that every student can **learn and practice in a reliable**, fully equipped space, providing the best educational experience. This guarantees that training is conducted in a **secure, professional, and excellent environment**, reinforcing learning and student confidence.",
-          },
-        },
         "mini-lifting-usa": {
           title:
             'Rejuvenation Techniques Course: "Mini Lifting 3 Points" (Minimally Invasive)',
@@ -236,7 +193,7 @@ export const academicPrograms = {
             "Hands-on training in minimally invasive facial rejuvenation techniques.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.webp",
           format: "In-person",
-          duration: "2 theoretical days 2 intensive practice days",
+          duration: "2 theoretical and practical days",
           schedule: "9:00 am - 7:00 pm Approx",
           location: "Colombia - Mexico",
           price: "Contact for pricing",
@@ -279,7 +236,7 @@ export const academicPrograms = {
             "Hands-on training in safe, professional blood extraction techniques.",
           heroImage: "@/assets/img-heros/img-hero-cursos/flebotomia-usa.webp",
           format: "In-person",
-          duration: "2 days – Theoretical and Practical",
+          duration: "2 days Theoretical and Practical",
           schedule: "9:00 am – 5:00 pm approx.",
           location: "Los Angeles, CA",
           price: "Contact for pricing",
@@ -352,7 +309,7 @@ export const academicPrograms = {
             "Comprehensive training in facial harmonization techniques with the highest standards of safety, ethics, and scientific knowledge.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-MX.png",
           format: "In-person",
-          duration: "2 theoretical days + 2 intensive practical days",
+          duration: "2 theoretical and practical days",
           schedule: "9:00 am - 7:00 pm Approx",
           location: "Mexico City, Mexico",
           price: "Contact for pricing",
@@ -494,7 +451,7 @@ export const academicPrograms = {
             "Hands-on training in minimally invasive facial rejuvenation techniques.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-MX.png",
           format: "In-person",
-          duration: "2 theoretical days 2 intensive practice days",
+          duration: "2 theoretical and practical days",
           schedule: "9:00 am - 7:00 pm Approx",
           location: "Colombia - Mexico",
           price: "Contact for pricing",
@@ -569,7 +526,7 @@ export const academicPrograms = {
             "In-person course with 2 theoretical days and 2 intensive practice days. Learn the most innovative techniques in aesthetic medicine with products from the world's best laboratories certified by INVIMA, FDA, and COFEPRIS.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-col.webp",
           format: "In-person",
-          duration: "2 theoretical days, 2 days of intensive practice",
+          duration: "2 theoretical and practical days",
           schedule: "9:00 AM – 7:00 PM approx.",
           location: "Bogotá, Colombia",
           price: "Contact for pricing",
@@ -730,7 +687,7 @@ export const academicPrograms = {
             "Hands-on training in minimally invasive facial rejuvenation techniques.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
           format: "In-person",
-          duration: "2 theoretical days 2 intensive practice days",
+          duration: "2 theoretical and practical days",
           schedule: "9:00 am - 7:00 pm Approx",
           location: "Colombia - Mexico",
           price: "Contact for pricing",
