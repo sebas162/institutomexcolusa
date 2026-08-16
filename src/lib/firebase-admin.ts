@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import { createHash } from "crypto";
 
 function parsePrivateKey(): string | undefined {
   const base64Key = process.env.FIREBASE_ADMIN_PRIVATE_KEY_BASE64;
@@ -8,7 +9,12 @@ function parsePrivateKey(): string | undefined {
     return undefined;
   }
 
-  return Buffer.from(base64Key, "base64").toString("utf-8").trim();
+  const decoded = Buffer.from(base64Key, "base64").toString("utf-8").trim();
+
+  const hash = createHash('sha256').update(decoded).digest('hex').slice(0, 16);
+  console.log('DEBUG_KEY_HASH_LOCAL:', hash);
+
+  return decoded;
 }
 
 const adminConfig = {
