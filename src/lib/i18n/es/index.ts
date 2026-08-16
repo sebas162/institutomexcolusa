@@ -19,6 +19,7 @@ import { adminDashboard } from './adminDashboard';
 import { terms } from './terms';
 import { privacy } from './privacy';
 import { footer } from './footer';
+import { blog } from './blog';
 
 export const es = {
   metadata,
@@ -42,5 +43,6 @@ export const es = {
   terms,
   privacy,
   footer,
+  blog,
 };
 

@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
-export const dynamic = "force-static";
+import { getPublishedPostsAdmin } from "@/lib/firestore/posts-admin";
+export const revalidate = 604800; // 1 semana (2 artículos/mes no justifican revisión más frecuente)
 const baseUrl = "https://www.institutomexcolusa.com";
 
 // Course slugs for each country
@@ -22,7 +23,7 @@ const coursesByCountry = {
   ],
 };
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Main pages
   const mainPages: MetadataRoute.Sitemap = [
     {
@@ -223,11 +224,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
+  // Blog listing page
+  const blogListingPage: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          es: `${baseUrl}/blog`,
+          en: `${baseUrl}/blog`,
+        },
+      },
+    },
+  ];
+
+  // Blog post pages
+  const posts = await getPublishedPostsAdmin();
+  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: post.updatedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+    alternates: {
+      languages: {
+        es: `${baseUrl}/blog/${post.slug}`,
+        en: `${baseUrl}/blog/${post.slug}`,
+      },
+    },
+  }));
+
   return [
     ...mainPages,
     ...countryPages,
     ...usaCourses,
     ...mexicoCourses,
     ...colombiaCourses,
+    ...blogListingPage,
+    ...blogPages,
   ];
 }

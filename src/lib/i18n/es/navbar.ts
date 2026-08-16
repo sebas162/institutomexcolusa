@@ -3,6 +3,7 @@ navLinks: [
         { href: '/', label: 'Inicio' },
         { href: '/online-training', label: 'Formación en línea' },
         { href: '/congress', label: 'Congreso' },
+        { href: '/blog', label: 'Blog' },
         { href: '/about', label: 'Conócenos' },
         { href: '/staff', label: 'Directores & Staff Médico' },
         { href: '/contact', label: 'Contacto' },
