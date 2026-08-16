@@ -1,24 +1,20 @@
 import { initializeApp, getApps, getApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-function parsePrivateKey(rawKey: string | undefined): string | undefined {
-  if (!rawKey) {
+function parsePrivateKey(): string | undefined {
+  const base64Key = process.env.FIREBASE_ADMIN_PRIVATE_KEY_BASE64;
+
+  if (!base64Key) {
     return undefined;
   }
 
-  let key = rawKey;
-
-  if (key.startsWith('"') && key.endsWith('"')) {
-    key = key.slice(1, -1);
-  }
-
-  return key.replace(/\\n/g, "\n").trim();
+  return Buffer.from(base64Key, "base64").toString("utf-8").trim();
 }
 
 const adminConfig = {
   projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
   clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-  privateKey: parsePrivateKey(process.env.FIREBASE_ADMIN_PRIVATE_KEY),
+  privateKey: parsePrivateKey(),
 };
 
 const adminApp = !getApps().length
