@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
 import { getPublishedPosts } from "@/lib/firestore/posts";
+import NewsletterSection from "@/components/blog/NewsletterSection";
 import type { Post } from "@/types/blog";
 
 export default function BlogClient() {
@@ -107,6 +108,10 @@ export default function BlogClient() {
             })}
           </div>
         )}
+
+        <div className="mt-16 max-w-2xl mx-auto">
+          <NewsletterSection />
+        </div>
       </div>
     </div>
   );
