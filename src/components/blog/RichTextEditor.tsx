@@ -186,7 +186,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                 className={cn(
                   "shrink-0 transition-colors",
                   isActive
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    ? "bg-slate-800 [&_svg]:text-white"
                     : "hover:bg-accent"
                 )}
                 onClick={onClick}

@@ -86,6 +86,24 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+function extractYoutubeId(input: string): string {
+  const trimmed = input.trim();
+  const patterns = [
+    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+  ];
+
+  for (const pattern of patterns) {
+    const match = trimmed.match(pattern);
+    if (match) {
+      return match[1];
+    }
+  }
+
+  return trimmed;
+}
+
 function toDatetimeLocalValue(date: Date): string {
   const pad = (n: number) => n.toString().padStart(2, "0");
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
@@ -138,7 +156,9 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
       const payload: CreatePostInput = {
         slug: data.slug,
         coverImage: data.coverImage,
-        youtubeVideoId: data.youtubeVideoId || undefined,
+        youtubeVideoId: data.youtubeVideoId
+          ? extractYoutubeId(data.youtubeVideoId)
+          : undefined,
         status: data.status,
         publishAt:
           data.status === "scheduled" && data.publishAt
