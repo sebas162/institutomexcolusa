@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react';
 import Image from 'next/image';
 import logoVerde from '@/assets/Logo-USA-Verde.png';
 import { useLanguage } from '@/hooks/use-language';
@@ -39,6 +39,7 @@ export default function LoginPage() {
   const { language } = useLanguage();
   const t = translations[language].adminLogin;
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   
   useEffect(() => {
     if (!loading && user) {
@@ -107,7 +108,25 @@ export default function LoginPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t.passwordLabel}</Label>
-              <Input id="password" type="password" {...register('password')} />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  {...register('password')}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-sm text-destructive">{errors.password.message}</p>
               )}
