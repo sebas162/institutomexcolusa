@@ -20,6 +20,7 @@ import { terms } from './terms';
 import { privacy } from './privacy';
 import { footer } from './footer';
 import { blog } from './blog';
+import { adminBlog } from './adminBlog';
 
 export const en = {
   metadata,
@@ -44,5 +45,6 @@ export const en = {
   privacy,
   footer,
   blog,
+  adminBlog,
 };
 
