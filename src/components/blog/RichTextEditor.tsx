@@ -111,72 +111,94 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       .run();
   };
 
-  const toolbarButtons = [
-    {
-      icon: Bold,
-      label: "Bold",
-      isActive: activeState.bold,
-      onClick: () => editor.chain().focus().toggleBold().run(),
-    },
-    {
-      icon: Italic,
-      label: "Italic",
-      isActive: activeState.italic,
-      onClick: () => editor.chain().focus().toggleItalic().run(),
-    },
-    {
-      icon: Heading2,
-      label: "Heading 2",
-      isActive: activeState.heading2,
-      onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-    },
-    {
-      icon: Heading3,
-      label: "Heading 3",
-      isActive: activeState.heading3,
-      onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-    },
-    {
-      icon: List,
-      label: "Bullet list",
-      isActive: activeState.bulletList,
-      onClick: () => editor.chain().focus().toggleBulletList().run(),
-    },
-    {
-      icon: ListOrdered,
-      label: "Ordered list",
-      isActive: activeState.orderedList,
-      onClick: () => editor.chain().focus().toggleOrderedList().run(),
-    },
-    {
-      icon: Link2,
-      label: "Link",
-      isActive: activeState.link,
-      onClick: setLink,
-    },
-    {
-      icon: Table2,
-      label: "Table",
-      isActive: false,
-      onClick: insertTable,
-    },
+  const toolbarGroups = [
+    [
+      {
+        icon: Bold,
+        label: "Bold",
+        isActive: activeState.bold,
+        onClick: () => editor.chain().focus().toggleBold().run(),
+      },
+      {
+        icon: Italic,
+        label: "Italic",
+        isActive: activeState.italic,
+        onClick: () => editor.chain().focus().toggleItalic().run(),
+      },
+    ],
+    [
+      {
+        icon: Heading2,
+        label: "Heading 2",
+        isActive: activeState.heading2,
+        onClick: () =>
+          editor.chain().focus().toggleHeading({ level: 2 }).run(),
+      },
+      {
+        icon: Heading3,
+        label: "Heading 3",
+        isActive: activeState.heading3,
+        onClick: () =>
+          editor.chain().focus().toggleHeading({ level: 3 }).run(),
+      },
+    ],
+    [
+      {
+        icon: List,
+        label: "Bullet list",
+        isActive: activeState.bulletList,
+        onClick: () => editor.chain().focus().toggleBulletList().run(),
+      },
+      {
+        icon: ListOrdered,
+        label: "Ordered list",
+        isActive: activeState.orderedList,
+        onClick: () => editor.chain().focus().toggleOrderedList().run(),
+      },
+    ],
+    [
+      {
+        icon: Link2,
+        label: "Link",
+        isActive: activeState.link,
+        onClick: setLink,
+      },
+      {
+        icon: Table2,
+        label: "Table",
+        isActive: false,
+        onClick: insertTable,
+      },
+    ],
   ];
 
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-1 border rounded-md p-1">
-        {toolbarButtons.map(({ icon: Icon, label, isActive, onClick }) => (
-          <Button
-            key={label}
-            type="button"
-            variant="ghost"
-            size="icon"
-            className={cn(isActive && "bg-accent text-accent-foreground")}
-            onClick={onClick}
-            aria-label={label}
-          >
-            <Icon className="h-4 w-4" />
-          </Button>
+        {toolbarGroups.map((group, groupIndex) => (
+          <div key={groupIndex} className="flex items-center gap-1">
+            {group.map(({ icon: Icon, label, isActive, onClick }) => (
+              <Button
+                key={label}
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "shrink-0 transition-colors",
+                  isActive
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "hover:bg-accent"
+                )}
+                onClick={onClick}
+                aria-label={label}
+              >
+                <Icon className="h-4 w-4" />
+              </Button>
+            ))}
+            {groupIndex < toolbarGroups.length - 1 && (
+              <div className="w-px h-6 bg-border mx-1" />
+            )}
+          </div>
         ))}
       </div>
       <EditorContent
