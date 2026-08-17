@@ -77,7 +77,11 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
   try {
     const postsRef = collection(db, POSTS_COLLECTION);
-    const q = query(postsRef, where("slug", "==", slug));
+    const q = query(
+      postsRef,
+      where("slug", "==", slug),
+      where("status", "==", "published")
+    );
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
