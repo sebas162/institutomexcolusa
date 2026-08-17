@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -75,6 +75,17 @@ function createPostSchema(t: AdminBlogTranslations) {
 
 type PostFormValues = z.infer<ReturnType<typeof createPostSchema>>;
 
+function slugify(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function toDatetimeLocalValue(date: Date): string {
   const pad = (n: number) => n.toString().padStart(2, "0");
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
@@ -112,6 +123,15 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
   });
 
   const status = form.watch("status") as PostStatus;
+  const esTitle = form.watch("es.title");
+
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(!!post);
+
+  useEffect(() => {
+    if (!slugManuallyEdited) {
+      form.setValue("slug", slugify(esTitle), { shouldValidate: true });
+    }
+  }, [esTitle, slugManuallyEdited, form]);
 
   const onSubmit = (data: PostFormValues) => {
     startTransition(async () => {
@@ -278,7 +298,14 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
               <FormItem>
                 <FormLabel>{t.form.slugLabel}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t.form.slugPlaceholder} {...field} />
+                  <Input
+                    placeholder={t.form.slugPlaceholder}
+                    {...field}
+                    onChange={(e) => {
+                      setSlugManuallyEdited(true);
+                      field.onChange(e);
+                    }}
+                  />
                 </FormControl>
                 <FormDescription>{t.form.slugHint}</FormDescription>
                 <FormMessage />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, useEditorState, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import { Table } from "@tiptap/extension-table";
@@ -46,9 +46,46 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
     },
   });
 
+  const editorState = useEditorState({
+    editor,
+    selector: ({ editor }) => {
+      if (!editor) {
+        return {
+          bold: false,
+          italic: false,
+          heading2: false,
+          heading3: false,
+          bulletList: false,
+          orderedList: false,
+          link: false,
+        };
+      }
+
+      return {
+        bold: editor.isActive("bold"),
+        italic: editor.isActive("italic"),
+        heading2: editor.isActive("heading", { level: 2 }),
+        heading3: editor.isActive("heading", { level: 3 }),
+        bulletList: editor.isActive("bulletList"),
+        orderedList: editor.isActive("orderedList"),
+        link: editor.isActive("link"),
+      };
+    },
+  });
+
   if (!editor) {
     return null;
   }
+
+  const activeState = editorState ?? {
+    bold: false,
+    italic: false,
+    heading2: false,
+    heading3: false,
+    bulletList: false,
+    orderedList: false,
+    link: false,
+  };
 
   const setLink = () => {
     const previousUrl = editor.getAttributes("link").href;
@@ -78,49 +115,49 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
     {
       icon: Bold,
       label: "Bold",
-      isActive: () => editor.isActive("bold"),
+      isActive: activeState.bold,
       onClick: () => editor.chain().focus().toggleBold().run(),
     },
     {
       icon: Italic,
       label: "Italic",
-      isActive: () => editor.isActive("italic"),
+      isActive: activeState.italic,
       onClick: () => editor.chain().focus().toggleItalic().run(),
     },
     {
       icon: Heading2,
       label: "Heading 2",
-      isActive: () => editor.isActive("heading", { level: 2 }),
+      isActive: activeState.heading2,
       onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
     },
     {
       icon: Heading3,
       label: "Heading 3",
-      isActive: () => editor.isActive("heading", { level: 3 }),
+      isActive: activeState.heading3,
       onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
     },
     {
       icon: List,
       label: "Bullet list",
-      isActive: () => editor.isActive("bulletList"),
+      isActive: activeState.bulletList,
       onClick: () => editor.chain().focus().toggleBulletList().run(),
     },
     {
       icon: ListOrdered,
       label: "Ordered list",
-      isActive: () => editor.isActive("orderedList"),
+      isActive: activeState.orderedList,
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
     },
     {
       icon: Link2,
       label: "Link",
-      isActive: () => editor.isActive("link"),
+      isActive: activeState.link,
       onClick: setLink,
     },
     {
       icon: Table2,
       label: "Table",
-      isActive: () => false,
+      isActive: false,
       onClick: insertTable,
     },
   ];
@@ -134,7 +171,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
             type="button"
             variant="ghost"
             size="icon"
-            className={cn(isActive() && "bg-accent")}
+            className={cn(isActive && "bg-accent text-accent-foreground")}
             onClick={onClick}
             aria-label={label}
           >

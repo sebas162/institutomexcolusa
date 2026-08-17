@@ -39,7 +39,7 @@ export const adminBlog = {
     contentLabel: 'Content',
     slugLabel: 'Slug (URL)',
     slugPlaceholder: 'my-new-post',
-    slugHint: 'Must be unique, lowercase, no spaces (letters, numbers, and hyphens only).',
+    slugHint: 'Automatically generated from the Spanish title. You can edit it manually if you prefer.',
     coverImageLabel: 'Cover image (URL)',
     coverImagePlaceholder: 'https://...',
     youtubeLabel: 'YouTube video ID (optional)',

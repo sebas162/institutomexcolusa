@@ -39,7 +39,7 @@ export const adminBlog = {
     contentLabel: 'Contenido',
     slugLabel: 'Slug (URL)',
     slugPlaceholder: 'mi-articulo-nuevo',
-    slugHint: 'Debe ser único, en minúsculas, sin espacios (solo letras, números y guiones).',
+    slugHint: 'Se genera automáticamente a partir del título en español. Puedes editarlo manualmente si lo prefieres.',
     coverImageLabel: 'Imagen de portada (URL)',
     coverImagePlaceholder: 'https://...',
     youtubeLabel: 'ID de video de YouTube (opcional)',
