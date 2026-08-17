@@ -21,6 +21,7 @@ import { privacy } from './privacy';
 import { footer } from './footer';
 import { blog } from './blog';
 import { adminBlog } from './adminBlog';
+import { adminPanel } from './adminPanel';
 
 export const es = {
   metadata,
@@ -46,5 +47,6 @@ export const es = {
   footer,
   blog,
   adminBlog,
+  adminPanel,
 };
 

@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { AuthProvider } from "@/components/auth-provider";
 import { Footer } from "@/components/shared/Footer";
 import { Navbar } from "@/components/shared/Navbar";
@@ -22,7 +23,8 @@ export default function RootLayoutClient({
 }: {
   children: React.ReactNode;
 }) {
-  // ...existing code...
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith('/admin');
 
   return (
     <>
@@ -59,10 +61,10 @@ export default function RootLayoutClient({
         <AuthProvider>
           <div className={cn("flex min-h-screen flex-col", inter.variable)}>
             <RouteProgress />
-            <Navbar />
+            {!isAdminRoute && <Navbar />}
             <main className="flex-grow">{children}</main>
-            <Footer />
-            <WhatsAppFloatButton />
+            {!isAdminRoute && <Footer />}
+            {!isAdminRoute && <WhatsAppFloatButton />}
           </div>
           <Toaster />
         </AuthProvider>
