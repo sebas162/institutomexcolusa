@@ -74,7 +74,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 pb-16 pt-32 max-w-4xl">
+      <div className="container mx-auto px-4 pb-16 pt-20 max-w-4xl">
         <div className="relative h-64 md:h-96 w-full rounded-xl overflow-hidden mb-10">
           <Image
             src={post.coverImage}
@@ -96,8 +96,10 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
           })}
         </p>
 
+        <PostBody html={content.content} />
+
         {post.youtubeVideoId && (
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden mt-10 mb-10">
             <iframe
               src={`https://www.youtube.com/embed/${post.youtubeVideoId}`}
               title={content.title}
@@ -107,8 +109,6 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
             />
           </div>
         )}
-
-        <PostBody html={content.content} />
 
         {content.images && content.images.length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10">
