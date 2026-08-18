@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBYZtIRNJMA1IR4oONPZMCIlyaLQkEck3o",
   authDomain: "mexcol.firebaseapp.com",
   projectId: "mexcol",
-  storageBucket: "mexcol.appspot.com",
+  storageBucket: "mexcol.firebasestorage.app",
   messagingSenderId: "275742663296",
   appId: "1:275742663296:web:543d6af809d3e352517c65",
   measurementId: "G-XYMCHM448H"
