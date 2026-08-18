@@ -2,7 +2,7 @@
 // Si necesitas funcionalidad server-side, considera usar API routes externas
 // 'use server';
 
-import { db } from "@/lib/firebase";
+import { db, storage } from "@/lib/firebase";
 import {
   collection,
   query,
@@ -19,6 +19,7 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
 import type { Post, PostStatus } from "@/types/blog";
 
 const POSTS_COLLECTION = "posts";
@@ -162,7 +163,26 @@ export async function updatePost(id: string, data: UpdatePostInput) {
 
 export async function deletePost(id: string) {
   try {
-    await deleteDoc(doc(db, POSTS_COLLECTION, id));
+    const postRef = doc(db, POSTS_COLLECTION, id);
+    const postSnap = await getDoc(postRef);
+    const coverImage = postSnap.exists() ? postSnap.data().coverImage : undefined;
+
+    if (
+      typeof coverImage === "string" &&
+      coverImage.includes("firebasestorage")
+    ) {
+      try {
+        const imageRef = ref(storage, coverImage);
+        await deleteObject(imageRef);
+      } catch (storageError) {
+        console.error(
+          "Error deleting cover image from Storage:",
+          storageError
+        );
+      }
+    }
+
+    await deleteDoc(postRef);
     // revalidatePath('/blog'); // No compatible con static export
     return { success: "Post deleted." };
   } catch (error) {

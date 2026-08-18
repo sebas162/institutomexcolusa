@@ -36,7 +36,7 @@ export default function BlogClient() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <div className="container mx-auto px-4 pb-10 pt-32">
         <div className="text-center mb-10">
           <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">

@@ -73,7 +73,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
   const publishDate = post.publishAt ?? post.createdAt;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <div className="container mx-auto px-4 pb-16 pt-20 max-w-4xl">
         <div className="relative h-64 md:h-96 w-full rounded-xl overflow-hidden mb-10">
           <Image
