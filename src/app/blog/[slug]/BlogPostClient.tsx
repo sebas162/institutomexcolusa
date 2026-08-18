@@ -75,7 +75,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 pb-16 pt-32 max-w-4xl">
-        <div className="relative h-64 md:h-96 w-full rounded-xl overflow-hidden mb-8">
+        <div className="relative h-64 md:h-96 w-full rounded-xl overflow-hidden mb-10">
           <Image
             src={post.coverImage}
             alt={content.title}
@@ -85,10 +85,10 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
           />
         </div>
 
-        <h1 className="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-3">
+        <h1 className="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-4">
           {content.title}
         </h1>
-        <p className="text-sm text-muted-foreground mb-8">
+        <p className="text-sm text-muted-foreground mb-12">
           {publishDate.toLocaleDateString(lang === "es" ? "es-ES" : "en-US", {
             year: "numeric",
             month: "long",

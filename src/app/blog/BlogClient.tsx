@@ -71,6 +71,7 @@ export default function BlogClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => {
               const content = post[language];
+              const date = post.publishAt ?? post.createdAt;
               return (
                 <Card
                   key={post.id}
@@ -91,6 +92,16 @@ export default function BlogClient() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col">
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {date.toLocaleDateString(
+                        language === "es" ? "es-ES" : "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )}
+                    </p>
                     <p className="text-muted-foreground mb-4">
                       {content.excerpt}
                     </p>
