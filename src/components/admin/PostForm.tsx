@@ -31,6 +31,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
 import { createPost, updatePost, type CreatePostInput } from "@/lib/firestore/posts";
+import { uploadCoverImage } from "@/lib/storage/uploadImage";
 import type { Post, PostStatus } from "@/types/blog";
 
 interface PostFormProps {
@@ -150,6 +151,36 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
       form.setValue("slug", slugify(esTitle), { shouldValidate: true });
     }
   }, [esTitle, slugManuallyEdited, form]);
+
+  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(
+    post?.coverImage ?? null
+  );
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+
+  const handleCoverImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    setCoverImagePreview(URL.createObjectURL(file));
+    setIsUploadingImage(true);
+
+    try {
+      const url = await uploadCoverImage(file);
+      form.setValue("coverImage", url, { shouldValidate: true });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: t.form.saveErrorTitle,
+        description: t.form.coverImageUploadError,
+      });
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
 
   const onSubmit = (data: PostFormValues) => {
     startTransition(async () => {
@@ -336,14 +367,38 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
           <FormField
             control={form.control}
             name="coverImage"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>{t.form.coverImageLabel}</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder={t.form.coverImagePlaceholder}
-                    {...field}
-                  />
+                  <div className="space-y-3">
+                    {coverImagePreview && (
+                      <div className="relative h-40 w-full max-w-sm overflow-hidden rounded-md border">
+                        <img
+                          src={coverImagePreview}
+                          alt="Cover preview"
+                          className="h-full w-full object-cover"
+                        />
+                        {isUploadingImage && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                            <Loader2 className="h-6 w-6 animate-spin text-white" />
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleCoverImageChange}
+                      disabled={isUploadingImage}
+                    />
+                    {isUploadingImage && (
+                      <p className="text-sm text-muted-foreground flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        {t.form.coverImageUploading}
+                      </p>
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -417,7 +472,7 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
           >
             {t.form.cancelButton}
           </Button>
-          <Button type="submit" disabled={isPending}>
+          <Button type="submit" disabled={isPending || isUploadingImage}>
             {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
