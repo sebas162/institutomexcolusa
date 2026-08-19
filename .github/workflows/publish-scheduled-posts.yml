@@ -1,0 +1,16 @@
+name: Publish Scheduled Blog Posts
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call publish endpoint
+        run: |
+          curl -f -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "https://www.institutomexcolusa.com/api/cron/publish-scheduled-posts"

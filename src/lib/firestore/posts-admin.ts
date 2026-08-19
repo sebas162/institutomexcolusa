@@ -72,3 +72,33 @@ export async function getPostBySlugAdmin(slug: string): Promise<Post | null> {
     return null;
   }
 }
+
+export async function publishDueScheduledPosts(): Promise<{
+  publishedCount: number;
+  publishedSlugs: string[];
+}> {
+  try {
+    const now = Timestamp.now();
+
+    const querySnapshot = await adminDb
+      .collection(POSTS_COLLECTION)
+      .where("status", "==", "scheduled")
+      .where("publishAt", "<=", now)
+      .get();
+
+    const publishedSlugs: string[] = [];
+
+    for (const docSnap of querySnapshot.docs) {
+      await docSnap.ref.update({
+        status: "published",
+        updatedAt: Timestamp.now(),
+      });
+      publishedSlugs.push(docSnap.data().slug);
+    }
+
+    return { publishedCount: publishedSlugs.length, publishedSlugs };
+  } catch (error) {
+    console.error("Error publishing due scheduled posts:", error);
+    throw error;
+  }
+}
