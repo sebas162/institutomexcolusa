@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { getPostBySlug } from "@/lib/firestore/posts";
 import PostBody from "@/components/blog/PostBody";
@@ -75,6 +76,14 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
   return (
     <div className="bg-background">
       <div className="container mx-auto px-4 pb-16 pt-20 max-w-4xl">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-foreground hover:text-[#10b981] transition-colors duration-200 underline-offset-4 hover:underline decoration-[#10b981] mb-6"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {backToBlogText[lang]}
+        </Link>
+
         <div className="relative h-64 md:h-96 w-full rounded-xl overflow-hidden mb-10">
           <Image
             src={post.coverImage}
