@@ -9,6 +9,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { getPostBySlug } from "@/lib/firestore/posts";
 import PostBody from "@/components/blog/PostBody";
 import type { Post } from "@/types/blog";
+import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 
 type Lang = "es" | "en";
 
@@ -76,39 +77,63 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
 
   return (
     <div className="bg-background">
-      <div className="container mx-auto px-4 pb-16 pt-20 max-w-4xl">
-        <Button
-          asChild
-          variant="ghost"
-          className="mb-6 rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-all duration-300"
-        >
-          <Link href="/blog">
-            <ArrowLeft className="h-4 w-4" />
-            {backToBlogText[lang]}
-          </Link>
-        </Button>
-
-        <div className="relative h-64 md:h-96 w-full rounded-xl overflow-hidden mb-10">
+      <section className="relative w-full section-modern min-h-[500px] sm:min-h-[600px] md:h-screen -mt-16">
+        <div className="absolute inset-0">
           <Image
             src={post.coverImage}
             alt={content.title}
             fill
             className="object-cover"
             priority
+            fetchPriority="high"
+            sizes="100vw"
           />
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
+        <div className="container mx-auto px-4 relative z-10 h-full flex flex-col">
+          <div className="flex items-start justify-between pt-20 md:pt-24 lg:pt-28">
+            <Button
+              asChild
+              variant="ghost"
+              className="text-white hover:text-white hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300"
+            >
+              <Link href="/blog">
+                <ArrowLeft className="h-4 w-4" />
+                {backToBlogText[lang]}
+              </Link>
+            </Button>
+            <div className="relative w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32">
+              <Image
+                src={LogoUSAVerde}
+                alt="Instituto MexCol USA Logo"
+                fill
+                className="object-contain drop-shadow-2xl"
+                loading="lazy"
+                sizes="(max-width: 768px) 80px, 128px"
+              />
+            </div>
+          </div>
+          <div className="mt-60 md:mt-auto flex flex-col text-white gap-3 pb-6 md:pb-12 lg:pb-16 ml-5">
+            <div className="flex flex-col gap-3 w-full px-4 sm:px-6 md:px-0 md:max-w-3xl">
+              <h1 className="font-headline text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight leading-tight text-balance">
+                {content.title}
+              </h1>
+              <p className="text-white/90 text-sm md:text-base">
+                {publishDate.toLocaleDateString(
+                  lang === "es" ? "es-ES" : "en-US",
+                  {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <h1 className="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-4">
-          {content.title}
-        </h1>
-        <p className="text-sm text-muted-foreground mb-12">
-          {publishDate.toLocaleDateString(lang === "es" ? "es-ES" : "en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
-
+      <div className="container mx-auto px-4 pb-16 pt-12 max-w-4xl">
         <PostBody html={content.content} />
 
         {post.youtubeVideoId && (
