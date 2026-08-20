@@ -7,6 +7,8 @@ import { Table } from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
+import { TextStyle } from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -18,6 +20,7 @@ import {
   ListOrdered,
   Link2,
   Table2,
+  Palette,
 } from "lucide-react";
 
 interface RichTextEditorProps {
@@ -39,6 +42,8 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       TableRow,
       TableHeader,
       TableCell,
+      TextStyle,
+      Color,
     ],
     content: value,
     onUpdate: ({ editor }) => {
@@ -195,6 +200,28 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                 <Icon className="h-4 w-4" />
               </Button>
             ))}
+            {groupIndex === 0 && (
+              <div className="relative shrink-0">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="shrink-0 transition-colors hover:bg-accent"
+                  aria-label="Text color"
+                  tabIndex={-1}
+                >
+                  <Palette className="h-4 w-4" />
+                </Button>
+                <input
+                  type="color"
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  onChange={(e) =>
+                    editor.chain().focus().setColor(e.target.value).run()
+                  }
+                  aria-label="Text color"
+                />
+              </div>
+            )}
             {groupIndex < toolbarGroups.length - 1 && (
               <div className="w-px h-6 bg-border mx-1" />
             )}
@@ -203,7 +230,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       </div>
       <EditorContent
         editor={editor}
-        className="prose prose-lg max-w-none border rounded-md p-4 min-h-[300px]"
+        className="prose prose-lg max-w-none border rounded-md p-4 min-h-[300px] [&_ul]:marker:text-foreground [&_ol]:marker:text-foreground"
       />
     </div>
   );
