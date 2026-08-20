@@ -11,6 +11,8 @@ import { translations } from "@/lib/i18n";
 import { getPublishedPosts } from "@/lib/firestore/posts";
 import NewsletterSection from "@/components/blog/NewsletterSection";
 import type { Post } from "@/types/blog";
+import HeroBlog from "@/assets/img-heros/hero-blog.webp";
+import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 
 export default function BlogClient() {
   const { language } = useLanguage();
@@ -37,16 +39,46 @@ export default function BlogClient() {
 
   return (
     <div className="bg-background">
-      <div className="container mx-auto px-4 pb-10 pt-32">
-        <div className="text-center mb-10">
-          <h1 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
-            {t.pageTitle}
-          </h1>
-          <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.pageSubtitle}
-          </p>
+      <section className="relative w-full section-modern min-h-[500px] sm:min-h-[600px] md:h-screen -mt-16">
+        <div className="absolute inset-0">
+          <Image
+            src={HeroBlog}
+            alt="Blog"
+            fill
+            className="object-cover"
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
+        <div className="container mx-auto px-4 relative z-10 h-full flex flex-col">
+          <div className="flex items-start justify-end pt-20 md:pt-24 lg:pt-28">
+            <div className="relative w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32">
+              <Image
+                src={LogoUSAVerde}
+                alt="Instituto MexCol USA Logo"
+                fill
+                className="object-contain drop-shadow-2xl"
+                loading="lazy"
+                sizes="(max-width: 768px) 80px, 128px"
+              />
+            </div>
+          </div>
+          <div className="mt-60 md:mt-auto flex flex-col text-white gap-3 pb-6 md:pb-12 lg:pb-16 ml-5">
+            <div className="flex flex-col gap-3 w-full px-4 sm:px-6 md:px-0 md:max-w-3xl">
+              <h1 className="font-headline text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight leading-tight text-balance">
+                {t.pageTitle}
+              </h1>
+              <p className="text-white/90 text-base md:text-lg">
+                {t.pageSubtitle}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <div className="container mx-auto px-4 pb-10 pt-12">
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
