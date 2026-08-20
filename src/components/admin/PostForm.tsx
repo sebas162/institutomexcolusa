@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -26,13 +27,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import RichTextEditor from "@/components/blog/RichTextEditor";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
 import { createPost, updatePost, type CreatePostInput } from "@/lib/firestore/posts";
 import { uploadCoverImage } from "@/lib/storage/uploadImage";
 import type { Post, PostStatus } from "@/types/blog";
+
+const RichTextEditor = dynamic(
+  () => import("@/components/blog/RichTextEditor"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="border rounded-md p-4 min-h-[300px] flex items-center justify-center text-muted-foreground">
+        Cargando editor...
+      </div>
+    ),
+  }
+);
 
 interface PostFormProps {
   post?: Post;
