@@ -91,7 +91,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col">
-          <div className="flex items-start justify-between pt-4 md:pt-8 lg:pt-6 pr-4 md:pr-4 lg:pr-6">
+          <div className="flex items-center justify-between pt-4 md:pt-8 lg:pt-6 pr-4 md:pr-4 lg:pr-6">
             <Button
               asChild
               variant="ghost"
