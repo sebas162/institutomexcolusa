@@ -102,7 +102,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
                 {backToBlogText[lang]}
               </Link>
             </Button>
-            <div className="relative w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32">
+            <div className="relative w-20 h-20 mt-12 md:w-32 md:h-32 lg:w-36 lg:h-36">
               <Image
                 src={LogoUSAVerde}
                 alt="Instituto MexCol USA Logo"
