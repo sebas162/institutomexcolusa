@@ -202,7 +202,7 @@ export default function ClientPage({ slug }: { slug: string }) {
             <Button
               asChild
               variant="ghost"
-              className="text-white hover:text-white hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300"
+              className="mt-12 text-white hover:text-white hover:bg-white/20 border border-white/20 hover:border-white/40 transition-all duration-300"
             >
               <Link href="/academic-programs?country=mexico">
                 <ArrowLeft className="h-4 w-4" />
