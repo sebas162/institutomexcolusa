@@ -230,7 +230,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       </div>
       <EditorContent
         editor={editor}
-        className="prose prose-lg max-w-none border rounded-md p-4 min-h-[300px] [&_ul]:marker:text-foreground [&_ol]:marker:text-foreground"
+        className="prose prose-lg max-w-none border rounded-md p-4 min-h-[300px] [&_ul]:marker:text-black [&_ol]:marker:text-black"
       />
     </div>
   );

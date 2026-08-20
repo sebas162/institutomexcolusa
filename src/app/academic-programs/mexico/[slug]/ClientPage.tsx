@@ -198,7 +198,7 @@ export default function ClientPage({ slug }: { slug: string }) {
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col">
-          <div className="flex items-start justify-between pt-20 md:pt-24 lg:pt-28">
+          <div className="flex items-start justify-between pt-4 md:pt-8 lg:pt-6 pr-4 md:pr-4 lg:pr-6">
             <Button
               asChild
               variant="ghost"
@@ -214,9 +214,9 @@ export default function ClientPage({ slug }: { slug: string }) {
                 src={LogoUSAVerde}
                 alt="Instituto MexCol USA Logo"
                 fill
-                className="object-contain drop-shadow-2xl"
+                className="object-contain drop-shadow-2xl mt-6"
                 loading="lazy"
-                sizes="(max-width: 768px) 80px, 128px"
+                sizes="(max-width: 768px) 80px, 144px"
               />
             </div>
           </div>

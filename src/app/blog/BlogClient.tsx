@@ -53,15 +53,15 @@ export default function BlogClient() {
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 h-full flex flex-col">
-          <div className="flex items-start justify-end pt-20 md:pt-24 lg:pt-28">
+          <div className="flex items-start justify-end pt-4 md:pt-8 lg:pt-6 pr-4 md:pr-4 lg:pr-6">
             <div className="relative w-20 h-20 mt-12 md:w-32 md:h-32 lg:w-36 lg:h-36">
               <Image
                 src={LogoUSAVerde}
                 alt="Instituto MexCol USA Logo"
                 fill
-                className="object-contain drop-shadow-2xl"
+                className="object-contain drop-shadow-2xl mt-6"
                 loading="lazy"
-                sizes="(max-width: 768px) 80px, 128px"
+                sizes="(max-width: 768px) 80px, 144px"
               />
             </div>
           </div>
