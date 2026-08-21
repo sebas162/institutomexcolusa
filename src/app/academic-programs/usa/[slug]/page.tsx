@@ -48,6 +48,35 @@ export default async function Page({
           sameAs: "https://www.institutomexcolusa.com/",
         },
         image: `${baseUrl}${resolveHeroImage(slug).src}`,
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Inicio",
+              item: `${baseUrl}/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Programas Académicos",
+              item: `${baseUrl}/academic-programs/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "USA",
+              item: `${baseUrl}/academic-programs/usa/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: courseDetails.title,
+              item: `${baseUrl}/academic-programs/usa/${slug}/`,
+            },
+          ],
+        },
         ...(courseDetails.duration
           ? {
               hasCourseInstance: {

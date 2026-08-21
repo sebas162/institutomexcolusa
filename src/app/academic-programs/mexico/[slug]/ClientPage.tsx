@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { OptimizedImage } from "@/components/OptimizedImage";
@@ -84,81 +84,6 @@ export default function ClientPage({ slug }: { slug: string }) {
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     }, 600);
   };
-
-  // Inject Course + Breadcrumb JSON-LD schemas
-  useEffect(() => {
-    if (!courseDetails) return;
-
-    // Course Schema
-    const courseSchema = document.getElementById("course-schema-mx");
-    if (!courseSchema) {
-      const script = document.createElement("script");
-      script.id = "course-schema-mx";
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Course",
-        name: courseDetails.title,
-        description: courseDetails.description || courseDetails.subtitle,
-        provider: {
-          "@type": "Organization",
-          name: "Instituto Mex-Col-USA",
-          url: "https://www.institutomexcolusa.com/",
-        },
-        hasCourseInstance: {
-          "@type": "CourseInstance",
-          courseMode: "onsite",
-          location: {
-            "@type": "Place",
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "MX",
-            },
-          },
-        },
-      });
-      document.head.appendChild(script);
-    }
-
-    // Breadcrumb Schema
-    const breadcrumbSchema = document.getElementById("breadcrumb-schema-mx");
-    if (!breadcrumbSchema) {
-      const script = document.createElement("script");
-      script.id = "breadcrumb-schema-mx";
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://www.institutomexcolusa.com/",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Academic Programs",
-            item: "https://www.institutomexcolusa.com/academic-programs/",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "México",
-            item: "https://www.institutomexcolusa.com/academic-programs/mexico/",
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: courseDetails.title,
-            item: `https://www.institutomexcolusa.com/academic-programs/mexico/${slug}/`,
-          },
-        ],
-      });
-      document.head.appendChild(script);
-    }
-  }, [courseDetails, slug]);
 
   // Removed duplicate ViewContent tracking for all courses
 

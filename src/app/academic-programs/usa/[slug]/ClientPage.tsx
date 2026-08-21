@@ -35,7 +35,7 @@ import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 import { resolveHeroImage } from "@/lib/utils/hero-image-resolver";
 import { useAutoPauseVideos } from "@/hooks/use-auto-pause-videos";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 // Dynamic imports for below-the-fold components
 const ProductsMarquee = dynamic(
@@ -56,81 +56,6 @@ export default function ClientPage({ slug }: { slug: string }) {
 
   useAutoPauseVideos();
   const isMobile = useIsMobile();
-
-  // Inject Course + Breadcrumb JSON-LD schemas
-  useEffect(() => {
-    if (!courseDetails) return;
-
-    // Course Schema
-    const courseSchema = document.getElementById("course-schema");
-    if (!courseSchema) {
-      const script = document.createElement("script");
-      script.id = "course-schema";
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Course",
-        name: courseDetails.title,
-        description: courseDetails.description || courseDetails.subtitle,
-        provider: {
-          "@type": "Organization",
-          name: "Instituto Mex-Col-USA",
-          url: "https://www.institutomexcolusa.com/",
-        },
-        hasCourseInstance: {
-          "@type": "CourseInstance",
-          courseMode: "onsite",
-          location: {
-            "@type": "Place",
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "US",
-            },
-          },
-        },
-      });
-      document.head.appendChild(script);
-    }
-
-    // Breadcrumb Schema
-    const breadcrumbSchema = document.getElementById("breadcrumb-schema");
-    if (!breadcrumbSchema) {
-      const script = document.createElement("script");
-      script.id = "breadcrumb-schema";
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: "https://www.institutomexcolusa.com/",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Academic Programs",
-            item: "https://www.institutomexcolusa.com/academic-programs/",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "USA",
-            item: "https://www.institutomexcolusa.com/academic-programs/usa/",
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: courseDetails.title,
-            item: `https://www.institutomexcolusa.com/academic-programs/usa/${slug}/`,
-          },
-        ],
-      });
-      document.head.appendChild(script);
-    }
-  }, [courseDetails, slug]);
 
   if (!courseDetails) {
     return (
