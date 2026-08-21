@@ -352,7 +352,7 @@ export default function CongressClient() {
                 <div className="relative h-[300px] rounded-lg overflow-hidden">
                   <Image
                     src={Salon1}
-                    alt="Salón 1"
+                    alt="Fachada del hotel Holiday Inn, sede del Congreso Internacional de Medicina Estética"
                     fill
                     className="object-cover"
                   />
@@ -360,7 +360,7 @@ export default function CongressClient() {
                 <div className="relative h-[300px] rounded-lg overflow-hidden">
                   <Image
                     src={Salon2}
-                    alt="Salón 2"
+                    alt="Salón de conferencias preparado para el Congreso Internacional de Medicina Estética"
                     fill
                     className="object-cover"
                   />
@@ -399,7 +399,7 @@ export default function CongressClient() {
                 <div className="relative h-[400px] md:h-[600px] rounded-lg overflow-hidden">
                   <Image
                     src={Turismo1}
-                    alt="Turismo 1"
+                    alt="Ángel de la Independencia en Paseo de la Reforma, Ciudad de México"
                     fill
                     className="object-cover"
                   />
@@ -410,7 +410,7 @@ export default function CongressClient() {
                   <div className="relative flex-1 rounded-lg overflow-hidden">
                     <Image
                       src={Turismo2}
-                      alt="Turismo 2"
+                      alt="Plaza cívica con bandera monumental de México frente a palacio de gobierno"
                       fill
                       className="object-cover"
                     />
@@ -418,7 +418,7 @@ export default function CongressClient() {
                   <div className="relative flex-1 rounded-lg overflow-hidden">
                     <Image
                       src={Turismo3}
-                      alt="Turismo 3"
+                      alt="Palacio de Bellas Artes al atardecer, Ciudad de México"
                       fill
                       className="object-cover"
                     />

@@ -81,7 +81,7 @@ export default function LoginPage() {
           <div className="mx-auto flex h-20 w-20 items-center justify-center mb-4">
             <Image 
               src={logoVerde} 
-              alt="Logo" 
+              alt="Instituto Mex-Col-USA"
               width={64} 
               height={64}
               className="h-16 w-16"

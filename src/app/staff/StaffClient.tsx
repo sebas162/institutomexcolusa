@@ -195,7 +195,7 @@ export default function StaffClient() {
         <div className="absolute inset-0">
           <Image
             src={hero}
-            alt="Staff hero"
+            alt="Equipo directivo y médico de Instituto Mex-Col-USA"
             fill
             className="object-cover"
             priority

@@ -103,7 +103,7 @@ export default function ContactClient() {
         <div className="absolute inset-0">
           <Image
             src={ContactanosHero}
-            alt="Contact hero"
+            alt="Doctora de Instituto Mex-Col-USA atendiendo consultas en consultorio de medicina estética"
             fill
             className="object-cover"
             priority

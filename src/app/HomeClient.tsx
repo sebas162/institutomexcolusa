@@ -372,7 +372,7 @@ export default function HomeClient() {
                         ? MiniLiftingColombia
                         : c.image
                     }
-                    alt={c.country}
+                    alt={c.course}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"

@@ -107,7 +107,7 @@ export default function AcademicProgramsClient() {
         <div className="absolute inset-0">
           <Image
             src={heroimg}
-            alt="Academic Programs hero"
+            alt="Doctora explicando técnica de armonización facial con modelo anatómico a estudiantes de medicina estética"
             fill
             className="object-cover"
             priority

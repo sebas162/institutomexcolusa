@@ -700,7 +700,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                     <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-primary/10 shadow-sm bg-muted/50">
                       <Image
                         src={comentario1}
-                        alt="Comentario 1"
+                        alt="Reseña de 5 estrellas de Eri López sobre el curso de sueroterapia, quelación y medicina regenerativa"
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, 33vw"
@@ -709,7 +709,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                     <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-primary/10 shadow-sm bg-muted/50 p-4">
                       <Image
                         src={comentario2}
-                        alt="Comentario 2"
+                        alt="Reseña de 5 estrellas de Marila Feliciano sobre el curso online de sueroterapia, quelación y medicina regenerativa"
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, 33vw"
@@ -718,7 +718,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                     <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-primary/10 shadow-sm bg-muted/50 p-4">
                       <Image
                         src={comentario3}
-                        alt="Comentario 3"
+                        alt="Reseña de 5 estrellas de Y FonsecaZ sobre la clase online de suero terapia y quelación"
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, 33vw"
@@ -738,7 +738,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                       <div className="min-w-full relative aspect-[4/3] bg-muted/50 p-2">
                         <Image
                           src={comentario1}
-                          alt="Comentario 1"
+                          alt="Reseña de 5 estrellas de Eri López sobre el curso de sueroterapia, quelación y medicina regenerativa"
                           fill
                           className="object-contain"
                           sizes="100vw"
@@ -747,7 +747,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                       <div className="min-w-full relative aspect-[4/3] bg-muted/50 p-2">
                         <Image
                           src={comentario2}
-                          alt="Comentario 2"
+                          alt="Reseña de 5 estrellas de Marila Feliciano sobre el curso online de sueroterapia, quelación y medicina regenerativa"
                           fill
                           className="object-contain"
                           sizes="100vw"
@@ -756,7 +756,7 @@ export default function ClientPage({ slug }: { slug: string }) {
                       <div className="min-w-full relative aspect-[4/3] bg-muted/50 p-2">
                         <Image
                           src={comentario3}
-                          alt="Comentario 3"
+                          alt="Reseña de 5 estrellas de Y FonsecaZ sobre la clase online de suero terapia y quelación"
                           fill
                           className="object-contain"
                           sizes="100vw"
