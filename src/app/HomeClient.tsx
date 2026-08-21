@@ -113,44 +113,6 @@ export default function HomeClient() {
     updateMetaTag("twitter:description", currentMeta.description);
     updateMetaTag("twitter:card", "summary_large_image");
 
-    // JSON-LD Schema - Organization + FAQs + Courses
-    const schemaScript = document.getElementById("org-schema");
-    if (!schemaScript) {
-      const script = document.createElement("script");
-      script.id = "org-schema";
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: "Instituto Mex-Col-USA",
-        url: "https://www.institutomexcolusa.com/",
-        description: currentMeta.description,
-        logo: "https://www.institutomexcolusa.com/logo.png",
-        sameAs: [
-          "https://www.facebook.com/institutomexcolusa",
-          "https://www.instagram.com/institutomexcolusa",
-        ],
-        address: [
-          {
-            "@type": "PostalAddress",
-            addressCountry: "US",
-            addressLocality: "USA",
-          },
-          {
-            "@type": "PostalAddress",
-            addressCountry: "MX",
-            addressLocality: "Mexico",
-          },
-          {
-            "@type": "PostalAddress",
-            addressCountry: "CO",
-            addressLocality: "Colombia",
-          },
-        ],
-      });
-      document.head.appendChild(script);
-    }
-
     // JSON-LD FAQ Schema
     const faqSchema = document.getElementById("faq-schema");
     if (!faqSchema) {
