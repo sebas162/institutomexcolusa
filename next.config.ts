@@ -1,7 +1,12 @@
 const nextConfig = {
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+    ],
   },
   compress: true,
   poweredByHeader: false,
