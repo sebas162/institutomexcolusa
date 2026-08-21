@@ -13,4 +13,4 @@ jobs:
         run: |
           curl -f -X GET \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
-            "https://www.institutomexcolusa.com/api/cron/publish-scheduled-posts"
+            "https://www.institutomexcolusa.com/api/cron/publish-scheduled-posts/"
