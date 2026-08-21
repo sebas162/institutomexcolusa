@@ -60,7 +60,7 @@ export function Footer() {
                 <FaInstagram className="h-6 w-6" />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="https://www.youtube.com/@institutomexcol9788/featured" target="_blank" className="text-white/70 hover:text-primary transition-colors">
+              <Link href="https://www.youtube.com/@institutomexcolusa" target="_blank" className="text-white/70 hover:text-primary transition-colors">
                 <FaYoutube className="h-6 w-6" />
                 <span className="sr-only">Youtube</span>
               </Link>
