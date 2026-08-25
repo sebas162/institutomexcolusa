@@ -201,8 +201,7 @@ export const academicPrograms = {
           certification: "Yes",
           targetAudience: {
             title: "Course Directed For:",
-            highlighted:
-              "Aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics",
+            highlighted: "Physician Surgeon",
             description:
               'The **"Mini Facial Lifting 3 Points" (Minimally Invasive) Rejuvenation Technique** course is designed for **aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics** who wish to expand their knowledge and refine their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** may participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and remain at the forefront of facial medical aesthetics**. While prior experience in this specific technique is not required, previous clinical training is valued.\n\nUpon completing the course, participants will be qualified to **safely and effectively perform the Mini Facial Lifting 3 Points technique**, achieving **visible aesthetic results** and enhancing opportunities within their medical practice.\n\n**This course is offered exclusively at our Colombia and Mexico campuses**, giving participants the opportunity to train in person in a professional and fully equipped environment for safe practice.',
           },
@@ -459,8 +458,7 @@ export const academicPrograms = {
           certification: "Yes",
           targetAudience: {
             title: "Course Directed For:",
-            highlighted:
-              "Aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics",
+            highlighted: "Physician Surgeon",
             description:
               'The **"Mini Facial Lifting 3 Points" (Minimally Invasive) Rejuvenation Technique** course is designed for **aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics** who wish to expand their knowledge and refine their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** may participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and remain at the forefront of facial medical aesthetics**. While prior experience in this specific technique is not required, previous clinical training is valued.\n\nUpon completing the course, participants will be qualified to **safely and effectively perform the Mini Facial Lifting 3 Points technique**, achieving **visible aesthetic results** and enhancing opportunities within their medical practice.\n\n**This course is offered exclusively at our Colombia and Mexico campuses**, giving participants the opportunity to train in person in a professional and fully equipped environment for safe practice.',
           },
@@ -695,8 +693,7 @@ export const academicPrograms = {
           certification: "Yes",
           targetAudience: {
             title: "Course Directed For:",
-            highlighted:
-              "Aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics",
+            highlighted: "Physician Surgeon",
             description:
               'The **"Mini Facial Lifting 3 Points" (Minimally Invasive) Rejuvenation Technique** course is designed for **aesthetic physicians, dermatologists, plastic surgeons, and dentists specialized in aesthetics** who wish to expand their knowledge and refine their skills in minimally invasive facial rejuvenation techniques.\n\n**Aesthetic doctors, dermatologists, plastic surgeons and dentists specialized in aesthetics** may participate.\n\nThis program is ideal for those seeking to **strengthen their professional profile, offer innovative treatments to their patients, and remain at the forefront of facial medical aesthetics**. While prior experience in this specific technique is not required, previous clinical training is valued.\n\nUpon completing the course, participants will be qualified to **safely and effectively perform the Mini Facial Lifting 3 Points technique**, achieving **visible aesthetic results** and enhancing opportunities within their medical practice.\n\n**This course is offered exclusively at our Colombia and Mexico campuses**, giving participants the opportunity to train in person in a professional and fully equipped environment for safe practice.',
           },

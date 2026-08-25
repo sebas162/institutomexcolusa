@@ -201,8 +201,7 @@ export const academicPrograms = {
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted:
-              "Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética",
+            highlighted: "Médico cirujano",
             description:
               'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética.**\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.',
           },
@@ -458,8 +457,7 @@ export const academicPrograms = {
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted:
-              "Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética",
+            highlighted: "Médico cirujano",
             description:
               'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética.**\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.',
           },
@@ -717,8 +715,7 @@ export const academicPrograms = {
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted:
-              "Médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética",
+            highlighted: "Médico cirujano",
             description: [
               'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.',
               "Pueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética**.",
