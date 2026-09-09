@@ -23,14 +23,15 @@ export const home = {
       {
         country: "Mexico",
         course:
-          "Intravenous Therapy, Chelation, and Principles of Applied Regenerative Medicine",
+          "Online Course: Intravenous Therapy, Chelation, and Principles of Applied Regenerative Medicine",
         description:
           "Explore chelation therapy and the fundamentals of regenerative medicine in clinical practice.",
         image: "https://picsum.photos/seed/mex/600/400",
       },
       {
         country: "Colombia",
-        course: "Mini 3-Point Rejuvenation Lifting Techniques",
+        course:
+          'Online Course: "Mini Lifting 3-Point" Rejuvenation Techniques (Minimally Invasive)',
         description:
           "Master strategic facial lifting techniques for visible, natural rejuvenation results.",
         image: "https://picsum.photos/seed/col/600/400",

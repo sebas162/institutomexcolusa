@@ -23,7 +23,7 @@ export const home = {
       {
         country: "México",
         course:
-          "Curso sueroterapia, quelación y principios de medicina regenerativa aplicada",
+          "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
         description:
           "Explora la terapia de quelación y los fundamentos de medicina regenerativa en la práctica clínica.",
         image: "https://picsum.photos/seed/mex/600/400",
@@ -31,7 +31,7 @@ export const home = {
       {
         country: "Colombia",
         course:
-          'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+          'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
         description:
           "Domina las técnicas de lifting facial estratégicas para resultados de rejuvenecimiento visibles y naturales.",
         image: "https://picsum.photos/seed/col/600/400",

@@ -21,7 +21,7 @@ export const academicPrograms = {
         },
         {
           title:
-            "Curso sueroterapia-quelación y principios de medicina regenerativa aplicada",
+            "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
           description:
             "Conoce la quelación y fundamentos de medicina regenerativa",
           image: "@/assets/img-heros/img-hero-cursos/suero-usa.webp",
@@ -29,9 +29,9 @@ export const academicPrograms = {
         },
         {
           title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+            'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           description:
-            "Curso presencial de 2 días teórico y práctico para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.",
+            'Curso online de 2 días teórico-demostrativo para especializarse en la técnica de rejuvenecimiento facial mínimamente invasiva "Mini Lifting 3 Puntos", con resultados inmediatos.',
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-usa.webp",
           slug: "mini-lifting-usa",
         },
@@ -140,23 +140,23 @@ export const academicPrograms = {
         },
         "intravenous-therapy-chelation": {
           title:
-            "Curso de sueroterapia, quelación y principios de medicina regenerativa aplicada",
+            "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
           subtitle: "Capacitación Avanzada en Medicina Regenerativa",
           description:
             "Capacitación integral en técnicas de terapia intravenosa y quelación.",
           heroImage: "@/assets/img-heros/img-hero-cursos/suero-usa.webp",
-          format: "Presencial y online",
+          format: "Online",
           duration: "2 días",
-          schedule: "9:00 am - 6:00 pm aprox",
+          schedule: "9:00 am - 6:00 pm Aprox",
           location: "Los Angeles, CA",
           price: "Contactar para precios",
           capacity: "Limitado a 10 participantes",
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Profesionales de la salud",
+            highlighted: "Profesionales Médicos",
             description:
-              "La **Medicina Regenerativa y la Sueroterapia** han demostrado ser áreas de gran impacto en la salud y el bienestar de los pacientes. Sin embargo, a nivel mundial se han presentado complicaciones por la práctica inadecuada de estos tratamientos, muchas veces realizadas por personal sin la formación suficiente.\n\nPor ello, nuestro programa está diseñado para **profesionales de la salud**, brindándoles las herramientas y el conocimiento necesario para aplicar estas terapias de manera segura y eficaz.\n\nEn el **INSTITUTO MEX-COL-USA**, asumimos con responsabilidad el reto de contribuir a que estas situaciones no ocurran, promoviendo la correcta capacitación de todos los especialistas involucrados en estas prácticas. \n\n**Nos enfocamos en preparar profesionales que apliquen la Medicina Regenerativa y Sueroterapia con seguridad, ética y excelencia, cuidando siempre la salud y el bienestar de los pacientes.**",
+              "La **Medicina Regenerativa y la Sueroterapia** han demostrado ser áreas de gran impacto en la salud y el bienestar de los pacientes. Sin embargo, a nivel mundial se han presentado complicaciones por la práctica inadecuada de estos tratamientos, muchas veces realizadas por personal sin la formación suficiente.\n\nPor ello, nuestro programa está diseñado para **profesionales médicos**, brindándoles las herramientas y el conocimiento necesario para aplicar estas terapias de manera segura y eficaz.\n\nEn el **INSTITUTO MEX-COL-USA** asumimos con responsabilidad el reto de contribuir a que estas situaciones no ocurran, promoviendo la correcta capacitación de todos los especialistas involucrados en estas prácticas.\n\n**Nos enfocamos en preparar profesionales que apliquen la Medicina Regenerativa y Sueroterapia con seguridad, ética y excelencia, cuidando siempre la salud y el bienestar de los pacientes.**",
           },
           curriculum: [
             {
@@ -168,7 +168,7 @@ export const academicPrograms = {
             {
               title: "**Día 2 – Medicina Regenerativa Explicación Teórica:**",
               topics: [
-                "En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes e inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.",
+                "En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también protocolos de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.",
               ],
             },
           ],
@@ -182,54 +182,49 @@ export const academicPrograms = {
           productQuality: {
             title: "Productos de Calidad y Seguridad Garantizada",
             description:
-              "El **INSTITUTO MEX-COL-USA** trabaja con laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada una de las prácticas realizadas, y compartiendo información sobre estos proveedores en nuestras sedes.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.",
+              "El **INSTITUTO MEX-COL-USA** recomienda laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada uno de los tratamientos que se realicen, y compartiendo información sobre estos proveedores en nuestros cursos.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.",
           },
         },
         "mini-lifting-usa": {
           title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+            'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           subtitle: "Capacitación Profesional en Rejuvenecimiento Facial",
           description:
             "Capacitación práctica en técnicas de rejuvenecimiento facial mínimamente invasivas.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-USA.png",
-          format: "Presencial",
-          duration: "2 días teórico y práctico",
-          schedule: "9:00 am – 7:00 pm aprox",
-          location: "Colombia - México",
+          format: "Online",
+          duration: "2 días teórico - demostrativo (video)",
+          schedule: "9:00 am - 7:00 pm Aprox",
+          location: "Colombia - Remoto",
           price: "Contactar para precios",
           capacity: "Inscripción limitada",
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Médico cirujano",
+            highlighted: "Médico cirujano plástico",
             description:
-              'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética.**\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.',
+              'El curso **"Técnica de Rejuvenecimiento Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos cirujanos plásticos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nEste curso es apto para médicos con especialidad, ya que se imparte **vía online**; sin embargo, para realizar el tratamiento el participante debe contar en su clínica con un **médico cirujano plástico**.\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la cirugía plástica**. Aunque no se requiere experiencia previa en esta técnica específica, se valora contar con un cirujano plástico para realizar los procedimientos.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.',
           },
           curriculum: [
             {
-              title: "Contenido del curso",
+              title: "Estructura del curso",
               topics: [
-                "Se instruirá a los médicos especialistas en medicina estética, dermatología, cirugía plástica y odontología estética a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
-                "\nEl curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la **figura facial y los aspectos a tener en cuenta por áreas faciales, así como el concepto de belleza facial y envejecimiento**. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
-                "\nAdemás, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada**, revisión de **casos clínicos** y **práctica supervisada con pacientes**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
-                "\nUtilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.",
-                "\nEsta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.",
+                "Se instruirá a los profesionales médicos a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
+                "El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la figura facial y los aspectos a tener en cuenta por áreas faciales, así como el concepto de belleza facial y envejecimiento. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
+                "Además, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada** y revisión de **casos clínicos**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
+                "Utilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.",
+                "Esta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.",
               ],
             },
           ],
           includes: [
-            "Incluye Material de referencia y de estudio",
-            "Práctica personalizada",
+            "Material de referencia y de estudio",
+            "Video de práctica",
             "Insumos y materiales de prácticas",
           ],
           accreditations: [
-            "Los cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certificando la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.",
+            "Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado, el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**.\n\n**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.",
           ],
-          productQuality: {
-            title: "Productos de Calidad y Seguridad Garantizada",
-            description:
-              "En el **INSTITUTO MEX-COL-USA** contamos con **instalaciones de primer nivel**, diseñadas para ofrecer un entorno seguro, higiénico y profesional, donde cada práctica y procedimiento se realiza bajo los más altos estándares de calidad y seguridad.\n\nNuestro compromiso es garantizar que cada alumno pueda **aprender y practicar en un espacio confiable**, equipado y preparado para brindar la mejor experiencia educativa. Así, aseguramos que la formación se desarrolle en un **ambiente seguro, profesional y de excelencia**, fortaleciendo el aprendizaje y la confianza de cada participante.",
-          },
         },
         "phlebotomy-course": {
           title: "Curso técnico en Flebotomía",
@@ -287,7 +282,7 @@ export const academicPrograms = {
         },
         {
           title:
-            "Curso sueroterapia-quelación y principios de medicina regenerativa aplicada",
+            "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
           description:
             "Domina la quelación y los fundamentos de medicina regenerativa aplicados a tratamientos estéticos.",
           image: "@/assets/img-heros/img-hero-cursos/suero-mx.webp",
@@ -295,7 +290,7 @@ export const academicPrograms = {
         },
         {
           title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+            'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           description:
             "Capacitación en técnicas de lifting facial estratégicas para rejuvenecimiento visible y natural.",
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp",
@@ -311,7 +306,7 @@ export const academicPrograms = {
             "Capacitación integral en técnicas de armonización facial con los más altos estándares de seguridad, ética y conocimiento científico.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-mx.webp",
           format: "Presencial",
-          duration: "2 días teórico y práctico",
+          duration: "2 días teóricos y 2 días prácticos",
           schedule: "9:00 am - 7:00 pm Aprox",
           location: "Ciudad de México, México",
           price: "Contactar para precios",
@@ -319,7 +314,7 @@ export const academicPrograms = {
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Médicos y odontólogos",
+            highlighted: "Médicos especialistas",
             description:
               "A nivel mundial, se han presentado numerosas complicaciones en tratamientos de medicina estética, muchas de ellas ocasionadas por ser realizados por **personal no idóneo ni debidamente capacitado**.\n\nEn el **INSTITUTO MEX-COL-USA**, asumimos con responsabilidad el reto de contribuir a que estas negligencias no ocurran en ninguna parte del mundo.\n\nPor ello, estamos **comprometidos con la formación y capacitación de profesionales médicos y odontólogos** en sus diferentes especialidades, garantizando que cada tratamiento sea realizado bajo los **más altos estándares de seguridad, ética y conocimiento científico**.\n\nNuestro objetivo es claro: **formar especialistas preparados que cuiden la salud, la seguridad y el bienestar de los pacientes en cada procedimiento estético**.",
           },
@@ -355,6 +350,7 @@ export const academicPrograms = {
                 "Glúteos",
                 "Cuello",
                 "Rostro y más",
+                "Las aplicaciones prácticas se determinarán de acuerdo con el **perfil profesional, formación y ámbito de competencia** de cada participante.",
               ],
             },
           ],
@@ -394,12 +390,12 @@ export const academicPrograms = {
         },
         "intravenous-therapy-mexico": {
           title:
-            "Curso sueroterapia-quelación y principios de medicina regenerativa aplicada",
+            "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
           subtitle: "Capacitación en Medicina Regenerativa",
           description:
             "Domina la quelación y los fundamentos de medicina regenerativa aplicados a tratamientos estéticos.",
           heroImage: "@/assets/img-heros/img-hero-cursos/suero-mx.webp",
-          format: "Presencial y online",
+          format: "Online",
           duration: "2 días",
           schedule: "9:00 am - 6:00 pm Aprox",
           location: "Ciudad de México, México",
@@ -408,21 +404,21 @@ export const academicPrograms = {
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Profesionales de la salud",
+            highlighted: "Profesionales Médicos",
             description:
-              "La **Medicina Regenerativa y la Sueroterapia** han demostrado ser áreas de gran impacto en la salud y el bienestar de los pacientes. Sin embargo, a nivel mundial se han presentado complicaciones por la práctica inadecuada de estos tratamientos, muchas veces realizadas por personal sin la formación suficiente.\n\nPor ello, nuestro programa está diseñado para **profesionales de la salud**, brindándoles las herramientas y el conocimiento necesario para aplicar estas terapias de manera segura y eficaz.\n\nEn el **INSTITUTO MEX-COL-USA** asumimos con responsabilidad el reto de contribuir a que estas situaciones no ocurran, promoviendo la correcta capacitación de todos los especialistas involucrados en estas prácticas.\n\n**Nos enfocamos en preparar profesionales que apliquen la Medicina Regenerativa y Sueroterapia con seguridad, ética y excelencia, cuidando siempre la salud y el bienestar de los pacientes.**",
+              "La **Medicina Regenerativa y la Sueroterapia** han demostrado ser áreas de gran impacto en la salud y el bienestar de los pacientes. Sin embargo, a nivel mundial se han presentado complicaciones por la práctica inadecuada de estos tratamientos, muchas veces realizadas por personal sin la formación suficiente.\n\nPor ello, nuestro programa está diseñado para **profesionales médicos**, brindándoles las herramientas y el conocimiento necesario para aplicar estas terapias de manera segura y eficaz.\n\nEn el **INSTITUTO MEX-COL-USA** asumimos con responsabilidad el reto de contribuir a que estas situaciones no ocurran, promoviendo la correcta capacitación de todos los especialistas involucrados en estas prácticas.\n\n**Nos enfocamos en preparar profesionales que apliquen la Medicina Regenerativa y Sueroterapia con seguridad, ética y excelencia, cuidando siempre la salud y el bienestar de los pacientes.**",
           },
           curriculum: [
             {
               title: "Día 1 Sueroterapia Explicación Teórica",
               topics: [
-                "En este curso de **Sueroterapia**, los participantes adquirirán conocimientos integrales sobre técnicas avanzadas para optimizar la salud, la energía y el bienestar de los pacientes. Aprenderás a aplicar terapias que favorecen la **neuroestimulación, la oxigenación celular y la revitalización general**, así como tratamientos específicos para **fortalecer el sistema inmunológico, estimular el metabolismo y combatir los signos del envejecimiento.**\n\nAdemás, conocerás el uso seguro y efectivo de **principios activos clave**, desde vitaminas y minerales hasta compuestos especializados, comprendiendo sus propiedades bioquímicas, farmacológicas y sus aplicaciones terapéuticas en condiciones como **obesidad, sobrepeso, psoriasis, dolor osteoarticular y enfermedades autoinmunes.**\n\nEl curso también te brindará herramientas para la **eliminación de metales pesados, la reducción de placa de ateroma y la optimización de la salud cardiovascular**, todo con un enfoque en la **seguridad, ética y eficacia clínica.**\n\nAl finalizar, estarás preparado para **implementar protocolos de Sueroterapia** con un enfoque profesional, seguro y orientado al bienestar integral de tus pacientes.",
+                "En este curso de **Sueroterapia**, los participantes adquirirán conocimientos integrales sobre técnicas avanzadas para optimizar la salud, la energía y el bienestar de los pacientes. Aprenderás a aplicar terapias que favorecen la **neuroestimulación, la oxigenación celular y la revitalización general**, así como tratamientos específicos para **fortalecer el sistema inmunológico, estimular el metabolismo y combatir los signos del envejecimiento**.\n\nAdemás, conocerás el uso seguro y efectivo de **principios activos clave**, desde vitaminas y minerales hasta compuestos especializados, comprendiendo sus propiedades bioquímicas, farmacológicas y sus aplicaciones terapéuticas en condiciones como **obesidad, sobrepeso, psoriasis, dolor osteoarticular y enfermedades autoinmunes**.\n\nEl curso también te brindará herramientas para **la eliminación de metales pesados, la reducción de placa de ateroma y la optimización de la salud cardiovascular**, todo con un enfoque en la **seguridad, ética y eficacia clínica**.\n\nAl finalizar, estarás preparado para **implementar protocolos de Sueroterapia** con un enfoque profesional, seguro y orientado al bienestar integral de tus pacientes.",
               ],
             },
             {
               title: "Día 2 Medicina Regenerativa Explicación Teórica",
               topics: [
-                "En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.",
+                "En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.\n\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.\n\nEl día incluye también protocolos de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.\n\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.",
               ],
             },
           ],
@@ -433,7 +429,7 @@ export const academicPrograms = {
           productQuality: {
             title: "Productos de Calidad y Seguridad Garantizada:",
             description:
-              "El **INSTITUTO MEX-COL-USA** trabaja con laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada una de las prácticas realizadas, y compartiendo información sobre estos proveedores en nuestras sedes.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.\n\nEl curso **incluye los productos necesarios para la práctica**, como los utilizados en **Sueroterapia** y un **implante de placenta**, garantizando que los alumnos puedan aplicar los procedimientos de manera segura y efectiva durante las sesiones prácticas.",
+              "El **INSTITUTO MEX-COL-USA** recomienda laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada uno de los tratamientos que se realicen, y compartiendo información sobre estos proveedores en nuestros cursos.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.",
             includedProducts: [
               "Productos incluidos para práctica:",
               "Productos utilizados en Terapia Intravenosa",
@@ -443,51 +439,44 @@ export const academicPrograms = {
         },
         "mini-lifting-techniques": {
           title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+            'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           subtitle: "Rejuvenecimiento Facial Avanzado",
           description:
             "Capacitación en técnicas de lifting facial estratégicas para rejuvenecimiento visible y natural.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-mx.webp",
-          format: "Presencial",
-          duration: "2 días teórico y práctico",
+          format: "Online",
+          duration: "2 días teórico - demostrativo (video)",
           schedule: "9:00 am - 7:00 pm Aprox",
-          location: "Colombia - México",
+          location: "Colombia - Remoto",
           price: "Contactar para precios",
           capacity: "Inscripción limitada",
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Médico cirujano",
+            highlighted: "Médico cirujano plástico",
             description:
-              'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nPueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética.**\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.\n\n**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.',
+              'El curso **"Técnica de Rejuvenecimiento Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos cirujanos plásticos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.\n\nEste curso es apto para médicos con especialidad, ya que se imparte **vía online**; sin embargo, para realizar el tratamiento el participante debe contar en su clínica con un **médico cirujano plástico**.\n\nEste programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la cirugía plástica**. Aunque no se requiere experiencia previa en esta técnica específica, se valora contar con un cirujano plástico para realizar los procedimientos.\n\nAl finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.',
           },
           curriculum: [
             {
-              title: "Contenido del curso",
+              title: "Estructura del curso",
               topics: [
-                "Se instruirá a los médicos especialistas en medicina estética, dermatología, cirugía plástica y odontología estética a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
-                "\nEl curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la **figura facial y los aspectos a tener en cuenta por áreas faciales, así como el concepto de belleza facial y envejecimiento**. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
-                "\nAdemás, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada**, revisión de **casos clínicos** y **práctica supervisada con pacientes**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
-                "\nUtilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.",
-                "\nEsta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.",
+                "Se instruirá a los profesionales médicos a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
+                "El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la figura facial y los aspectos a tener en cuenta por áreas faciales, así como el concepto de belleza facial y envejecimiento. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
+                "Además, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada** y revisión de **casos clínicos**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
+                "Utilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.",
+                "Esta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.",
               ],
             },
           ],
           includes: [
-            "Incluye Material de referencia y de estudio",
-            "Práctica personalizada",
+            "Material de referencia y de estudio",
+            "Video de práctica",
             "Insumos y materiales de prácticas",
           ],
           accreditations: [
-            "**Avales y Respaldos Institucionales:**\n\nLos cursos y actualizaciones que impartimos al ser educación continua están registrados en la secretaría del trabajo y previsión social (en México). Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%** \n\n**Constancia de Asistencia y Participación:**\nEmitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:**\nEmitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.",
+            "Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado, el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**.\n\n**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.\n\n**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.",
           ],
-          productQuality: {
-            title: "Productos de Calidad y Seguridad Garantizada",
-            description:
-              "En el **INSTITUTO MEX-COL-USA** contamos con **instalaciones de primer nivel**, diseñadas para ofrecer un entorno seguro, higiénico y profesional, donde cada práctica y procedimiento se realiza bajo los más altos estándares de calidad y seguridad.\n\nNuestro compromiso es garantizar que cada alumno pueda **aprender y practicar en un espacio confiable**, equipado y preparado para brindar la mejor experiencia educativa. Así, aseguramos que la formación se desarrolle en un **ambiente seguro, profesional y de excelencia**, fortaleciendo el aprendizaje y la confianza de cada participante.",
-            certifications: [],
-            includedProducts: [],
-          },
         },
       },
     },
@@ -503,7 +492,7 @@ export const academicPrograms = {
         },
         {
           title:
-            "Curso sueroterapia-quelación y principios de medicina regenerativa aplicada online",
+            "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
           description:
             "Curso online de 2 días sobre técnicas avanzadas de Sueroterapia y principios de Medicina Regenerativa con enfoque práctico y seguro.",
           image: "@/assets/img-heros/img-hero-cursos/suero-col.webp",
@@ -511,9 +500,9 @@ export const academicPrograms = {
         },
         {
           title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+            'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           description:
-            "Curso presencial de 2 días teórico y práctico para especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos.",
+            'Curso online de 2 días teórico-demostrativo para especializarse en la técnica de rejuvenecimiento facial mínimamente invasiva "Mini Lifting 3 Puntos", con resultados inmediatos.',
           image: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
           slug: "mini-lifting-colombia",
         },
@@ -526,8 +515,8 @@ export const academicPrograms = {
           description:
             "Curso presencial con 2 días teóricos y 2 días de práctica intensiva. Aprende las técnicas más innovadoras en medicina estética con productos de los mejores laboratorios mundiales certificados por INVIMA, FDA y COFEPRIS.",
           heroImage: "@/assets/img-heros/img-hero-cursos/master-class-col.webp",
-          format: "presencial",
-          duration: "2 días teórico y práctico",
+          format: "Presencial",
+          duration: "2 días teóricos y 2 días prácticos",
           schedule: "9:00 am - 7:00 pm Aprox",
           location: "Bogotá, Colombia",
           price: "Contactar para precios",
@@ -544,11 +533,11 @@ export const academicPrograms = {
           ],
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Médicos y odontólogos",
+            highlighted: "Médicos especialistas",
             description: [
-              "A nivel mundial, se han presentado numerosas complicaciones en tratamientos de medicina estética, muchas de ellas ocasionadas por ser realizados por **personal no idóneo ni capacitado** para llevar a cabo estos procedimientos.",
-              "En el **INSTITUTO MEX-COL-USA** asumimos con responsabilidad el reto de contribuir a que estas negligencias no ocurran en ninguna parte del mundo.",
-              "Por ello, estamos **comprometidos en la formación y capacitación de profesionales médicos, sus diferentes especialidades y odontólogos**, garantizando que cada tratamiento sea realizado con los más altos estándares de seguridad, ética y conocimiento científico.",
+              "A nivel mundial, se han presentado numerosas complicaciones en tratamientos de medicina estética, muchas de ellas ocasionadas por ser realizados por **personal no idóneo ni debidamente capacitado**.",
+              "En el **INSTITUTO MEX-COL-USA**, asumimos con responsabilidad el reto de contribuir a que estas negligencias no ocurran en ninguna parte del mundo.",
+              "Por ello, estamos **comprometidos con la formación y capacitación de profesionales médicos y odontólogos** en sus diferentes especialidades, garantizando que cada tratamiento sea realizado bajo los **más altos estándares de seguridad, ética y conocimiento científico**.",
               "Nuestro objetivo es claro: **formar especialistas preparados que cuiden la salud, la seguridad y el bienestar de los pacientes en cada procedimiento estético**.",
             ],
           },
@@ -600,6 +589,7 @@ export const academicPrograms = {
                 "Glúteos",
                 "Cuello",
                 "Rostro y más",
+                "Las aplicaciones prácticas se determinarán de acuerdo con el **perfil profesional, formación y ámbito de competencia** de cada participante.",
               ],
             },
           ],
@@ -642,22 +632,22 @@ export const academicPrograms = {
         },
         "intravenous-therapy-online": {
           title:
-            "Curso sueroterapia-quelación y principios de medicina regenerativa aplicada online",
+            "Curso online sueroterapia-quelación y principios de medicina regenerativa aplicada",
           subtitle: "Formación Online en Medicina Regenerativa y Sueroterapia",
           description:
             "Curso online de 2 días sobre técnicas avanzadas de Sueroterapia y principios de Medicina Regenerativa con enfoque práctico y seguro.",
           heroImage: "@/assets/img-heros/img-hero-cursos/suero-col.webp",
           format: "Online",
           duration: "2 días",
-          schedule: "9:45 am - 6:00 pm aprox",
+          schedule: "9:00 am - 6:00 pm Aprox",
           location: "Online",
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Profesionales de la salud",
+            highlighted: "Profesionales Médicos",
             description: [
               "La **Medicina Regenerativa y la Sueroterapia** han demostrado ser áreas de gran impacto en la salud y el bienestar de los pacientes. Sin embargo, a nivel mundial se han presentado complicaciones por la práctica inadecuada de estos tratamientos, muchas veces realizadas por personal sin la formación suficiente.",
-              "Por ello, nuestro programa está diseñado para **profesionales de la salud**, brindándoles las herramientas y el conocimiento necesario para aplicar estas terapias de manera segura y eficaz.",
+              "Por ello, nuestro programa está diseñado para **profesionales médicos**, brindándoles las herramientas y el conocimiento necesario para aplicar estas terapias de manera segura y eficaz.",
               "En el **INSTITUTO MEX-COL-USA** asumimos con responsabilidad el reto de contribuir a que estas situaciones no ocurran, promoviendo la correcta capacitación de todos los especialistas involucrados en estas prácticas.",
               "**Nos enfocamos en preparar profesionales que apliquen la Medicina Regenerativa y Sueroterapia con seguridad, ética y excelencia, cuidando siempre la salud y el bienestar de los pacientes.**",
             ],
@@ -678,7 +668,7 @@ export const academicPrograms = {
                 "Contenido del curso",
                 "En esta segunda jornada, profundizarás en los **principios, procesamiento y funciones biológicas de las terapias regenerativas**, aprendiendo sus indicaciones, usos en medicina, dosis adecuadas y consideraciones de seguridad. Conocerás los fundamentos de la **diferenciación celular, angiogénesis e inmunomodulación**, así como la aplicación práctica de **células madre mesenquimales** a través de material audiovisual.",
                 "\nExplorarás las **funciones biológicas de los exosomas**, sus indicaciones y uso seguro, y observarás ejemplos prácticos de aplicación mediante videos instructivos. Asimismo, te familiarizarás con los **implantes de placenta**, comprendiendo sus principios, indicaciones, dosis y perfil de seguridad, acompañados de demostraciones prácticas en video.",
-                "\nEl día incluye también sesiones de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.",
+                "\nEl día incluye también protocolos de **Sueroterapia**, abordando terapias revitalizantes, inmunoestimulantes, enfocadas en obesidad y sobrepeso, y **quelación básica para la eliminación de metales**, permitiéndote integrar estos protocolos de manera segura y efectiva en tu práctica profesional.",
                 "\nAl finalizar este módulo, estarás preparado para **aplicar técnicas avanzadas de Medicina Regenerativa y Sueroterapia**, combinando conocimiento teórico y práctico para ofrecer tratamientos seguros, eficaces y orientados al bienestar integral de tus pacientes.",
               ],
             },
@@ -696,42 +686,40 @@ export const academicPrograms = {
           productQuality: {
             title: "Productos de Calidad y Seguridad Garantizada",
             description:
-              "El **INSTITUTO MEX-COL-USA** trabaja con laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada una de las prácticas realizadas, y compartiendo información sobre estos proveedores en nuestras sedes.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.",
+              "El **INSTITUTO MEX-COL-USA** recomienda laboratorios que **respaldan la garantía y confianza en sus productos**, asegurando la calidad en cada uno de los tratamientos que se realicen, y compartiendo información sobre estos proveedores en nuestros cursos.\n\nEs importante destacar que **no vendemos productos en nuestras instalaciones ni promocionamos marcas específicas**, ya que la elección de adquisición debe ser **libre y responsable por parte del alumno**. Cada participante es responsable de verificar con quién comprar, así como de revisar permisos, registros, regulaciones locales y cualquier otro aspecto legal vigente en su ciudad o país antes de adquirir cualquier producto.",
             certifications: [],
             footer: "",
           },
         },
         "mini-lifting-colombia": {
           title:
-            'Curso con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
+            'Curso online con técnicas de rejuvenecimiento "Mini Lifting 3 puntos" (mínimamente invasivo)',
           subtitle: "Técnica de Rejuvenecimiento Facial Mínimamente Invasiva",
           description:
-            "Curso presencial de 2 días teórico y práctico para profesionales médicos que deseen especializarse en técnicas de rejuvenecimiento facial mínimamente invasivas con resultados inmediatos y visibles.",
+            "Capacitación práctica en técnicas de rejuvenecimiento facial mínimamente invasivas.",
           heroImage: "@/assets/img-heros/img-hero-cursos/mini-lifting-col.webp",
-          format: "Presencial",
-          duration: "2 días teórico y práctico",
+          format: "Online",
+          duration: "2 días teórico - demostrativo (video)",
           schedule: "9:00 am - 7:00 pm Aprox",
-          location: "Colombia - México",
+          location: "Colombia - Remoto",
           certification: "Sí",
           targetAudience: {
             title: "Curso Dirigido:",
-            highlighted: "Médico cirujano",
+            highlighted: "Médico cirujano plástico",
             description: [
-              'El **curso "Técnica de Rejuvenecimiento "Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.',
-              "Pueden participar **médicos estéticos, dermatólogos, cirujanos plásticos y odontólogos especializados en estética**.",
-              "Este programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la estética médica facial**. Aunque no se requiere experiencia previa en esta técnica específica, se valorará contar con formación clínica previa.",
+              'El curso **"Técnica de Rejuvenecimiento Mini Lifting Facial 3 Puntos" (mínimamente invasivo)** está diseñado para **profesionales médicos cirujanos plásticos de todo el mundo** que deseen ampliar sus conocimientos y perfeccionar sus habilidades en técnicas de rejuvenecimiento facial mínimamente invasivas.',
+              "Este curso es apto para médicos con especialidad, ya que se imparte **vía online**; sin embargo, para realizar el tratamiento el participante debe contar en su clínica con un **médico cirujano plástico**.",
+              "Este programa es ideal para quienes buscan **fortalecer su perfil profesional, ofrecer tratamientos innovadores a sus pacientes y mantenerse a la vanguardia en el campo de la cirugía plástica**. Aunque no se requiere experiencia previa en esta técnica específica, se valora contar con un cirujano plástico para realizar los procedimientos.",
               "Al finalizar el curso, los participantes estarán capacitados para **aplicar de manera segura y efectiva la técnica de Mini Lifting Facial 3 Puntos**, logrando **resultados estéticos visibles** y aumentando las oportunidades dentro de su práctica médica.",
-              "**Este curso se imparte únicamente en nuestras sedes de Colombia y México**, ofreciendo a los participantes la oportunidad de capacitarse presencialmente en un entorno profesional y completamente equipado para la práctica segura de la técnica.",
             ],
           },
           curriculum: [
             {
-              title: "Contenido del curso",
+              title: "Estructura del curso",
               topics: [
-                "Formación integral en técnica mínimamente invasiva",
-                "Se instruirá a los médicos especialistas en medicina estética, dermatología, cirugía plástica y odontología estética a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
-                "El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la **figura facial y los aspectos a tener en cuenta por áreas faciales**, así como el **concepto de belleza facial y envejecimiento**. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
-                "Además, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada**, revisión de **casos clínicos** y **práctica supervisada con pacientes**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
+                "Se instruirá a los profesionales médicos a capacitarse en esta innovadora técnica mínimamente invasiva, diseñada para revertir hasta 10 años del proceso de envejecimiento facial y ofrecer resultados inmediatos y visibles a sus pacientes.",
+                "El curso combina **explicación teórica avanzada**, que incluye un **recuento histórico de las técnicas de rejuvenecimiento facial**, el estudio de la figura facial y los aspectos a tener en cuenta por áreas faciales, así como el concepto de belleza facial y envejecimiento. Los participantes profundizarán en la **anatomía facial y las estructuras a considerar**, evaluando también las **técnicas actuales de ritidoplastia y sus desventajas**, para comprender las ventajas de los procedimientos mínimamente invasivos.",
+                "Además, se abordará la **valoración del paciente y la elección adecuada según su perfil**, asegurando resultados óptimos y personalizados. La formación incluye **técnica quirúrgica aplicada** y revisión de **casos clínicos**, lo que permite a los médicos aplicar la técnica de manera segura y efectiva.",
                 "Utilizando tres puntos faciales estratégicos, mediante una metodología propia y especializada, los médicos aprenderán a lograr **efectos rejuvenecedores comparables a un lifting quirúrgico**, pero sin necesidad de recurrir a procedimientos invasivos ni cirugías mayores.",
                 "Esta formación brinda a los participantes las competencias necesarias para aplicar tratamientos de **alta eficacia y precisión**, fortaleciendo su perfil profesional en medicina estética y ampliando las oportunidades de ofrecer soluciones innovadoras y seguras a sus pacientes.",
               ],
@@ -739,21 +727,14 @@ export const academicPrograms = {
           ],
           includes: [
             "Material de referencia y de estudio",
-            "Práctica personalizada",
+            "Video de práctica",
             "Insumos y materiales de prácticas",
           ],
           accreditations: [
-            "Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**",
-            "**Constancia de asistencia y participación**: Emitida por el **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.",
-            "**Diploma**: Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.",
+            "Al finalizar la práctica de su capacitación le será aplicada una evaluación de conocimiento, habilidades y destreza, la cual está sujeta al puntaje mínimo para obtener su certificado, el cual se expide después de que **INSTITUTO MEX-COL-USA** haya evaluado y reportado que la evaluación fue aprobada por cada asistente. Misma que deberá ser aprobada con el porcentaje mínimo del **80%**.",
+            "**Constancia de Asistencia y Participación:** Emitida por **INSTITUTO MEX-COL-USA**, certifica la participación activa y el cumplimiento de los módulos teórico-prácticos del curso, brindando respaldo académico y formativo.",
+            "**Diploma:** Emitido por la **Alianza Americana de Medicina Estética y SOPEME** (Asociación de Medicina Estética de los Estados Unidos), válido para **autenticar la formación en Estados Unidos, Latinoamérica, Caribe y España** como educación continua reconocida.",
           ],
-          productQuality: {
-            title: "Productos de Calidad y Seguridad Garantizada",
-            description:
-              "En el **INSTITUTO MEX-COL-USA** contamos con **instalaciones de primer nivel**, diseñadas para ofrecer un entorno seguro, higiénico y profesional, donde cada práctica y procedimiento se realiza bajo los más altos estándares de calidad y seguridad.\n\nNuestro compromiso es garantizar que cada alumno pueda **aprender y practicar en un espacio confiable**, equipado y preparado para brindar la mejor experiencia educativa. Así, aseguramos que la formación se desarrolle en un **ambiente seguro, profesional y de excelencia**, fortaleciendo el aprendizaje y la confianza de cada participante.",
-            certifications: [],
-            footer: "",
-          },
         },
       },
     },
