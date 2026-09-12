@@ -22,6 +22,7 @@ import CarolinaImage from "@/assets/img-ponentes/DR carolina.png";
 import CarolinaMovil from "@/assets/img-ponentes/DR carolina-movil.png";
 import JazminImage from "@/assets/img-ponentes/DR jazmin.png";
 import JazminMovil from "@/assets/img-ponentes/DR jazmin-movil.png";
+import EverardoImage from "@/assets/img-ponentes/Dr. Everardo Garza Buentello.png";
 import LogoUSAVerde from "@/assets/logo-sello-blanco2.png";
 
 type Lang = "es" | "en";
@@ -136,6 +137,12 @@ export default function StaffClient() {
         photo: JazminImage,
         bio: "Médica Cirujana egresada de la Universidad Nacional Autónoma de México, Facultad de Estudios Superiores Iztacala.\n\nMedicina Bioestética y Antienvejecimiento por Instituto Politécnico Nacional.\n\nDirectora de Clínica Éternité en Estado de México.\n\nSpeaker Nacional para Merz Aesthetics México.",
       },
+      {
+        name: "Dr. Everardo Garza Buentello",
+        role: "Médico Cirujano · Dermatólogo · Cirujano Dermatológico",
+        photo: EverardoImage,
+        bio: "El Dr. Everardo Garza Buentello es Médico Cirujano y Dermatólogo, egresado de la Universidad Autónoma de Nuevo León (UANL), con formación especializada en Dermatología en el Instituto Dermatológico de Jalisco, avalada por la Universidad de Guadalajara, y preparación en Cirugía Dermatológica.\n\nCuenta con más de 30 años de experiencia en la práctica médica privada, desarrollando su actividad profesional principalmente en el campo de la Dermatología y la Dermatología Médico-Estética y Quirúrgica. Actualmente se desempeña como director de Lekure Dermaclinic Monterrey y como director de Dermatología Médico-Estética Quirúrgica en Ciudad de México.\n\nA lo largo de su trayectoria ha ocupado diversos cargos dentro de organizaciones médicas, destacando su participación como Vicepresidente y posteriormente Presidente del Colegio de Médicos Dermatólogos de Nuevo León, A.C., además de formar parte del Consejo Consultivo del Colegio de Médicos Cirujanos de Nuevo León.\n\nSu trayectoria también incluye una importante participación en docencia, congresos médicos nacionales e internacionales y actividades de enseñanza y asesoría científica, contribuyendo a la actualización y formación de profesionales del área médica.",
+      },
     ],
     en: [
       {
@@ -179,6 +186,12 @@ export default function StaffClient() {
         role: "Medical Doctor · Bioesthetic and Anti-Aging Medicine",
         photo: JazminImage,
         bio: "Medical Doctor graduated from the National Autonomous University of Mexico, Faculty of Higher Studies Iztacala.\n\nBioesthetic and Anti-Aging Medicine from the National Polytechnic Institute.\n\nDirector of Eternite Clinic in the State of Mexico.\n\nNational Speaker for Merz Aesthetics Mexico.",
+      },
+      {
+        name: "Dr. Everardo Garza Buentello",
+        role: "Physician and Surgeon · Dermatologist · Dermatologic Surgeon",
+        photo: EverardoImage,
+        bio: "Dr. Everardo Garza Buentello is a Physician and Dermatologist, a graduate of the Universidad Autónoma de Nuevo León (UANL), with specialized training in Dermatology from the Instituto Dermatológico de Jalisco, endorsed by the Universidad de Guadalajara, and further training in Dermatologic Surgery.\n\nHe has more than 30 years of experience in private medical practice, focusing primarily on Dermatology and Medical-Aesthetic and Surgical Dermatology. He currently serves as director of Lekure Dermaclinic Monterrey and as director of Medical-Aesthetic and Surgical Dermatology in Mexico City.\n\nThroughout his career, he has held various positions within medical organizations, notably serving as Vice President and later President of the Colegio de Médicos Dermatólogos de Nuevo León, A.C., in addition to being part of the Advisory Council of the Colegio de Médicos Cirujanos de Nuevo León.\n\nHis career also includes significant involvement in teaching, national and international medical congresses, and educational and scientific advisory activities, contributing to the continuing education and training of medical professionals.",
       },
     ],
   };
