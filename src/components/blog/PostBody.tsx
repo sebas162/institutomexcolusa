@@ -14,6 +14,7 @@ const ALLOWED_TAGS = [
   "h3",
   "h4",
   "a",
+  "img",
   "table",
   "thead",
   "tbody",
@@ -23,12 +24,14 @@ const ALLOWED_TAGS = [
   "blockquote",
 ];
 
+const ALLOWED_ATTR = ["href", "src", "alt", "title", "target", "rel"];
+
 interface PostBodyProps {
   html: string;
 }
 
 export default function PostBody({ html }: PostBodyProps) {
-  const sanitizedHtml = DOMPurify.sanitize(html, { ALLOWED_TAGS });
+  const sanitizedHtml = DOMPurify.sanitize(html, { ALLOWED_TAGS, ALLOWED_ATTR });
 
   return (
     <div
