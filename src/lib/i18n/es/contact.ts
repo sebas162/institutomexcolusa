@@ -20,7 +20,7 @@ export const contact = {
     },
     usaHouston: {
       title: 'Houston',
-      address: '1250 West Sam Houston Parkway South, Houston, TX 77042',
+      address: '1250 West Sam Houston Parkway South, Suite 240, Houston, TX 77042',
     },
     usaPresence: 'Presencia: Los Angeles y Miami',
     coBogota: {

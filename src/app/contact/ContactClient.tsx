@@ -74,7 +74,7 @@ export default function ContactClient() {
           language === "es"
             ? "Houston Texas - Sede"
             : "Houston Texas - Headquarters",
-        address: "1250 West Sam Houston Parkway South, Houston, TX 77042",
+        address: "1250 West Sam Houston Parkway South, Suite 240, Houston, TX 77042",
         phone: "+1 (407) 454-0524",
         email: "gerencia@institutomexcolusa.com",
       },
