@@ -32,6 +32,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { translations } from "@/lib/i18n";
 import { createPost, updatePost, type CreatePostInput } from "@/lib/firestore/posts";
 import { uploadCoverImage } from "@/lib/storage/uploadImage";
+import { uploadPdf } from "@/lib/storage/uploadPdf";
 import type { Post, PostStatus } from "@/types/blog";
 
 const RichTextEditor = dynamic(
@@ -72,6 +73,8 @@ function createPostSchema(t: AdminBlogTranslations) {
         .string()
         .url({ message: t.form.validation.coverImageInvalid }),
       youtubeVideoId: z.string().optional(),
+      pdfUrl: z.string().optional(),
+      pdfLabel: z.string().optional(),
       status: z.enum(["draft", "scheduled", "published"]),
       publishAt: z.string().optional(),
       es: contentSchema,
@@ -138,6 +141,8 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
       slug: post?.slug ?? "",
       coverImage: post?.coverImage ?? "",
       youtubeVideoId: post?.youtubeVideoId ?? "",
+      pdfUrl: post?.pdfUrl ?? "",
+      pdfLabel: post?.pdfLabel ?? "",
       status: post?.status ?? "draft",
       publishAt: post?.publishAt ? toDatetimeLocalValue(post.publishAt) : "",
       es: {
@@ -194,6 +199,34 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
     }
   };
 
+  const [pdfFileName, setPdfFileName] = useState<string | null>(
+    post?.pdfUrl ? post.pdfUrl.split("/").pop()?.split("?")[0] ?? null : null
+  );
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
+
+  const handlePdfChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    setIsUploadingPdf(true);
+
+    try {
+      const url = await uploadPdf(file);
+      form.setValue("pdfUrl", url, { shouldValidate: true });
+      setPdfFileName(file.name);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: t.form.saveErrorTitle,
+        description: t.form.pdfUploadError,
+      });
+    } finally {
+      setIsUploadingPdf(false);
+    }
+  };
+
   const onSubmit = (data: PostFormValues) => {
     startTransition(async () => {
       const payload: CreatePostInput = {
@@ -202,6 +235,8 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
         youtubeVideoId: data.youtubeVideoId
           ? extractYoutubeId(data.youtubeVideoId)
           : undefined,
+        pdfUrl: data.pdfUrl || undefined,
+        pdfLabel: data.pdfLabel || undefined,
         status: data.status,
         publishAt:
           data.status === "scheduled" && data.publishAt
@@ -430,6 +465,57 @@ export default function PostForm({ post, onSaved, onCancel }: PostFormProps) {
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="pdfUrl"
+            render={() => (
+              <FormItem>
+                <FormLabel>{t.form.pdfFileLabel}</FormLabel>
+                <FormControl>
+                  <div className="space-y-3">
+                    <Input
+                      type="file"
+                      accept="application/pdf"
+                      onChange={handlePdfChange}
+                      disabled={isUploadingPdf}
+                    />
+                    {isUploadingPdf && (
+                      <p className="text-sm text-muted-foreground flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        {t.form.pdfUploading}
+                      </p>
+                    )}
+                    {!isUploadingPdf && pdfFileName && (
+                      <p className="text-sm text-muted-foreground">
+                        {t.form.pdfUploaded}: {pdfFileName}
+                      </p>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {form.watch("pdfUrl") && (
+            <FormField
+              control={form.control}
+              name="pdfLabel"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t.form.pdfLabelFieldLabel}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t.form.pdfLabelPlaceholder}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <FormField
             control={form.control}

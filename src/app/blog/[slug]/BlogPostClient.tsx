@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/use-language";
 import { getPostBySlug } from "@/lib/firestore/posts";
@@ -21,6 +21,11 @@ const notFoundText: Record<Lang, string> = {
 const backToBlogText: Record<Lang, string> = {
   es: "Volver al blog",
   en: "Back to blog",
+};
+
+const defaultPdfLabel: Record<Lang, string> = {
+  es: "Descargar PDF",
+  en: "Download PDF",
 };
 
 interface BlogPostClientProps {
@@ -135,6 +140,19 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
 
       <div className="container mx-auto px-4 pb-16 pt-12 max-w-4xl">
         <PostBody html={content.content} />
+
+        {post.pdfUrl && (
+          <a
+            href={post.pdfUrl}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-8 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            {post.pdfLabel || defaultPdfLabel[lang]}
+          </a>
+        )}
 
         {post.youtubeVideoId && (
           <div className="relative w-full aspect-video rounded-xl overflow-hidden mt-10 mb-10">

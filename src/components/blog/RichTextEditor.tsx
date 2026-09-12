@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { useEditor, useEditorState, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -9,8 +10,10 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
+import Image from "@tiptap/extension-image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { uploadContentImage } from "@/lib/storage/uploadContentImage";
 import {
   Bold,
   Italic,
@@ -21,6 +24,8 @@ import {
   Link2,
   Table2,
   Palette,
+  ImagePlus,
+  Loader2,
 } from "lucide-react";
 
 interface RichTextEditorProps {
@@ -29,6 +34,9 @@ interface RichTextEditorProps {
 }
 
 export default function RichTextEditor({ value, onChange }: RichTextEditorProps) {
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -44,6 +52,7 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       TableCell,
       TextStyle,
       Color,
+      Image,
     ],
     content: value,
     onUpdate: ({ editor }) => {
@@ -114,6 +123,32 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
       .focus()
       .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
       .run();
+  };
+
+  const handleImageButtonClick = () => {
+    imageInputRef.current?.click();
+  };
+
+  const handleImageFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+
+    if (!file) {
+      return;
+    }
+
+    setIsUploadingImage(true);
+
+    try {
+      const url = await uploadContentImage(file);
+      editor.chain().focus().setImage({ src: url }).run();
+    } catch (error) {
+      console.error("Error uploading content image:", error);
+    } finally {
+      setIsUploadingImage(false);
+    }
   };
 
   const toolbarGroups = [
@@ -221,6 +256,34 @@ export default function RichTextEditor({ value, onChange }: RichTextEditorProps)
                   aria-label="Text color"
                 />
               </div>
+            )}
+            {groupIndex === toolbarGroups.length - 1 && (
+              <>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="shrink-0 transition-colors hover:bg-accent"
+                  onClick={handleImageButtonClick}
+                  disabled={isUploadingImage}
+                  aria-label={
+                    isUploadingImage ? "Subiendo..." : "Insert image"
+                  }
+                >
+                  {isUploadingImage ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <ImagePlus className="h-4 w-4" />
+                  )}
+                </Button>
+                <input
+                  ref={imageInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageFileChange}
+                />
+              </>
             )}
             {groupIndex < toolbarGroups.length - 1 && (
               <div className="w-px h-6 bg-border mx-1" />

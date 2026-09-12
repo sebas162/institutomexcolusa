@@ -14,6 +14,8 @@ export interface Post {
   publishAt: Date | null;
   coverImage: string;
   youtubeVideoId?: string;
+  pdfUrl?: string;
+  pdfLabel?: string;
   es: PostContent;
   en: PostContent;
   createdAt: Date;
