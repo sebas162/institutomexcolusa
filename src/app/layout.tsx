@@ -47,10 +47,10 @@ const organizationJsonLd = {
     },
     {
       "@type": "PostalAddress",
-      streetAddress: "2307 S Texas 6",
+      streetAddress: "1250 West Sam Houston Parkway South",
       addressLocality: "Houston",
       addressRegion: "TX",
-      postalCode: "77077",
+      postalCode: "77042",
       addressCountry: "US",
     },
   ],

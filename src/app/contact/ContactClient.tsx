@@ -61,15 +61,6 @@ export default function ContactClient() {
     ],
     usa: [
       {
-        city: language === "es" ? "Eventos Presenciales" : "In-person events",
-        address:
-          language === "es"
-            ? "Los Angeles California - Miami Florida - Nueva York Nueva York"
-            : "Los Angeles California - Miami Florida - Nueva York Nueva York",
-        phone: "+1 (407) 454-0524",
-        email: "gerencia@institutomexcolusa.com",
-      },
-      {
         city:
           language === "es"
             ? "Orlando Florida - Oficinas Administrativas"
@@ -83,7 +74,7 @@ export default function ContactClient() {
           language === "es"
             ? "Houston Texas - Sede"
             : "Houston Texas - Headquarters",
-        address: "2307 S Texas 6, Houston, TX 77077",
+        address: "1250 West Sam Houston Parkway South, Houston, TX 77042",
         phone: "+1 (407) 454-0524",
         email: "gerencia@institutomexcolusa.com",
       },
