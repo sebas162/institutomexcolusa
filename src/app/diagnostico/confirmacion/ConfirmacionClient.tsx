@@ -12,7 +12,6 @@ export default function ConfirmacionClient() {
   const {
     hydrated,
     lead,
-    selectedSlot,
     timeZone,
     datosValues,
     storedConfirmation,
@@ -21,9 +20,10 @@ export default function ConfirmacionClient() {
   } = useDiagnostico();
 
   // En memoria (recién creado) o desde sessionStorage (la pestaña se recargó).
+  // La fecha es la de la reserva que devolvió Cal.com.
   const confirmation =
-    lead && selectedSlot
-      ? { ...lead, slot: selectedSlot, timeZone, inMemory: true }
+    lead
+      ? { ...lead, slot: lead.booking, timeZone, inMemory: true }
       : storedConfirmation
         ? { ...storedConfirmation, inMemory: false }
         : null;

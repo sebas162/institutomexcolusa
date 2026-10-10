@@ -19,7 +19,7 @@ const STEPS = [
     Toca <strong>Confirmar mi cita por WhatsApp</strong> y envía el mensaje que aparece escrito.
   </>,
   <>
-    Revisa tu <strong>correo</strong>: ahí tienes los detalles y el enlace de la videollamada.
+    Revisa tu correo: ahí tienes los detalles y el enlace de la videollamada.
   </>,
   <>
     Te recordamos por correo <strong>24 horas</strong> y <strong>1 hora</strong> antes, y por{" "}
@@ -79,9 +79,11 @@ export default function ConfirmScreen({
             <div className="flex flex-col gap-1">
               <span className="text-[13px] text-muted-foreground">Fecha y hora</span>
               <strong className="text-[17px] text-primary">{formatSlotLabel(slot, timeZone)}</strong>
-              <span className="text-[13px] text-muted-foreground">
-                {getTimeZoneLabel(timeZone)} · 15 min
-              </span>
+              <span className="text-[13px] text-muted-foreground">{getTimeZoneLabel(timeZone)}</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-[13px] text-muted-foreground">Duración</span>
+              <strong className="text-[17px] text-primary">15 minutos exactos</strong>
             </div>
             {phoneLabel && (
               <div className="flex flex-col gap-1">

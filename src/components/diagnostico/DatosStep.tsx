@@ -26,6 +26,11 @@ import {
 import { formatSlotLabel, getTimeZoneLabel, type Slot } from "@/lib/diagnostico/slots";
 import type { LeadUtm } from "@/types/lead";
 
+interface PendingLead {
+  leadId: string;
+  confirmationCode: string;
+}
+
 const { datosForm } = DIAGNOSTICO_CONTENT;
 
 const GENERIC_ERROR = "No pudimos registrar tus datos. Intenta de nuevo en un momento.";
@@ -41,9 +46,13 @@ interface DatosStepProps {
   defaultValues: DatosValues;
   answers: Record<string, string[]>;
   utm: LeadUtm;
+  /** Lead de un intento anterior sin reserva: se reutiliza en vez de crear otro. */
+  pendingLead: PendingLead | null;
   onValuesChange: (values: DatosValues) => void;
   onChangeSlot: () => void;
-  onSuccess: (result: { leadId: string; confirmationCode: string }) => void;
+  onSuccess: (result: PendingLead & { booking: Slot }) => void;
+  onSlotUnavailable: (pending: PendingLead | null) => void;
+  onPendingLead: (pending: PendingLead) => void;
   onNotQualified: () => void;
 }
 
@@ -53,9 +62,12 @@ export default function DatosStep({
   defaultValues,
   answers,
   utm,
+  pendingLead,
   onValuesChange,
   onChangeSlot,
   onSuccess,
+  onSlotUnavailable,
+  onPendingLead,
   onNotQualified,
 }: DatosStepProps) {
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -77,7 +89,6 @@ export default function DatosStep({
   const onSubmit = async (values: DatosValues) => {
     setSubmitError(null);
 
-    // TODO Fase 3: reservar el horario en Cal.com al enviar.
     let response: Response;
     try {
       response = await fetch("/api/diagnostico/lead/", {
@@ -95,6 +106,9 @@ export default function DatosStep({
           consentMarketing: values.consentMarketing,
           utm,
           website: values.website,
+          slotStart: slot.start,
+          timeZone,
+          ...(pendingLead ?? {}),
         }),
       });
     } catch (error) {
@@ -105,10 +119,23 @@ export default function DatosStep({
 
     const data = await response.json().catch(() => null);
 
-    if (response.status === 201 && data?.leadId && data?.confirmationCode) {
-      onSuccess({ leadId: data.leadId, confirmationCode: data.confirmationCode });
+    const returnedLead: PendingLead | null =
+      data?.leadId && data?.confirmationCode
+        ? { leadId: data.leadId, confirmationCode: data.confirmationCode }
+        : null;
+
+    if (response.status === 201 && returnedLead && data.booking?.start && data.booking?.end) {
+      onSuccess({ ...returnedLead, booking: { start: data.booking.start, end: data.booking.end } });
       return;
     }
+
+    if (response.status === 409 && data?.error === "slot_unavailable") {
+      onSlotUnavailable(returnedLead);
+      return;
+    }
+
+    // Cal.com falló pero el lead quedó guardado: el siguiente intento lo reutiliza.
+    if (returnedLead) onPendingLead(returnedLead);
 
     if (response.status === 400 && data?.error === "not_qualified") {
       onNotQualified();

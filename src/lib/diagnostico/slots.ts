@@ -3,6 +3,16 @@ export interface Slot {
   end: string; // ISO (UTC)
 }
 
+/** Un día de la agenda tal como lo responde /api/diagnostico/slots/. */
+export interface AgendaDay {
+  date: string; // "2026-10-12", fecha en America/Chicago
+  slots: Slot[];
+  unavailable: Slot[];
+}
+
+// Zona en la que la clienta define su horario: los días de la agenda se cuentan en ella.
+export const AGENDA_TIME_ZONE = "America/Chicago";
+
 export interface DiagnosticoTimeZone {
   id: string;
   label: string;
@@ -83,14 +93,6 @@ export function getTimeZoneLabel(timeZone: string): string {
   return DIAGNOSTICO_TIME_ZONES.find((zone) => zone.id === timeZone)?.label ?? timeZone;
 }
 
-const SLOT_DURATION_MINUTES = 15;
-const SIMULATED_DAYS_AHEAD = 21;
-const SIMULATED_TIMES = ["09:00", "10:00", "11:30", "13:00", "16:00", "17:30"];
-
-// Los horarios simulados se definen en hora del centro de México, que no tiene
-// horario de verano desde 2022: UTC-6 todo el año.
-const MEXICO_CITY_OFFSET = "-06:00";
-
 const formatterCache = new Map<string, Intl.DateTimeFormat>();
 
 function getFormatter(timeZone: string, options: Intl.DateTimeFormatOptions): Intl.DateTimeFormat {
@@ -142,14 +144,6 @@ export function formatDayKeyLabel(dayKey: string): string {
   return formatDayParts(dayKeyToUtcNoon(dayKey), "UTC");
 }
 
-/** "Octubre 2026" para el mes de ese dayKey. */
-export function formatMonthLabel(dayKey: string): string {
-  const parts = getFormatter("UTC", { month: "long", year: "numeric" }).formatToParts(
-    dayKeyToUtcNoon(dayKey)
-  );
-  return `${capitalize(getPart(parts, "month"))} ${getPart(parts, "year")}`;
-}
-
 /** "11:30 a.m." en la zona dada. */
 export function formatSlotTime(slot: Slot, timeZone: string): string {
   return getFormatter(timeZone, { hour: "numeric", minute: "2-digit" }).format(
@@ -162,53 +156,29 @@ export function formatSlotLabel(slot: Slot, timeZone: string): string {
   return `${formatDayParts(new Date(slot.start), timeZone)} · ${formatSlotTime(slot, timeZone)}`;
 }
 
-function addDays(dayKey: string, days: number): string {
+export function addDaysToKey(dayKey: string, days: number): string {
   const date = new Date(`${dayKey}T00:00:00Z`);
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
 }
 
-function buildSimulatedSlots(): Slot[] {
-  const todayInMexico = toDayKey(new Date(), DEFAULT_TIME_ZONE);
-  const slots: Slot[] = [];
+/** "Hoy", "Mañana" o "Lun 13", comparando con la fecha de hoy en la zona del visitante. */
+export function formatDayButton(dayKey: string, timeZone: string, now = new Date()): string {
+  const todayKey = toDayKey(now, timeZone);
+  if (dayKey === todayKey) return "Hoy";
+  if (dayKey === addDaysToKey(todayKey, 1)) return "Mañana";
 
-  for (let offset = 1; offset <= SIMULATED_DAYS_AHEAD; offset++) {
-    const dayKey = addDays(todayInMexico, offset);
-    const date = new Date(`${dayKey}T00:00:00Z`);
-    const weekday = date.getUTCDay();
-
-    if (weekday === 0 || weekday === 6) {
-      continue;
-    }
-
-    // Determinista: la cantidad (4 a 6) y la rotación dependen del día del mes.
-    const dayOfMonth = date.getUTCDate();
-    const count = 4 + (dayOfMonth % 3);
-    const rotation = dayOfMonth % SIMULATED_TIMES.length;
-    const times = SIMULATED_TIMES.map(
-      (_, i) => SIMULATED_TIMES[(i + rotation) % SIMULATED_TIMES.length]
-    )
-      .slice(0, count)
-      .sort();
-
-    for (const time of times) {
-      const start = new Date(`${dayKey}T${time}:00${MEXICO_CITY_OFFSET}`);
-      const end = new Date(start.getTime() + SLOT_DURATION_MINUTES * 60_000);
-      slots.push({ start: start.toISOString(), end: end.toISOString() });
-    }
-  }
-
-  return slots;
+  const parts = getFormatter("UTC", { weekday: "short", day: "numeric" }).formatToParts(
+    dayKeyToUtcNoon(dayKey)
+  );
+  const weekday = capitalize(getPart(parts, "weekday").replace(".", ""));
+  return `${weekday} ${getPart(parts, "day")}`;
 }
 
-// TODO Fase 3: reemplazar por la disponibilidad real de Cal.com.
-// La interfaz solo depende de esta firma, no de cómo se generan los horarios.
-export async function getAvailableSlots(from: Date, to: Date): Promise<Slot[]> {
-  const fromTime = from.getTime();
-  const toTime = to.getTime();
-
-  return buildSimulatedSlots().filter((slot) => {
-    const start = new Date(slot.start).getTime();
-    return start >= fromTime && start < toTime;
-  });
+/** "12 de octubre" */
+export function formatShortDate(dayKey: string): string {
+  const parts = getFormatter("UTC", { day: "numeric", month: "long" }).formatToParts(
+    dayKeyToUtcNoon(dayKey)
+  );
+  return `${getPart(parts, "day")} de ${getPart(parts, "month")}`;
 }

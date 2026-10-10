@@ -14,6 +14,7 @@ import { trackMetaEvent } from "@/lib/analytics/meta-pixel";
 import { DIAGNOSTICO_QUESTIONS, isExitAnswer } from "@/lib/diagnostico/questions";
 import { DEFAULT_DATOS_VALUES, type DatosValues } from "@/lib/diagnostico/schema";
 import {
+  AGENDA_TIME_ZONE,
   DEFAULT_TIME_ZONE,
   detectVisitorTimeZone,
   resolveTimeZone,
@@ -24,18 +25,23 @@ import type { LeadUtm } from "@/types/lead";
 
 export type AgendaStage = "agenda" | "datos";
 
-export interface LeadResult {
+/** Lead guardado sin reserva (horario ocupado o error de Cal.com): se reutiliza al reintentar. */
+export interface PendingLead {
   leadId: string;
   confirmationCode: string;
 }
 
+export interface LeadResult extends PendingLead {
+  booking: Slot;
+}
+
 /** Lo que necesita la confirmación para sobrevivir a una recarga (sin datos personales). */
-export interface StoredConfirmation extends LeadResult {
+export interface StoredConfirmation extends PendingLead {
   slot: Slot;
   timeZone: string;
 }
 
-// Avance del flujo: solo respuestas, zona, horario y UTM. Nunca nombre, teléfono ni correo.
+// Avance del flujo: respuestas, zona, horario, UTM y el lead pendiente. Nunca nombre, teléfono ni correo.
 const PROGRESS_KEY = "diagnostico:progreso:v1";
 const CONFIRMATION_KEY = "diagnostico:confirmacion:v1";
 
@@ -44,6 +50,7 @@ interface StoredProgress {
   timeZone: string;
   selectedSlot: Slot | null;
   utm: LeadUtm;
+  pendingLead?: PendingLead | null;
 }
 
 function readStorage<T>(key: string): T | null {
@@ -121,18 +128,23 @@ interface DiagnosticoContextValue {
   questionIndex: number;
   setQuestionIndex: (index: number) => void;
   toggleOption: (questionId: string, optionId: string) => void;
-  // Zona en la que se muestran los horarios. TODO Fase 3: enviarla a Cal.com al reservar.
+  // Zona en la que se muestran los horarios; se envía a Cal.com al reservar.
   timeZone: string;
   changeTimeZone: (timeZone: string) => void;
   selectedDayKey: string | null;
   selectDay: (dayKey: string) => void;
   selectedSlot: Slot | null;
-  setSelectedSlot: (slot: Slot) => void;
+  setSelectedSlot: (slot: Slot | null) => void;
   agendaStage: AgendaStage;
   setAgendaStage: (stage: AgendaStage) => void;
   datosValues: DatosValues;
   setDatosValues: (values: DatosValues) => void;
   utm: LeadUtm;
+  pendingLead: PendingLead | null;
+  /** El horario elegido se ocupó: vuelve a la agenda con el aviso y lo guarda para el reintento. */
+  markSlotTaken: (pending: PendingLead | null) => void;
+  savePendingLead: (pending: PendingLead) => void;
+  slotTakenNotice: boolean;
   lead: LeadResult | null;
   storedConfirmation: StoredConfirmation | null;
   completeLead: (result: LeadResult) => void;
@@ -153,6 +165,8 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
   const [agendaStage, setAgendaStage] = useState<AgendaStage>("agenda");
   const [datosValues, setDatosValues] = useState<DatosValues>(DEFAULT_DATOS_VALUES);
   const [utm, setUtm] = useState<LeadUtm>({});
+  const [pendingLead, setPendingLead] = useState<PendingLead | null>(null);
+  const [slotTakenNotice, setSlotTakenNotice] = useState(false);
   const [lead, setLead] = useState<LeadResult | null>(null);
   const [storedConfirmation, setStoredConfirmation] = useState<StoredConfirmation | null>(null);
 
@@ -167,8 +181,9 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
       setQuestionIndex(firstUnansweredIndex(progress.answers ?? {}));
       if (progress.selectedSlot) {
         setSelectedSlotState(progress.selectedSlot);
-        setSelectedDayKey(toDayKey(new Date(progress.selectedSlot.start), zone));
+        setSelectedDayKey(toDayKey(new Date(progress.selectedSlot.start), AGENDA_TIME_ZONE));
       }
+      setPendingLead(progress.pendingLead ?? null);
     }
 
     setTimeZone(zone);
@@ -187,8 +202,14 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    writeStorage(PROGRESS_KEY, { answers, timeZone, selectedSlot, utm } satisfies StoredProgress);
-  }, [hydrated, answers, timeZone, selectedSlot, utm]);
+    writeStorage(PROGRESS_KEY, {
+      answers,
+      timeZone,
+      selectedSlot,
+      utm,
+      pendingLead,
+    } satisfies StoredProgress);
+  }, [hydrated, answers, timeZone, selectedSlot, utm, pendingLead]);
 
   // El píxel base solo registra PageView en la primera carga; las navegaciones
   // del cliente dentro de /diagnostico se registran aquí.
@@ -231,33 +252,47 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     [lead, storedConfirmation]
   );
 
+  // Los días de la agenda son fechas de Chicago: cambiar la zona solo cambia cómo se ven las horas.
   const selectDay = useCallback((dayKey: string) => {
     setSelectedDayKey(dayKey);
     setSelectedSlotState(null);
   }, []);
 
-  // El horario elegido es un instante fijo: al cambiar de zona puede caer en otro día del calendario.
-  const changeTimeZone = useCallback(
-    (nextTimeZone: string) => {
-      setTimeZone(nextTimeZone);
-      if (selectedSlot) {
-        setSelectedDayKey(toDayKey(new Date(selectedSlot.start), nextTimeZone));
-      }
-    },
-    [selectedSlot]
-  );
+  const setSelectedSlot = useCallback((slot: Slot | null) => {
+    setSelectedSlotState(slot);
+    setSlotTakenNotice(false);
+  }, []);
+
+  const changeTimeZone = useCallback((nextTimeZone: string) => setTimeZone(nextTimeZone), []);
+
+  const savePendingLead = useCallback((pending: PendingLead) => setPendingLead(pending), []);
+
+  const markSlotTaken = useCallback((pending: PendingLead | null) => {
+    if (pending) setPendingLead(pending);
+    setSelectedSlotState(null);
+    setSlotTakenNotice(true);
+    setAgendaStage("agenda");
+  }, []);
 
   const completeLead = useCallback(
     (result: LeadResult) => {
       setLead(result);
-      if (selectedSlot) {
-        const confirmation = { ...result, slot: selectedSlot, timeZone };
-        writeStorage(CONFIRMATION_KEY, confirmation);
-        setStoredConfirmation(confirmation);
-      }
+      setPendingLead(null);
+      setSelectedSlotState(result.booking);
+
+      const confirmation: StoredConfirmation = {
+        leadId: result.leadId,
+        confirmationCode: result.confirmationCode,
+        slot: result.booking,
+        timeZone,
+      };
+      writeStorage(CONFIRMATION_KEY, confirmation);
+      setStoredConfirmation(confirmation);
+
       trackMetaEvent("Lead", { content_name: "Llamada diagnóstico" }, result.leadId);
+      trackMetaEvent("Schedule", { content_name: "Llamada diagnóstico" }, result.leadId);
     },
-    [selectedSlot, timeZone]
+    [timeZone]
   );
 
   const clearProgress = useCallback(() => removeStorage(PROGRESS_KEY), []);
@@ -268,6 +303,8 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     setSelectedDayKey(null);
     setSelectedSlotState(null);
     setAgendaStage("agenda");
+    setPendingLead(null);
+    setSlotTakenNotice(false);
     removeStorage(PROGRESS_KEY);
   }, []);
 
@@ -284,12 +321,16 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         selectedDayKey,
         selectDay,
         selectedSlot,
-        setSelectedSlot: setSelectedSlotState,
+        setSelectedSlot,
         agendaStage,
         setAgendaStage,
         datosValues,
         setDatosValues,
         utm,
+        pendingLead,
+        markSlotTaken,
+        savePendingLead,
+        slotTakenNotice,
         lead,
         storedConfirmation,
         completeLead,

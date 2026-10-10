@@ -47,6 +47,8 @@ export interface Lead {
   utm: LeadUtm;
   confirmationCode: string;
   booking: LeadBooking;
+  /** Zona horaria en la que el visitante vio y eligió su horario. */
+  timeZone: string;
   createdAt: Date;
   updatedAt: Date;
 }

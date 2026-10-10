@@ -102,6 +102,18 @@ export const DIAGNOSTICO_CONTENT = {
     },
   },
 
+  agenda: {
+    loadError: "No pudimos cargar los horarios.",
+    retry: "Reintentar",
+    noSlots:
+      "Por ahora no hay horarios disponibles. Escríbenos por WhatsApp y te ayudamos a agendar.",
+    noSlotsWhatsappButton: "Escríbenos por WhatsApp",
+    noSlotsWhatsappMessage: "Hola, quiero agendar una llamada diagnóstico.",
+    slotTaken: "Ese horario se acaba de ocupar. Elige otro, por favor.",
+    emptyDay: "Ya no quedan horarios este día.",
+    unavailableLabel: "No disponible",
+  },
+
   // MP4, YouTube o Vimeo. null muestra el marco con "Video próximamente".
   heroVideoUrl: null as string | null,
 

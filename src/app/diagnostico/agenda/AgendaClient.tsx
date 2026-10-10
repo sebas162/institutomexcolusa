@@ -7,6 +7,7 @@ import AgendaStep from "@/components/diagnostico/AgendaStep";
 import DatosStep from "@/components/diagnostico/DatosStep";
 import LandingLogo from "@/components/diagnostico/LandingLogo";
 import StepCard from "@/components/diagnostico/StepCard";
+import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
 import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
 import { isQualified, useDiagnostico, type AgendaStage } from "../DiagnosticoProvider";
 
@@ -40,6 +41,10 @@ export default function AgendaClient() {
     datosValues,
     setDatosValues,
     utm,
+    pendingLead,
+    markSlotTaken,
+    savePendingLead,
+    slotTakenNotice,
     completeLead,
   } = useDiagnostico();
 
@@ -101,6 +106,7 @@ export default function AgendaClient() {
             timeZone={timeZone}
             selectedDayKey={selectedDayKey}
             selectedSlot={selectedSlot}
+            notice={slotTakenNotice ? DIAGNOSTICO_CONTENT.agenda.slotTaken : null}
             onTimeZoneChange={changeTimeZone}
             onSelectDay={selectDay}
             onSelectSlot={setSelectedSlot}
@@ -119,12 +125,15 @@ export default function AgendaClient() {
             defaultValues={datosValues}
             answers={answers}
             utm={utm}
+            pendingLead={pendingLead}
             onValuesChange={setDatosValues}
             onChangeSlot={() => setAgendaStage("agenda")}
             onSuccess={(result) => {
               completeLead(result);
               router.push("/diagnostico/confirmacion/");
             }}
+            onSlotUnavailable={markSlotTaken}
+            onPendingLead={savePendingLead}
             onNotQualified={() => router.push("/diagnostico/gracias/")}
           />
         )}

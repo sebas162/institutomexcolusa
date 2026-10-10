@@ -88,3 +88,8 @@ export function formatWhatsappNumber(
 
   return `${countryCode} ${formatted}`;
 }
+
+/** "+525512345678": formato E.164 que pide Cal.com. */
+export function toE164(countryCode: DatosValues["whatsappCountryCode"], number: string): string {
+  return `${countryCode}${digitsOnly(number)}`;
+}
