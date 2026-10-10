@@ -3,12 +3,14 @@ import { FaWhatsapp } from "react-icons/fa";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
 import { formatSlotLabel, getTimeZoneLabel, type Slot } from "@/lib/diagnostico/slots";
 import { FeaturedTestimonial } from "./Testimonials";
+import LandingLogo from "./LandingLogo";
 import VideoFrame from "./VideoFrame";
 
 interface ConfirmScreenProps {
   slot: Slot;
   timeZone: string;
-  phoneLabel: string;
+  /** null tras recargar la página: el teléfono no se guarda en el navegador. */
+  phoneLabel: string | null;
   confirmationCode: string;
   onFixPhone: () => void;
 }
@@ -46,6 +48,7 @@ export default function ConfirmScreen({
 
       <section className="flex justify-center bg-primary px-4 pb-16 pt-12 text-white">
         <div className="flex w-full max-w-[760px] flex-col items-center gap-5 text-center">
+          <LandingLogo size="md" />
           <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-secondary">
             Tu llamada quedó agendada
           </span>
@@ -81,18 +84,20 @@ export default function ConfirmScreen({
                 {getTimeZoneLabel(timeZone)} · 15 min
               </span>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-[13px] text-muted-foreground">Confirma desde tu número</span>
-              <strong className="text-[17px] text-primary">{phoneLabel}</strong>
-              {/* TODO Fase 4: actualizar el número del lead ya guardado al corregirlo. */}
-              <button
-                type="button"
-                onClick={onFixPhone}
-                className="min-h-11 self-start rounded text-sm font-bold text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                ¿No es tu número? Corrígelo
-              </button>
-            </div>
+            {phoneLabel && (
+              <div className="flex flex-col gap-1">
+                <span className="text-[13px] text-muted-foreground">Confirma desde tu número</span>
+                <strong className="text-[17px] text-primary">{phoneLabel}</strong>
+                {/* TODO Fase 4: actualizar el número del lead ya guardado al corregirlo. */}
+                <button
+                  type="button"
+                  onClick={onFixPhone}
+                  className="min-h-11 self-start rounded text-sm font-bold text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  ¿No es tu número? Corrígelo
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>

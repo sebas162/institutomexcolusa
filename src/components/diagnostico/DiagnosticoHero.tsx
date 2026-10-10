@@ -2,22 +2,12 @@
 
 import { ArrowRight } from "lucide-react";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import LandingLogo from "./LandingLogo";
 import ServiceCards from "./ServiceCards";
 import VideoFrame from "./VideoFrame";
 
-export function BrandMark() {
-  return (
-    <div
-      aria-hidden="true"
-      className="flex h-10 w-10 items-center justify-center rounded-full border-[1.5px] border-secondary text-xs font-extrabold tracking-[0.04em] text-secondary"
-    >
-      MCU
-    </div>
-  );
-}
-
 export default function DiagnosticoHero() {
-  const { hero, brandName, topBanner, services, heroVideoUrl } = DIAGNOSTICO_CONTENT;
+  const { hero, topBanner, services, heroVideoUrl } = DIAGNOSTICO_CONTENT;
 
   // Botón y no <a href="#calificar">: RouteProgress inicia su barra con cualquier
   // enlace interno y solo la termina al cambiar de ruta, así que quedaría colgada.
@@ -37,12 +27,7 @@ export default function DiagnosticoHero() {
 
       <section className="flex flex-col items-center bg-primary px-4 pb-[72px] pt-7 text-white">
         <div className="flex w-full max-w-[920px] flex-col items-center gap-7">
-          <div className="flex items-center gap-2.5">
-            <BrandMark />
-            <div className="text-[15px] font-semibold tracking-[0.02em] text-white/90">
-              {brandName}
-            </div>
-          </div>
+          <LandingLogo size="lg" />
 
           <div className="flex flex-col items-center gap-5 text-center">
             <span className="rounded-full border border-white/30 px-4 py-2 text-[13px] font-semibold text-secondary">

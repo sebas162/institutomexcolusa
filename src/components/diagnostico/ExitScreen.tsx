@@ -1,11 +1,11 @@
 import { Heart } from "lucide-react";
-import { BrandMark } from "./DiagnosticoHero";
+import LandingLogo from "./LandingLogo";
 
 export default function ExitScreen() {
   return (
     <section className="flex min-h-[640px] flex-grow items-center justify-center bg-primary px-4 py-12 text-white">
       <div className="flex max-w-[560px] flex-col items-center gap-[22px] text-center">
-        <BrandMark />
+        <LandingLogo size="md" />
         <div
           aria-hidden="true"
           className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/10 text-secondary"
