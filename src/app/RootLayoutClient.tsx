@@ -24,7 +24,8 @@ export default function RootLayoutClient({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdminRoute = pathname?.startsWith('/admin');
+  const hideSiteChrome =
+    pathname?.startsWith('/admin') || pathname?.startsWith('/diagnostico');
 
   return (
     <>
@@ -61,10 +62,10 @@ export default function RootLayoutClient({
         <AuthProvider>
           <div className={cn("flex min-h-screen flex-col", inter.variable)}>
             <RouteProgress />
-            {!isAdminRoute && <Navbar />}
+            {!hideSiteChrome && <Navbar />}
             <main className="flex-grow">{children}</main>
-            {!isAdminRoute && <Footer />}
-            {!isAdminRoute && <WhatsAppFloatButton />}
+            {!hideSiteChrome && <Footer />}
+            {!hideSiteChrome && <WhatsAppFloatButton />}
           </div>
           <Toaster />
         </AuthProvider>
