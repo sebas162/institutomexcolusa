@@ -66,13 +66,18 @@ export default function DiagnosticoClient() {
   const handleNext = () => {
     if (selected.length === 0) return;
 
-    if (isExitAnswer(question.id, selected)) {
-      router.push("/diagnostico/gracias/");
+    if (questionIndex < DIAGNOSTICO_QUESTIONS.length - 1) {
+      goToQuestion(questionIndex + 1);
       return;
     }
 
-    if (questionIndex < DIAGNOSTICO_QUESTIONS.length - 1) {
-      goToQuestion(questionIndex + 1);
+    // El filtro de salida se evalúa al final, con las 7 respuestas.
+    const hasExitAnswer = DIAGNOSTICO_QUESTIONS.some((q) =>
+      isExitAnswer(q.id, answers[q.id] ?? [])
+    );
+
+    if (hasExitAnswer) {
+      router.push("/diagnostico/gracias/");
     } else {
       setAgendaStage("agenda");
       router.push("/diagnostico/agenda/");

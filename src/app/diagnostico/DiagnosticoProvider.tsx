@@ -137,6 +137,8 @@ interface DiagnosticoContextValue {
   storedConfirmation: StoredConfirmation | null;
   completeLead: (result: LeadResult) => void;
   clearProgress: () => void;
+  /** Borra respuestas y horario (memoria y sessionStorage): el flujo vuelve a la pregunta 1. */
+  resetAnswers: () => void;
 }
 
 const DiagnosticoContext = createContext<DiagnosticoContextValue | undefined>(undefined);
@@ -260,6 +262,15 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
 
   const clearProgress = useCallback(() => removeStorage(PROGRESS_KEY), []);
 
+  const resetAnswers = useCallback(() => {
+    setAnswers({});
+    setQuestionIndex(0);
+    setSelectedDayKey(null);
+    setSelectedSlotState(null);
+    setAgendaStage("agenda");
+    removeStorage(PROGRESS_KEY);
+  }, []);
+
   return (
     <DiagnosticoContext.Provider
       value={{
@@ -283,6 +294,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         storedConfirmation,
         completeLead,
         clearProgress,
+        resetAnswers,
       }}
     >
       {children}

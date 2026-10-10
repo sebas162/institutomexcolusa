@@ -22,7 +22,7 @@ export const DIAGNOSTICO_QUESTIONS: DiagnosticoQuestion[] = [
       { id: "si", label: "Sí, ese es mi perfil" },
       {
         id: "no",
-        label: "No, ese no es mi perfil. Saldré de esta página.",
+        label: "No, ese no es mi perfil.",
         exit: true,
       },
     ],
