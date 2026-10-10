@@ -4,7 +4,6 @@ import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
 import { formatSlotLabel, getTimeZoneLabel, type Slot } from "@/lib/diagnostico/slots";
 import { FeaturedTestimonial } from "./Testimonials";
 import LandingLogo from "./LandingLogo";
-import VideoFrame from "./VideoFrame";
 
 interface ConfirmScreenProps {
   slot: Slot;
@@ -35,7 +34,7 @@ export default function ConfirmScreen({
   confirmationCode,
   onFixPhone,
 }: ConfirmScreenProps) {
-  const { whatsappNumber, confirmVideoUrl, featuredTestimonial } = DIAGNOSTICO_CONTENT;
+  const { whatsappNumber, featuredTestimonial } = DIAGNOSTICO_CONTENT;
   const message = `CONFIRMO mi cita #${confirmationCode}`;
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
@@ -104,18 +103,6 @@ export default function ConfirmScreen({
 
       <section className="flex justify-center px-4 pb-[72px] pt-14">
         <div className="flex w-full max-w-[760px] flex-col gap-10">
-          <div className="flex flex-col gap-3.5">
-            <h2 className="text-center text-[clamp(24px,3.4vw,32px)] font-extrabold text-primary">
-              Mira esto antes de tu llamada
-            </h2>
-            <VideoFrame
-              url={confirmVideoUrl}
-              title="Video de confirmación"
-              surface="light"
-              size="md"
-            />
-          </div>
-
           <div className="flex flex-col gap-4">
             <h2 className="text-center text-[clamp(24px,3.4vw,32px)] font-extrabold text-primary">
               Cómo confirmar tu cita
