@@ -26,6 +26,8 @@ import {
 import { formatSlotLabel, getTimeZoneLabel, type Slot } from "@/lib/diagnostico/slots";
 import type { LeadUtm } from "@/types/lead";
 
+const { datosForm } = DIAGNOSTICO_CONTENT;
+
 const GENERIC_ERROR = "No pudimos registrar tus datos. Intenta de nuevo en un momento.";
 
 const inputClass =
@@ -162,7 +164,7 @@ export default function DatosStep({
                   <FormControl>
                     <Input
                       autoComplete="name"
-                      placeholder="Ej. Dra. Ana López"
+                      placeholder={datosForm.nombrePlaceholder}
                       className={inputClass}
                       {...field}
                     />
@@ -249,7 +251,7 @@ export default function DatosStep({
                     <FormControl>
                       <Input
                         autoComplete="address-level2"
-                        placeholder="Ej. Guadalajara, Jalisco"
+                        placeholder={datosForm.ciudadPlaceholder}
                         className={inputClass}
                         {...field}
                       />
@@ -289,9 +291,8 @@ export default function DatosStep({
                         />
                       </FormControl>
                       <FormLabel className="cursor-pointer text-sm font-normal leading-[1.55] text-foreground">
-                        <strong>Obligatoria.</strong> Doy mi consentimiento para recibir mensajes
-                        por WhatsApp y correo para confirmar esta cita y mi asistencia. Responde
-                        STOP para darte de baja.
+                        <strong>{datosForm.consentConfirmacion.label}</strong>{" "}
+                        {datosForm.consentConfirmacion.text}
                       </FormLabel>
                     </div>
                     <FormMessage className="text-red-700" />
@@ -313,9 +314,8 @@ export default function DatosStep({
                       />
                     </FormControl>
                     <FormLabel className="cursor-pointer text-sm font-normal leading-[1.55] text-foreground">
-                      <strong>Opcional.</strong> Doy mi consentimiento para recibir mensajes
-                      promocionales, ofertas y novedades al número proporcionado. La frecuencia
-                      puede variar. Responde STOP para darte de baja.
+                      <strong>{datosForm.consentMarketing.label}</strong>{" "}
+                      {datosForm.consentMarketing.text}
                     </FormLabel>
                   </FormItem>
                 )}

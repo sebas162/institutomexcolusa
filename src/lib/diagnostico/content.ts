@@ -89,6 +89,19 @@ export const DIAGNOSTICO_CONTENT = {
     role: "Médico general · Consultorio médico · Guadalajara, Jal.",
   } satisfies DiagnosticoTestimonial,
 
+  datosForm: {
+    nombrePlaceholder: "Ej. Dr. Roberto Méndez",
+    ciudadPlaceholder: "Ej. Monterrey, NL o Houston, TX",
+    consentConfirmacion: {
+      label: "Requerido.",
+      text: "Acepto que el Instituto Mex-Col-USA me contacte por WhatsApp y correo electrónico para confirmar, recordar o reprogramar esta llamada. Puedo pedir que dejen de escribirme en cualquier momento respondiendo BAJA.",
+    },
+    consentMarketing: {
+      label: "Opcional.",
+      text: "Quiero recibir novedades, contenido útil y promociones para clínicas del Instituto Mex-Col-USA por WhatsApp y correo. Puedo cancelar cuando quiera respondiendo BAJA.",
+    },
+  },
+
   // MP4, YouTube o Vimeo. null muestra el marco con "Video próximamente".
   heroVideoUrl: null as string | null,
 
