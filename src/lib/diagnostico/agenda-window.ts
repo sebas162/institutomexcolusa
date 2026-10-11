@@ -1,6 +1,6 @@
 // Reglas de la agenda (aprobadas por la clienta), contadas en America/Chicago:
-// hoy, si es hábil y le quedan horarios, más los 2 días hábiles siguientes.
-// Los fines de semana y los festivos de holidays.ts no cuentan.
+// siempre 3 días hábiles. Hoy cuenta solo si es hábil y le quedan horarios; si no,
+// se toman los 3 días hábiles siguientes. Los fines de semana y los festivos no cuentan.
 
 import { getCalSlots } from "@/lib/calcom";
 import { isHoliday } from "@/lib/diagnostico/holidays";
@@ -12,9 +12,9 @@ import {
   type Slot,
 } from "@/lib/diagnostico/slots";
 
-const FOLLOWING_BUSINESS_DAYS = 2;
+const AGENDA_DAYS = 3;
 
-// Franja que se muestra en gris como "No disponible" (de 3:00 a 5:30 p. m. en Chicago).
+// Franja que se muestra en gris como "Agendado" (de 3:00 a 5:30 p. m. en Chicago).
 const UNAVAILABLE_TIMES = ["15:00", "15:30", "16:00", "16:30", "17:00"];
 const SLOT_MINUTES = 15;
 
@@ -62,13 +62,16 @@ export function isBusinessDay(dayKey: string): boolean {
   return weekday >= 1 && weekday <= 5 && !isHoliday(dayKey);
 }
 
-/** Hoy (si es hábil) y los 2 días hábiles siguientes, en Chicago. */
+/**
+ * Hoy (si es hábil) y los 3 días hábiles siguientes, en Chicago. La agenda usa hoy y los
+ * 2 primeros si a hoy le quedan horarios, o los 3 siguientes si no.
+ */
 export function getWindowDayKeys(now: Date): { today: string | null; following: string[] } {
   const todayKey = toDayKey(now, AGENDA_TIME_ZONE);
   const following: string[] = [];
   let cursor = todayKey;
 
-  while (following.length < FOLLOWING_BUSINESS_DAYS) {
+  while (following.length < AGENDA_DAYS) {
     cursor = addDaysToKey(cursor, 1);
     if (isBusinessDay(cursor)) following.push(cursor);
   }
@@ -85,8 +88,8 @@ function buildUnavailableSlots(dayKey: string): Slot[] {
 }
 
 /**
- * Arma los días de la agenda con los horarios de Cal.com. "Hoy" solo aparece si le quedan
- * horarios; los siguientes días hábiles aparecen siempre, aunque estén llenos.
+ * Arma los 3 días de la agenda con los horarios de Cal.com. "Hoy" solo cuenta si le quedan
+ * horarios; un día hábil siguiente cuenta aunque esté lleno.
  */
 export function buildAgendaDays(now: Date, slots: Slot[]): AgendaDay[] {
   const { today, following } = getWindowDayKeys(now);
@@ -97,10 +100,10 @@ export function buildAgendaDays(now: Date, slots: Slot[]): AgendaDay[] {
     slotsByDay.set(dayKey, [...(slotsByDay.get(dayKey) ?? []), slot]);
   }
 
-  const dayKeys = [
-    ...(today && (slotsByDay.get(today)?.length ?? 0) > 0 ? [today] : []),
-    ...following,
-  ];
+  const dayKeys =
+    today && (slotsByDay.get(today)?.length ?? 0) > 0
+      ? [today, ...following].slice(0, AGENDA_DAYS)
+      : following;
 
   return dayKeys.map((date) => ({
     date,

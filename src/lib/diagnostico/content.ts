@@ -110,8 +110,8 @@ export const DIAGNOSTICO_CONTENT = {
     noSlotsWhatsappButton: "Escríbenos por WhatsApp",
     noSlotsWhatsappMessage: "Hola, quiero agendar una llamada diagnóstico.",
     slotTaken: "Ese horario se acaba de ocupar. Elige otro, por favor.",
-    emptyDay: "Ya no quedan horarios este día.",
-    unavailableLabel: "No disponible",
+    emptyDay: "Sin horarios este día.",
+    unavailableLabel: "Agendado",
   },
 
   // MP4, YouTube o Vimeo. null muestra el marco con "Video próximamente".

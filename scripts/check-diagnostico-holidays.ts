@@ -37,32 +37,46 @@ check("4 de julio 2027 (dom) bloquea lun 5", dates2027.includes("2027-07-05"), t
 check("Navidad 2027 (sáb) bloquea vie 24", dates2027.includes("2027-12-24"), true);
 check("1 de enero 2028 (sáb) bloquea vie 31 dic 2027", dates2027.includes("2027-12-31"), true);
 
-console.log("\nVentana (hoy a las 9:00 a. m. de Chicago)");
-const cases: [string, string, string[]][] = [
-  ["2026-11-13", "2026-11-13", ["2026-11-17", "2026-11-18"]],
-  ["2026-11-25", "2026-11-25", ["2026-11-30", "2026-12-01"]],
-  ["2026-12-31", "2026-12-31", ["2027-01-04", "2027-01-05"]],
-];
-for (const [todayKey, expectedToday, expectedFollowing] of cases) {
-  const window = getWindowDayKeys(chicagoTimeToUtc(todayKey, "09:00"));
-  check(`${weekday(todayKey)} ${todayKey}`, window, {
-    today: expectedToday,
-    following: expectedFollowing,
-  });
-}
-check(
-  "sáb 2026-10-10 (no es hábil; lun 12 es Columbus Day)",
-  getWindowDayKeys(chicagoTimeToUtc("2026-10-10", "09:00")),
-  { today: null, following: ["2026-10-13", "2026-10-14"] }
-);
+console.log("\nVentana: siempre 3 días hábiles (hoy a las 9:00 a. m. de Chicago)");
 
-console.log("\n\"Hoy\" sin horarios no aparece");
-const now = chicagoTimeToUtc("2026-11-13", "14:00");
-const nextSlot = chicagoTimeToUtc("2026-11-17", "10:00").toISOString();
+// Días que mostraría la agenda si a hoy le quedan horarios o no. Un horario de prueba por
+// día hábil candidato basta: buildAgendaDays solo mira si hoy tiene alguno.
+function agendaFor(todayKey: string, todayHasSlots: boolean): string[] {
+  const now = chicagoTimeToUtc(todayKey, "09:00");
+  const { today, following } = getWindowDayKeys(now);
+  const candidates = [...(today && todayHasSlots ? [today] : []), ...following];
+  const slots = candidates.map((dayKey) => {
+    const start = chicagoTimeToUtc(dayKey, "10:00").toISOString();
+    return { start, end: start };
+  });
+  return buildAgendaDays(now, slots).map((day) => `${weekday(day.date)} ${day.date}`);
+}
+
+const cases: [string, boolean, string[]][] = [
+  ["2026-10-10", true, ["mar 2026-10-13", "mié 2026-10-14", "jue 2026-10-15"]],
+  ["2026-10-16", true, ["vie 2026-10-16", "lun 2026-10-19", "mar 2026-10-20"]],
+  ["2026-10-16", false, ["lun 2026-10-19", "mar 2026-10-20", "mié 2026-10-21"]],
+  ["2026-11-13", true, ["vie 2026-11-13", "mar 2026-11-17", "mié 2026-11-18"]],
+  ["2026-11-13", false, ["mar 2026-11-17", "mié 2026-11-18", "jue 2026-11-19"]],
+  ["2026-11-25", true, ["mié 2026-11-25", "lun 2026-11-30", "mar 2026-12-01"]],
+  ["2026-11-25", false, ["lun 2026-11-30", "mar 2026-12-01", "mié 2026-12-02"]],
+  ["2026-12-31", true, ["jue 2026-12-31", "lun 2027-01-04", "mar 2027-01-05"]],
+  ["2026-12-31", false, ["lun 2027-01-04", "mar 2027-01-05", "mié 2027-01-06"]],
+];
+for (const [todayKey, todayHasSlots, expected] of cases) {
+  const label = `${weekday(todayKey)} ${todayKey}, ${todayHasSlots ? "con" : "sin"} horarios hoy`;
+  check(label, agendaFor(todayKey, todayHasSlots), expected);
+}
+
+console.log("\nUn día hábil lleno sigue contando");
+const fullDayNow = chicagoTimeToUtc("2026-10-16", "09:00");
+const onlyTuesday = chicagoTimeToUtc("2026-10-20", "10:00").toISOString();
 check(
-  "vie 13 a las 2:00 p. m. sin horarios",
-  buildAgendaDays(now, [{ start: nextSlot, end: nextSlot }]).map((day) => day.date),
-  ["2026-11-17", "2026-11-18"]
+  "vie 16 sin horarios, lun 19 lleno",
+  buildAgendaDays(fullDayNow, [{ start: onlyTuesday, end: onlyTuesday }]).map(
+    (day) => `${day.date}:${day.slots.length}`
+  ),
+  ["2026-10-19:0", "2026-10-20:1", "2026-10-21:0"]
 );
 
 console.log("\nHora de Chicago a UTC (horario de verano)");
