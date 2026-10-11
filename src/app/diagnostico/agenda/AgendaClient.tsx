@@ -20,7 +20,8 @@ const STAGE_HEADINGS: Record<AgendaStage, { label: string; title: string; subtit
   datos: {
     label: "Paso 3 de 3 — Tus datos",
     title: "Último paso",
-    subtitle: "Te enviaremos la confirmación por WhatsApp. Verifica que tu número sea correcto.",
+    subtitle:
+      "Al terminar, confirmarás tu cita por WhatsApp desde este número. Verifica que sea correcto.",
   },
 };
 
@@ -45,10 +46,13 @@ export default function AgendaClient() {
     markSlotTaken,
     savePendingLead,
     slotTakenNotice,
+    hasBooking,
     completeLead,
   } = useDiagnostico();
 
-  const qualified = hydrated && isQualified(answers);
+  // Con una reserva ya creada no se vuelve a la agenda ni al formulario: así no puede
+  // reservar dos veces ni cambiar sus datos después de agendar.
+  const qualified = hydrated && !hasBooking && isQualified(answers);
   const stage: AgendaStage = agendaStage === "datos" && selectedSlot ? "datos" : "agenda";
 
   const cardSectionRef = useRef<HTMLElement>(null);
@@ -57,10 +61,14 @@ export default function AgendaClient() {
 
   // Sin las 7 respuestas válidas (o con una de salida) no hay agenda.
   useEffect(() => {
-    if (hydrated && !isQualified(answers)) {
+    if (!hydrated) return;
+
+    if (hasBooking) {
+      router.replace("/diagnostico/confirmacion/");
+    } else if (!isQualified(answers)) {
       router.replace("/diagnostico/");
     }
-  }, [hydrated, answers, router]);
+  }, [hydrated, hasBooking, answers, router]);
 
   useEffect(() => {
     if (!qualified) return;
@@ -130,7 +138,8 @@ export default function AgendaClient() {
             onChangeSlot={() => setAgendaStage("agenda")}
             onSuccess={(result) => {
               completeLead(result);
-              router.push("/diagnostico/confirmacion/");
+              // replace: el "atrás" del navegador no regresa a la agenda ni al formulario.
+              router.replace("/diagnostico/confirmacion/");
             }}
             onSlotUnavailable={markSlotTaken}
             onPendingLead={savePendingLead}

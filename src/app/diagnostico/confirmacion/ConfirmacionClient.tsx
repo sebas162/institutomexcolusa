@@ -4,30 +4,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import ConfirmScreen from "@/components/diagnostico/ConfirmScreen";
-import { formatWhatsappNumber } from "@/lib/diagnostico/schema";
 import { useDiagnostico } from "../DiagnosticoProvider";
 
 export default function ConfirmacionClient() {
   const router = useRouter();
-  const {
-    hydrated,
-    lead,
-    timeZone,
-    datosValues,
-    storedConfirmation,
-    setAgendaStage,
-    clearProgress,
-  } = useDiagnostico();
+  const { hydrated, storedConfirmation: confirmation, clearProgress } = useDiagnostico();
 
-  // En memoria (recién creado) o desde sessionStorage (la pestaña se recargó).
-  // La fecha es la de la reserva que devolvió Cal.com.
-  const confirmation =
-    lead
-      ? { ...lead, slot: lead.booking, timeZone, inMemory: true }
-      : storedConfirmation
-        ? { ...storedConfirmation, inMemory: false }
-        : null;
-
+  // completeLead la guarda en memoria y en sessionStorage, así que sobrevive a una recarga.
   const hasConfirmation = confirmation !== null;
 
   useEffect(() => {
@@ -54,16 +37,8 @@ export default function ConfirmacionClient() {
     <ConfirmScreen
       slot={confirmation.slot}
       timeZone={confirmation.timeZone}
-      confirmationCode={confirmation.confirmationCode}
-      phoneLabel={
-        confirmation.inMemory
-          ? formatWhatsappNumber(datosValues.whatsappCountryCode, datosValues.whatsappNumber)
-          : null
-      }
-      onFixPhone={() => {
-        setAgendaStage("datos");
-        router.push("/diagnostico/agenda/");
-      }}
+      leadId={confirmation.leadId}
+      nombre={confirmation.nombre ?? ""}
     />
   );
 }

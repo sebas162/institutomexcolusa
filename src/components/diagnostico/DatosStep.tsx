@@ -20,6 +20,7 @@ import {
   DATOS_FIELD_MESSAGES,
   datosSchema,
   digitsOnly,
+  formatWhatsappNumber,
   type DatosFieldName,
   type DatosValues,
 } from "@/lib/diagnostico/schema";
@@ -84,6 +85,8 @@ export default function DatosStep({
   }, [form, onValuesChange]);
 
   const consentGiven = form.watch("consentConfirmacion");
+  const [whatsappCountryCode, whatsappNumber] = form.watch(["whatsappCountryCode", "whatsappNumber"]);
+  const hasFullNumber = digitsOnly(whatsappNumber ?? "").length === 10;
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: DatosValues) => {
@@ -227,8 +230,17 @@ export default function DatosStep({
                       />
                     </FormControl>
                   </div>
-                  <p className="text-[13px] text-muted-foreground">
-                    Aquí te llegará el mensaje para confirmar tu cita. Verifica que sea correcto.
+                  <p aria-live="polite" className="text-[13px] text-muted-foreground">
+                    {hasFullNumber ? (
+                      <>
+                        {datosForm.whatsappPreview}{" "}
+                        <strong className="font-semibold text-foreground">
+                          {formatWhatsappNumber(whatsappCountryCode, whatsappNumber)}
+                        </strong>
+                      </>
+                    ) : (
+                      datosForm.whatsappHint
+                    )}
                   </p>
                   <FormMessage className="text-red-700" />
                 </FormItem>

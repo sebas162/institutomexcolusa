@@ -1,17 +1,21 @@
 import { AlertTriangle, Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { trackMetaEvent } from "@/lib/analytics/meta-pixel";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
-import { formatSlotLabel, getTimeZoneLabel, type Slot } from "@/lib/diagnostico/slots";
+import {
+  formatConfirmationDate,
+  formatSlotLabel,
+  getTimeZoneLabel,
+  type Slot,
+} from "@/lib/diagnostico/slots";
 import { FeaturedTestimonial } from "./Testimonials";
 import LandingLogo from "./LandingLogo";
 
 interface ConfirmScreenProps {
   slot: Slot;
   timeZone: string;
-  /** null tras recargar la página: el teléfono no se guarda en el navegador. */
-  phoneLabel: string | null;
-  confirmationCode: string;
-  onFixPhone: () => void;
+  leadId: string;
+  nombre: string;
 }
 
 const STEPS = [
@@ -30,12 +34,15 @@ const STEPS = [
 export default function ConfirmScreen({
   slot,
   timeZone,
-  phoneLabel,
-  confirmationCode,
-  onFixPhone,
+  leadId,
+  nombre,
 }: ConfirmScreenProps) {
-  const { whatsappNumber, featuredTestimonial } = DIAGNOSTICO_CONTENT;
-  const message = `CONFIRMO mi cita #${confirmationCode}`;
+  const { whatsappNumber, featuredTestimonial, confirmacion } = DIAGNOSTICO_CONTENT;
+  const message = confirmacion.buildWhatsappMessage({
+    nombre,
+    fecha: formatConfirmationDate(slot, timeZone),
+    zona: getTimeZoneLabel(timeZone),
+  });
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -66,13 +73,16 @@ export default function ConfirmScreen({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackMetaEvent("Contact", { content_name: "Llamada diagnóstico" }, leadId)
+            }
             className="inline-flex min-h-[60px] w-full max-w-[460px] items-center justify-center gap-3 rounded-full bg-[#25D366] px-8 text-lg font-extrabold text-[#0A1416] transition-colors hover:bg-[#20BA5A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
             <FaWhatsapp aria-hidden="true" className="h-6 w-6" />
             Confirmar mi cita por WhatsApp
           </a>
           <span className="max-w-[460px] text-sm leading-normal text-white/80">
-            Se abrirá WhatsApp con el mensaje listo: “{message}”. Solo toca enviar.
+            {confirmacion.whatsappHint}
           </span>
 
           <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-[18px] rounded-[20px] bg-white px-6 py-[22px] text-left text-foreground">
@@ -85,20 +95,6 @@ export default function ConfirmScreen({
               <span className="text-[13px] text-muted-foreground">Duración</span>
               <strong className="text-[17px] text-primary">15 minutos exactos</strong>
             </div>
-            {phoneLabel && (
-              <div className="flex flex-col gap-1">
-                <span className="text-[13px] text-muted-foreground">Confirma desde tu número</span>
-                <strong className="text-[17px] text-primary">{phoneLabel}</strong>
-                {/* TODO Fase 4: actualizar el número del lead ya guardado al corregirlo. */}
-                <button
-                  type="button"
-                  onClick={onFixPhone}
-                  className="min-h-11 self-start rounded text-sm font-bold text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  ¿No es tu número? Corrígelo
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </section>

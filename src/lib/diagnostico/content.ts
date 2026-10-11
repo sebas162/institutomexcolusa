@@ -92,6 +92,8 @@ export const DIAGNOSTICO_CONTENT = {
   datosForm: {
     nombrePlaceholder: "Ej. Dr. Roberto Méndez",
     ciudadPlaceholder: "Ej. Monterrey, NL o Houston, TX",
+    whatsappHint: "Aquí te llegará el mensaje para confirmar tu cita. Verifica que sea correcto.",
+    whatsappPreview: "Te confirmaremos a este WhatsApp:",
     consentConfirmacion: {
       label: "Requerido.",
       text: "Acepto que el Instituto Mex-Col-USA me contacte por WhatsApp y correo electrónico para confirmar, recordar o reprogramar esta llamada. Puedo pedir que dejen de escribirme en cualquier momento respondiendo BAJA.",
@@ -100,6 +102,25 @@ export const DIAGNOSTICO_CONTENT = {
       label: "Opcional.",
       text: "Quiero recibir novedades, contenido útil y promociones para clínicas del Instituto Mex-Col-USA por WhatsApp y correo. Puedo cancelar cuando quiera respondiendo BAJA.",
     },
+  },
+
+  confirmacion: {
+    /** Mensaje que la persona envía por WhatsApp; los datos salen de la reserva real. */
+    buildWhatsappMessage: ({
+      nombre,
+      fecha,
+      zona,
+    }: {
+      nombre: string;
+      fecha: string;
+      zona: string;
+    }) =>
+      [
+        "Hola, CONFIRMO mi llamada de diagnóstico.",
+        ...(nombre ? [`Nombre: ${nombre}`] : []),
+        `Fecha: ${fecha} (hora ${zona})`,
+      ].join("\n"),
+    whatsappHint: "Se abrirá WhatsApp con tu mensaje listo. Solo toca enviar.",
   },
 
   agenda: {

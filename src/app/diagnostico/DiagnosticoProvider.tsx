@@ -35,10 +35,12 @@ export interface LeadResult extends PendingLead {
   booking: Slot;
 }
 
-/** Lo que necesita la confirmación para sobrevivir a una recarga (sin datos personales). */
+/** Lo que necesita la confirmación para sobrevivir a una recarga. Nunca teléfono ni correo. */
 export interface StoredConfirmation extends PendingLead {
   slot: Slot;
   timeZone: string;
+  /** Para el mensaje de WhatsApp. Puede faltar en confirmaciones guardadas antes de la Fase 4. */
+  nombre?: string;
 }
 
 // Avance del flujo: respuestas, zona, horario, UTM y el lead pendiente. Nunca nombre, teléfono ni correo.
@@ -147,6 +149,8 @@ interface DiagnosticoContextValue {
   slotTakenNotice: boolean;
   lead: LeadResult | null;
   storedConfirmation: StoredConfirmation | null;
+  /** Hay una reserva en esta pestaña: las preguntas y la agenda redirigen a /confirmacion/. */
+  hasBooking: boolean;
   completeLead: (result: LeadResult) => void;
   clearProgress: () => void;
   /** Borra respuestas y horario (memoria y sessionStorage): el flujo vuelve a la pregunta 1. */
@@ -232,13 +236,6 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
       const question = DIAGNOSTICO_QUESTIONS.find((q) => q.id === questionId);
       if (!question) return;
 
-      // Responder la pregunta 1 empieza un flujo nuevo: la confirmación anterior ya no aplica.
-      if (questionId === DIAGNOSTICO_QUESTIONS[0].id && (lead || storedConfirmation)) {
-        removeStorage(CONFIRMATION_KEY);
-        setStoredConfirmation(null);
-        setLead(null);
-      }
-
       setAnswers((current) => {
         const previous = current[questionId] ?? [];
         const next = question.multiple
@@ -249,7 +246,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         return { ...current, [questionId]: next };
       });
     },
-    [lead, storedConfirmation]
+    []
   );
 
   // Los días de la agenda son fechas de Chicago: cambiar la zona solo cambia cómo se ven las horas.
@@ -285,6 +282,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         confirmationCode: result.confirmationCode,
         slot: result.booking,
         timeZone,
+        nombre: datosValues.nombre.trim(),
       };
       writeStorage(CONFIRMATION_KEY, confirmation);
       setStoredConfirmation(confirmation);
@@ -292,7 +290,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
       trackMetaEvent("Lead", { content_name: "Llamada diagnóstico" }, result.leadId);
       trackMetaEvent("Schedule", { content_name: "Llamada diagnóstico" }, result.leadId);
     },
-    [timeZone]
+    [timeZone, datosValues.nombre]
   );
 
   const clearProgress = useCallback(() => removeStorage(PROGRESS_KEY), []);
@@ -333,6 +331,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         slotTakenNotice,
         lead,
         storedConfirmation,
+        hasBooking: lead !== null || storedConfirmation !== null,
         completeLead,
         clearProgress,
         resetAnswers,

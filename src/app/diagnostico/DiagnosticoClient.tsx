@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import DiagnosticoHero from "@/components/diagnostico/DiagnosticoHero";
 import Testimonials from "@/components/diagnostico/Testimonials";
 import QuestionStep from "@/components/diagnostico/QuestionStep";
@@ -19,7 +20,18 @@ export default function DiagnosticoClient() {
     setQuestionIndex,
     toggleOption,
     setAgendaStage,
+    hasBooking,
   } = useDiagnostico();
+
+  // Con una reserva en esta pestaña no se vuelve a contestar: el "atrás" regresa a la confirmación.
+  const redirecting = hydrated && hasBooking;
+  // Hasta leer sessionStorage no se sabe si hay reserva; el sitio no trae HTML del servidor,
+  // así que esperar no retrasa nada visible.
+  const showLoader = !hydrated || redirecting;
+
+  useEffect(() => {
+    if (redirecting) router.replace("/diagnostico/confirmacion/");
+  }, [redirecting, router]);
 
   // Se incrementa en cada navegación entre preguntas para mover foco y scroll.
   const [navigationCount, setNavigationCount] = useState(0);
@@ -30,7 +42,7 @@ export default function DiagnosticoClient() {
   // Al volver de la agenda (Anterior, atrás del navegador o recarga) se va directo a la
   // tarjeta de preguntas, sin obligar a pasar otra vez por el video.
   useEffect(() => {
-    if (!hydrated || didRestoreScroll.current) return;
+    if (!hydrated || hasBooking || didRestoreScroll.current) return;
     didRestoreScroll.current = true;
 
     const hasProgress = Object.keys(answers).length > 0;
@@ -38,7 +50,7 @@ export default function DiagnosticoClient() {
 
     cardSectionRef.current?.scrollIntoView({ behavior: "instant", block: "start" });
     questionHeadingRef.current?.focus({ preventScroll: true });
-  }, [hydrated, answers]);
+  }, [hydrated, hasBooking, answers]);
 
   useEffect(() => {
     if (navigationCount === 0) return;
@@ -83,6 +95,15 @@ export default function DiagnosticoClient() {
       router.push("/diagnostico/agenda/");
     }
   };
+
+  if (showLoader) {
+    return (
+      <div className="flex flex-grow items-center justify-center py-32">
+        <Loader2 aria-hidden="true" className="h-8 w-8 animate-spin text-primary" />
+        <span className="sr-only">Cargando…</span>
+      </div>
+    );
+  }
 
   return (
     <>

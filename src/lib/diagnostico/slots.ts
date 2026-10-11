@@ -182,3 +182,17 @@ export function formatShortDate(dayKey: string): string {
   );
   return `${getPart(parts, "day")} de ${getPart(parts, "month")}`;
 }
+
+/** "Jueves 15 de octubre, 1:30 pm" en la zona dada, para el mensaje de confirmación. */
+export function formatConfirmationDate(slot: Slot, timeZone: string): string {
+  const date = new Date(slot.start);
+  const parts = getFormatter(timeZone, {
+    hour: "numeric",
+    minute: "2-digit",
+    hourCycle: "h12",
+  }).formatToParts(date);
+  // es-MX escribe "p.m." (a veces con espacio fino); el mensaje usa "pm".
+  const period = getPart(parts, "dayPeriod").replace(/[.\s  ]/g, "").toLowerCase();
+  const time = `${getPart(parts, "hour")}:${getPart(parts, "minute")} ${period}`;
+  return `${formatDayParts(date, timeZone)}, ${time}`;
+}
