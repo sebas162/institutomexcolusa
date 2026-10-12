@@ -1,7 +1,12 @@
 import { randomInt } from "crypto";
-import { Timestamp, type DocumentSnapshot } from "firebase-admin/firestore";
+import { FieldValue, Timestamp, type DocumentSnapshot } from "firebase-admin/firestore";
 import { adminDb } from "@/lib/firebase-admin";
-import type { CreateLeadInput, LeadBooking, LeadStatus } from "@/types/lead";
+import type {
+  CreateLeadInput,
+  LeadBooking,
+  LeadStatus,
+  LeadStatusSource,
+} from "@/types/lead";
 
 const LEADS_COLLECTION = "leads";
 
@@ -30,6 +35,9 @@ export async function createLeadAdmin(
       status: "nuevo",
       confirmationCode,
       booking: null,
+      isTest: false,
+      statusHistory: [{ status: "nuevo", at: now, source: "landing", email: null }],
+      statusUpdatedAt: now,
       createdAt: now,
       updatedAt: now,
     });
@@ -47,6 +55,7 @@ export interface LeadBookingState {
   status: LeadStatus;
   confirmationCode: string;
   booking: LeadBooking;
+  isTest: boolean;
 }
 
 function toDate(value: unknown): Date {
@@ -61,11 +70,13 @@ function toLeadBookingState(doc: DocumentSnapshot): LeadBookingState | null {
     id: doc.id,
     status: data.status,
     confirmationCode: data.confirmationCode,
+    isTest: Boolean(data.isTest),
     booking: data.booking
       ? {
           uid: data.booking.uid,
           startTime: toDate(data.booking.startTime),
           endTime: toDate(data.booking.endTime),
+          meetingUrl: data.booking.meetingUrl ?? null,
         }
       : null,
   };
@@ -96,11 +107,38 @@ export async function findLeadByBookingUidAdmin(uid: string): Promise<LeadBookin
   }
 }
 
+/** Cambia estado y reserva, y agrega el cambio al historial con quién lo hizo. */
+/** Leads con cita desde `from` en adelante (consulta de un solo campo: no necesita índice). */
+export async function listLeadsWithBookingSinceAdmin(from: Date): Promise<LeadBookingState[]> {
+  try {
+    const snapshot = await adminDb
+      .collection(LEADS_COLLECTION)
+      .where("booking.startTime", ">=", Timestamp.fromDate(from))
+      .get();
+
+    return snapshot.docs
+      .map(toLeadBookingState)
+      .filter((lead): lead is LeadBookingState => lead !== null);
+  } catch (error) {
+    console.error("Error listing leads with booking (admin):", error);
+    throw error;
+  }
+}
+
 export async function updateLeadBookingAdmin(
   id: string,
-  update: { status: LeadStatus; booking?: LeadBooking; timeZone?: string }
+  update: {
+    status: LeadStatus;
+    booking?: LeadBooking;
+    timeZone?: string;
+    source: LeadStatusSource;
+    /** Correo de la sesión del admin; null para la landing y el webhook. */
+    email?: string | null;
+    note?: string;
+  }
 ): Promise<void> {
   try {
+    const now = Timestamp.now();
     await adminDb
       .collection(LEADS_COLLECTION)
       .doc(id)
@@ -108,7 +146,15 @@ export async function updateLeadBookingAdmin(
         status: update.status,
         ...(update.booking !== undefined ? { booking: update.booking } : {}),
         ...(update.timeZone !== undefined ? { timeZone: update.timeZone } : {}),
-        updatedAt: Timestamp.now(),
+        statusHistory: FieldValue.arrayUnion({
+          status: update.status,
+          at: now,
+          source: update.source,
+          email: update.email ?? null,
+          ...(update.note ? { note: update.note } : {}),
+        }),
+        statusUpdatedAt: now,
+        updatedAt: now,
       });
   } catch (error) {
     console.error("Error updating lead booking (admin):", error);

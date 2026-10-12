@@ -14,7 +14,18 @@ interface CalWebhookPayload {
   startTime?: string;
   endTime?: string;
   rescheduleUid?: string;
-  metadata?: { leadId?: unknown } | null;
+  location?: string;
+  videoCallData?: { url?: unknown } | null;
+  metadata?: { leadId?: unknown; videoCallUrl?: unknown } | null;
+}
+
+// Cal.com manda el enlace de la videollamada en distintos campos según la integración.
+function getMeetingUrl(payload: CalWebhookPayload): string | null {
+  const candidates = [payload.videoCallData?.url, payload.metadata?.videoCallUrl, payload.location];
+  const url = candidates.find(
+    (value): value is string => typeof value === "string" && value.startsWith("https://")
+  );
+  return url ?? null;
 }
 
 interface CalWebhookBody {
@@ -71,6 +82,7 @@ export async function POST(request: Request) {
 
   const payload = body.payload ?? {};
   const { uid, startTime, endTime } = payload;
+  const meetingUrl = getMeetingUrl(payload);
 
   // Todos los casos son idempotentes: si el lead ya está así, no se escribe nada.
   try {
@@ -80,7 +92,8 @@ export async function POST(request: Request) {
         if (lead && lead.booking === null && uid && startTime && endTime) {
           await updateLeadBookingAdmin(lead.id, {
             status: "agendada",
-            booking: { uid, startTime: new Date(startTime), endTime: new Date(endTime) },
+            booking: { uid, startTime: new Date(startTime), endTime: new Date(endTime), meetingUrl },
+            source: "webhook",
           });
         }
         break;
@@ -89,14 +102,16 @@ export async function POST(request: Request) {
       case "BOOKING_CANCELLED": {
         const lead = await findLead(payload, uid);
         // Solo la reserva vigente: una cancelación vieja no debe tocar la nueva.
+        // Si se canceló desde el admin, el lead ya está en "cancelada" y no se duplica.
         if (lead && lead.booking?.uid === uid && lead.status !== "cancelada") {
-          await updateLeadBookingAdmin(lead.id, { status: "cancelada" });
+          await updateLeadBookingAdmin(lead.id, { status: "cancelada", source: "webhook" });
         }
         break;
       }
 
       case "BOOKING_RESCHEDULED": {
-        // La reserva nueva trae el uid anterior en rescheduleUid.
+        // La reserva nueva trae el uid anterior en rescheduleUid. Si se reprogramó desde el
+        // admin, el lead ya tiene el uid y las fechas nuevas: se detecta como ya aplicado.
         const lead =
           (await findLead(payload, payload.rescheduleUid)) ??
           (uid ? await findLeadByBookingUidAdmin(uid) : null);
@@ -108,8 +123,10 @@ export async function POST(request: Request) {
 
         if (lead && uid && startTime && endTime && !alreadyApplied) {
           await updateLeadBookingAdmin(lead.id, {
-            status: "agendada",
-            booking: { uid, startTime: new Date(startTime), endTime: new Date(endTime) },
+            // El cliente reprogramó desde Cal.com: queda pendiente de confirmar otra vez.
+            status: "reprogramada",
+            booking: { uid, startTime: new Date(startTime), endTime: new Date(endTime), meetingUrl },
+            source: "webhook",
           });
         }
         break;

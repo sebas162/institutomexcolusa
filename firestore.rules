@@ -2,31 +2,46 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Único usuario admin del panel. Es el mismo UID que ADMIN_UID en src/lib/admin.ts:
+    // si cambia, hay que cambiarlo en los dos lugares.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.uid == "rOjBPvum7KU3Z30nPuU4BoJxzT73";
+    }
+
     // Cupones: cualquiera puede validar un código (lectura pública),
-    // pero solo un admin autenticado puede crear/editar/borrar
+    // pero solo el admin puede crear/editar/borrar
     match /coupons/{couponId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
     // Artículos del blog: público solo ve los publicados,
-    // el admin autenticado ve y edita todo
+    // el admin ve y edita todo
     match /posts/{postId} {
-      allow read: if resource.data.status == 'published' || request.auth != null;
-      allow write: if request.auth != null;
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
     }
 
     // Newsletter: cualquiera puede suscribirse (crear),
     // pero solo el admin puede leer/editar/borrar la lista de correos
     match /newsletter_subscribers/{subId} {
       allow create: if true;
-      allow read, update, delete: if request.auth != null;
+      allow read, update, delete: if isAdmin();
     }
+
     // Leads de la landing de diagnóstico: datos personales
     match /leads/{leadId} {
-      // Solo el admin puede leer y actualizar (cambiar estado desde el panel).
-      allow read, update: if request.auth != null
-        && request.auth.uid == "rOjBPvum7KU3Z30nPuU4BoJxzT73";
+      allow read: if isAdmin();
+      // El admin solo cambia estado (a los manuales), nota, prueba e historial desde el panel.
+      // Reprogramar y cancelar van por la ruta API (Admin SDK), que no pasa por estas reglas.
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             "status", "statusHistory", "statusUpdatedAt",
+             "adminNote", "adminNoteUpdatedAt", "adminNoteUpdatedBy",
+             "isTest", "updatedAt"])
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(["status"])
+            || request.resource.data.status in ["agendada", "confirmada", "asistio", "no_asistio"]);
       // Nadie crea ni borra desde el cliente: la creación va por la ruta API (Admin SDK).
       allow create, delete: if false;
     }

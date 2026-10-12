@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { CalcomError, createCalBooking } from "@/lib/calcom";
+import { CalcomError, createCalBooking, type CalBooking } from "@/lib/calcom";
 import {
   createLeadAdmin,
   getLeadAdmin,
@@ -238,7 +238,7 @@ export async function POST(request: Request) {
 
   // 3. Reserva en Cal.com. Si falla, el lead queda en "nuevo" (lead abandonado en el panel).
   const phoneE164 = toE164(data.whatsappCountryCode, data.whatsappNumber);
-  let booking: { uid: string; start: string; end: string };
+  let booking: CalBooking;
 
   try {
     booking = await createCalBooking({
@@ -287,8 +287,10 @@ export async function POST(request: Request) {
         uid: booking.uid,
         startTime: new Date(booking.start),
         endTime: new Date(booking.end),
+        meetingUrl: booking.meetingUrl,
       },
       timeZone: data.timeZone,
+      source: "landing",
     });
   } catch (error) {
     logError("Error saving booking on diagnostico lead:", error);

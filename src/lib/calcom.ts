@@ -136,10 +136,32 @@ export interface CalBooking {
   uid: string;
   start: string;
   end: string;
+  /** Enlace de la videollamada (Teams); null si Cal.com no lo devolvió. */
+  meetingUrl: string | null;
+}
+
+interface CalBookingData {
+  uid: string;
+  start: string;
+  end: string;
+  meetingUrl?: string | null;
+  location?: string | null;
+}
+
+function toCalBooking(data: CalBookingData): CalBooking {
+  const meetingUrl =
+    data.meetingUrl ?? (data.location?.startsWith("https://") ? data.location : null);
+
+  return {
+    uid: data.uid,
+    start: new Date(data.start).toISOString(),
+    end: new Date(data.end).toISOString(),
+    meetingUrl,
+  };
 }
 
 export async function createCalBooking(input: CreateCalBookingInput): Promise<CalBooking> {
-  const data = await calFetch<{ uid: string; start: string; end: string }>(
+  const data = await calFetch<CalBookingData>(
     "/v2/bookings",
     BOOKINGS_API_VERSION,
     {
@@ -160,10 +182,41 @@ export async function createCalBooking(input: CreateCalBookingInput): Promise<Ca
     }
   );
 
+  return toCalBooking(data);
+}
+
+/** Reprograma una reserva; Cal.com crea una reserva nueva (uid nuevo) y cancela la anterior. */
+export async function rescheduleCalBooking(
+  uid: string,
+  startUtc: string,
+  reason: string
+): Promise<CalBooking> {
+  const data = await calFetch<CalBookingData>(
+    `/v2/bookings/${encodeURIComponent(uid)}/reschedule`,
+    BOOKINGS_API_VERSION,
+    { method: "POST", body: { start: startUtc, reschedulingReason: reason } }
+  );
+
+  return toCalBooking(data);
+}
+
+export interface CalBookingStatus extends CalBooking {
+  status: string; // "accepted", "cancelled", "pending"…
+  /** Si se reprogramó, uid de la reserva nueva. */
+  rescheduledToUid: string | null;
+}
+
+/** Estado actual de una reserva en Cal.com (para la sincronización del admin). */
+export async function getCalBooking(uid: string): Promise<CalBookingStatus> {
+  const data = await calFetch<CalBookingData & { status: string; rescheduledToUid?: string | null }>(
+    `/v2/bookings/${encodeURIComponent(uid)}`,
+    BOOKINGS_API_VERSION
+  );
+
   return {
-    uid: data.uid,
-    start: new Date(data.start).toISOString(),
-    end: new Date(data.end).toISOString(),
+    ...toCalBooking(data),
+    status: data.status,
+    rescheduledToUid: data.rescheduledToUid ?? null,
   };
 }
 

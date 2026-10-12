@@ -12,6 +12,9 @@ import CouponGenerator from "@/components/admin/CouponGenerator";
 import CouponList from "@/components/admin/CouponList";
 import BlogPanel from "@/components/admin/BlogPanel";
 import NewsletterSubscribersList from "@/components/admin/NewsletterSubscribersList";
+import DiagnosticosPanel from "@/components/admin/diagnosticos/DiagnosticosPanel";
+import ManualPanel from "@/components/admin/diagnosticos/ManualPanel";
+import { ADMIN_UID } from "@/lib/admin";
 
 export default function AdminClient() {
   const { user, loading, logout } = useAuth();
@@ -33,6 +36,23 @@ export default function AdminClient() {
     );
   }
 
+  // Con sesión pero sin ser el admin: no se monta ninguna pestaña.
+  if (user.uid !== ADMIN_UID) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center gap-4 px-4 text-center">
+        <p className="text-lg font-semibold">{t.noAccess}</p>
+        <Button
+          variant="destructive"
+          onClick={logout}
+          className="border-none bg-red-600 hover:bg-red-700 text-white"
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          {t.logout}
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
@@ -48,10 +68,13 @@ export default function AdminClient() {
       </header>
 
       <Tabs defaultValue="coupons" className="w-full">
-        <TabsList>
+        {/* Con 5 pestañas, en el celular pasan a otra línea en vez de desbordar la página. */}
+        <TabsList className="h-auto flex-wrap justify-start">
           <TabsTrigger value="coupons">{t.tabs.coupons}</TabsTrigger>
           <TabsTrigger value="blog">{t.tabs.blog}</TabsTrigger>
           <TabsTrigger value="newsletter">{t.tabs.newsletter}</TabsTrigger>
+          <TabsTrigger value="diagnosticos">{t.tabs.diagnosticos}</TabsTrigger>
+          <TabsTrigger value="manual">{t.tabs.manual}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="coupons" className="mt-6">
@@ -71,6 +94,14 @@ export default function AdminClient() {
 
         <TabsContent value="newsletter" className="mt-6">
           <NewsletterSubscribersList />
+        </TabsContent>
+
+        <TabsContent value="diagnosticos" className="mt-6">
+          <DiagnosticosPanel />
+        </TabsContent>
+
+        <TabsContent value="manual" className="mt-6">
+          <ManualPanel />
         </TabsContent>
       </Tabs>
     </div>

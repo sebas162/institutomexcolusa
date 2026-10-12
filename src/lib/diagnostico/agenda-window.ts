@@ -15,7 +15,7 @@ import {
 // Cuántos días hábiles muestra la agenda. Es lo único que hay que cambiar para ampliarla
 // (por ejemplo a 5 para una semana): la ventana, la API de horarios y la revalidación de
 // la ruta de lead se ajustan solas.
-const AGENDA_DAYS = 2;
+export const AGENDA_DAYS = 2;
 
 // Franja que se muestra en gris como "Agendado" (de 3:00 a 5:30 p. m. en Chicago).
 const UNAVAILABLE_TIMES = ["15:00", "15:30", "16:00", "16:30", "17:00"];
@@ -69,12 +69,15 @@ export function isBusinessDay(dayKey: string): boolean {
  * Hoy (si es hábil) y los AGENDA_DAYS días hábiles siguientes, en Chicago. La agenda usa hoy
  * y los primeros AGENDA_DAYS - 1 si a hoy le quedan horarios, o los AGENDA_DAYS siguientes si no.
  */
-export function getWindowDayKeys(now: Date): { today: string | null; following: string[] } {
+export function getWindowDayKeys(
+  now: Date,
+  dayCount = AGENDA_DAYS
+): { today: string | null; following: string[] } {
   const todayKey = toDayKey(now, AGENDA_TIME_ZONE);
   const following: string[] = [];
   let cursor = todayKey;
 
-  while (following.length < AGENDA_DAYS) {
+  while (following.length < dayCount) {
     cursor = addDaysToKey(cursor, 1);
     if (isBusinessDay(cursor)) following.push(cursor);
   }
@@ -94,8 +97,8 @@ function buildUnavailableSlots(dayKey: string): Slot[] {
  * Arma los AGENDA_DAYS días de la agenda con los horarios de Cal.com. "Hoy" solo cuenta si le
  * quedan horarios; un día hábil siguiente cuenta aunque esté lleno.
  */
-export function buildAgendaDays(now: Date, slots: Slot[]): AgendaDay[] {
-  const { today, following } = getWindowDayKeys(now);
+export function buildAgendaDays(now: Date, slots: Slot[], dayCount = AGENDA_DAYS): AgendaDay[] {
+  const { today, following } = getWindowDayKeys(now, dayCount);
   const slotsByDay = new Map<string, Slot[]>();
 
   for (const slot of slots) {
@@ -105,7 +108,7 @@ export function buildAgendaDays(now: Date, slots: Slot[]): AgendaDay[] {
 
   const dayKeys =
     today && (slotsByDay.get(today)?.length ?? 0) > 0
-      ? [today, ...following].slice(0, AGENDA_DAYS)
+      ? [today, ...following].slice(0, dayCount)
       : following;
 
   return dayKeys.map((date) => ({
@@ -115,14 +118,17 @@ export function buildAgendaDays(now: Date, slots: Slot[]): AgendaDay[] {
   }));
 }
 
-/** Pide a Cal.com los horarios de la ventana y los arma por día. */
-export async function getAgendaDays(now = new Date()): Promise<AgendaDay[]> {
-  const { following } = getWindowDayKeys(now);
+/**
+ * Pide a Cal.com los horarios de la ventana y los arma por día. La landing usa AGENDA_DAYS;
+ * el admin pide más días para reprogramar, con las mismas reglas.
+ */
+export async function getAgendaDays(now = new Date(), dayCount = AGENDA_DAYS): Promise<AgendaDay[]> {
+  const { following } = getWindowDayKeys(now, dayCount);
   const lastDay = following[following.length - 1];
   const end = chicagoTimeToUtc(addDaysToKey(lastDay, 1), "00:00");
 
   const slots = await getCalSlots(now, end);
-  return buildAgendaDays(now, slots);
+  return buildAgendaDays(now, slots, dayCount);
 }
 
 export function isSlotInAgenda(days: AgendaDay[], slotStart: string): boolean {
