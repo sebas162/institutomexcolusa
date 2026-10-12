@@ -132,6 +132,15 @@ export const DIAGNOSTICO_CONTENT = {
     noSlotsWhatsappMessage: "Hola, quiero agendar una llamada diagnóstico.",
     slotTaken: "Ese horario se acaba de ocupar. Elige otro, por favor.",
     emptyDay: "Sin horarios este día.",
+    calendar: {
+      label: "Días disponibles",
+      available: "disponible",
+      unavailable: "no disponible",
+      today: "hoy",
+      prevMonth: "Mes anterior",
+      nextMonth: "Mes siguiente",
+      otherMonth: (month: string) => `Hay otro día disponible en ${month}`,
+    },
     unavailableLabel: "Agendado",
   },
 

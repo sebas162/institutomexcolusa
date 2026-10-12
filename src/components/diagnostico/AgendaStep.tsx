@@ -3,13 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Clock, Globe, Video } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import AgendaCalendar from "./AgendaCalendar";
 import { cn } from "@/lib/utils";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
 import {
   DIAGNOSTICO_TIME_ZONES,
-  formatDayButton,
   formatDayKeyLabel,
-  formatShortDate,
   formatSlotTime,
   getTimeZoneLabel,
   type AgendaDay,
@@ -126,9 +125,19 @@ export default function AgendaStep({
       {status === "loading" && (
         <div aria-busy="true" className="flex flex-col gap-4">
           <span className="sr-only">Cargando horarios…</span>
-          <div className="grid grid-cols-3 gap-2">
-            {Array.from({ length: 3 }, (_, i) => (
-              <div key={i} className="h-[68px] rounded-2xl bg-muted motion-safe:animate-pulse" />
+          <div className="flex items-center justify-between">
+            <div className="h-6 w-36 rounded-md bg-muted motion-safe:animate-pulse" />
+            <div className="flex gap-2">
+              <div className="h-11 w-11 rounded-full bg-muted motion-safe:animate-pulse" />
+              <div className="h-11 w-11 rounded-full bg-muted motion-safe:animate-pulse" />
+            </div>
+          </div>
+          <div className="grid grid-cols-7 gap-y-1">
+            {Array.from({ length: 35 }, (_, i) => (
+              <div
+                key={i}
+                className="mx-auto h-10 w-10 rounded-full bg-muted motion-safe:animate-pulse sm:h-11 sm:w-11"
+              />
             ))}
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(104px,1fr))] gap-2">
@@ -171,34 +180,12 @@ export default function AgendaStep({
       )}
 
       {status === "ready" && hasAnySlots && (
-        <div className="grid grid-cols-3 gap-2">
-          {days.map((day) => {
-            const isSelected = day.date === selectedDayKey;
-            const count = day.slots.length;
-
-            return (
-              <button
-                key={day.date}
-                type="button"
-                aria-pressed={isSelected}
-                aria-label={`${formatDayKeyLabel(day.date)}, ${
-                  count > 0 ? `${count} horarios disponibles` : "sin horarios disponibles"
-                }`}
-                onClick={() => onSelectDay(day.date)}
-                className={cn(
-                  "flex min-h-[68px] flex-col items-center justify-center gap-0.5 rounded-2xl px-2 py-2.5 transition-colors",
-                  focusRing,
-                  isSelected
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-secondary-foreground hover:bg-primary/15"
-                )}
-              >
-                <span className="text-base font-bold">{formatDayButton(day.date, timeZone)}</span>
-                <span className="text-[13px]">{formatShortDate(day.date)}</span>
-              </button>
-            );
-          })}
-        </div>
+        <AgendaCalendar
+          days={days}
+          selectedDayKey={selectedDayKey}
+          onSelectDay={onSelectDay}
+          timeZone={timeZone}
+        />
       )}
 
       <div className="flex flex-col gap-2">

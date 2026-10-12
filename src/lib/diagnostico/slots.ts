@@ -162,25 +162,24 @@ export function addDaysToKey(dayKey: string, days: number): string {
   return date.toISOString().slice(0, 10);
 }
 
-/** "Hoy", "Mañana" o "Lun 13", comparando con la fecha de hoy en la zona del visitante. */
-export function formatDayButton(dayKey: string, timeZone: string, now = new Date()): string {
-  const todayKey = toDayKey(now, timeZone);
-  if (dayKey === todayKey) return "Hoy";
-  if (dayKey === addDaysToKey(todayKey, 1)) return "Mañana";
-
-  const parts = getFormatter("UTC", { weekday: "short", day: "numeric" }).formatToParts(
+/** "Octubre 2026" para el mes de ese dayKey. */
+export function formatMonthLabel(dayKey: string): string {
+  const parts = getFormatter("UTC", { month: "long", year: "numeric" }).formatToParts(
     dayKeyToUtcNoon(dayKey)
   );
-  const weekday = capitalize(getPart(parts, "weekday").replace(".", ""));
-  return `${weekday} ${getPart(parts, "day")}`;
+  return `${capitalize(getPart(parts, "month"))} ${getPart(parts, "year")}`;
 }
 
-/** "12 de octubre" */
-export function formatShortDate(dayKey: string): string {
-  const parts = getFormatter("UTC", { day: "numeric", month: "long" }).formatToParts(
-    dayKeyToUtcNoon(dayKey)
-  );
-  return `${getPart(parts, "day")} de ${getPart(parts, "month")}`;
+/** Encabezado del calendario, de lunes a domingo: { short: "Lun.", long: "lunes" }. */
+export function getWeekdayNames(): { short: string; long: string }[] {
+  // 2026-10-12 es lunes: sirve de referencia para los 7 días.
+  return Array.from({ length: 7 }, (_, i) => {
+    const date = dayKeyToUtcNoon(addDaysToKey("2026-10-12", i));
+    return {
+      short: `${capitalize(getFormatter("UTC", { weekday: "short" }).format(date).replace(".", ""))}.`,
+      long: getFormatter("UTC", { weekday: "long" }).format(date),
+    };
+  });
 }
 
 /** "Jueves 15 de octubre, 1:30 pm" en la zona dada, para el mensaje de confirmación. */
