@@ -101,24 +101,12 @@ function cleanUtm(utm: LeadUtm | undefined): LeadUtm {
   );
 }
 
-/** Resumen corto para la anfitriona, en las notas de la reserva de Cal.com. */
-function buildBookingNotes(
-  input: CreateLeadInput,
-  phoneE164: string
-): string {
-  const labels = (questionId: string) =>
-    input.answers.find((answer) => answer.questionId === questionId)?.labels.join(", ") ?? "";
-
-  return [
-    `Clínica: ${input.clinica}`,
-    `Ciudad: ${input.ciudad}`,
-    `Establecimiento: ${labels("q2")}`,
-    `Equipo: ${labels("q3")}`,
-    `Ayuda: ${labels("q4")}`,
-    `Inversión: ${labels("q6")}`,
-    `Urgencia: ${labels("q7")}`,
-    `WhatsApp: ${phoneE164}`,
-  ].join(" · ");
+/**
+ * Notas de la reserva de Cal.com. El cliente las ve en la invitación del calendario, así que
+ * solo llevan clínica y ciudad; las respuestas del cuestionario quedan en Firestore y el admin.
+ */
+function buildBookingNotes(input: CreateLeadInput): string {
+  return [`Clínica: ${input.clinica}`, `Ciudad: ${input.ciudad}`].join(" · ");
 }
 
 function logError(context: string, error: unknown) {
@@ -248,7 +236,7 @@ export async function POST(request: Request) {
       phoneE164,
       timeZone: data.timeZone,
       leadId,
-      notes: buildBookingNotes(leadInput, phoneE164),
+      notes: buildBookingNotes(leadInput),
     });
   } catch (error) {
     if (error instanceof CalcomError && error.code === "slot_unavailable") {
