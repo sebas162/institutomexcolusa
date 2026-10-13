@@ -1,5 +1,4 @@
 import { initializeApp, getApps, getApp, cert } from "firebase-admin/app";
-import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 
 function parsePrivateKey(): string | undefined {
@@ -23,6 +22,5 @@ const adminApp = !getApps().length
   : getApp();
 
 const adminDb = getFirestore(adminApp);
-const adminAuth = getAuth(adminApp);
 
-export { adminApp, adminAuth, adminDb };
+export { adminApp, adminDb };
