@@ -37,7 +37,7 @@ check("4 de julio 2027 (dom) bloquea lun 5", dates2027.includes("2027-07-05"), t
 check("Navidad 2027 (sáb) bloquea vie 24", dates2027.includes("2027-12-24"), true);
 check("1 de enero 2028 (sáb) bloquea vie 31 dic 2027", dates2027.includes("2027-12-31"), true);
 
-console.log("\nVentana: siempre 2 días hábiles (AGENDA_DAYS)");
+console.log("\nVentana: los 2 días hábiles más próximos con horarios (AGENDA_DAYS)");
 
 // Días que mostraría la agenda si a hoy le quedan horarios o no. Un horario de prueba por
 // día hábil candidato basta: buildAgendaDays solo mira si hoy tiene alguno.
@@ -78,15 +78,30 @@ for (const [todayKey, time, todayHasSlots, expected] of cases) {
   check(label, agendaFor(todayKey, time, todayHasSlots), expected);
 }
 
-console.log("\nUn día hábil lleno sigue contando");
+console.log("\nUn día hábil lleno no cuenta (igual que Cal.com con rolling)");
 const fullDayNow = chicagoTimeToUtc("2026-10-16", "09:00");
-const onlyTuesday = chicagoTimeToUtc("2026-10-20", "10:00").toISOString();
+const slotOn = (dayKey: string) => {
+  const start = chicagoTimeToUtc(dayKey, "10:00").toISOString();
+  return { start, end: start };
+};
 check(
-  "vie 16 sin horarios, lun 19 lleno",
-  buildAgendaDays(fullDayNow, [{ start: onlyTuesday, end: onlyTuesday }]).map(
-    (day) => `${day.date}:${day.slots.length}`
-  ),
-  ["2026-10-19:0", "2026-10-20:1"]
+  "vie 16 sin horarios, lun 19 lleno → mar 20 y mié 21",
+  buildAgendaDays(fullDayNow, [slotOn("2026-10-20"), slotOn("2026-10-21")]).map((day) => day.date),
+  ["2026-10-20", "2026-10-21"]
+);
+check(
+  "vie 16 con horarios, lun 19 lleno → vie 16 y mar 20",
+  buildAgendaDays(fullDayNow, [slotOn("2026-10-16"), slotOn("2026-10-20"), slotOn("2026-10-21")]).map((day) => day.date),
+  ["2026-10-16", "2026-10-20"]
+);
+check(
+  "admin: 10 días con horarios saltando el lleno (lun 19)",
+  buildAgendaDays(
+    fullDayNow,
+    ["2026-10-20", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-26", "2026-10-27", "2026-10-28", "2026-10-29", "2026-10-30", "2026-11-02", "2026-11-03"].map(slotOn),
+    10
+  ).map((day) => day.date).join(","),
+  "2026-10-20,2026-10-21,2026-10-22,2026-10-23,2026-10-26,2026-10-27,2026-10-28,2026-10-29,2026-10-30,2026-11-02"
 );
 
 console.log("\nHora de Chicago a UTC (horario de verano)");

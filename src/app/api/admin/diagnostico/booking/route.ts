@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { verifyAdminRequest } from "@/lib/admin-auth";
-import { CalcomError, cancelCalBooking, rescheduleCalBooking } from "@/lib/calcom";
+import {
+  CalcomError,
+  cancelCalBooking,
+  getCalAdminSlotsEventTypeId,
+  rescheduleCalBooking,
+} from "@/lib/calcom";
 import { ADMIN_RESCHEDULE_DAYS, ADMIN_RESCHEDULE_NOTE } from "@/lib/diagnostico/admin-booking";
 import { getAgendaDays, isSlotInAgenda } from "@/lib/diagnostico/agenda-window";
 import { getLeadAdmin, updateLeadBookingAdmin } from "@/lib/firestore/leads-admin";
@@ -80,7 +85,7 @@ export async function POST(request: Request) {
   const slotStart = new Date(body.slotStart).toISOString();
 
   try {
-    const days = await getAgendaDays(new Date(), ADMIN_RESCHEDULE_DAYS);
+    const days = await getAgendaDays(new Date(), ADMIN_RESCHEDULE_DAYS, getCalAdminSlotsEventTypeId());
     if (!isSlotInAgenda(days, slotStart)) {
       return NextResponse.json({ error: "slot_unavailable" }, { status: 409 });
     }

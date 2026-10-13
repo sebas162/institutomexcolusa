@@ -1,0 +1,18 @@
+name: Sync Cal.com Holidays
+
+# Carga en Cal.com los festivos de México y USA del año actual y el siguiente
+# (días bloqueados en el horario de la llamada diagnóstico). Es idempotente.
+on:
+  schedule:
+    - cron: '0 12 1 * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call holidays sync endpoint
+        run: |
+          curl -f -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "https://www.institutomexcolusa.com/api/cron/calcom-holidays/"

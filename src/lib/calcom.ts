@@ -7,7 +7,9 @@ const CAL_API_BASE = "https://api.cal.com";
 const SLOTS_API_VERSION = "2024-09-04";
 const BOOKINGS_API_VERSION = "2026-02-25";
 const REQUEST_TIMEOUT_MS = 10_000;
+const SCHEDULES_API_VERSION = "2024-06-11";
 const DEFAULT_EVENT_TYPE_ID = 7427740;
+const DEFAULT_SCHEDULE_ID = 2481982;
 
 export type CalcomErrorCode = "slot_unavailable" | "calcom_error";
 
@@ -25,6 +27,23 @@ export class CalcomError extends Error {
 export function getCalEventTypeId(): number {
   const value = Number(process.env.CAL_EVENT_TYPE_ID);
   return Number.isInteger(value) && value > 0 ? value : DEFAULT_EVENT_TYPE_ID;
+}
+
+/**
+ * Evento oculto "llamada-diagnostico-interno": mismo horario que el principal pero sin límite de
+ * días. El admin solo lo usa para consultar horarios de 10 días hábiles; reservar y reprogramar
+ * siguen sobre el evento principal.
+ */
+export function getCalAdminSlotsEventTypeId(): number {
+  const value = Number(process.env.CAL_ADMIN_SLOTS_EVENT_TYPE_ID);
+  if (Number.isInteger(value) && value > 0) return value;
+  console.warn("CAL_ADMIN_SLOTS_EVENT_TYPE_ID no está configurada: el admin verá solo los días del evento principal");
+  return getCalEventTypeId();
+}
+
+export function getCalScheduleId(): number {
+  const value = Number(process.env.CAL_SCHEDULE_ID);
+  return Number.isInteger(value) && value > 0 ? value : DEFAULT_SCHEDULE_ID;
 }
 
 function getApiKey(): string {
@@ -58,7 +77,7 @@ function extractErrorMessage(body: unknown): string {
 async function calFetch<T>(
   path: string,
   apiVersion: string,
-  init: { method?: "GET" | "POST"; body?: unknown } = {}
+  init: { method?: "GET" | "POST" | "PATCH"; body?: unknown } = {}
 ): Promise<T> {
   let response: Response;
 
@@ -98,10 +117,14 @@ async function calFetch<T>(
   return (body as { data: T }).data;
 }
 
-/** Horarios libres del evento entre dos instantes, en ISO UTC. */
-export async function getCalSlots(startUtc: Date, endUtc: Date): Promise<Slot[]> {
+/** Horarios libres de un evento (por defecto el principal) entre dos instantes, en ISO UTC. */
+export async function getCalSlots(
+  startUtc: Date,
+  endUtc: Date,
+  eventTypeId = getCalEventTypeId()
+): Promise<Slot[]> {
   const params = new URLSearchParams({
-    eventTypeId: String(getCalEventTypeId()),
+    eventTypeId: String(eventTypeId),
     start: startUtc.toISOString(),
     end: endUtc.toISOString(),
     timeZone: "UTC",
@@ -225,4 +248,32 @@ export async function cancelCalBooking(uid: string, reason: string): Promise<voi
     method: "POST",
     body: { cancellationReason: reason },
   });
+}
+
+export interface CalScheduleOverride {
+  date: string; // "2026-11-26"
+  startTime: string; // "HH:MM"
+  endTime: string;
+}
+
+/** Fechas especiales del horario (un override 00:00–00:00 bloquea el día completo). */
+export async function getCalScheduleOverrides(scheduleId = getCalScheduleId()): Promise<CalScheduleOverride[]> {
+  const data = await calFetch<{ overrides?: CalScheduleOverride[] }>(
+    `/v2/schedules/${scheduleId}`,
+    SCHEDULES_API_VERSION
+  );
+  return data.overrides ?? [];
+}
+
+/** Reemplaza la lista de overrides del horario: siempre manda la lista completa. */
+export async function setCalScheduleOverrides(
+  overrides: CalScheduleOverride[],
+  scheduleId = getCalScheduleId()
+): Promise<CalScheduleOverride[]> {
+  const data = await calFetch<{ overrides?: CalScheduleOverride[] }>(
+    `/v2/schedules/${scheduleId}`,
+    SCHEDULES_API_VERSION,
+    { method: "PATCH", body: { overrides } }
+  );
+  return data.overrides ?? [];
 }

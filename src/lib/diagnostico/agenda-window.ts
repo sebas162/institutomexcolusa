@@ -1,8 +1,9 @@
 // Reglas de la agenda (aprobadas por la clienta), contadas en America/Chicago:
-// siempre AGENDA_DAYS días hábiles. Hoy cuenta solo si es hábil y le quedan horarios; si no,
-// se toman los siguientes. Los fines de semana y los festivos no cuentan.
+// los AGENDA_DAYS días hábiles más próximos que tengan horarios. Hoy cuenta solo si es hábil y
+// le quedan horarios; un día lleno no cuenta. Los fines de semana y los festivos no cuentan.
+// Es la misma regla que aplica Cal.com (bookingWindow businessDays con rolling) en su página.
 
-import { getCalSlots } from "@/lib/calcom";
+import { getCalEventTypeId, getCalSlots } from "@/lib/calcom";
 import { isHoliday } from "@/lib/diagnostico/holidays";
 import {
   AGENDA_TIME_ZONE,
@@ -16,6 +17,9 @@ import {
 // (por ejemplo a 5 para una semana): la ventana, la API de horarios y la revalidación de
 // la ruta de lead se ajustan solas.
 export const AGENDA_DAYS = 2;
+
+// Días hábiles de más que se revisan por si los primeros están llenos.
+const LOOKAHEAD_BUSINESS_DAYS = 10;
 
 // Franja que se muestra en gris como "Agendado" (de 3:00 a 5:30 p. m. en Chicago).
 const UNAVAILABLE_TIMES = ["15:00", "15:30", "16:00", "16:30", "17:00"];
@@ -65,10 +69,7 @@ export function isBusinessDay(dayKey: string): boolean {
   return weekday >= 1 && weekday <= 5 && !isHoliday(dayKey);
 }
 
-/**
- * Hoy (si es hábil) y los AGENDA_DAYS días hábiles siguientes, en Chicago. La agenda usa hoy
- * y los primeros AGENDA_DAYS - 1 si a hoy le quedan horarios, o los AGENDA_DAYS siguientes si no.
- */
+/** Hoy (si es hábil) y los `dayCount` días hábiles siguientes, en Chicago. */
 export function getWindowDayKeys(
   now: Date,
   dayCount = AGENDA_DAYS
@@ -94,11 +95,11 @@ function buildUnavailableSlots(dayKey: string): Slot[] {
 }
 
 /**
- * Arma los AGENDA_DAYS días de la agenda con los horarios de Cal.com. "Hoy" solo cuenta si le
- * quedan horarios; un día hábil siguiente cuenta aunque esté lleno.
+ * Arma los `dayCount` días de la agenda con los horarios de Cal.com: los días hábiles más
+ * próximos que tengan horarios (hoy incluido si le quedan). Un día lleno no cuenta.
  */
 export function buildAgendaDays(now: Date, slots: Slot[], dayCount = AGENDA_DAYS): AgendaDay[] {
-  const { today, following } = getWindowDayKeys(now, dayCount);
+  const { today, following } = getWindowDayKeys(now, dayCount + LOOKAHEAD_BUSINESS_DAYS);
   const slotsByDay = new Map<string, Slot[]>();
 
   for (const slot of slots) {
@@ -106,10 +107,9 @@ export function buildAgendaDays(now: Date, slots: Slot[], dayCount = AGENDA_DAYS
     slotsByDay.set(dayKey, [...(slotsByDay.get(dayKey) ?? []), slot]);
   }
 
-  const dayKeys =
-    today && (slotsByDay.get(today)?.length ?? 0) > 0
-      ? [today, ...following].slice(0, dayCount)
-      : following;
+  const dayKeys = [...(today ? [today] : []), ...following]
+    .filter((dayKey) => (slotsByDay.get(dayKey)?.length ?? 0) > 0)
+    .slice(0, dayCount);
 
   return dayKeys.map((date) => ({
     date,
@@ -119,15 +119,19 @@ export function buildAgendaDays(now: Date, slots: Slot[], dayCount = AGENDA_DAYS
 }
 
 /**
- * Pide a Cal.com los horarios de la ventana y los arma por día. La landing usa AGENDA_DAYS;
- * el admin pide más días para reprogramar, con las mismas reglas.
+ * Pide a Cal.com los horarios y los arma por día. La landing usa AGENDA_DAYS con el evento
+ * principal; el admin pide 10 días con el evento interno (sin límite de días), mismas reglas.
  */
-export async function getAgendaDays(now = new Date(), dayCount = AGENDA_DAYS): Promise<AgendaDay[]> {
-  const { following } = getWindowDayKeys(now, dayCount);
+export async function getAgendaDays(
+  now = new Date(),
+  dayCount = AGENDA_DAYS,
+  eventTypeId = getCalEventTypeId()
+): Promise<AgendaDay[]> {
+  const { following } = getWindowDayKeys(now, dayCount + LOOKAHEAD_BUSINESS_DAYS);
   const lastDay = following[following.length - 1];
   const end = chicagoTimeToUtc(addDaysToKey(lastDay, 1), "00:00");
 
-  const slots = await getCalSlots(now, end);
+  const slots = await getCalSlots(now, end, eventTypeId);
   return buildAgendaDays(now, slots, dayCount);
 }
 
