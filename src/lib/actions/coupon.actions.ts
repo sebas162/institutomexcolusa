@@ -52,8 +52,9 @@ export async function validateCoupon(formData: FormData) {
     const expiryDate = new Date(createdAt);
     expiryDate.setDate(expiryDate.getDate() + durationDays);
 
+    // Corre en el navegador del visitante, sin sesión: no puede (ni debe) escribir en Firestore.
+    // La vigencia se calcula aquí con createdAt + durationDays, sin desactivar el cupón.
     if (now > expiryDate) {
-      await updateDoc(doc(db, "coupons", couponDoc.id), { isActive: false });
       return { error: t.expired };
     }
   } catch (error) {
