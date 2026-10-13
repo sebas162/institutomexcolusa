@@ -147,7 +147,7 @@ export const DIAGNOSTICO_CONTENT = {
   // MP4, YouTube o Vimeo. null muestra el marco con "Video próximamente".
   heroVideoUrl: null as string | null,
 
-  // Número que recibe el mensaje "CONFIRMO mi cita #XXXX" (formato wa.me, sin +).
+  // Número que recibe el mensaje "Hola, CONFIRMO mi llamada de diagnóstico…" (formato wa.me, sin +).
   whatsappNumber: "525566308602",
 
   privacyUrl: "/privacy/",
