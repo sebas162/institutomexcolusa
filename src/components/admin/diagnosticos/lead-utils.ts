@@ -1,3 +1,4 @@
+import { getMarketLabel } from "@/lib/diagnostico/market";
 import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
 import { formatWhatsappNumber } from "@/lib/diagnostico/schema";
 import { addDaysToKey, toDayKey } from "@/lib/diagnostico/slots";
@@ -84,8 +85,14 @@ export function formatDateTime(date: Date | undefined, timeZone = CDMX_TIME_ZONE
   return `${day}, ${formatTime(date, timeZone)}`;
 }
 
+/** País de la landing por la que llegó (los leads anteriores al campo market son de México). */
 export function countryOf(lead: Lead): string {
-  return lead.whatsappCountryCode === "+1" ? "USA" : "México";
+  return getMarketLabel(lead.market);
+}
+
+/** Filtro por país del admin: "" deja pasar todos. */
+export function matchesMarket(lead: Lead, market: string): boolean {
+  return !market || lead.market === market;
 }
 
 export function phoneLabel(lead: Lead): string {

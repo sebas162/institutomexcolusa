@@ -1,12 +1,19 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/Logo-USA-Blanco.png";
+import logoBlanco from "@/assets/Logo-USA-Blanco.png";
+import logoVerde from "@/assets/Logo-USA-Verde.png";
 
-// Versión blanca para fondo verde. Sin enlace: en la landing de anuncios no sacamos a la persona.
-export default function LandingLogo({ size = "lg" }: { size?: "lg" | "md" }) {
+// "white" para fondo verde, "green" para fondo claro. Sin enlace: en la landing de anuncios no sacamos a la persona.
+export default function LandingLogo({
+  size = "lg",
+  tone = "white",
+}: {
+  size?: "lg" | "md";
+  tone?: "white" | "green";
+}) {
   return (
     <Image
-      src={logo}
+      src={tone === "green" ? logoVerde : logoBlanco}
       alt="Instituto Mex-Col-USA"
       priority={size === "lg"}
       sizes={size === "lg" ? "(min-width: 768px) 136px, 112px" : "(min-width: 768px) 104px, 88px"}

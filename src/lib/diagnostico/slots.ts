@@ -1,3 +1,5 @@
+import { MARKET } from "@/lib/diagnostico/market";
+
 export interface Slot {
   start: string; // ISO (UTC)
   end: string; // ISO (UTC)
@@ -11,15 +13,15 @@ export interface AgendaDay {
 }
 
 // Zona en la que la clienta define su horario: los días de la agenda se cuentan en ella.
-export const AGENDA_TIME_ZONE = "America/Chicago";
+export const AGENDA_TIME_ZONE = MARKET.agenda.scheduleTimeZone;
 
 export interface DiagnosticoTimeZone {
   id: string;
   label: string;
 }
 
-export const DEFAULT_TIME_ZONE = "America/Mexico_City";
-
+// Nombres de zonas para mostrar. La landing usa la del país (MARKET.timeZone); el resto sirve
+// para leer leads anteriores, cuando la persona podía elegir su zona.
 export const DIAGNOSTICO_TIME_ZONES: DiagnosticoTimeZone[] = [
   { id: "America/Mexico_City", label: "Centro de México" },
   { id: "America/Mazatlan", label: "Pacífico de México" },
@@ -33,61 +35,6 @@ export const DIAGNOSTICO_TIME_ZONES: DiagnosticoTimeZone[] = [
   { id: "America/Anchorage", label: "USA Alaska" },
   { id: "Pacific/Honolulu", label: "USA Hawái" },
 ];
-
-// Otras zonas de México y USA que el navegador puede reportar, con su equivalente en la lista.
-const TIME_ZONE_ALIASES: Record<string, string> = {
-  "America/Monterrey": "America/Mexico_City",
-  "America/Merida": "America/Mexico_City",
-  "America/Bahia_Banderas": "America/Mexico_City",
-  "America/Chihuahua": "America/Mexico_City",
-  "America/Hermosillo": "America/Mazatlan",
-  "America/Matamoros": "America/Chicago",
-  "America/Ojinaga": "America/Chicago",
-  "America/Ciudad_Juarez": "America/Denver",
-  "America/Santa_Isabel": "America/Tijuana",
-  "America/Ensenada": "America/Tijuana",
-  "America/Detroit": "America/New_York",
-  "America/Indianapolis": "America/New_York",
-  "America/Louisville": "America/New_York",
-  "America/Boise": "America/Denver",
-  "America/Menominee": "America/Chicago",
-  "US/Eastern": "America/New_York",
-  "US/Central": "America/Chicago",
-  "US/Mountain": "America/Denver",
-  "US/Arizona": "America/Phoenix",
-  "US/Pacific": "America/Los_Angeles",
-  "America/Juneau": "America/Anchorage",
-  "America/Sitka": "America/Anchorage",
-  "America/Nome": "America/Anchorage",
-  "America/Yakutat": "America/Anchorage",
-  "America/Metlakatla": "America/Anchorage",
-  "US/Alaska": "America/Anchorage",
-  "US/Hawaii": "Pacific/Honolulu",
-};
-
-const TIME_ZONE_PREFIX_ALIASES: [string, string][] = [
-  ["America/Indiana/", "America/New_York"],
-  ["America/Kentucky/", "America/New_York"],
-  ["America/North_Dakota/", "America/Chicago"],
-];
-
-export function resolveTimeZone(timeZone: string | undefined): string {
-  if (!timeZone) return DEFAULT_TIME_ZONE;
-  if (DIAGNOSTICO_TIME_ZONES.some((zone) => zone.id === timeZone)) return timeZone;
-  if (TIME_ZONE_ALIASES[timeZone]) return TIME_ZONE_ALIASES[timeZone];
-
-  const prefixMatch = TIME_ZONE_PREFIX_ALIASES.find(([prefix]) => timeZone.startsWith(prefix));
-  return prefixMatch ? prefixMatch[1] : DEFAULT_TIME_ZONE;
-}
-
-/** Zona del visitante si es de México o USA; si no, la del centro de México. */
-export function detectVisitorTimeZone(): string {
-  try {
-    return resolveTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  } catch {
-    return DEFAULT_TIME_ZONE;
-  }
-}
 
 export function getTimeZoneLabel(timeZone: string): string {
   return DIAGNOSTICO_TIME_ZONES.find((zone) => zone.id === timeZone)?.label ?? timeZone;

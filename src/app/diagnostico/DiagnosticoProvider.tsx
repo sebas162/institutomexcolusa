@@ -11,13 +11,16 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { trackMetaEvent } from "@/lib/analytics/meta-pixel";
-import { DIAGNOSTICO_QUESTIONS, isExitAnswer } from "@/lib/diagnostico/questions";
+import {
+  DIAGNOSTICO_QUESTIONS,
+  OTHER_TEXT_MAX,
+  getSelectedTextOption,
+  isExitAnswer,
+} from "@/lib/diagnostico/questions";
+import { MARKET } from "@/lib/diagnostico/market";
 import { DEFAULT_DATOS_VALUES, type DatosValues } from "@/lib/diagnostico/schema";
 import {
   AGENDA_TIME_ZONE,
-  DEFAULT_TIME_ZONE,
-  detectVisitorTimeZone,
-  resolveTimeZone,
   toDayKey,
   type Slot,
 } from "@/lib/diagnostico/slots";
@@ -44,11 +47,14 @@ export interface StoredConfirmation extends PendingLead {
 }
 
 // Avance del flujo: respuestas, zona, horario, UTM y el lead pendiente. Nunca nombre, teléfono ni correo.
-const PROGRESS_KEY = "diagnostico:progreso:v1";
+// v2: cambiaron las opciones de P2, P4 y P5; un avance v1 se ignora.
+const PROGRESS_KEY = "diagnostico:progreso:v2";
 const CONFIRMATION_KEY = "diagnostico:confirmacion:v1";
 
 interface StoredProgress {
   answers: Record<string, string[]>;
+  /** Texto de "Otro (escribe cuál)" por pregunta. */
+  otherTexts?: Record<string, string>;
   timeZone: string;
   selectedSlot: Slot | null;
   utm: LeadUtm;
@@ -101,8 +107,24 @@ function readUtmFromUrl(): LeadUtm {
   return utm;
 }
 
-/** Las 7 preguntas respondidas con opciones válidas y ninguna de salida. */
-export function isQualified(answers: Record<string, string[]>): boolean {
+/** El texto de "Otro" está escrito (o la pregunta no lo pide). */
+export function isOtherTextValid(
+  questionId: string,
+  answers: Record<string, string[]>,
+  otherTexts: Record<string, string>
+): boolean {
+  const question = DIAGNOSTICO_QUESTIONS.find((q) => q.id === questionId);
+  if (!question || !getSelectedTextOption(question, answers[questionId] ?? [])) return true;
+
+  const text = (otherTexts[questionId] ?? "").trim();
+  return text.length > 0 && text.length <= OTHER_TEXT_MAX;
+}
+
+/** Las 7 preguntas respondidas con opciones válidas, ninguna de salida y "Otro" con su texto. */
+export function isQualified(
+  answers: Record<string, string[]>,
+  otherTexts: Record<string, string>
+): boolean {
   return DIAGNOSTICO_QUESTIONS.every((question) => {
     const selected = answers[question.id] ?? [];
     const validIds = question.options.map((option) => option.id);
@@ -111,7 +133,8 @@ export function isQualified(answers: Record<string, string[]>): boolean {
     return (
       countOk &&
       selected.every((id) => validIds.includes(id)) &&
-      !isExitAnswer(question.id, selected)
+      !isExitAnswer(question.id, selected) &&
+      isOtherTextValid(question.id, answers, otherTexts)
     );
   });
 }
@@ -130,9 +153,10 @@ interface DiagnosticoContextValue {
   questionIndex: number;
   setQuestionIndex: (index: number) => void;
   toggleOption: (questionId: string, optionId: string) => void;
-  // Zona en la que se muestran los horarios; se envía a Cal.com al reservar.
+  otherTexts: Record<string, string>;
+  setOtherText: (questionId: string, text: string) => void;
+  /** Zona del país (fija): ahí se muestran los horarios y se envía a Cal.com al reservar. */
   timeZone: string;
-  changeTimeZone: (timeZone: string) => void;
   selectedDayKey: string | null;
   selectDay: (dayKey: string) => void;
   selectedSlot: Slot | null;
@@ -161,9 +185,10 @@ const DiagnosticoContext = createContext<DiagnosticoContextValue | undefined>(un
 
 export function DiagnosticoProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
+  const timeZone = MARKET.timeZone;
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
+  const [otherTexts, setOtherTexts] = useState<Record<string, string>>({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [timeZone, setTimeZone] = useState(DEFAULT_TIME_ZONE);
   const [selectedDayKey, setSelectedDayKey] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlotState] = useState<Slot | null>(null);
   const [agendaStage, setAgendaStage] = useState<AgendaStage>("agenda");
@@ -177,11 +202,11 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
   // Restaura el avance guardado (recarga de la pestaña) y lee las UTM de la URL.
   useEffect(() => {
     const progress = readStorage<StoredProgress>(PROGRESS_KEY);
-    const zone = progress?.timeZone ? resolveTimeZone(progress.timeZone) : detectVisitorTimeZone();
     const urlUtm = readUtmFromUrl();
 
     if (progress) {
       setAnswers(progress.answers ?? {});
+      setOtherTexts(progress.otherTexts ?? {});
       setQuestionIndex(firstUnansweredIndex(progress.answers ?? {}));
       if (progress.selectedSlot) {
         setSelectedSlotState(progress.selectedSlot);
@@ -190,7 +215,6 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
       setPendingLead(progress.pendingLead ?? null);
     }
 
-    setTimeZone(zone);
     setUtm(Object.keys(urlUtm).length > 0 ? urlUtm : (progress?.utm ?? {}));
     setStoredConfirmation(readStorage<StoredConfirmation>(CONFIRMATION_KEY));
     setHydrated(true);
@@ -208,12 +232,13 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
 
     writeStorage(PROGRESS_KEY, {
       answers,
+      otherTexts,
       timeZone,
       selectedSlot,
       utm,
       pendingLead,
     } satisfies StoredProgress);
-  }, [hydrated, answers, timeZone, selectedSlot, utm, pendingLead]);
+  }, [hydrated, answers, otherTexts, timeZone, selectedSlot, utm, pendingLead]);
 
   // El píxel base solo registra PageView en la primera carga; las navegaciones
   // del cliente dentro de /diagnostico se registran aquí.
@@ -249,6 +274,10 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     []
   );
 
+  const setOtherText = useCallback((questionId: string, text: string) => {
+    setOtherTexts((current) => ({ ...current, [questionId]: text.slice(0, OTHER_TEXT_MAX) }));
+  }, []);
+
   // Los días de la agenda son fechas de Chicago: cambiar la zona solo cambia cómo se ven las horas.
   const selectDay = useCallback((dayKey: string) => {
     setSelectedDayKey(dayKey);
@@ -259,8 +288,6 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     setSelectedSlotState(slot);
     setSlotTakenNotice(false);
   }, []);
-
-  const changeTimeZone = useCallback((nextTimeZone: string) => setTimeZone(nextTimeZone), []);
 
   const savePendingLead = useCallback((pending: PendingLead) => setPendingLead(pending), []);
 
@@ -297,6 +324,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
 
   const resetAnswers = useCallback(() => {
     setAnswers({});
+    setOtherTexts({});
     setQuestionIndex(0);
     setSelectedDayKey(null);
     setSelectedSlotState(null);
@@ -314,8 +342,9 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         questionIndex,
         setQuestionIndex,
         toggleOption,
+        otherTexts,
+        setOtherText,
         timeZone,
-        changeTimeZone,
         selectedDayKey,
         selectDay,
         selectedSlot,

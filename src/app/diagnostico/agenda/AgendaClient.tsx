@@ -8,21 +8,13 @@ import DatosStep from "@/components/diagnostico/DatosStep";
 import LandingLogo from "@/components/diagnostico/LandingLogo";
 import StepCard from "@/components/diagnostico/StepCard";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import type { StepHeading } from "@/lib/diagnostico/market/types";
 import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
 import { isQualified, useDiagnostico, type AgendaStage } from "../DiagnosticoProvider";
 
-const STAGE_HEADINGS: Record<AgendaStage, { label: string; title: string; subtitle: string }> = {
-  agenda: {
-    label: "Paso 3 de 3 — Elige tu horario",
-    title: "Tu clínica califica",
-    subtitle: "Elige el día y la hora de tu llamada diagnóstico de 15 minutos.",
-  },
-  datos: {
-    label: "Paso 3 de 3 — Tus datos",
-    title: "Último paso",
-    subtitle:
-      "Al terminar, confirmarás tu cita por WhatsApp desde este número. Verifica que sea correcto.",
-  },
+const STAGE_HEADINGS: Record<AgendaStage, StepHeading> = {
+  agenda: DIAGNOSTICO_CONTENT.steps.agenda,
+  datos: DIAGNOSTICO_CONTENT.steps.datos,
 };
 
 export default function AgendaClient() {
@@ -30,9 +22,9 @@ export default function AgendaClient() {
   const {
     hydrated,
     answers,
+    otherTexts,
     setQuestionIndex,
     timeZone,
-    changeTimeZone,
     selectedDayKey,
     selectDay,
     selectedSlot,
@@ -52,7 +44,7 @@ export default function AgendaClient() {
 
   // Con una reserva ya creada no se vuelve a la agenda ni al formulario: así no puede
   // reservar dos veces ni cambiar sus datos después de agendar.
-  const qualified = hydrated && !hasBooking && isQualified(answers);
+  const qualified = hydrated && !hasBooking && isQualified(answers, otherTexts);
   const stage: AgendaStage = agendaStage === "datos" && selectedSlot ? "datos" : "agenda";
 
   const cardSectionRef = useRef<HTMLElement>(null);
@@ -65,10 +57,10 @@ export default function AgendaClient() {
 
     if (hasBooking) {
       router.replace("/diagnostico/confirmacion/");
-    } else if (!isQualified(answers)) {
+    } else if (!isQualified(answers, otherTexts)) {
       router.replace("/diagnostico/");
     }
-  }, [hydrated, hasBooking, answers, router]);
+  }, [hydrated, hasBooking, answers, otherTexts, router]);
 
   useEffect(() => {
     if (!qualified) return;
@@ -98,8 +90,8 @@ export default function AgendaClient() {
 
   return (
     <>
-      <header className="flex justify-center bg-primary px-4 py-5">
-        <LandingLogo size="md" />
+      <header className="flex justify-center border-b border-border bg-white px-4 py-5">
+        <LandingLogo size="md" tone="green" />
       </header>
 
       <StepCard
@@ -115,7 +107,6 @@ export default function AgendaClient() {
             selectedDayKey={selectedDayKey}
             selectedSlot={selectedSlot}
             notice={slotTakenNotice ? DIAGNOSTICO_CONTENT.agenda.slotTaken : null}
-            onTimeZoneChange={changeTimeZone}
             onSelectDay={selectDay}
             onSelectSlot={setSelectedSlot}
             onBack={() => {
@@ -132,6 +123,7 @@ export default function AgendaClient() {
             timeZone={timeZone}
             defaultValues={datosValues}
             answers={answers}
+            otherTexts={otherTexts}
             utm={utm}
             pendingLead={pendingLead}
             onValuesChange={setDatosValues}

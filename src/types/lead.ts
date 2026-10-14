@@ -1,3 +1,5 @@
+import type { MarketId } from "@/lib/diagnostico/market/types";
+
 export type LeadStatus =
   | "nuevo"
   | "agendada"
@@ -29,7 +31,10 @@ export interface LeadAnswer {
   questionId: string;
   question: string;
   optionIds: string[];
+  /** Con "Otro" marcado, su etiqueta queda como "Otro: {texto}". */
   labels: string[];
+  /** Lo que escribió en "Otro (escribe cuál)". */
+  otherText?: string;
 }
 
 export type LeadBooking = {
@@ -52,6 +57,8 @@ export interface LeadUtm {
 export interface Lead {
   id: string;
   formId: string;
+  /** País de la landing ("mx"). Los leads anteriores no lo tienen: son de México. */
+  market: MarketId;
   status: LeadStatus;
   nombre: string;
   whatsappCountryCode: WhatsappCountryCode;

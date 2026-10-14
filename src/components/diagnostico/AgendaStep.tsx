@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Clock, Globe, Video } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import AgendaCalendar from "./AgendaCalendar";
 import { cn } from "@/lib/utils";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import { MARKET } from "@/lib/diagnostico/market";
 import {
-  DIAGNOSTICO_TIME_ZONES,
   formatDayKeyLabel,
   formatSlotTime,
   getTimeZoneLabel,
@@ -15,7 +15,8 @@ import {
   type Slot,
 } from "@/lib/diagnostico/slots";
 
-const { agenda: texts, whatsappNumber } = DIAGNOSTICO_CONTENT;
+const { agenda: texts } = DIAGNOSTICO_CONTENT;
+const { whatsappNumber } = MARKET;
 
 const pillButton =
   "min-h-[52px] rounded-full text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
@@ -25,13 +26,33 @@ const focusRing =
 
 type LoadStatus = "loading" | "ready" | "error";
 
+// Si la primera carga falla (por ejemplo, Cal.com tardó), se reintenta sola una vez antes de
+// mostrar el aviso; mientras tanto se sigue viendo "Cargando horarios…".
+const AUTO_RETRY_DELAY_MS = 1_500;
+
+async function fetchAgendaDays(signal?: AbortSignal): Promise<AgendaDay[]> {
+  const response = await fetch("/api/diagnostico/slots/", { cache: "no-store", signal });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const data: { days: AgendaDay[] } = await response.json();
+  return data.days;
+}
+
+function wait(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, ms);
+    signal?.addEventListener("abort", () => {
+      clearTimeout(timer);
+      resolve();
+    });
+  });
+}
+
 interface AgendaStepProps {
   timeZone: string;
   selectedDayKey: string | null;
   selectedSlot: Slot | null;
   /** Aviso cuando el horario elegido se acaba de ocupar. */
   notice: string | null;
-  onTimeZoneChange: (timeZone: string) => void;
   onSelectDay: (dayKey: string) => void;
   onSelectSlot: (slot: Slot | null) => void;
   onBack: () => void;
@@ -43,7 +64,6 @@ export default function AgendaStep({
   selectedDayKey,
   selectedSlot,
   notice,
-  onTimeZoneChange,
   onSelectDay,
   onSelectSlot,
   onBack,
@@ -51,21 +71,22 @@ export default function AgendaStep({
 }: AgendaStepProps) {
   const [days, setDays] = useState<AgendaDay[]>([]);
   const [status, setStatus] = useState<LoadStatus>("loading");
-  const [isChoosingZone, setIsChoosingZone] = useState(false);
 
   const loadSlots = useCallback(async (signal?: AbortSignal) => {
     setStatus("loading");
-    try {
-      const response = await fetch("/api/diagnostico/slots/", { cache: "no-store", signal });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data: { days: AgendaDay[] } = await response.json();
-      setDays(data.days);
-      setStatus("ready");
-    } catch (error) {
-      if (signal?.aborted) return;
-      console.error("Error loading available slots:", error);
-      setStatus("error");
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        setDays(await fetchAgendaDays(signal));
+        setStatus("ready");
+        return;
+      } catch (error) {
+        if (signal?.aborted) return;
+        console.error(`Error loading available slots (intento ${attempt}):`, error);
+        if (attempt === 1) await wait(AUTO_RETRY_DELAY_MS, signal);
+        if (signal?.aborted) return;
+      }
     }
+    setStatus("error");
   }, []);
 
   useEffect(() => {
@@ -94,6 +115,18 @@ export default function AgendaStep({
   const hasAnySlots = days.some((day) => day.slots.length > 0);
   const selectedDay = days.find((day) => day.date === selectedDayKey);
   const zoneLabel = getTimeZoneLabel(timeZone);
+
+  // Libres y "Agendado" en un solo orden por hora: un horario ocupado queda en su lugar, en gris.
+  const daySlots = useMemo(
+    () =>
+      selectedDay
+        ? [
+            ...selectedDay.slots.map((slot) => ({ slot, available: true })),
+            ...selectedDay.unavailable.map((slot) => ({ slot, available: false })),
+          ].sort((a, b) => a.slot.start.localeCompare(b.slot.start))
+        : [],
+    [selectedDay]
+  );
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(texts.noSlotsWhatsappMessage)}`;
 
   return (
@@ -149,8 +182,11 @@ export default function AgendaStep({
       )}
 
       {status === "error" && (
-        <div role="alert" className="flex flex-col items-start gap-3">
-          <p className="text-sm font-medium text-red-700">{texts.loadError}</p>
+        <div
+          role="status"
+          className="flex flex-col items-start gap-3 rounded-[14px] bg-secondary px-[18px] py-4"
+        >
+          <p className="text-[15px] text-secondary-foreground">{texts.loadError}</p>
           <button
             type="button"
             onClick={() => loadSlots()}
@@ -188,51 +224,12 @@ export default function AgendaStep({
         />
       )}
 
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
-          <Globe aria-hidden="true" className="h-4 w-4 text-primary" />
-          <span>
-            Horarios en: <strong className="font-semibold text-foreground">{zoneLabel}</strong>
-          </span>
-          <button
-            type="button"
-            aria-expanded={isChoosingZone}
-            aria-controls="diagnostico-zona"
-            onClick={() => setIsChoosingZone((open) => !open)}
-            className={cn(
-              "min-h-11 rounded-lg px-2 text-sm font-bold text-primary underline",
-              focusRing
-            )}
-          >
-            Cambiar
-          </button>
-        </div>
-        {isChoosingZone && (
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="diagnostico-zona" className="text-sm font-semibold">
-              Zona horaria
-            </label>
-            <select
-              id="diagnostico-zona"
-              value={timeZone}
-              onChange={(event) => {
-                onTimeZoneChange(event.target.value);
-                setIsChoosingZone(false);
-              }}
-              className={cn(
-                "min-h-[52px] rounded-xl border-[1.5px] border-input bg-white px-3 text-base text-foreground",
-                focusRing
-              )}
-            >
-              {DIAGNOSTICO_TIME_ZONES.map((zone) => (
-                <option key={zone.id} value={zone.id}>
-                  {zone.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-      </div>
+      <p className="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+        <Globe aria-hidden="true" className="h-4 w-4 text-primary" />
+        <span>
+          Horarios en: <strong className="font-semibold text-foreground">{zoneLabel}</strong>
+        </span>
+      </p>
 
       {status === "ready" && hasAnySlots && selectedDay && (
         <div className="flex flex-col gap-3">
@@ -241,7 +238,24 @@ export default function AgendaStep({
             <p className="text-sm text-muted-foreground">{texts.emptyDay}</p>
           )}
           <div className="grid grid-cols-[repeat(auto-fill,minmax(104px,1fr))] gap-2">
-            {selectedDay.slots.map((slot) => {
+            {daySlots.map(({ slot, available }) => {
+              const time = formatSlotTime(slot, timeZone);
+
+              if (!available) {
+                return (
+                  <button
+                    key={slot.start}
+                    type="button"
+                    disabled
+                    aria-label={`${time}, ${texts.unavailableLabel.toLowerCase()}`}
+                    className="flex min-h-[46px] cursor-not-allowed flex-col items-center justify-center rounded-full border-[1.5px] border-border bg-muted leading-tight text-muted-foreground"
+                  >
+                    <span className="text-[15px] font-semibold">{time}</span>
+                    <span className="text-[11px]">{texts.unavailableLabel}</span>
+                  </button>
+                );
+              }
+
               const isSelected = selectedSlot?.start === slot.start;
 
               return (
@@ -258,23 +272,7 @@ export default function AgendaStep({
                       : "bg-white text-primary hover:bg-secondary"
                   )}
                 >
-                  {formatSlotTime(slot, timeZone)}
-                </button>
-              );
-            })}
-            {selectedDay.unavailable.map((slot) => {
-              const time = formatSlotTime(slot, timeZone);
-
-              return (
-                <button
-                  key={slot.start}
-                  type="button"
-                  disabled
-                  aria-label={`${time}, ${texts.unavailableLabel.toLowerCase()}`}
-                  className="flex min-h-[46px] cursor-not-allowed flex-col items-center justify-center rounded-full border-[1.5px] border-border bg-muted leading-tight text-muted-foreground"
-                >
-                  <span className="text-[15px] font-semibold">{time}</span>
-                  <span className="text-[11px]">{texts.unavailableLabel}</span>
+                  {time}
                 </button>
               );
             })}

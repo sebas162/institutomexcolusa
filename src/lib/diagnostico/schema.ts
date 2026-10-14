@@ -1,13 +1,16 @@
 import { z } from "zod";
+import { MARKET } from "@/lib/diagnostico/market";
+
+const { datosForm } = MARKET.content;
 
 // Mismas reglas que src/app/api/diagnostico/lead/route.ts
 export const DATOS_FIELD_MESSAGES = {
   nombre: "Escribe tu nombre completo (entre 2 y 100 caracteres).",
-  whatsappCountryCode: "Elige el país de tu número.",
+  whatsappCountryCode: "Usa un número de WhatsApp de México.",
   whatsappNumber: "Escribe tu número de WhatsApp a 10 dígitos.",
   email: "Escribe un correo válido.",
-  clinica: "Escribe el nombre de tu clínica (entre 2 y 120 caracteres).",
-  ciudad: "Escribe tu ciudad y estado (entre 2 y 120 caracteres).",
+  clinica: datosForm.messages.clinica,
+  ciudad: datosForm.messages.ciudad,
   consentConfirmacion:
     "Necesitamos tu consentimiento para confirmar tu cita.",
 } as const;
@@ -24,7 +27,8 @@ export const datosSchema = z.object({
     .trim()
     .min(2, DATOS_FIELD_MESSAGES.nombre)
     .max(100, DATOS_FIELD_MESSAGES.nombre),
-  whatsappCountryCode: z.enum(["+52", "+1"], {
+  // Solo la lada del país de la landing.
+  whatsappCountryCode: z.literal(MARKET.phone.countryCode, {
     message: DATOS_FIELD_MESSAGES.whatsappCountryCode,
   }),
   whatsappNumber: z
@@ -60,7 +64,7 @@ export type DatosValues = z.infer<typeof datosSchema>;
 
 export const DEFAULT_DATOS_VALUES: DatosValues = {
   nombre: "",
-  whatsappCountryCode: "+52",
+  whatsappCountryCode: MARKET.phone.countryCode,
   whatsappNumber: "",
   email: "",
   clinica: "",
@@ -70,26 +74,34 @@ export const DEFAULT_DATOS_VALUES: DatosValues = {
   website: "",
 };
 
-/** "+52 55 1234 5678" o "+1 407 454 0524" */
-export function formatWhatsappNumber(
-  countryCode: DatosValues["whatsappCountryCode"],
-  number: string
-): string {
-  const digits = digitsOnly(number);
+// Grupos de dígitos por lada: la del país activo y +1 de leads anteriores.
+const PHONE_GROUPS: Record<string, number[]> = {
+  "+1": [3, 3, 4],
+  ...{ [MARKET.phone.countryCode]: MARKET.phone.groups },
+};
 
-  if (digits.length !== 10) {
+/** "+52 55 1234 5678" (o "+1 407 454 0524" en leads anteriores) */
+export function formatWhatsappNumber(countryCode: string, number: string): string {
+  const digits = digitsOnly(number);
+  const groups = PHONE_GROUPS[countryCode];
+
+  if (digits.length !== 10 || !groups) {
     return `${countryCode} ${number}`;
   }
 
-  const formatted =
-    countryCode === "+52"
-      ? `${digits.slice(0, 2)} ${digits.slice(2, 6)} ${digits.slice(6)}`
-      : `${digits.slice(0, 3)} ${digits.slice(3, 6)} ${digits.slice(6)}`;
+  let index = 0;
+  const formatted = groups
+    .map((size) => {
+      const part = digits.slice(index, index + size);
+      index += size;
+      return part;
+    })
+    .join(" ");
 
   return `${countryCode} ${formatted}`;
 }
 
 /** "+525512345678": formato E.164 que pide Cal.com. */
-export function toE164(countryCode: DatosValues["whatsappCountryCode"], number: string): string {
+export function toE164(countryCode: string, number: string): string {
   return `${countryCode}${digitsOnly(number)}`;
 }

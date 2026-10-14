@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import { MARKET } from "@/lib/diagnostico/market";
 
 export default function LandingFooter() {
   return (
@@ -9,7 +10,7 @@ export default function LandingFooter() {
           {DIAGNOSTICO_CONTENT.brandName} · © {new Date().getFullYear()}
         </span>
         <Link
-          href={DIAGNOSTICO_CONTENT.privacyUrl}
+          href={MARKET.privacyUrl}
           target="_blank"
           className="text-secondary underline underline-offset-2"
         >

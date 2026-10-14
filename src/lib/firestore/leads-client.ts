@@ -11,6 +11,7 @@ import {
   type DocumentData,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { DEFAULT_MARKET_ID } from "@/lib/diagnostico/market";
 import type { Lead, LeadStatus, LeadStatusChange } from "@/types/lead";
 
 const LEADS_COLLECTION = "leads";
@@ -29,6 +30,7 @@ function toLead(id: string, data: DocumentData): Lead {
   return {
     id,
     formId: data.formId,
+    market: data.market ?? DEFAULT_MARKET_ID,
     status: data.status as LeadStatus,
     nombre: data.nombre ?? "",
     whatsappCountryCode: data.whatsappCountryCode,

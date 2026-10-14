@@ -28,7 +28,8 @@ export const MANUAL_SECTIONS: ManualSection[] = [
         items: [
           "Cada llamada dura 15 minutos y es por Microsoft Teams. El enlace llega en el correo de Cal.com y aparece en el admin (botón \"Entrar a Teams\").",
           "Horario: lunes a viernes de 10:00 am a 2:30 pm hora de Houston, con una llamada cada 30 minutos. De marzo a octubre eso es de 9:00 am a 1:30 pm en CDMX; de noviembre a marzo, Houston y CDMX tienen la misma hora.",
-          "De 3:00 a 5:30 pm (Houston) la agenda muestra horarios en gris como \"Agendado\": no se pueden elegir.",
+          "La landing es solo para México: muestra los horarios en hora del centro de México y pide un WhatsApp de México (+52). En el admin la hora principal es la de Houston y la de CDMX aparece debajo; las vistas \"Hoy\" y \"Esta semana\" y el rango de fechas se cuentan en hora de Houston.",
+          "En el día elegido se ven todos los horarios: los que ya están reservados o bloqueados en Cal.com aparecen en gris como \"Agendado\", igual que la franja de 3:00 a 5:30 pm (Houston). Los que ya pasaron o empiezan en menos de 2 horas no se muestran.",
           "La landing solo muestra los 2 días hábiles más próximos que tengan horarios libres. No cuenta fines de semana, festivos de México y Estados Unidos ni días llenos, y pide al menos 2 horas de anticipación.",
           "Cuando el cliente reprograma desde su correo de Cal.com ve exactamente lo mismo: solo esos 2 días hábiles. Los festivos están bloqueados en Cal.com y se cargan solos cada mes.",
           "Desde el admin (botón \"Reprogramar\") nosotros sí podemos mover una cita a cualquiera de los próximos 10 días hábiles, con las mismas horas y festivos.",
@@ -66,7 +67,7 @@ export const MANUAL_SECTIONS: ManualSection[] = [
           "Abre Diagnósticos → vista \"Hoy\": ahí están las llamadas del día en orden de hora, con el botón \"Entrar a Teams\".",
           "Revisa el resumen: \"Pendientes de confirmar\" y \"Alertas (< 3 h)\". Las alertas son citas sin confirmar que empiezan en menos de 3 horas y aparecen resaltadas en la lista.",
           "Cuando llegue un WhatsApp \"Hola, CONFIRMO mi llamada de diagnóstico…\", busca al cliente por nombre o teléfono, abre su ficha y toca \"Marcar confirmada\".",
-          "Para escribirle al cliente usa los botones de WhatsApp de su ficha: \"Saludo\" o \"Recordatorio\". Abren WhatsApp con el mensaje listo, con la fecha y hora en su zona horaria. Los recordatorios por correo (24 h y 1 h antes) los manda Cal.com solo; no hay que hacer nada.",
+          "Para escribirle al cliente usa los botones de WhatsApp de su ficha: \"Saludo\" o \"Recordatorio\". Abren WhatsApp con el mensaje listo, con la fecha y hora de México: \"(hora Centro de México)\", aunque el admin muestre la de Houston. Los recordatorios por correo (24 h y 1 h antes) los manda Cal.com solo; no hay que hacer nada.",
           "Después de cada llamada, marca \"Asistió\" o \"No asistió\".",
         ],
       },
@@ -145,8 +146,9 @@ export const MANUAL_SECTIONS: ManualSection[] = [
         headers: ["Dónde", "Qué muestra"],
         rows: [
           ["Resumen", "Citas de hoy y de esta semana, pendientes de confirmar, alertas (< 3 h), % de confirmación (citas que se confirmaron, sin contar canceladas), % de asistencia (asistió ÷ (asistió + no asistió)) y no asistieron."],
+          ["Filtro País", "Cada lead guarda la landing por la que llegó. Hoy solo existe México; cuando haya landing de USA, el filtro separa los dos (también en el resumen y en Origen)."],
           ["Origen", "Citas por campaña y anuncio (utm_campaign y utm_content), con confirmadas, asistieron y % de asistencia. \"(sin UTM)\" agrupa las que no vinieron de un anuncio."],
-          ["Exportar CSV", "La lista que estás viendo, con los filtros aplicados: datos de contacto, cita en Houston y CDMX, estado, las 7 respuestas, UTM, consentimientos y nota."],
+          ["Exportar CSV", "La lista que estás viendo, con los filtros aplicados: datos de contacto, cita en Houston y CDMX, estado, las 7 respuestas (si eligió \"Otro\", aparece como \"Otro: lo que escribió\"), UTM, consentimientos y nota."],
         ],
       },
       {
