@@ -62,21 +62,21 @@ const content: DiagnosticoContent = {
       tag: "Permisos y apertura",
       quote:
         "Teníamos la apertura detenida porque no sabíamos qué documentos nos faltaban. En la llamada nos dijeron exactamente por dónde empezar, y hoy operamos con todo en orden.",
-      name: "Dra. [Nombre Apellido]",
+      name: "Dra. Andra Hernández",
       role: "Directora · Med spa · Guadalajara, Jal.",
     },
     {
       tag: "Bitácoras y manuales",
       quote:
         "Llevábamos años con bitácoras incompletas y manuales que nadie usaba. Ahora todo está documentado y mi equipo sabe qué hacer cuando llega una revisión.",
-      name: "Dr. [Nombre Apellido]",
+      name: "Dr. Sebastián Hernández",
       role: "Odontólogo y dueño · Clínica dental · Ciudad de México",
     },
     {
       tag: "Publicidad",
       quote:
         "No tenía claro qué podía anunciar y qué no. Me ayudaron a corregir mis publicaciones y ahora promociono mi consultorio con tranquilidad.",
-      name: "Dr. [Nombre Apellido]",
+      name: "Dr. Cristian Zuluaga",
       role: "Médico general · Consultorio médico · Guadalajara, Jal.",
     },
   ],
@@ -84,7 +84,7 @@ const content: DiagnosticoContent = {
   featuredTestimonial: {
     quote:
       "Pensé que sería una llamada de ventas más. En 15 minutos me dijeron exactamente qué me faltaba en mi consultorio y cuál era el primer paso.",
-    name: "Dr. [Nombre Apellido]",
+    name: "Dr. Gabriel Velandia",
     role: "Médico general · Consultorio médico · Guadalajara, Jal.",
   },
 
