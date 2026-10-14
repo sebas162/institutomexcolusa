@@ -24,9 +24,9 @@ export default function DiagnosticoHero() {
         {topBanner}
       </div>
 
-      <section
-        className="flex flex-col items-center border-b border-border bg-white px-4 pb-[72px] pt-7 text-foreground"
-      >
+      {/* Fondos alternados: blanco (títulos) → gris claro (video, igual que las preguntas) →
+          blanco (testimonios) → gris claro (preguntas). */}
+      <section className="flex flex-col items-center bg-white px-4 pb-12 pt-7 text-foreground">
         <div className="flex w-full max-w-[920px] flex-col items-center gap-7">
           <LandingLogo size="lg" tone="green" />
 
@@ -42,7 +42,11 @@ export default function DiagnosticoHero() {
               {hero.subtitle}
             </p>
           </div>
+        </div>
+      </section>
 
+      <section className="flex flex-col items-center border-y border-border bg-muted px-4 pb-[72px] pt-12 text-foreground">
+        <div className="flex w-full max-w-[920px] flex-col items-center gap-7">
           <div className="flex w-full flex-col gap-3.5">
             <div className="flex items-center gap-3">
               <span

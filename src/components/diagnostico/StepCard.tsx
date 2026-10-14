@@ -1,4 +1,5 @@
 import { forwardRef, type ReactNode, type Ref } from "react";
+import { cn } from "@/lib/utils";
 
 interface StepCardProps {
   id?: string;
@@ -6,11 +7,13 @@ interface StepCardProps {
   title: string;
   subtitle: string;
   headingRef?: Ref<HTMLHeadingElement>;
+  /** Fondo de la sección; sin él toma el gris claro del layout. */
+  className?: string;
   children: ReactNode;
 }
 
 const StepCard = forwardRef<HTMLElement, StepCardProps>(function StepCard(
-  { id, label, title, subtitle, headingRef, children },
+  { id, label, title, subtitle, headingRef, className, children },
   sectionRef
 ) {
   return (
@@ -18,7 +21,7 @@ const StepCard = forwardRef<HTMLElement, StepCardProps>(function StepCard(
       id={id}
       ref={sectionRef}
       aria-labelledby="paso-titulo"
-      className="flex scroll-mt-4 flex-col items-center gap-7 px-4 pb-20 pt-16"
+      className={cn("flex scroll-mt-4 flex-col items-center gap-7 px-4 pb-20 pt-16", className)}
     >
       <div className="flex w-full max-w-[720px] flex-col items-center gap-3 text-center">
         <span className="rounded-lg bg-primary px-3.5 py-[7px] text-xs font-bold uppercase tracking-[0.1em] text-primary-foreground">

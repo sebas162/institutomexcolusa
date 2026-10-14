@@ -54,19 +54,19 @@ export default function ConfirmScreen({
         Espera: tu cita aún no está confirmada
       </div>
 
-      <section className="flex justify-center border-b border-border bg-white px-4 pb-16 pt-12 text-foreground">
+      <section className="flex justify-center bg-primary px-4 pb-16 pt-12 text-white">
         <div className="flex w-full max-w-[760px] flex-col items-center gap-5 text-center">
-          <LandingLogo size="md" tone="green" />
-          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+          <LandingLogo size="md" />
+          <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-secondary">
             Tu llamada quedó agendada
           </span>
           <h1 className="text-[clamp(32px,5vw,54px)] font-extrabold leading-[1.12] tracking-[-0.02em]">
             Un paso más:{" "}
-            <span className="mt-1 inline-block text-primary">
+            <span className="mt-1 inline-block rounded-[0.3em] bg-white px-[0.28em] text-primary">
               confirma tu cita
             </span>
           </h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
+          <p className="text-lg leading-relaxed text-white/90">
             {confirmacion.releaseNote}
           </p>
 
@@ -77,16 +77,16 @@ export default function ConfirmScreen({
             onClick={() =>
               trackMetaEvent("Contact", { content_name: "Llamada diagnóstico" }, leadId)
             }
-            className="inline-flex min-h-[60px] w-full max-w-[460px] items-center justify-center gap-3 rounded-full bg-[#25D366] px-8 text-lg font-extrabold text-[#0A1416] transition-colors hover:bg-[#20BA5A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex min-h-[60px] w-full max-w-[460px] items-center justify-center gap-3 rounded-full bg-[#25D366] px-8 text-lg font-extrabold text-[#0A1416] transition-colors hover:bg-[#20BA5A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
             <FaWhatsapp aria-hidden="true" className="h-6 w-6" />
             Confirmar mi cita por WhatsApp
           </a>
-          <span className="max-w-[460px] text-sm leading-normal text-muted-foreground">
+          <span className="max-w-[460px] text-sm leading-normal text-white/80">
             {confirmacion.whatsappHint}
           </span>
 
-          <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-[18px] rounded-[20px] border border-border bg-muted px-6 py-[22px] text-left text-foreground">
+          <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-[18px] rounded-[20px] bg-white px-6 py-[22px] text-left text-foreground">
             <div className="flex flex-col gap-1">
               <span className="text-[13px] text-muted-foreground">Fecha y hora</span>
               <strong className="text-[17px] text-primary">{formatSlotLabel(slot, timeZone)}</strong>
@@ -139,10 +139,12 @@ export default function ConfirmScreen({
             </p>
           </div>
 
-          <FeaturedTestimonial
-            eyebrow={confirmacion.featuredEyebrow}
-            testimonial={featuredTestimonial}
-          />
+          {MARKET.showTestimonials && (
+            <FeaturedTestimonial
+              eyebrow={confirmacion.featuredEyebrow}
+              testimonial={featuredTestimonial}
+            />
+          )}
         </div>
       </section>
     </>

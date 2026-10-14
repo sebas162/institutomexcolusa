@@ -7,17 +7,6 @@ interface TestimonialsProps {
   testimonials: DiagnosticoTestimonial[];
 }
 
-function PhotoPlaceholder({ className }: { className: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={`flex shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${className}`}
-    >
-      Foto
-    </div>
-  );
-}
-
 export default function Testimonials({ eyebrow, subtitle, testimonials }: TestimonialsProps) {
   return (
     <section
@@ -54,8 +43,7 @@ export default function Testimonials({ eyebrow, subtitle, testimonials }: Testim
             <blockquote className="flex-grow text-[17px] leading-relaxed text-foreground">
               “{testimonial.quote}”
             </blockquote>
-            <figcaption className="flex items-center gap-3 border-t border-border pt-[18px]">
-              <PhotoPlaceholder className="h-[52px] w-[52px] bg-primary/10 text-primary" />
+            <figcaption className="border-t border-border pt-[18px]">
               <div className="flex flex-col gap-0.5">
                 <strong className="text-[15px] text-primary">{testimonial.name}</strong>
                 <span className="text-[13px] leading-[1.45] text-muted-foreground">
@@ -83,8 +71,7 @@ export function FeaturedTestimonial({
         {eyebrow}
       </span>
       <blockquote className="text-lg leading-relaxed text-foreground">“{testimonial.quote}”</blockquote>
-      <figcaption className="flex items-center gap-3">
-        <PhotoPlaceholder className="h-12 w-12 bg-primary/10 text-primary" />
+      <figcaption>
         <div className="flex flex-col gap-0.5">
           <strong className="text-[15px] text-primary">{testimonial.name}</strong>
           <span className="text-[13px] text-muted-foreground">{testimonial.role}</span>

@@ -210,12 +210,6 @@ export default function AgendaCalendar({
                     className="relative mx-auto flex h-10 w-10 items-center justify-center text-[15px] text-muted-foreground/60 sm:h-11 sm:w-11"
                   >
                     {dayNumber}
-                    {isToday && (
-                      <span
-                        aria-hidden="true"
-                        className="absolute bottom-1.5 h-1 w-1 rounded-full bg-primary"
-                      />
-                    )}
                   </span>
                 );
               }
