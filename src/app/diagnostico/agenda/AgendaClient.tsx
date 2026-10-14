@@ -90,8 +90,8 @@ export default function AgendaClient() {
 
   return (
     <>
-      <header className="flex justify-center border-b border-border bg-white px-4 py-5">
-        <LandingLogo size="md" tone="green" />
+      <header className="flex justify-center bg-primary px-4 py-5">
+        <LandingLogo size="md" />
       </header>
 
       <StepCard

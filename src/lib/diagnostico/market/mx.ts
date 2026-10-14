@@ -334,6 +334,9 @@ export const MX_MARKET: DiagnosticoMarket = {
     scheduleId: 2481982,
   },
 
+  // Apagados mientras llegan los testimonios reales: los textos de ejemplo siguen en content.
+  showTestimonials: false,
+
   content,
   questions,
 };

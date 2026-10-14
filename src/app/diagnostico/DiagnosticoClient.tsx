@@ -8,6 +8,7 @@ import Testimonials from "@/components/diagnostico/Testimonials";
 import QuestionStep from "@/components/diagnostico/QuestionStep";
 import StepCard from "@/components/diagnostico/StepCard";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import { MARKET } from "@/lib/diagnostico/market";
 import { DIAGNOSTICO_QUESTIONS, isExitAnswer } from "@/lib/diagnostico/questions";
 import { useDiagnostico } from "./DiagnosticoProvider";
 
@@ -110,15 +111,19 @@ export default function DiagnosticoClient() {
   return (
     <>
       <DiagnosticoHero />
-      <Testimonials
-        {...DIAGNOSTICO_CONTENT.testimonialsSection}
-        testimonials={DIAGNOSTICO_CONTENT.testimonials}
-      />
+      {MARKET.showTestimonials && (
+        <Testimonials
+          {...DIAGNOSTICO_CONTENT.testimonialsSection}
+          testimonials={DIAGNOSTICO_CONTENT.testimonials}
+        />
+      )}
 
       <StepCard
         id="calificar"
         ref={cardSectionRef}
         {...DIAGNOSTICO_CONTENT.steps.questions}
+        // Sin testimonios, el bloque del video (gris) quedaría pegado a este: va en blanco.
+        className={MARKET.showTestimonials ? undefined : "bg-white"}
       >
         <QuestionStep
           key={question.id}

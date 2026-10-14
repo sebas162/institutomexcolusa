@@ -153,6 +153,9 @@ export interface DiagnosticoMarket {
     scheduleId: number;
   };
 
+  /** Muestra los testimonios (3 en /diagnostico/ y el destacado en /confirmacion/). */
+  showTestimonials: boolean;
+
   content: DiagnosticoContent;
   questions: DiagnosticoQuestion[];
 }

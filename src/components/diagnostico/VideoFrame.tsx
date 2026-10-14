@@ -28,7 +28,7 @@ function parseVideoUrl(url: string): VideoSource {
 interface VideoFrameProps {
   url: string | null;
   title: string;
-  /** "dark": sobre el fondo verde; "light": marco oscuro sobre fondo claro; "soft": marco claro con borde suave. */
+  /** "dark": sobre el fondo verde; "light": marco oscuro sobre fondo claro; "soft": marco blanco con borde suave (sobre fondo gris claro). */
   surface: "dark" | "light" | "soft";
   size?: "lg" | "md";
 }
@@ -38,7 +38,7 @@ export default function VideoFrame({ url, title, surface, size = "lg" }: VideoFr
     "relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-[20px]",
     surface === "dark" && "border border-white/20 bg-black/20",
     surface === "light" && "bg-[#0A1416]",
-    surface === "soft" && "border border-border bg-muted shadow-[0_8px_30px_rgba(15,23,42,0.06)]"
+    surface === "soft" && "border border-border bg-white shadow-[0_8px_30px_rgba(15,23,42,0.08)]"
   );
   const soft = surface === "soft";
 
