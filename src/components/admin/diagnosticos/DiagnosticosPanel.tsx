@@ -19,6 +19,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/use-auth";
 import { useToast } from "@/hooks/use-toast";
+import { MARKETS } from "@/lib/diagnostico/market";
 import { subscribeLeads } from "@/lib/firestore/leads-client";
 import { cn } from "@/lib/utils";
 import type { Lead, LeadStatus } from "@/types/lead";
@@ -35,6 +36,7 @@ import {
   computeSummary,
   countryOf,
   filterByView,
+  matchesMarket,
   formatPercent,
   formatShortDate,
   formatTime,
@@ -155,6 +157,8 @@ export default function DiagnosticosPanel() {
   const [statuses, setStatuses] = useState<LeadStatus[]>([]);
   const [range, setRange] = useState<DateRange>({ from: "", to: "" });
   const [search, setSearch] = useState("");
+  // "" = todos los países.
+  const [market, setMarket] = useState("");
   const [hideTests, setHideTests] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
@@ -217,7 +221,10 @@ export default function DiagnosticosPanel() {
 
   const all = leads ?? [];
   // Resumen y Origen: siempre sin pruebas y dentro del rango de fechas.
-  const realInRange = useMemo(() => all.filter((lead) => !lead.isTest && inRange(lead, range)), [all, range]);
+  const realInRange = useMemo(
+    () => all.filter((lead) => !lead.isTest && inRange(lead, range) && matchesMarket(lead, market)),
+    [all, range, market]
+  );
   const summary = useMemo(() => computeSummary(realInRange, now), [realInRange, now]);
   const origin = useMemo(() => computeOrigin(realInRange), [realInRange]);
 
@@ -226,11 +233,12 @@ export default function DiagnosticosPanel() {
       (lead) =>
         (!hideTests || !lead.isTest) &&
         inRange(lead, range) &&
+        matchesMarket(lead, market) &&
         (statuses.length === 0 || statuses.includes(lead.status)) &&
         matchesSearch(lead, search)
     );
     return filterByView(base, view, now);
-  }, [all, hideTests, range, statuses, search, view, now]);
+  }, [all, hideTests, range, statuses, search, market, view, now]);
 
   const selectedLead = all.find((lead) => lead.id === selectedId) ?? null;
 
@@ -283,6 +291,22 @@ export default function DiagnosticosPanel() {
                 />
               </div>
             </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="diag-market">País</Label>
+              <select
+                id="diag-market"
+                value={market}
+                onChange={(event) => setMarket(event.target.value)}
+                className="h-10 rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <option value="">Todos</option>
+                {MARKETS.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="diag-from">Desde</Label>
@@ -317,7 +341,7 @@ export default function DiagnosticosPanel() {
                 </button>
               );
             })}
-            {(statuses.length > 0 || range.from || range.to || search) && (
+            {(statuses.length > 0 || range.from || range.to || search || market) && (
               <Button
                 variant="ghost"
                 size="sm"
@@ -325,6 +349,7 @@ export default function DiagnosticosPanel() {
                   setStatuses([]);
                   setRange({ from: "", to: "" });
                   setSearch("");
+                  setMarket("");
                 }}
               >
                 Limpiar filtros

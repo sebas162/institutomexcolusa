@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import ConfirmScreen from "@/components/diagnostico/ConfirmScreen";
+import { MARKET } from "@/lib/diagnostico/market";
 import { useDiagnostico } from "../DiagnosticoProvider";
 
 export default function ConfirmacionClient() {
@@ -36,7 +37,7 @@ export default function ConfirmacionClient() {
   return (
     <ConfirmScreen
       slot={confirmation.slot}
-      timeZone={confirmation.timeZone}
+      timeZone={MARKET.timeZone}
       leadId={confirmation.leadId}
       nombre={confirmation.nombre ?? ""}
     />

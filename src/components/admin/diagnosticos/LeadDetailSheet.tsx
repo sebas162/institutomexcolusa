@@ -77,14 +77,21 @@ function AppointmentDetail({ lead }: { lead: Lead }) {
   return (
     <>
       <Field label="Houston">
-        {formatLongDate(start, HOUSTON_TIME_ZONE)}, {formatTime(start, HOUSTON_TIME_ZONE)}
+        <span className="font-semibold">
+          {formatLongDate(start, HOUSTON_TIME_ZONE)}, {formatTime(start, HOUSTON_TIME_ZONE)}
+        </span>
       </Field>
       <Field label="CDMX">
-        {formatLongDate(start, CDMX_TIME_ZONE)}, {formatTime(start, CDMX_TIME_ZONE)}
+        <span className="text-muted-foreground">
+          {formatLongDate(start, CDMX_TIME_ZONE)}, {formatTime(start, CDMX_TIME_ZONE)}
+        </span>
       </Field>
-      <Field label="Hora del cliente">
-        {formatLongDate(start, clientZone)}, {formatTime(start, clientZone)} ({getTimeZoneLabel(clientZone)})
-      </Field>
+      {/* Solo leads anteriores, cuando la persona podía elegir otra zona. */}
+      {clientZone !== CDMX_TIME_ZONE && (
+        <Field label="Hora del cliente">
+          {formatLongDate(start, clientZone)}, {formatTime(start, clientZone)} ({getTimeZoneLabel(clientZone)})
+        </Field>
+      )}
     </>
   );
 }

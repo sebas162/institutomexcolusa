@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getAgendaDays } from "@/lib/diagnostico/agenda-window";
 
 export const dynamic = "force-dynamic";
+// Hasta dos intentos a Cal.com de 8 s cada uno.
+export const maxDuration = 30;
 
 const NO_STORE = { "Cache-Control": "no-store" };
 

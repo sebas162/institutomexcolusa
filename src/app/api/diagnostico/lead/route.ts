@@ -11,12 +11,18 @@ import { getAgendaDays, isSlotInAgenda } from "@/lib/diagnostico/agenda-window";
 import {
   DIAGNOSTICO_FORM_ID,
   DIAGNOSTICO_QUESTIONS,
+  OTHER_TEXT_MAX,
+  formatOtherLabel,
+  getSelectedTextOption,
   isExitAnswer,
   type DiagnosticoQuestion,
 } from "@/lib/diagnostico/questions";
 import { toE164 } from "@/lib/diagnostico/schema";
-import { DIAGNOSTICO_TIME_ZONES } from "@/lib/diagnostico/slots";
+import { MARKET } from "@/lib/diagnostico/market";
 import type { CreateLeadInput, LeadAnswer, LeadUtm } from "@/types/lead";
+
+// Revalida horarios (hasta dos intentos de 8 s), reserva (hasta 10 s) y, si falla, revisa otra vez.
+export const maxDuration = 60;
 
 function buildOptionIdsSchema(question: DiagnosticoQuestion) {
   const validIds = question.options.map((option) => option.id);
@@ -42,11 +48,23 @@ const answersSchema = z.object(
   )
 );
 
+// Texto de "Otro (escribe cuál)", solo en las preguntas que tienen esa opción.
+const otherTextsSchema = z
+  .object(
+    Object.fromEntries(
+      DIAGNOSTICO_QUESTIONS.filter((question) =>
+        question.options.some((option) => option.requiresText)
+      ).map((question) => [question.id, z.string().trim().max(OTHER_TEXT_MAX).optional()])
+    )
+  )
+  .strict();
+
 const utmFieldSchema = z.string().trim().max(200).optional();
 
 const leadSchema = z.object({
   nombre: z.string().trim().min(2).max(100),
-  whatsappCountryCode: z.enum(["+52", "+1"]),
+  // Landing de un solo país: solo su lada.
+  whatsappCountryCode: z.literal(MARKET.phone.countryCode),
   whatsappNumber: z
     .string()
     .max(30)
@@ -56,6 +74,7 @@ const leadSchema = z.object({
   clinica: z.string().trim().min(2).max(120),
   ciudad: z.string().trim().min(2).max(120),
   answers: answersSchema,
+  otherTexts: otherTextsSchema.optional(),
   consentConfirmacion: z.literal(true),
   consentMarketing: z.boolean(),
   utm: z
@@ -69,14 +88,25 @@ const leadSchema = z.object({
     })
     .optional(),
   slotStart: z.string().datetime({ offset: true }),
-  timeZone: z
-    .string()
-    .refine((id) => DIAGNOSTICO_TIME_ZONES.some((zone) => zone.id === id), {
-      message: "invalid_time_zone",
-    }),
+  // Se acepta por compatibilidad, pero la zona siempre es la del país (MARKET.timeZone).
+  timeZone: z.string().max(64).optional(),
   // Reintento tras un horario ocupado: el lead ya creado se reutiliza.
   leadId: z.string().regex(/^[A-Za-z0-9]{1,64}$/).optional(),
   confirmationCode: z.string().max(8).optional(),
+}).superRefine((data, ctx) => {
+  // "Otro" marcado exige su texto.
+  const answers = data.answers as Record<string, string[]>;
+  const otherTexts = (data.otherTexts ?? {}) as Record<string, string | undefined>;
+
+  for (const question of DIAGNOSTICO_QUESTIONS) {
+    if (getSelectedTextOption(question, answers[question.id] ?? []) && !otherTexts[question.id]) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["otherTexts", question.id],
+        message: "other_text_required",
+      });
+    }
+  }
 });
 
 function formatFieldErrors(error: z.ZodError): Record<string, string[]> {
@@ -147,6 +177,7 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
   const answers = data.answers as Record<string, string[]>;
+  const otherTexts = (data.otherTexts ?? {}) as Record<string, string | undefined>;
 
   const isNotQualified = DIAGNOSTICO_QUESTIONS.some((question) =>
     isExitAnswer(question.id, answers[question.id])
@@ -156,17 +187,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "not_qualified" }, { status: 400 });
   }
 
-  // Textos tomados de questions.ts, nunca del cliente
+  // Textos tomados de questions.ts, nunca del cliente; solo "Otro" lleva lo que escribió.
   const leadAnswers: LeadAnswer[] = DIAGNOSTICO_QUESTIONS.map((question) => {
     const selected = question.options.filter((option) =>
       answers[question.id].includes(option.id)
     );
+    const otherText = getSelectedTextOption(question, answers[question.id])
+      ? otherTexts[question.id]
+      : undefined;
 
     return {
       questionId: question.id,
       question: question.text,
       optionIds: selected.map((option) => option.id),
-      labels: selected.map((option) => option.label),
+      labels: selected.map((option) =>
+        option.requiresText && otherText ? formatOtherLabel(otherText) : option.label
+      ),
+      ...(otherText ? { otherText } : {}),
     };
   });
 
@@ -182,7 +219,8 @@ export async function POST(request: Request) {
     consentConfirmacion: data.consentConfirmacion,
     consentMarketing: data.consentMarketing,
     utm: cleanUtm(data.utm),
-    timeZone: data.timeZone,
+    timeZone: MARKET.timeZone,
+    market: MARKET.id,
   };
   const slotStart = new Date(data.slotStart).toISOString();
 
@@ -234,7 +272,7 @@ export async function POST(request: Request) {
       name: data.nombre,
       email: data.email,
       phoneE164,
-      timeZone: data.timeZone,
+      timeZone: MARKET.timeZone,
       leadId,
       notes: buildBookingNotes(leadInput),
     });
@@ -277,7 +315,7 @@ export async function POST(request: Request) {
         endTime: new Date(booking.end),
         meetingUrl: booking.meetingUrl,
       },
-      timeZone: data.timeZone,
+      timeZone: MARKET.timeZone,
       source: "landing",
     });
   } catch (error) {

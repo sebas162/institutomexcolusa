@@ -1,5 +1,9 @@
 // Festivos de México y USA en los que no se agendan llamadas. Se calculan por año,
-// sin listas fijas, a partir de las reglas aprobadas por la clienta.
+// sin listas fijas, a partir de las reglas aprobadas por la clienta. Cuáles aplican lo define
+// el país de la landing (MARKET.holidayCalendars).
+
+import { MARKET } from "@/lib/diagnostico/market";
+import type { HolidayCalendar } from "@/lib/diagnostico/market/types";
 
 export interface Holiday {
   date: string; // "2026-11-26"
@@ -102,23 +106,32 @@ function usaHolidays(year: number): Holiday[] {
   ];
 }
 
-const holidaysCache = new Map<number, Holiday[]>();
+const CALENDARS: Record<HolidayCalendar, (year: number) => Holiday[]> = {
+  mx: mexicoHolidays,
+  us: usaHolidays,
+};
+
+const holidaysCache = new Map<string, Holiday[]>();
 
 /**
  * Festivos que caen dentro del año, ordenados por fecha. Incluye los observados que vienen
  * de otro año (p. ej. el 1 de enero de 2028 cae en sábado y bloquea el 31 de diciembre de 2027).
  */
-export function getHolidays(year: number): Holiday[] {
-  const cached = holidaysCache.get(year);
+export function getHolidays(
+  year: number,
+  calendars: HolidayCalendar[] = MARKET.holidayCalendars
+): Holiday[] {
+  const cacheKey = `${year}|${calendars.join(",")}`;
+  const cached = holidaysCache.get(cacheKey);
   if (cached) return cached;
 
   const prefix = `${year}-`;
   const holidays = [year - 1, year, year + 1]
-    .flatMap((y) => [...mexicoHolidays(y), ...usaHolidays(y)])
+    .flatMap((y) => calendars.flatMap((calendar) => CALENDARS[calendar](y)))
     .filter((holiday) => holiday.date.startsWith(prefix))
     .sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
 
-  holidaysCache.set(year, holidays);
+  holidaysCache.set(cacheKey, holidays);
   return holidays;
 }
 

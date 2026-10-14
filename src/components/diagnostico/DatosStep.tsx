@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import { MARKET } from "@/lib/diagnostico/market";
+import { buildOtherTexts } from "@/lib/diagnostico/questions";
 import {
   DATOS_FIELD_MESSAGES,
   datosSchema,
@@ -46,6 +48,7 @@ interface DatosStepProps {
   timeZone: string;
   defaultValues: DatosValues;
   answers: Record<string, string[]>;
+  otherTexts: Record<string, string>;
   utm: LeadUtm;
   /** Lead de un intento anterior sin reserva: se reutiliza en vez de crear otro. */
   pendingLead: PendingLead | null;
@@ -62,6 +65,7 @@ export default function DatosStep({
   timeZone,
   defaultValues,
   answers,
+  otherTexts,
   utm,
   pendingLead,
   onValuesChange,
@@ -105,6 +109,7 @@ export default function DatosStep({
           clinica: values.clinica,
           ciudad: values.ciudad,
           answers,
+          otherTexts: buildOtherTexts(answers, otherTexts),
           consentConfirmacion: values.consentConfirmacion,
           consentMarketing: values.consentMarketing,
           utm,
@@ -209,22 +214,23 @@ export default function DatosStep({
               name="whatsappNumber"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2 space-y-0">
-                  <FormLabel className={labelClass}>WhatsApp *</FormLabel>
+                  <FormLabel className={labelClass}>
+                    WhatsApp *<span className="sr-only"> (número de México, {MARKET.phone.countryCode})</span>
+                  </FormLabel>
                   <div className="flex gap-2">
-                    <select
-                      aria-label="País del número de WhatsApp"
-                      {...form.register("whatsappCountryCode")}
-                      className="min-h-[52px] rounded-xl border-[1.5px] border-input bg-white px-3 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    {/* Lada fija del país: no es un campo, solo se muestra. */}
+                    <span
+                      aria-hidden="true"
+                      className="flex min-h-[52px] shrink-0 items-center rounded-xl border-[1.5px] border-input bg-muted px-3 text-base font-semibold text-foreground"
                     >
-                      <option value="+52">MX +52</option>
-                      <option value="+1">US +1</option>
-                    </select>
+                      {MARKET.phone.prefixLabel}
+                    </span>
                     <FormControl>
                       <Input
                         type="tel"
                         inputMode="tel"
                         autoComplete="tel-national"
-                        placeholder="55 1234 5678"
+                        placeholder={MARKET.phone.placeholder}
                         className={`${inputClass} min-w-0 flex-grow`}
                         {...field}
                       />
@@ -273,7 +279,7 @@ export default function DatosStep({
                 name="clinica"
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-2 space-y-0">
-                    <FormLabel className={labelClass}>Nombre de la clínica *</FormLabel>
+                    <FormLabel className={labelClass}>{datosForm.clinicaLabel}</FormLabel>
                     <FormControl>
                       <Input autoComplete="organization" className={inputClass} {...field} />
                     </FormControl>
@@ -380,7 +386,7 @@ export default function DatosStep({
           <p className="text-center text-[13px] text-muted-foreground">
             Al agendar aceptas nuestro{" "}
             <Link
-              href={DIAGNOSTICO_CONTENT.privacyUrl}
+              href={MARKET.privacyUrl}
               target="_blank"
               className="font-semibold text-primary underline-offset-2 hover:underline"
             >

@@ -1,15 +1,18 @@
 // Cliente de la API v2 de Cal.com. Solo para el servidor: CAL_API_KEY no lleva
 // NEXT_PUBLIC_, así que nunca llega al navegador. No registrar la llave ni los headers.
 
+import { MARKET } from "@/lib/diagnostico/market";
 import type { Slot } from "@/lib/diagnostico/slots";
 
 const CAL_API_BASE = "https://api.cal.com";
 const SLOTS_API_VERSION = "2024-09-04";
 const BOOKINGS_API_VERSION = "2026-02-25";
 const REQUEST_TIMEOUT_MS = 10_000;
+// Consultas de horarios: un reintento si Cal.com no responde o falla del lado de ellos (5xx).
+// Cada intento espera menos para que los dos quepan holgados en el tiempo de la función.
+const SLOTS_TIMEOUT_MS = 8_000;
+const SLOTS_RETRY_DELAY_MS = 500;
 const SCHEDULES_API_VERSION = "2024-06-11";
-const DEFAULT_EVENT_TYPE_ID = 7427740;
-const DEFAULT_SCHEDULE_ID = 2481982;
 
 export type CalcomErrorCode = "slot_unavailable" | "calcom_error";
 
@@ -17,7 +20,9 @@ export class CalcomError extends Error {
   constructor(
     public readonly code: CalcomErrorCode,
     message: string,
-    public readonly status?: number
+    public readonly status?: number,
+    /** Sin respuesta (timeout o red) o error 5xx: vale la pena reintentar una consulta. */
+    public readonly retryable = false
   ) {
     super(message);
     this.name = "CalcomError";
@@ -26,7 +31,7 @@ export class CalcomError extends Error {
 
 export function getCalEventTypeId(): number {
   const value = Number(process.env.CAL_EVENT_TYPE_ID);
-  return Number.isInteger(value) && value > 0 ? value : DEFAULT_EVENT_TYPE_ID;
+  return Number.isInteger(value) && value > 0 ? value : MARKET.calcom.eventTypeId;
 }
 
 /**
@@ -36,14 +41,12 @@ export function getCalEventTypeId(): number {
  */
 export function getCalAdminSlotsEventTypeId(): number {
   const value = Number(process.env.CAL_ADMIN_SLOTS_EVENT_TYPE_ID);
-  if (Number.isInteger(value) && value > 0) return value;
-  console.warn("CAL_ADMIN_SLOTS_EVENT_TYPE_ID no está configurada: el admin verá solo los días del evento principal");
-  return getCalEventTypeId();
+  return Number.isInteger(value) && value > 0 ? value : MARKET.calcom.adminSlotsEventTypeId;
 }
 
 export function getCalScheduleId(): number {
   const value = Number(process.env.CAL_SCHEDULE_ID);
-  return Number.isInteger(value) && value > 0 ? value : DEFAULT_SCHEDULE_ID;
+  return Number.isInteger(value) && value > 0 ? value : MARKET.calcom.scheduleId;
 }
 
 function getApiKey(): string {
@@ -77,7 +80,7 @@ function extractErrorMessage(body: unknown): string {
 async function calFetch<T>(
   path: string,
   apiVersion: string,
-  init: { method?: "GET" | "POST" | "PATCH"; body?: unknown } = {}
+  init: { method?: "GET" | "POST" | "PATCH"; body?: unknown; timeoutMs?: number } = {}
 ): Promise<T> {
   let response: Response;
 
@@ -91,12 +94,12 @@ async function calFetch<T>(
       },
       body: init.body ? JSON.stringify(init.body) : undefined,
       cache: "no-store",
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      signal: AbortSignal.timeout(init.timeoutMs ?? REQUEST_TIMEOUT_MS),
     });
   } catch (error) {
     if (error instanceof CalcomError) throw error;
     const reason = error instanceof Error ? error.name : "unknown";
-    throw new CalcomError("calcom_error", `Cal.com no respondió (${reason})`);
+    throw new CalcomError("calcom_error", `Cal.com no respondió (${reason})`, undefined, true);
   }
 
   const body: unknown = await response.json().catch(() => null);
@@ -110,7 +113,8 @@ async function calFetch<T>(
     throw new CalcomError(
       slotUnavailable ? "slot_unavailable" : "calcom_error",
       `Cal.com ${path.split("?")[0]}: ${message}`,
-      response.status
+      response.status,
+      response.status >= 500
     );
   }
 
@@ -131,10 +135,19 @@ export async function getCalSlots(
     format: "range",
   });
 
-  const data = await calFetch<Record<string, { start: string; end: string }[]>>(
-    `/v2/slots?${params}`,
-    SLOTS_API_VERSION
-  );
+  const path = `/v2/slots?${params}`;
+  type SlotsData = Record<string, { start: string; end: string }[]>;
+
+  let data: SlotsData;
+  try {
+    data = await calFetch<SlotsData>(path, SLOTS_API_VERSION, { timeoutMs: SLOTS_TIMEOUT_MS });
+  } catch (error) {
+    // Solo lectura: reintentar no tiene efectos. Las reservas nunca se reintentan solas.
+    if (!(error instanceof CalcomError) || !error.retryable) throw error;
+    console.warn("Cal.com /v2/slots falló, reintentando:", error.message);
+    await new Promise((resolve) => setTimeout(resolve, SLOTS_RETRY_DELAY_MS));
+    data = await calFetch<SlotsData>(path, SLOTS_API_VERSION, { timeoutMs: SLOTS_TIMEOUT_MS });
+  }
 
   return Object.values(data ?? {})
     .flat()

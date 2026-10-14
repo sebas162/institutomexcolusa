@@ -5,6 +5,7 @@
 
 import { getCalEventTypeId, getCalSlots } from "@/lib/calcom";
 import { isHoliday } from "@/lib/diagnostico/holidays";
+import { MARKET } from "@/lib/diagnostico/market";
 import {
   AGENDA_TIME_ZONE,
   addDaysToKey,
@@ -21,9 +22,7 @@ export const AGENDA_DAYS = 2;
 // Días hábiles de más que se revisan por si los primeros están llenos.
 const LOOKAHEAD_BUSINESS_DAYS = 10;
 
-// Franja que se muestra en gris como "Agendado" (de 3:00 a 5:30 p. m. en Chicago).
-const UNAVAILABLE_TIMES = ["15:00", "15:30", "16:00", "16:30", "17:00"];
-const SLOT_MINUTES = 15;
+const { scheduleTimes, afternoonTimes, slotMinutes, minimumNoticeMinutes } = MARKET.agenda;
 
 const offsetFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: AGENDA_TIME_ZONE,
@@ -86,12 +85,22 @@ export function getWindowDayKeys(
   return { today: isBusinessDay(todayKey) ? todayKey : null, following };
 }
 
-function buildUnavailableSlots(dayKey: string): Slot[] {
-  return UNAVAILABLE_TIMES.map((time) => {
-    const start = chicagoTimeToUtc(dayKey, time);
-    const end = new Date(start.getTime() + SLOT_MINUTES * 60_000);
-    return { start: start.toISOString(), end: end.toISOString() };
-  });
+/**
+ * Horarios del día que se ven en gris como "Agendado": los del horario que Cal.com no ofrece
+ * (ya reservados o bloqueados) y la franja de la tarde. Los que ya pasaron o caen dentro de la
+ * anticipación mínima no se muestran.
+ */
+function buildUnavailableSlots(dayKey: string, available: Slot[], now: Date): Slot[] {
+  const availableStarts = new Set(available.map((slot) => slot.start));
+  const earliest = now.getTime() + minimumNoticeMinutes * 60_000;
+
+  return [...scheduleTimes, ...afternoonTimes]
+    .map((time) => chicagoTimeToUtc(dayKey, time))
+    .filter((start) => start.getTime() >= earliest && !availableStarts.has(start.toISOString()))
+    .map((start) => ({
+      start: start.toISOString(),
+      end: new Date(start.getTime() + slotMinutes * 60_000).toISOString(),
+    }));
 }
 
 /**
@@ -111,11 +120,10 @@ export function buildAgendaDays(now: Date, slots: Slot[], dayCount = AGENDA_DAYS
     .filter((dayKey) => (slotsByDay.get(dayKey)?.length ?? 0) > 0)
     .slice(0, dayCount);
 
-  return dayKeys.map((date) => ({
-    date,
-    slots: slotsByDay.get(date) ?? [],
-    unavailable: buildUnavailableSlots(date),
-  }));
+  return dayKeys.map((date) => {
+    const daySlots = slotsByDay.get(date) ?? [];
+    return { date, slots: daySlots, unavailable: buildUnavailableSlots(date, daySlots, now) };
+  });
 }
 
 /**

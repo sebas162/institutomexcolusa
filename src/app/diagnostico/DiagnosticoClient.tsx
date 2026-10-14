@@ -19,6 +19,8 @@ export default function DiagnosticoClient() {
     questionIndex,
     setQuestionIndex,
     toggleOption,
+    otherTexts,
+    setOtherText,
     setAgendaStage,
     hasBooking,
   } = useDiagnostico();
@@ -116,17 +118,18 @@ export default function DiagnosticoClient() {
       <StepCard
         id="calificar"
         ref={cardSectionRef}
-        label="Paso 2 de 3 — Responde 7 preguntas"
-        title="¿Tu clínica califica?"
-        subtitle="Antes de abrir la agenda necesitamos saber si de verdad podemos ayudarte. Toma un minuto."
+        {...DIAGNOSTICO_CONTENT.steps.questions}
       >
         <QuestionStep
+          key={question.id}
           ref={questionHeadingRef}
           question={question}
           index={questionIndex}
           total={DIAGNOSTICO_QUESTIONS.length}
           selected={selected}
           onToggle={(optionId) => toggleOption(question.id, optionId)}
+          otherText={otherTexts[question.id] ?? ""}
+          onOtherTextChange={(text) => setOtherText(question.id, text)}
           onPrev={() => goToQuestion(Math.max(questionIndex - 1, 0))}
           onNext={handleNext}
         />

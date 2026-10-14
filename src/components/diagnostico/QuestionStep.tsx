@@ -1,9 +1,13 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { DiagnosticoQuestion } from "@/lib/diagnostico/questions";
+import {
+  OTHER_TEXT_MAX,
+  getSelectedTextOption,
+  type DiagnosticoQuestion,
+} from "@/lib/diagnostico/questions";
 
 interface QuestionStepProps {
   question: DiagnosticoQuestion;
@@ -11,14 +15,34 @@ interface QuestionStepProps {
   total: number;
   selected: string[];
   onToggle: (optionId: string) => void;
+  otherText: string;
+  onOtherTextChange: (text: string) => void;
   onPrev: () => void;
   onNext: () => void;
 }
 
 const QuestionStep = forwardRef<HTMLHeadingElement, QuestionStepProps>(function QuestionStep(
-  { question, index, total, selected, onToggle, onPrev, onNext },
+  { question, index, total, selected, onToggle, otherText, onOtherTextChange, onPrev, onNext },
   headingRef
 ) {
+  const otherInputRef = useRef<HTMLInputElement>(null);
+  // El error de "Otro" vacío solo aparece después de intentar avanzar.
+  const [showOtherError, setShowOtherError] = useState(false);
+  const textOption = getSelectedTextOption(question, selected);
+  const otherInputId = `otro-${question.id}`;
+  const otherErrorId = `otro-${question.id}-error`;
+  const otherMissing = textOption !== undefined && otherText.trim().length === 0;
+
+  const handleNext = () => {
+    if (otherMissing) {
+      setShowOtherError(true);
+      otherInputRef.current?.focus();
+      return;
+    }
+    setShowOtherError(false);
+    onNext();
+  };
+
   const number = index + 1;
   const progress = `${Math.round((number / total) * 100)}%`;
   const headingId = `pregunta-${question.id}`;
@@ -93,6 +117,41 @@ const QuestionStep = forwardRef<HTMLHeadingElement, QuestionStepProps>(function 
         })}
       </div>
 
+      {textOption && (
+        <div className="-mt-1 flex flex-col gap-1.5">
+          <label htmlFor={otherInputId} className="text-sm font-semibold">
+            Escribe cuál *
+          </label>
+          <input
+            ref={otherInputRef}
+            id={otherInputId}
+            type="text"
+            value={otherText}
+            onChange={(event) => {
+              onOtherTextChange(event.target.value);
+              if (event.target.value.trim()) setShowOtherError(false);
+            }}
+            maxLength={OTHER_TEXT_MAX}
+            required
+            autoComplete="off"
+            aria-invalid={showOtherError && otherMissing}
+            aria-describedby={showOtherError && otherMissing ? otherErrorId : undefined}
+            className={cn(
+              "min-h-[52px] w-full rounded-xl border-[1.5px] bg-white px-4 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              showOtherError && otherMissing ? "border-destructive" : "border-input"
+            )}
+          />
+          <div className="flex justify-between gap-3 text-[13px]">
+            <span id={otherErrorId} role="alert" className="font-medium text-destructive">
+              {showOtherError && otherMissing ? "Escribe cuál para continuar." : ""}
+            </span>
+            <span aria-hidden="true" className="shrink-0 text-muted-foreground">
+              {otherText.length}/{OTHER_TEXT_MAX}
+            </span>
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center justify-between gap-3">
         {index > 0 ? (
           <button
@@ -107,7 +166,7 @@ const QuestionStep = forwardRef<HTMLHeadingElement, QuestionStepProps>(function 
         )}
         <button
           type="button"
-          onClick={onNext}
+          onClick={handleNext}
           disabled={!hasSelection}
           className="min-h-[52px] rounded-full bg-primary px-8 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-border disabled:text-muted-foreground"
         >

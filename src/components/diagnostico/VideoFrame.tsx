@@ -28,16 +28,19 @@ function parseVideoUrl(url: string): VideoSource {
 interface VideoFrameProps {
   url: string | null;
   title: string;
-  /** "dark": sobre el fondo verde; "light": sobre fondo claro. */
-  surface: "dark" | "light";
+  /** "dark": sobre el fondo verde; "light": marco oscuro sobre fondo claro; "soft": marco claro con borde suave. */
+  surface: "dark" | "light" | "soft";
   size?: "lg" | "md";
 }
 
 export default function VideoFrame({ url, title, surface, size = "lg" }: VideoFrameProps) {
   const frameClass = cn(
     "relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-[20px]",
-    surface === "dark" ? "border border-white/20 bg-black/20" : "bg-[#0A1416]"
+    surface === "dark" && "border border-white/20 bg-black/20",
+    surface === "light" && "bg-[#0A1416]",
+    surface === "soft" && "border border-border bg-muted shadow-[0_8px_30px_rgba(15,23,42,0.06)]"
   );
+  const soft = surface === "soft";
 
   if (!url) {
     return (
@@ -48,7 +51,8 @@ export default function VideoFrame({ url, title, surface, size = "lg" }: VideoFr
             disabled
             aria-label={`${title}: video próximamente`}
             className={cn(
-              "flex cursor-not-allowed items-center justify-center rounded-full bg-white text-primary opacity-80",
+              "flex cursor-not-allowed items-center justify-center rounded-full",
+              soft ? "bg-primary text-primary-foreground" : "bg-white text-primary opacity-80",
               size === "lg" ? "h-[76px] w-[76px]" : "h-[68px] w-[68px]"
             )}
           >
@@ -57,7 +61,9 @@ export default function VideoFrame({ url, title, surface, size = "lg" }: VideoFr
               className={cn("fill-current", size === "lg" ? "h-[30px] w-[30px]" : "h-[26px] w-[26px]")}
             />
           </button>
-          <span className="text-sm font-semibold text-white/80">Video próximamente</span>
+          <span className={cn("text-sm font-semibold", soft ? "text-muted-foreground" : "text-white/80")}>
+            Video próximamente
+          </span>
         </div>
       </div>
     );

@@ -3,7 +3,6 @@ import type { DiagnosticoTestimonial } from "@/lib/diagnostico/content";
 
 interface TestimonialsProps {
   eyebrow: string;
-  title: string;
   subtitle: string;
   testimonials: DiagnosticoTestimonial[];
 }
@@ -19,23 +18,23 @@ function PhotoPlaceholder({ className }: { className: string }) {
   );
 }
 
-export default function Testimonials({ eyebrow, title, subtitle, testimonials }: TestimonialsProps) {
+export default function Testimonials({ eyebrow, subtitle, testimonials }: TestimonialsProps) {
   return (
     <section
       aria-labelledby="testimonios-titulo"
       className="flex flex-col items-center gap-8 border-b border-border bg-white pb-14 pt-16"
     >
       <div className="flex w-full max-w-[720px] flex-col items-center gap-3 px-4 text-center">
-        <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
-          {eyebrow}
-        </span>
+        {/* La etiqueta es el encabezado de la sección: no lleva título aparte. */}
         <h2
           id="testimonios-titulo"
-          className="text-[clamp(28px,4vw,40px)] font-extrabold leading-[1.15] tracking-[-0.02em] text-primary"
+          className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary"
         >
-          {title}
+          {eyebrow}
         </h2>
-        <p className="text-[17px] leading-relaxed text-muted-foreground">{subtitle}</p>
+        <p className="text-[clamp(18px,2.4vw,22px)] font-semibold leading-snug text-foreground">
+          {subtitle}
+        </p>
       </div>
 
       <div className="flex w-full max-w-[1128px] snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 pt-1 md:grid md:grid-cols-3 md:overflow-visible">
@@ -79,16 +78,16 @@ export function FeaturedTestimonial({
   testimonial: DiagnosticoTestimonial;
 }) {
   return (
-    <figure className="flex flex-col gap-[18px] rounded-[20px] bg-primary p-7 text-white">
-      <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-secondary">
+    <figure className="flex flex-col gap-[18px] rounded-[20px] border border-border bg-white p-7 text-foreground">
+      <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-primary">
         {eyebrow}
       </span>
-      <blockquote className="text-lg leading-relaxed text-white">“{testimonial.quote}”</blockquote>
+      <blockquote className="text-lg leading-relaxed text-foreground">“{testimonial.quote}”</blockquote>
       <figcaption className="flex items-center gap-3">
-        <PhotoPlaceholder className="h-12 w-12 bg-white/15 text-secondary" />
+        <PhotoPlaceholder className="h-12 w-12 bg-primary/10 text-primary" />
         <div className="flex flex-col gap-0.5">
-          <strong className="text-[15px]">{testimonial.name}</strong>
-          <span className="text-[13px] text-white/80">{testimonial.role}</span>
+          <strong className="text-[15px] text-primary">{testimonial.name}</strong>
+          <span className="text-[13px] text-muted-foreground">{testimonial.role}</span>
         </div>
       </figcaption>
     </figure>
