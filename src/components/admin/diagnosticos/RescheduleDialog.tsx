@@ -2,16 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import type { AgendaDay, Slot } from "@/lib/diagnostico/slots";
 import type { Lead } from "@/types/lead";
+import ConfirmDialog from "./ConfirmDialog";
 import { adminFetch } from "./admin-api";
 import { CDMX_TIME_ZONE, HOUSTON_TIME_ZONE, formatLongDate, formatTime } from "./lead-utils";
 
@@ -168,31 +159,21 @@ export default function RescheduleDialog({
         </DialogContent>
       </Dialog>
 
-      <AlertDialog open={confirming} onOpenChange={(value) => !saving && setConfirming(value)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>¿Reprogramar la cita?</AlertDialogTitle>
-            <AlertDialogDescription>
-              {selected &&
-                `Nueva cita: ${formatLongDate(new Date(selected.start), HOUSTON_TIME_ZONE)}, ${formatTime(new Date(selected.start), HOUSTON_TIME_ZONE)} Houston (${formatTime(new Date(selected.start), CDMX_TIME_ZONE)} CDMX). `}
-              Se cambia en Cal.com, el cliente recibe un correo con el nuevo horario y la cita queda confirmada.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={saving}>Volver</AlertDialogCancel>
-            <AlertDialogAction
-              disabled={saving}
-              onClick={(event) => {
-                event.preventDefault();
-                reschedule();
-              }}
-            >
-              {saving && <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
-              Sí, reprogramar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDialog
+        open={confirming}
+        onOpenChange={setConfirming}
+        title="¿Reprogramar la cita?"
+        description={
+          <>
+            {selected &&
+              `Nueva cita: ${formatLongDate(new Date(selected.start), HOUSTON_TIME_ZONE)}, ${formatTime(new Date(selected.start), HOUSTON_TIME_ZONE)} Houston (${formatTime(new Date(selected.start), CDMX_TIME_ZONE)} CDMX). `}
+            Se cambia en Cal.com, el cliente recibe un correo con el nuevo horario y la cita queda confirmada.
+          </>
+        }
+        confirmLabel="Sí, reprogramar"
+        busy={saving}
+        onConfirm={reschedule}
+      />
     </>
   );
 }
