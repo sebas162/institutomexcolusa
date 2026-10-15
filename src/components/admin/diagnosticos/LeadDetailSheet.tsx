@@ -2,16 +2,6 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { CalendarClock, Loader2, MessageCircle, Video, XCircle } from "lucide-react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -29,6 +19,7 @@ import {
 import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
 import { getTimeZoneLabel } from "@/lib/diagnostico/slots";
 import type { Lead } from "@/types/lead";
+import ConfirmDialog from "./ConfirmDialog";
 import StatusBadge from "./StatusBadge";
 import { adminFetch } from "./admin-api";
 import RescheduleDialog from "./RescheduleDialog";
@@ -361,56 +352,32 @@ export default function LeadDetailSheet({
         </SheetContent>
       </Sheet>
 
-      <AlertDialog open={pending !== null} onOpenChange={(value) => !value && !running && setPending(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{pending?.title}</AlertDialogTitle>
-            <AlertDialogDescription>{pending?.description}</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={running}>Volver</AlertDialogCancel>
-            <AlertDialogAction
-              disabled={running}
-              onClick={(event) => {
-                event.preventDefault();
-                runPending();
-              }}
-            >
-              {running && <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
-              Sí, guardar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDialog
+        open={pending !== null}
+        onOpenChange={(value) => !value && setPending(null)}
+        title={pending?.title}
+        description={pending?.description}
+        confirmLabel="Sí, guardar"
+        busy={running}
+        onConfirm={runPending}
+      />
 
-      <AlertDialog open={cancelOpen} onOpenChange={(value) => !running && setCancelOpen(value)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Cancelar la cita</AlertDialogTitle>
-            <AlertDialogDescription>
-              Se cancela en Cal.com y el cliente recibe un correo con el motivo. No se puede deshacer.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="cancel-reason">Motivo</Label>
-            <Textarea id="cancel-reason" value={cancelReason} onChange={(event) => setCancelReason(event.target.value)} rows={3} />
-          </div>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={running}>Volver</AlertDialogCancel>
-            <AlertDialogAction
-              disabled={running || cancelReason.trim().length < 3}
-              className="bg-red-700 text-white hover:bg-red-700/90"
-              onClick={(event) => {
-                event.preventDefault();
-                cancelBooking();
-              }}
-            >
-              {running && <Loader2 aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
-              Cancelar cita
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <ConfirmDialog
+        open={cancelOpen}
+        onOpenChange={setCancelOpen}
+        title="Cancelar la cita"
+        description="Se cancela en Cal.com y el cliente recibe un correo con el motivo. No se puede deshacer."
+        confirmLabel="Cancelar cita"
+        confirmClassName="bg-red-700 text-white hover:bg-red-700/90"
+        confirmDisabled={cancelReason.trim().length < 3}
+        busy={running}
+        onConfirm={cancelBooking}
+      >
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="cancel-reason">Motivo</Label>
+          <Textarea id="cancel-reason" value={cancelReason} onChange={(event) => setCancelReason(event.target.value)} rows={3} />
+        </div>
+      </ConfirmDialog>
 
       {hasActiveBooking && (
         <RescheduleDialog lead={lead} open={rescheduleOpen} onOpenChange={setRescheduleOpen} />
