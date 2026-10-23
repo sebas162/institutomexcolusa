@@ -1,11 +1,12 @@
-// Tipos de la configuración por país de la landing "Llamada diagnóstico". Cada país (hoy solo
-// México) tiene su archivo en esta carpeta con textos, preguntas, horario, teléfono y Cal.com.
+// Tipos de la configuración por país de la landing "Llamada diagnóstico". Cada país (México en
+// /diagnostico/ y USA en /diagnostico/usa/) tiene su archivo en esta carpeta con textos,
+// preguntas, horario, teléfono y Cal.com.
 
-export type MarketId = "mx";
+export type MarketId = "mx" | "us";
 
 export type HolidayCalendar = "mx" | "us";
 
-export type ServiceIcon = "permisos" | "documentacion" | "auditorias" | "publicidad";
+export type ServiceIcon = "abrir" | "regla" | "operacion" | "rentable";
 
 export interface DiagnosticoService {
   icon: ServiceIcon;
@@ -45,18 +46,25 @@ export interface DiagnosticoContent {
   brandName: string;
   topBanner: string;
   hero: {
-    badge: string;
     titleStart: string;
     titleHighlight: string;
     subtitle: string;
-    stepLabel: string;
     cta: string;
     ctaNote: string;
+    /** Recuadro con el escudo debajo del botón. */
+    proof: string;
+  };
+  servicesSection: {
+    title: string;
+    subtitle: string;
+    /** Tipos de clínica, separados por " · ", debajo de las tarjetas. */
+    clinicTypes: string;
   };
   services: DiagnosticoService[];
-  testimonialsSection: { eyebrow: string; subtitle: string };
+  testimonialsSection: { eyebrow: string; title: string };
   testimonials: DiagnosticoTestimonial[];
-  featuredTestimonial: DiagnosticoTestimonial;
+  /** El de /confirmacion/; null si el país no tiene testimonios. */
+  featuredTestimonial: DiagnosticoTestimonial | null;
   steps: {
     questions: StepHeading;
     agenda: StepHeading;
@@ -68,7 +76,10 @@ export interface DiagnosticoContent {
     ciudadPlaceholder: string;
     whatsappHint: string;
     whatsappPreview: string;
+    /** Para lectores de pantalla junto a la lada: "número de México". */
+    whatsappCountryName: string;
     messages: {
+      whatsappCountryCode: string;
       clinica: string;
       ciudad: string;
     };
@@ -111,12 +122,18 @@ export interface DiagnosticoMarket {
   /** Nombre del país en el admin (filtro y CSV). */
   label: string;
 
+  /** Ruta de la landing, sin barra final: "/diagnostico" o "/diagnostico/usa". */
+  basePath: string;
+  /** Prefijo de las claves de sessionStorage, para que un país no lea el avance del otro. */
+  storageKey: string;
+
   /** Zona en la que se muestran los horarios a la persona y se guarda en el lead. */
   timeZone: string;
+  /** Nombre de esa zona en la landing ("Centro de México"). */
   timeZoneLabel: string;
 
   phone: {
-    countryCode: "+52";
+    countryCode: "+52" | "+1";
     /** Lo que se ve junto al campo de WhatsApp. */
     prefixLabel: string;
     placeholder: string;
@@ -131,7 +148,7 @@ export interface DiagnosticoMarket {
   whatsappNumber: string;
   privacyUrl: string;
 
-  /** Festivos que bloquean la agenda (México y USA: el equipo atiende desde Houston). */
+  /** Festivos que bloquean la agenda en la landing de este país. */
   holidayCalendars: HolidayCalendar[];
 
   /** Horario del evento de Cal.com. Los días se cuentan en scheduleTimeZone. */
@@ -146,7 +163,10 @@ export interface DiagnosticoMarket {
     minimumNoticeMinutes: number;
   };
 
-  /** IDs de Cal.com por defecto; las variables de entorno los reemplazan. */
+  /**
+   * IDs de Cal.com de este país. En México las variables de entorno CAL_EVENT_TYPE_ID,
+   * CAL_ADMIN_SLOTS_EVENT_TYPE_ID y CAL_SCHEDULE_ID los reemplazan (ver calcom.ts).
+   */
   calcom: {
     eventTypeId: number;
     adminSlotsEventTypeId: number;

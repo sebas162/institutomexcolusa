@@ -7,6 +7,9 @@ import {
   chicagoTimeToUtc,
   getWindowDayKeys,
 } from "../src/lib/diagnostico/agenda-window";
+import { MX_MARKET } from "../src/lib/diagnostico/market/mx";
+import { US_MARKET } from "../src/lib/diagnostico/market/us";
+import type { DiagnosticoMarket } from "../src/lib/diagnostico/market/types";
 
 let failures = 0;
 
@@ -37,45 +40,56 @@ check("4 de julio 2027 (dom) bloquea lun 5", dates2027.includes("2027-07-05"), t
 check("Navidad 2027 (sáb) bloquea vie 24", dates2027.includes("2027-12-24"), true);
 check("1 de enero 2028 (sáb) bloquea vie 31 dic 2027", dates2027.includes("2027-12-31"), true);
 
-console.log("\nVentana: los 2 días hábiles más próximos con horarios (AGENDA_DAYS)");
+console.log("\nVentana: los 2 días hábiles más próximos con horarios (AGENDA_DAYS), con los festivos de cada país");
 
 // Días que mostraría la agenda si a hoy le quedan horarios o no. Un horario de prueba por
 // día hábil candidato basta: buildAgendaDays solo mira si hoy tiene alguno.
-function agendaFor(todayKey: string, time: string, todayHasSlots: boolean): string[] {
+function agendaFor(
+  market: DiagnosticoMarket,
+  todayKey: string,
+  time: string,
+  todayHasSlots: boolean
+): string[] {
   const now = chicagoTimeToUtc(todayKey, time);
-  const { today, following } = getWindowDayKeys(now);
+  const { today, following } = getWindowDayKeys(now, undefined, market);
   const candidates = [...(today && todayHasSlots ? [today] : []), ...following];
   const slots = candidates.map((dayKey) => {
     const start = chicagoTimeToUtc(dayKey, "10:00").toISOString();
     return { start, end: start };
   });
-  return buildAgendaDays(now, slots).map((day) => `${weekday(day.date)} ${day.date}`);
+  return buildAgendaDays(now, slots, undefined, market).map((day) => `${weekday(day.date)} ${day.date}`);
 }
 
-// [hoy en Chicago, hora en Chicago, ¿a hoy le quedan horarios?, días esperados]
-const cases: [string, string, boolean, string[]][] = [
-  // Lunes 12 oct 2026, 2:40 pm en CDMX: Columbus Day.
-  ["2026-10-12", "15:40", false, ["mar 2026-10-13", "mié 2026-10-14"]],
-  ["2026-10-10", "09:00", true, ["mar 2026-10-13", "mié 2026-10-14"]],
-  ["2026-10-16", "09:00", true, ["vie 2026-10-16", "lun 2026-10-19"]],
-  ["2026-10-16", "09:00", false, ["lun 2026-10-19", "mar 2026-10-20"]],
+// [país, hoy en Chicago, hora en Chicago, ¿a hoy le quedan horarios?, días esperados]
+const MX = MX_MARKET;
+const US = US_MARKET;
+const cases: [DiagnosticoMarket, string, string, boolean, string[]][] = [
+  // Lunes 12 oct 2026: Columbus Day bloquea solo en USA.
+  [US, "2026-10-12", "15:40", false, ["mar 2026-10-13", "mié 2026-10-14"]],
+  [US, "2026-10-10", "09:00", true, ["mar 2026-10-13", "mié 2026-10-14"]],
+  [MX, "2026-10-10", "09:00", true, ["lun 2026-10-12", "mar 2026-10-13"]],
+  [MX, "2026-10-16", "09:00", true, ["vie 2026-10-16", "lun 2026-10-19"]],
+  [MX, "2026-10-16", "09:00", false, ["lun 2026-10-19", "mar 2026-10-20"]],
   // Fin de mes: el segundo día cae en noviembre.
-  ["2026-10-30", "09:00", true, ["vie 2026-10-30", "lun 2026-11-02"]],
-  ["2026-10-30", "09:00", false, ["lun 2026-11-02", "mar 2026-11-03"]],
-  ["2026-11-13", "09:00", true, ["vie 2026-11-13", "mar 2026-11-17"]],
-  ["2026-11-13", "09:00", false, ["mar 2026-11-17", "mié 2026-11-18"]],
-  ["2026-11-25", "09:00", true, ["mié 2026-11-25", "lun 2026-11-30"]],
-  ["2026-11-25", "09:00", false, ["lun 2026-11-30", "mar 2026-12-01"]],
-  // Thanksgiving (jue 26) y el día siguiente (vie 27) están bloqueados.
-  ["2026-11-26", "09:00", true, ["lun 2026-11-30", "mar 2026-12-01"]],
-  ["2026-12-23", "09:00", true, ["mié 2026-12-23", "jue 2026-12-24"]],
-  ["2026-12-23", "09:00", false, ["jue 2026-12-24", "lun 2026-12-28"]],
-  ["2026-12-31", "09:00", true, ["jue 2026-12-31", "lun 2027-01-04"]],
-  ["2026-12-31", "09:00", false, ["lun 2027-01-04", "mar 2027-01-05"]],
+  [MX, "2026-10-30", "09:00", true, ["vie 2026-10-30", "lun 2026-11-02"]],
+  [MX, "2026-10-30", "09:00", false, ["lun 2026-11-02", "mar 2026-11-03"]],
+  // Lunes 16 nov 2026: Día de la Revolución bloquea solo en México.
+  [MX, "2026-11-13", "09:00", true, ["vie 2026-11-13", "mar 2026-11-17"]],
+  [MX, "2026-11-13", "09:00", false, ["mar 2026-11-17", "mié 2026-11-18"]],
+  [US, "2026-11-13", "09:00", false, ["lun 2026-11-16", "mar 2026-11-17"]],
+  // Thanksgiving (jue 26) y el día siguiente (vie 27) bloquean solo en USA.
+  [US, "2026-11-25", "09:00", true, ["mié 2026-11-25", "lun 2026-11-30"]],
+  [US, "2026-11-25", "09:00", false, ["lun 2026-11-30", "mar 2026-12-01"]],
+  [US, "2026-11-26", "09:00", true, ["lun 2026-11-30", "mar 2026-12-01"]],
+  [MX, "2026-11-25", "09:00", false, ["jue 2026-11-26", "vie 2026-11-27"]],
+  [MX, "2026-12-23", "09:00", true, ["mié 2026-12-23", "jue 2026-12-24"]],
+  [MX, "2026-12-23", "09:00", false, ["jue 2026-12-24", "lun 2026-12-28"]],
+  [MX, "2026-12-31", "09:00", true, ["jue 2026-12-31", "lun 2027-01-04"]],
+  [US, "2026-12-31", "09:00", false, ["lun 2027-01-04", "mar 2027-01-05"]],
 ];
-for (const [todayKey, time, todayHasSlots, expected] of cases) {
-  const label = `${weekday(todayKey)} ${todayKey} ${time}, ${todayHasSlots ? "con" : "sin"} horarios hoy`;
-  check(label, agendaFor(todayKey, time, todayHasSlots), expected);
+for (const [market, todayKey, time, todayHasSlots, expected] of cases) {
+  const label = `${market.id} ${weekday(todayKey)} ${todayKey} ${time}, ${todayHasSlots ? "con" : "sin"} horarios hoy`;
+  check(label, agendaFor(market, todayKey, time, todayHasSlots), expected);
 }
 
 console.log("\nUn día hábil lleno no cuenta (igual que Cal.com con rolling)");

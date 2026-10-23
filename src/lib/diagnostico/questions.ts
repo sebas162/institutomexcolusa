@@ -1,23 +1,20 @@
-// Preguntas del país activo (se editan en market/<país>.ts) y reglas comunes.
+// Reglas comunes de las preguntas. Las preguntas de cada país se editan en market/<país>.ts.
 
-import { MARKET } from "./market";
+import { LEGACY_QUESTIONS } from "./market/legacy";
 import type { DiagnosticoOption, DiagnosticoQuestion } from "./market/types";
 
 export type { DiagnosticoOption, DiagnosticoQuestion } from "./market/types";
 export { OTHER_TEXT_MAX } from "./market/shared";
+export { LEGACY_QUESTIONS } from "./market/legacy";
 
 export const DIAGNOSTICO_FORM_ID = "llamada-diagnostico";
 
-export const DIAGNOSTICO_QUESTIONS: DiagnosticoQuestion[] = MARKET.questions;
-
-export function getDiagnosticoQuestion(
-  questionId: string
-): DiagnosticoQuestion | undefined {
-  return DIAGNOSTICO_QUESTIONS.find((question) => question.id === questionId);
-}
-
-export function isExitAnswer(questionId: string, optionIds: string[]): boolean {
-  const question = getDiagnosticoQuestion(questionId);
+export function isExitAnswer(
+  questions: DiagnosticoQuestion[],
+  questionId: string,
+  optionIds: string[]
+): boolean {
+  const question = questions.find((q) => q.id === questionId);
 
   if (!question) {
     return false;
@@ -45,12 +42,18 @@ export function formatOtherLabel(text: string): string {
 
 /** Solo los textos de "Otro" de preguntas donde la opción sigue marcada, ya recortados. */
 export function buildOtherTexts(
+  questions: DiagnosticoQuestion[],
   answers: Record<string, string[]>,
   otherTexts: Record<string, string>
 ): Record<string, string> {
   return Object.fromEntries(
-    DIAGNOSTICO_QUESTIONS.filter((question) =>
-      getSelectedTextOption(question, answers[question.id] ?? [])
-    ).map((question) => [question.id, (otherTexts[question.id] ?? "").trim()])
+    questions
+      .filter((question) => getSelectedTextOption(question, answers[question.id] ?? []))
+      .map((question) => [question.id, (otherTexts[question.id] ?? "").trim()])
   );
+}
+
+/** El lead contestó las preguntas anteriores (q1…q7) y no las actuales. */
+export function hasLegacyAnswers(answers: { questionId: string }[]): boolean {
+  return answers.some((answer) => LEGACY_QUESTIONS.some((question) => question.id === answer.questionId));
 }

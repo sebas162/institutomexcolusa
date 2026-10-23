@@ -9,6 +9,7 @@ import {
 } from "@/lib/calcom";
 import { ADMIN_RESCHEDULE_DAYS, ADMIN_RESCHEDULE_NOTE } from "@/lib/diagnostico/admin-booking";
 import { getAgendaDays, isSlotInAgenda } from "@/lib/diagnostico/agenda-window";
+import { getMarket } from "@/lib/diagnostico/market";
 import { getLeadAdmin, updateLeadBookingAdmin } from "@/lib/firestore/leads-admin";
 
 export const dynamic = "force-dynamic";
@@ -85,7 +86,13 @@ export async function POST(request: Request) {
   const slotStart = new Date(body.slotStart).toISOString();
 
   try {
-    const days = await getAgendaDays(new Date(), ADMIN_RESCHEDULE_DAYS, getCalAdminSlotsEventTypeId());
+    // Mismas reglas que /api/admin/diagnostico/slots/ con el país del lead.
+    const market = getMarket(lead.market);
+    const days = await getAgendaDays({
+      market,
+      dayCount: ADMIN_RESCHEDULE_DAYS,
+      eventTypeId: getCalAdminSlotsEventTypeId(market),
+    });
     if (!isSlotInAgenda(days, slotStart)) {
       return NextResponse.json({ error: "slot_unavailable" }, { status: 409 });
     }

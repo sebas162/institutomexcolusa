@@ -42,7 +42,7 @@ export default function RescheduleDialog({
     setLoadError(false);
     setSelected(null);
     try {
-      const response = await adminFetch(user, "/api/admin/diagnostico/slots/");
+      const response = await adminFetch(user, `/api/admin/diagnostico/slots/?market=${lead.market}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data: { days: AgendaDay[] } = await response.json();
       setDays(data.days);
@@ -50,7 +50,7 @@ export default function RescheduleDialog({
       console.error("Error loading admin slots:", error);
       setLoadError(true);
     }
-  }, [user]);
+  }, [user, lead.market]);
 
   useEffect(() => {
     if (open) loadSlots();

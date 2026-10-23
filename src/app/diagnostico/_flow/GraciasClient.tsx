@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import ExitScreen from "@/components/diagnostico/ExitScreen";
-import { useDiagnostico } from "../DiagnosticoProvider";
+import { useDiagnostico } from "./DiagnosticoProvider";
 
 export default function GraciasClient() {
   const { hydrated, resetAnswers } = useDiagnostico();

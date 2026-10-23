@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,26 +15,23 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
-import { MARKET } from "@/lib/diagnostico/market";
 import { buildOtherTexts } from "@/lib/diagnostico/questions";
 import {
-  DATOS_FIELD_MESSAGES,
-  datosSchema,
+  buildDatosSchema,
   digitsOnly,
   formatWhatsappNumber,
+  getDatosFieldMessages,
   type DatosFieldName,
   type DatosValues,
 } from "@/lib/diagnostico/schema";
-import { formatSlotLabel, getTimeZoneLabel, type Slot } from "@/lib/diagnostico/slots";
+import { formatSlotLabel, type Slot } from "@/lib/diagnostico/slots";
 import type { LeadUtm } from "@/types/lead";
+import { useMarket } from "./MarketContext";
 
 interface PendingLead {
   leadId: string;
   confirmationCode: string;
 }
-
-const { datosForm } = DIAGNOSTICO_CONTENT;
 
 const GENERIC_ERROR = "No pudimos registrar tus datos. Intenta de nuevo en un momento.";
 
@@ -75,6 +72,10 @@ export default function DatosStep({
   onPendingLead,
   onNotQualified,
 }: DatosStepProps) {
+  const market = useMarket();
+  const { datosForm } = market.content;
+  const fieldMessages = useMemo(() => getDatosFieldMessages(market), [market]);
+  const datosSchema = useMemo(() => buildDatosSchema(market), [market]);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const form = useForm<DatosValues>({
@@ -102,6 +103,7 @@ export default function DatosStep({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          market: market.id,
           nombre: values.nombre,
           whatsappCountryCode: values.whatsappCountryCode,
           whatsappNumber: digitsOnly(values.whatsappNumber),
@@ -109,7 +111,7 @@ export default function DatosStep({
           clinica: values.clinica,
           ciudad: values.ciudad,
           answers,
-          otherTexts: buildOtherTexts(answers, otherTexts),
+          otherTexts: buildOtherTexts(market.questions, answers, otherTexts),
           consentConfirmacion: values.consentConfirmacion,
           consentMarketing: values.consentMarketing,
           utm,
@@ -152,13 +154,13 @@ export default function DatosStep({
 
     if (response.status === 400 && data?.error === "invalid" && data.fields) {
       const fieldNames = Object.keys(data.fields).filter(
-        (key): key is DatosFieldName => key in DATOS_FIELD_MESSAGES
+        (key): key is DatosFieldName => key in fieldMessages
       );
 
       fieldNames.forEach((name, i) =>
         form.setError(
           name,
-          { type: "server", message: DATOS_FIELD_MESSAGES[name] },
+          { type: "server", message: fieldMessages[name] },
           { shouldFocus: i === 0 }
         )
       );
@@ -175,7 +177,7 @@ export default function DatosStep({
         <div className="flex flex-col gap-0.5">
           <strong className="text-[15px] text-secondary-foreground">{formatSlotLabel(slot, timeZone)}</strong>
           <span className="text-[13px] text-secondary-foreground">
-            Llamada diagnóstico · 15 min · {getTimeZoneLabel(timeZone)}
+            Llamada diagnóstico · 15 min · {market.timeZoneLabel}
           </span>
         </div>
         <button
@@ -215,7 +217,7 @@ export default function DatosStep({
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2 space-y-0">
                   <FormLabel className={labelClass}>
-                    WhatsApp *<span className="sr-only"> (número de México, {MARKET.phone.countryCode})</span>
+                    WhatsApp *<span className="sr-only"> ({datosForm.whatsappCountryName}, {market.phone.countryCode})</span>
                   </FormLabel>
                   <div className="flex gap-2">
                     {/* Lada fija del país: no es un campo, solo se muestra. */}
@@ -223,14 +225,14 @@ export default function DatosStep({
                       aria-hidden="true"
                       className="flex min-h-[52px] shrink-0 items-center rounded-xl border-[1.5px] border-input bg-muted px-3 text-base font-semibold text-foreground"
                     >
-                      {MARKET.phone.prefixLabel}
+                      {market.phone.prefixLabel}
                     </span>
                     <FormControl>
                       <Input
                         type="tel"
                         inputMode="tel"
                         autoComplete="tel-national"
-                        placeholder={MARKET.phone.placeholder}
+                        placeholder={market.phone.placeholder}
                         className={`${inputClass} min-w-0 flex-grow`}
                         {...field}
                       />
@@ -386,7 +388,7 @@ export default function DatosStep({
           <p className="text-center text-[13px] text-muted-foreground">
             Al agendar aceptas nuestro{" "}
             <Link
-              href={MARKET.privacyUrl}
+              href={market.privacyUrl}
               target="_blank"
               className="font-semibold text-primary underline-offset-2 hover:underline"
             >

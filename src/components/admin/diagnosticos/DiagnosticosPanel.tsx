@@ -318,7 +318,7 @@ export default function DiagnosticosPanel() {
               </div>
             </div>
             <div className="flex items-center gap-2 lg:pb-2">
-              <Switch id="diag-hide-tests" checked={hideTests} onCheckedChange={setHideTests} />
+              <Switch id="diag-hide-tests" aria-label="Ocultar pruebas" checked={hideTests} onCheckedChange={setHideTests} />
               <Label htmlFor="diag-hide-tests">Ocultar pruebas</Label>
             </div>
           </div>
@@ -363,7 +363,8 @@ export default function DiagnosticosPanel() {
         <Tabs value={view} onValueChange={(value) => setView(value as LeadView)}>
           <TabsList>
             {VIEWS.map((v) => (
-              <TabsTrigger key={v.id} value={v.id}>
+              // Las pestañas solo filtran la tabla de abajo: no hay un panel por pestaña al que apuntar.
+              <TabsTrigger key={v.id} value={v.id} aria-controls={undefined}>
                 {v.label}
               </TabsTrigger>
             ))}

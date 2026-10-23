@@ -1,5 +1,9 @@
-import { getMarketLabel } from "@/lib/diagnostico/market";
-import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
+import { DEFAULT_MARKET, getMarket, getMarketLabel } from "@/lib/diagnostico/market";
+import {
+  LEGACY_QUESTIONS,
+  hasLegacyAnswers,
+  type DiagnosticoQuestion,
+} from "@/lib/diagnostico/questions";
 import { formatWhatsappNumber } from "@/lib/diagnostico/schema";
 import { addDaysToKey, toDayKey } from "@/lib/diagnostico/slots";
 import type { Lead, LeadStatus } from "@/types/lead";
@@ -93,6 +97,12 @@ export function countryOf(lead: Lead): string {
 /** Filtro por país del admin: "" deja pasar todos. */
 export function matchesMarket(lead: Lead, market: string): boolean {
   return !market || lead.market === market;
+}
+
+/** Preguntas que contestó el lead: las de su país o, si es anterior al cambio, las de antes (q1…q7). */
+export function questionsOf(lead: Lead): DiagnosticoQuestion[] {
+  if (hasLegacyAnswers(lead.answers)) return LEGACY_QUESTIONS;
+  return getMarket(lead.market)?.questions ?? DEFAULT_MARKET.questions;
 }
 
 export function phoneLabel(lead: Lead): string {
@@ -276,20 +286,31 @@ function csvCell(value: string | number | boolean): string {
   return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
-/** CSV de la lista filtrada, UTF-8 con BOM para que Excel respete los acentos. */
+/**
+ * CSV de la lista filtrada, UTF-8 con BOM para que Excel respete los acentos. Las preguntas tienen
+ * los mismos IDs y textos en todos los países; las anteriores (q1…q7) van en columnas aparte, solo
+ * si algún lead de la lista las contestó.
+ */
 export function buildCsv(leads: Lead[]): string {
+  const questions = [
+    ...DEFAULT_MARKET.questions.map((question, i) => ({ question, header: `P${i + 1}: ${question.text}` })),
+    ...(leads.some((lead) => hasLegacyAnswers(lead.answers))
+      ? LEGACY_QUESTIONS.map((question, i) => ({ question, header: `Anterior P${i + 1}: ${question.text}` }))
+      : []),
+  ];
+
   const header = [
     "Nombre", "Clínica", "Ciudad", "País", "WhatsApp", "Correo",
     "Fecha Houston", "Hora Houston", "Fecha CDMX", "Hora CDMX", "Estado",
-    ...DIAGNOSTICO_QUESTIONS.map((question, i) => `P${i + 1}: ${question.text}`),
+    ...questions.map(({ header }) => header),
     "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid",
     "Consentimiento confirmación", "Consentimiento marketing", "Nota interna",
   ];
 
   const rows = leads.map((lead) => {
     const start = startOf(lead);
-    const answers = DIAGNOSTICO_QUESTIONS.map(
-      (question) =>
+    const answers = questions.map(
+      ({ question }) =>
         lead.answers.find((answer) => answer.questionId === question.id)?.labels.join(" | ") ?? ""
     );
 

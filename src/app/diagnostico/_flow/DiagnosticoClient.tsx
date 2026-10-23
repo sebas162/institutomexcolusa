@@ -7,13 +7,15 @@ import DiagnosticoHero from "@/components/diagnostico/DiagnosticoHero";
 import Testimonials from "@/components/diagnostico/Testimonials";
 import QuestionStep from "@/components/diagnostico/QuestionStep";
 import StepCard from "@/components/diagnostico/StepCard";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
-import { MARKET } from "@/lib/diagnostico/market";
-import { DIAGNOSTICO_QUESTIONS, isExitAnswer } from "@/lib/diagnostico/questions";
+import ServicesSection from "@/components/diagnostico/ServicesSection";
+import { useMarket } from "@/components/diagnostico/MarketContext";
+import { isExitAnswer } from "@/lib/diagnostico/questions";
 import { useDiagnostico } from "./DiagnosticoProvider";
 
 export default function DiagnosticoClient() {
   const router = useRouter();
+  const market = useMarket();
+  const { content, questions, basePath, showTestimonials } = market;
   const {
     hydrated,
     answers,
@@ -33,8 +35,8 @@ export default function DiagnosticoClient() {
   const showLoader = !hydrated || redirecting;
 
   useEffect(() => {
-    if (redirecting) router.replace("/diagnostico/confirmacion/");
-  }, [redirecting, router]);
+    if (redirecting) router.replace(`${basePath}/confirmacion/`);
+  }, [redirecting, router, basePath]);
 
   // Se incrementa en cada navegación entre preguntas para mover foco y scroll.
   const [navigationCount, setNavigationCount] = useState(0);
@@ -70,7 +72,7 @@ export default function DiagnosticoClient() {
     questionHeadingRef.current?.focus({ preventScroll: true });
   }, [navigationCount]);
 
-  const question = DIAGNOSTICO_QUESTIONS[questionIndex];
+  const question = questions[questionIndex];
   const selected = answers[question.id] ?? [];
 
   const goToQuestion = (index: number) => {
@@ -81,21 +83,21 @@ export default function DiagnosticoClient() {
   const handleNext = () => {
     if (selected.length === 0) return;
 
-    if (questionIndex < DIAGNOSTICO_QUESTIONS.length - 1) {
+    if (questionIndex < questions.length - 1) {
       goToQuestion(questionIndex + 1);
       return;
     }
 
     // El filtro de salida se evalúa al final, con las 7 respuestas.
-    const hasExitAnswer = DIAGNOSTICO_QUESTIONS.some((q) =>
-      isExitAnswer(q.id, answers[q.id] ?? [])
+    const hasExitAnswer = questions.some((q) =>
+      isExitAnswer(questions, q.id, answers[q.id] ?? [])
     );
 
     if (hasExitAnswer) {
-      router.push("/diagnostico/gracias/");
+      router.push(`${basePath}/gracias/`);
     } else {
       setAgendaStage("agenda");
-      router.push("/diagnostico/agenda/");
+      router.push(`${basePath}/agenda/`);
     }
   };
 
@@ -110,27 +112,29 @@ export default function DiagnosticoClient() {
 
   return (
     <>
+      {/* Fondos alternados: blanco (hero) → gris (equipo) → blanco (testimonios) → gris (preguntas). */}
       <DiagnosticoHero />
-      {MARKET.showTestimonials && (
+      <ServicesSection />
+      {showTestimonials && (
         <Testimonials
-          {...DIAGNOSTICO_CONTENT.testimonialsSection}
-          testimonials={DIAGNOSTICO_CONTENT.testimonials}
+          {...content.testimonialsSection}
+          testimonials={content.testimonials}
         />
       )}
 
       <StepCard
         id="calificar"
         ref={cardSectionRef}
-        {...DIAGNOSTICO_CONTENT.steps.questions}
-        // Sin testimonios, el bloque del video (gris) quedaría pegado a este: va en blanco.
-        className={MARKET.showTestimonials ? undefined : "bg-white"}
+        {...content.steps.questions}
+        // Sin testimonios, el bloque del equipo (gris) quedaría pegado a este: va en blanco.
+        className={showTestimonials ? undefined : "bg-white"}
       >
         <QuestionStep
           key={question.id}
           ref={questionHeadingRef}
           question={question}
           index={questionIndex}
-          total={DIAGNOSTICO_QUESTIONS.length}
+          total={questions.length}
           selected={selected}
           onToggle={(optionId) => toggleOption(question.id, optionId)}
           otherText={otherTexts[question.id] ?? ""}

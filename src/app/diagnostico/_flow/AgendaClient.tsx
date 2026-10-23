@@ -7,18 +7,12 @@ import AgendaStep from "@/components/diagnostico/AgendaStep";
 import DatosStep from "@/components/diagnostico/DatosStep";
 import LandingLogo from "@/components/diagnostico/LandingLogo";
 import StepCard from "@/components/diagnostico/StepCard";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
-import type { StepHeading } from "@/lib/diagnostico/market/types";
-import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
-import { isQualified, useDiagnostico, type AgendaStage } from "../DiagnosticoProvider";
-
-const STAGE_HEADINGS: Record<AgendaStage, StepHeading> = {
-  agenda: DIAGNOSTICO_CONTENT.steps.agenda,
-  datos: DIAGNOSTICO_CONTENT.steps.datos,
-};
+import { useMarket } from "@/components/diagnostico/MarketContext";
+import { isQualified, useDiagnostico, type AgendaStage } from "./DiagnosticoProvider";
 
 export default function AgendaClient() {
   const router = useRouter();
+  const { content, questions, basePath } = useMarket();
   const {
     hydrated,
     answers,
@@ -44,7 +38,7 @@ export default function AgendaClient() {
 
   // Con una reserva ya creada no se vuelve a la agenda ni al formulario: así no puede
   // reservar dos veces ni cambiar sus datos después de agendar.
-  const qualified = hydrated && !hasBooking && isQualified(answers, otherTexts);
+  const qualified = hydrated && !hasBooking && isQualified(questions, answers, otherTexts);
   const stage: AgendaStage = agendaStage === "datos" && selectedSlot ? "datos" : "agenda";
 
   const cardSectionRef = useRef<HTMLElement>(null);
@@ -56,11 +50,11 @@ export default function AgendaClient() {
     if (!hydrated) return;
 
     if (hasBooking) {
-      router.replace("/diagnostico/confirmacion/");
-    } else if (!isQualified(answers, otherTexts)) {
-      router.replace("/diagnostico/");
+      router.replace(`${basePath}/confirmacion/`);
+    } else if (!isQualified(questions, answers, otherTexts)) {
+      router.replace(`${basePath}/`);
     }
-  }, [hydrated, hasBooking, answers, otherTexts, router]);
+  }, [hydrated, hasBooking, questions, answers, otherTexts, router, basePath]);
 
   useEffect(() => {
     if (!qualified) return;
@@ -86,7 +80,7 @@ export default function AgendaClient() {
     );
   }
 
-  const heading = STAGE_HEADINGS[stage];
+  const heading = content.steps[stage];
 
   return (
     <>
@@ -106,12 +100,12 @@ export default function AgendaClient() {
             timeZone={timeZone}
             selectedDayKey={selectedDayKey}
             selectedSlot={selectedSlot}
-            notice={slotTakenNotice ? DIAGNOSTICO_CONTENT.agenda.slotTaken : null}
+            notice={slotTakenNotice ? content.agenda.slotTaken : null}
             onSelectDay={selectDay}
             onSelectSlot={setSelectedSlot}
             onBack={() => {
-              setQuestionIndex(DIAGNOSTICO_QUESTIONS.length - 1);
-              router.push("/diagnostico/");
+              setQuestionIndex(questions.length - 1);
+              router.push(`${basePath}/`);
             }}
             onContinue={() => selectedSlot && setAgendaStage("datos")}
           />
@@ -131,11 +125,11 @@ export default function AgendaClient() {
             onSuccess={(result) => {
               completeLead(result);
               // replace: el "atrás" del navegador no regresa a la agenda ni al formulario.
-              router.replace("/diagnostico/confirmacion/");
+              router.replace(`${basePath}/confirmacion/`);
             }}
             onSlotUnavailable={markSlotTaken}
             onPendingLead={savePendingLead}
-            onNotQualified={() => router.push("/diagnostico/gracias/")}
+            onNotQualified={() => router.push(`${basePath}/gracias/`)}
           />
         )}
       </StepCard>

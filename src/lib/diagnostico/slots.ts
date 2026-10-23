@@ -1,4 +1,4 @@
-import { MARKET } from "@/lib/diagnostico/market";
+import { DEFAULT_MARKET } from "@/lib/diagnostico/market";
 
 export interface Slot {
   start: string; // ISO (UTC)
@@ -12,15 +12,16 @@ export interface AgendaDay {
   unavailable: Slot[];
 }
 
-// Zona en la que la clienta define su horario: los días de la agenda se cuentan en ella.
-export const AGENDA_TIME_ZONE = MARKET.agenda.scheduleTimeZone;
+// Zona en la que la clienta define su horario: los días de la agenda se cuentan en ella. Todos los
+// países comparten el horario de Cal.com.
+export const AGENDA_TIME_ZONE = DEFAULT_MARKET.agenda.scheduleTimeZone;
 
 export interface DiagnosticoTimeZone {
   id: string;
   label: string;
 }
 
-// Nombres de zonas para mostrar. La landing usa la del país (MARKET.timeZone); el resto sirve
+// Nombres de zonas para el admin. La landing usa el del país (market.timeZoneLabel); el resto sirve
 // para leer leads anteriores, cuando la persona podía elegir su zona.
 export const DIAGNOSTICO_TIME_ZONES: DiagnosticoTimeZone[] = [
   { id: "America/Mexico_City", label: "Centro de México" },

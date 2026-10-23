@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
 import {
   formatDayKeyLabel,
   formatMonthLabel,
@@ -11,8 +10,8 @@ import {
   toDayKey,
   type AgendaDay,
 } from "@/lib/diagnostico/slots";
+import { useMarket } from "./MarketContext";
 
-const texts = DIAGNOSTICO_CONTENT.agenda.calendar;
 const WEEKDAYS = getWeekdayNames();
 
 const focusRing =
@@ -57,6 +56,7 @@ export default function AgendaCalendar({
   onSelectDay,
   timeZone,
 }: AgendaCalendarProps) {
+  const texts = useMarket().content.agenda.calendar;
   const availableKeys = useMemo(() => days.map((day) => day.date).sort(), [days]);
   const months = useMemo(() => [...new Set(availableKeys.map(monthOf))], [availableKeys]);
 
