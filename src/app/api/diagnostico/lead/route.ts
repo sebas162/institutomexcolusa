@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { CalcomError, createCalBooking, type CalBooking } from "@/lib/calcom";
+import { CalcomError, createCalBooking, getCalEventTypeId, type CalBooking } from "@/lib/calcom";
 import {
   createLeadAdmin,
   getLeadAdmin,
@@ -295,6 +295,7 @@ export async function POST(request: Request) {
 
   try {
     booking = await createCalBooking({
+      eventTypeId: getCalEventTypeId(market),
       startUtc: slotStart,
       name: data.nombre,
       email: data.email,

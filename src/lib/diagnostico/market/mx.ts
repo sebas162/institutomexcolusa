@@ -254,8 +254,7 @@ export const MX_MARKET: DiagnosticoMarket = {
   whatsappNumber: "525566308602",
   privacyUrl: "/privacy/",
 
-  // México y USA: el equipo atiende desde Houston.
-  holidayCalendars: ["mx", "us"],
+  holidayCalendars: ["mx"],
 
   // Horario de Cal.com en hora de Houston: lunes a viernes de 10:00 a 15:00, una llamada cada 30 min.
   // DECIDIDO: el horario se queda en hora de Houston (no se cambia el schedule de Cal.com); la

@@ -146,7 +146,7 @@ export async function getAgendaDays({
   market = DEFAULT_MARKET,
   now = new Date(),
   dayCount = AGENDA_DAYS,
-  eventTypeId = getCalEventTypeId(),
+  eventTypeId = getCalEventTypeId(market),
 }: {
   market?: DiagnosticoMarket;
   now?: Date;

@@ -1,6 +1,7 @@
 import { randomInt } from "crypto";
 import { FieldValue, Timestamp, type DocumentSnapshot } from "firebase-admin/firestore";
 import { adminDb } from "@/lib/firebase-admin";
+import { DEFAULT_MARKET_ID, type MarketId } from "@/lib/diagnostico/market";
 import type {
   CreateLeadInput,
   LeadBooking,
@@ -52,6 +53,8 @@ export async function createLeadAdmin(
 /** Lo que necesitan la ruta de reservas y el webhook para decidir qué hacer con un lead. */
 export interface LeadBookingState {
   id: string;
+  /** País de la landing; los leads anteriores al campo son de México. */
+  market: MarketId;
   status: LeadStatus;
   confirmationCode: string;
   booking: LeadBooking;
@@ -68,6 +71,7 @@ function toLeadBookingState(doc: DocumentSnapshot): LeadBookingState | null {
 
   return {
     id: doc.id,
+    market: data.market ?? DEFAULT_MARKET_ID,
     status: data.status,
     confirmationCode: data.confirmationCode,
     isTest: Boolean(data.isTest),

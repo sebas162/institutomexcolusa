@@ -28,8 +28,7 @@ const content: DiagnosticoContent = {
     cta: "Ver si califico",
     ctaNote: "7 preguntas · 1 minuto · Horario del Centro (Houston)",
     // PENDIENTE: confirmar con la clienta.
-    proof:
-      "Operamos en México y en Houston: conocemos las reglas de los dos lados de la frontera.",
+    proof: "Tenemos instalaciones en Houston y conocemos las reglas de Texas.",
   },
 
   servicesSection: {
@@ -150,7 +149,6 @@ const questions: DiagnosticoQuestion[] = [
     id: QUESTION_IDS.inversion,
     text: INVESTMENT_QUESTION_TEXT,
     multiple: false,
-    // PENDIENTE: validar los rangos con la clienta.
     options: [
       { id: "1000_3000", label: `De ${CURRENCY} 1,000 a ${CURRENCY} 3,000` },
       { id: "3000_5000", label: `De ${CURRENCY} 3,000 a ${CURRENCY} 5,000` },
@@ -180,7 +178,7 @@ export const US_MARKET: DiagnosticoMarket = {
 
   currency: CURRENCY,
 
-  // PENDIENTE: confirmar si USA usa el mismo WhatsApp que México.
+  // Por ahora el mismo WhatsApp que México; puede cambiar a un número de USA.
   whatsappNumber: MX_MARKET.whatsappNumber,
   // PENDIENTE: no hay aviso de privacidad de USA; se usa el de México.
   privacyUrl: MX_MARKET.privacyUrl,
@@ -189,10 +187,13 @@ export const US_MARKET: DiagnosticoMarket = {
 
   agenda: MX_MARKET.agenda,
 
-  // PENDIENTE: confirmar si USA usa el mismo evento de Cal.com que México. Mientras sea el mismo,
-  // los festivos de México siguen bloqueados en Cal.com (calcom-holidays.ts) y esos días tampoco
-  // tendrán horarios aquí, aunque la landing solo cuente los de USA.
-  calcom: MX_MARKET.calcom,
+  // Evento, evento interno y horario propios ("Diagnóstico USA", solo festivos de USA). Usan el
+  // mismo calendario conectado que México, así que una cita de un país bloquea ese horario en el otro.
+  calcom: {
+    eventTypeId: 7615565,
+    adminSlotsEventTypeId: 7615566,
+    scheduleId: 2544708,
+  },
 
   showTestimonials: false,
 

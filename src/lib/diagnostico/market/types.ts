@@ -163,7 +163,10 @@ export interface DiagnosticoMarket {
     minimumNoticeMinutes: number;
   };
 
-  /** IDs de Cal.com por defecto; las variables de entorno los reemplazan. */
+  /**
+   * IDs de Cal.com de este país. En México las variables de entorno CAL_EVENT_TYPE_ID,
+   * CAL_ADMIN_SLOTS_EVENT_TYPE_ID y CAL_SCHEDULE_ID los reemplazan (ver calcom.ts).
+   */
   calcom: {
     eventTypeId: number;
     adminSlotsEventTypeId: number;

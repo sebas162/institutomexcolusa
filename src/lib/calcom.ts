@@ -1,8 +1,7 @@
 // Cliente de la API v2 de Cal.com. Solo para el servidor: CAL_API_KEY no lleva
 // NEXT_PUBLIC_, así que nunca llega al navegador. No registrar la llave ni los headers.
 
-// Todos los países usan por ahora el mismo evento y horario de Cal.com (los del país por defecto).
-import { DEFAULT_MARKET } from "@/lib/diagnostico/market";
+import { DEFAULT_MARKET, type DiagnosticoMarket } from "@/lib/diagnostico/market";
 import type { Slot } from "@/lib/diagnostico/slots";
 
 const CAL_API_BASE = "https://api.cal.com";
@@ -30,9 +29,22 @@ export class CalcomError extends Error {
   }
 }
 
-export function getCalEventTypeId(): number {
-  const value = Number(process.env.CAL_EVENT_TYPE_ID);
-  return Number.isInteger(value) && value > 0 ? value : DEFAULT_MARKET.calcom.eventTypeId;
+// Cada país tiene su evento y su horario (market.calcom). Las variables de entorno solo
+// reemplazan los de México, que existían antes de separar los países.
+function calcomId(
+  market: DiagnosticoMarket,
+  envName: string,
+  key: keyof DiagnosticoMarket["calcom"]
+): number {
+  if (market.id === DEFAULT_MARKET.id) {
+    const value = Number(process.env[envName]);
+    if (Number.isInteger(value) && value > 0) return value;
+  }
+  return market.calcom[key];
+}
+
+export function getCalEventTypeId(market = DEFAULT_MARKET): number {
+  return calcomId(market, "CAL_EVENT_TYPE_ID", "eventTypeId");
 }
 
 /**
@@ -40,14 +52,12 @@ export function getCalEventTypeId(): number {
  * días. El admin solo lo usa para consultar horarios de 10 días hábiles; reservar y reprogramar
  * siguen sobre el evento principal.
  */
-export function getCalAdminSlotsEventTypeId(): number {
-  const value = Number(process.env.CAL_ADMIN_SLOTS_EVENT_TYPE_ID);
-  return Number.isInteger(value) && value > 0 ? value : DEFAULT_MARKET.calcom.adminSlotsEventTypeId;
+export function getCalAdminSlotsEventTypeId(market = DEFAULT_MARKET): number {
+  return calcomId(market, "CAL_ADMIN_SLOTS_EVENT_TYPE_ID", "adminSlotsEventTypeId");
 }
 
-export function getCalScheduleId(): number {
-  const value = Number(process.env.CAL_SCHEDULE_ID);
-  return Number.isInteger(value) && value > 0 ? value : DEFAULT_MARKET.calcom.scheduleId;
+export function getCalScheduleId(market = DEFAULT_MARKET): number {
+  return calcomId(market, "CAL_SCHEDULE_ID", "scheduleId");
 }
 
 function getApiKey(): string {
@@ -160,6 +170,8 @@ export async function getCalSlots(
 }
 
 export interface CreateCalBookingInput {
+  /** Evento principal del país de la landing. */
+  eventTypeId: number;
   startUtc: string;
   name: string;
   email: string;
@@ -205,7 +217,7 @@ export async function createCalBooking(input: CreateCalBookingInput): Promise<Ca
       method: "POST",
       body: {
         start: input.startUtc,
-        eventTypeId: getCalEventTypeId(),
+        eventTypeId: input.eventTypeId,
         attendee: {
           name: input.name,
           email: input.email,

@@ -12,10 +12,7 @@ export const DEFAULT_MARKET_ID: MarketId = "mx";
 
 export const DEFAULT_MARKET: DiagnosticoMarket = MX_MARKET;
 
-/**
- * Festivos de todos los países juntos: los dos usan el mismo horario de Cal.com, así que ahí se
- * bloquean todos (calcom-holidays.ts) y el admin reprograma con las mismas reglas.
- */
+/** Festivos de todos los países juntos, para las funciones de holidays.ts llamadas sin país. */
 export const ALL_HOLIDAY_CALENDARS: HolidayCalendar[] = [
   ...new Set(MARKETS.flatMap((market) => market.holidayCalendars)),
 ];
