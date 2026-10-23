@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import ConfirmScreen from "@/components/diagnostico/ConfirmScreen";
-import { MARKET } from "@/lib/diagnostico/market";
-import { useDiagnostico } from "../DiagnosticoProvider";
+import { useMarket } from "@/components/diagnostico/MarketContext";
+import { useDiagnostico } from "./DiagnosticoProvider";
 
 export default function ConfirmacionClient() {
   const router = useRouter();
+  const { basePath, timeZone } = useMarket();
   const { hydrated, storedConfirmation: confirmation, clearProgress } = useDiagnostico();
 
   // completeLead la guarda en memoria y en sessionStorage, así que sobrevive a una recarga.
@@ -18,12 +19,12 @@ export default function ConfirmacionClient() {
     if (!hydrated) return;
 
     if (!hasConfirmation) {
-      router.replace("/diagnostico/");
+      router.replace(`${basePath}/`);
       return;
     }
 
     clearProgress();
-  }, [hydrated, hasConfirmation, router, clearProgress]);
+  }, [hydrated, hasConfirmation, router, clearProgress, basePath]);
 
   if (!hydrated || !confirmation) {
     return (
@@ -37,7 +38,7 @@ export default function ConfirmacionClient() {
   return (
     <ConfirmScreen
       slot={confirmation.slot}
-      timeZone={MARKET.timeZone}
+      timeZone={timeZone}
       leadId={confirmation.leadId}
       nombre={confirmation.nombre ?? ""}
     />

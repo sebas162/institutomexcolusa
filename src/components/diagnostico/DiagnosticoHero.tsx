@@ -1,13 +1,12 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import LandingLogo from "./LandingLogo";
-import ServiceCards from "./ServiceCards";
+import { useMarket } from "./MarketContext";
 import VideoFrame from "./VideoFrame";
 
 export default function DiagnosticoHero() {
-  const { hero, topBanner, services, heroVideoUrl } = DIAGNOSTICO_CONTENT;
+  const { hero, topBanner, heroVideoUrl } = useMarket().content;
   // Botón y no <a href="#calificar">: RouteProgress inicia su barra con cualquier
   // enlace interno y solo la termina al cambiar de ruta, así que quedaría colgada.
   const scrollToQualify = () => {
@@ -24,16 +23,11 @@ export default function DiagnosticoHero() {
         {topBanner}
       </div>
 
-      {/* Fondos alternados: blanco (títulos) → gris claro (video, igual que las preguntas) →
-          blanco (testimonios) → gris claro (preguntas). */}
-      <section className="flex flex-col items-center bg-white px-4 pb-12 pt-7 text-foreground">
+      <section className="flex flex-col items-center bg-white px-4 pb-16 pt-7 text-foreground">
         <div className="flex w-full max-w-[920px] flex-col items-center gap-7">
           <LandingLogo size="lg" tone="green" />
 
           <div className="flex flex-col items-center gap-5 text-center">
-            <span className="rounded-full border border-border bg-muted px-4 py-2 text-[13px] font-semibold text-primary">
-              {hero.badge}
-            </span>
             <h1 className="max-w-[900px] text-[clamp(30px,4.8vw,54px)] font-extrabold leading-[1.14] tracking-[-0.02em]">
               {hero.titleStart}{" "}
               <span className="mt-1 inline-block text-primary">{hero.titleHighlight}</span>
@@ -42,22 +36,8 @@ export default function DiagnosticoHero() {
               {hero.subtitle}
             </p>
           </div>
-        </div>
-      </section>
 
-      <section className="flex flex-col items-center border-y border-border bg-muted px-4 pb-[72px] pt-12 text-foreground">
-        <div className="flex w-full max-w-[920px] flex-col items-center gap-7">
-          <div className="flex w-full flex-col gap-3.5">
-            <div className="flex items-center gap-3">
-              <span
-                className="whitespace-nowrap rounded-lg bg-secondary px-3.5 py-[7px] text-xs font-bold uppercase tracking-[0.1em] text-primary"
-              >
-                {hero.stepLabel}
-              </span>
-              <span aria-hidden="true" className="h-px flex-grow bg-border" />
-            </div>
-            <VideoFrame url={heroVideoUrl} title="Video del especialista" surface="soft" />
-          </div>
+          <VideoFrame url={heroVideoUrl} title="Video del especialista" surface="soft" />
 
           <div className="flex w-full flex-col items-center gap-3">
             <button
@@ -71,7 +51,15 @@ export default function DiagnosticoHero() {
             <div className="text-center text-sm text-muted-foreground">{hero.ctaNote}</div>
           </div>
 
-          <ServiceCards services={services} />
+          <p className="flex w-full max-w-[620px] items-start gap-3.5 rounded-2xl border border-border bg-muted px-5 py-4 text-left text-[15px] leading-[1.55] text-foreground">
+            <span
+              aria-hidden="true"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary"
+            >
+              <ShieldCheck strokeWidth={1.8} className="h-[22px] w-[22px]" />
+            </span>
+            <span className="self-center">{hero.proof}</span>
+          </p>
         </div>
       </section>
     </>

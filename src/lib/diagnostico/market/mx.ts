@@ -1,7 +1,14 @@
-// Landing "Llamada diagnóstico" para México: todo lo que depende del país está aquí.
-// Para la versión de USA se crea market/us.ts con la misma forma (DiagnosticoMarket).
+// Landing "Dirección y Gestión de Clínicas Médicas" para México (/diagnostico/): todo lo que
+// depende del país está aquí. La de USA está en us.ts con la misma forma (DiagnosticoMarket).
 
-import { OTHER_OPTION } from "./shared";
+import {
+  INVESTMENT_QUESTION_TEXT,
+  OTHER_OPTION,
+  QUESTION_IDS,
+  STAGE_QUESTION,
+  SUPPORT_QUESTION,
+  URGENCY_QUESTION,
+} from "./shared";
 import type { DiagnosticoContent, DiagnosticoMarket, DiagnosticoQuestion } from "./types";
 
 // Moneda de P6. DECIDIDO: se queda en USD.
@@ -9,73 +16,72 @@ const CURRENCY = "USD";
 
 const content: DiagnosticoContent = {
   brandName: "Instituto Mex-Col-USA",
-  topBanner:
-    "Solo profesionales de la salud, dueños y directores de clínicas y consultorios de medicina estética y regenerativa",
+  topBanner: "México · Para médicos, dueños de clínicas e inversionistas en salud",
 
   hero: {
-    badge: "Llamada diagnóstico · 15 min · sin costo",
-    titleStart:
-      "Tu clínica o consultorio de medicina estética o regenerativa, en regla, documentado y",
-    titleHighlight: "lista para crecer",
-    subtitle:
-      "Permisos, bitácoras, manuales, almacenamiento, permiso de publicidad, entre otros. Te decimos qué te falta y cómo resolverlo.",
-    stepLabel: "Paso 1 — Mira el video",
+    titleStart: "Abre u opera tu clínica sin perder dinero",
+    titleHighlight: "ni arriesgar tu licencia.",
+    subtitle: "Mira el video y agenda tu diagnóstico gratis de 15 minutos.",
     cta: "Ver si califico",
-    ctaNote: "7 preguntas · 1 minuto · Llamada de 15 minutos sin costo",
+    ctaNote: "7 preguntas · 1 minuto · Cupo limitado por día",
+    proof:
+      "Predicamos con el ejemplo: nuestra clínica tiene sus trámites en regla y publicidad autorizada por COFEPRIS.",
+  },
+
+  servicesSection: {
+    title: "Un solo equipo para toda tu clínica",
+    subtitle:
+      "Expertos en regulación sanitaria, operación, publicidad, protección civil y uso de suelo.",
+    clinicTypes: "Medicina estética · Med spa · Medicina regenerativa · Cirugía estética",
   },
 
   services: [
     {
-      icon: "permisos",
-      title: "Permisos y trámites",
-      description:
-        "Qué necesitas para operar en regla: tus permisos y la licencia sanitaria para establecimientos de salud.",
+      icon: "abrir",
+      title: "Abrir tu clínica",
+      description: "Local, presupuesto y requisitos antes de invertir.",
     },
     {
-      icon: "documentacion",
-      title: "Bitácoras y manuales",
-      description:
-        "Desarrollo de los manuales regulatorios que requiere la operación del establecimiento y sus bitácoras correspondientes.",
+      icon: "regla",
+      title: "Ponerla en regla",
+      description: "COFEPRIS, protección civil y uso de suelo.",
     },
     {
-      icon: "auditorias",
-      title: "Auditorías internas",
-      description:
-        "Reporte y plan de trabajo para dar continuidad a los procesos del establecimiento.",
+      icon: "operacion",
+      title: "Ordenar la operación",
+      description: "Manuales, protocolos, bitácoras y personal.",
     },
     {
-      icon: "publicidad",
-      title: "Publicidad",
-      description:
-        "Permiso de publicidad para servicios de salud (televisión, internet, prensa y folletos).",
+      icon: "rentable",
+      title: "Hacerla rentable",
+      description: "Costos, precios y publicidad sin riesgos.",
     },
   ],
 
   testimonialsSection: {
     eyebrow: "Testimonios",
-    subtitle:
-      "Médicos y directores que ya están al día con su clínica o consultorio con nosotros.",
+    title: "Médicos que ya operan con todo en orden",
   },
 
   testimonials: [
     {
       tag: "Permisos y apertura",
       quote:
-        "Teníamos la apertura detenida porque no sabíamos qué documentos nos faltaban. En la llamada nos dijeron exactamente por dónde empezar, y hoy operamos con todo en orden.",
+        "Teníamos la apertura detenida porque no sabíamos qué documentos nos faltaban. Hoy operamos con todo en orden.",
       name: "Dra. Andra Hernández",
       role: "Directora · Med spa · Guadalajara, Jal.",
     },
     {
       tag: "Bitácoras y manuales",
       quote:
-        "Llevábamos años con bitácoras incompletas y manuales que nadie usaba. Ahora todo está documentado y mi equipo sabe qué hacer cuando llega una revisión.",
+        "Ahora todo está documentado y mi equipo sabe qué hacer cuando llega una revisión.",
       name: "Dr. Sebastián Hernández",
       role: "Odontólogo y dueño · Clínica dental · Ciudad de México",
     },
     {
       tag: "Publicidad",
       quote:
-        "No tenía claro qué podía anunciar y qué no. Me ayudaron a corregir mis publicaciones y ahora promociono mi consultorio con tranquilidad.",
+        "Me ayudaron a corregir mis publicaciones y ahora promociono mi consultorio con tranquilidad.",
       name: "Dr. Cristian Zuluaga",
       role: "Médico general · Consultorio médico · Guadalajara, Jal.",
     },
@@ -91,13 +97,13 @@ const content: DiagnosticoContent = {
   steps: {
     questions: {
       label: "Paso 2 de 3 — Responde 7 preguntas",
-      title: "¿Tu clínica o consultorio califica?",
+      title: "¿Tu proyecto califica?",
       subtitle:
         "Antes de abrir la agenda necesitamos saber si de verdad podemos ayudarte. Toma un minuto.",
     },
     agenda: {
       label: "Paso 3 de 3 — Elige tu horario",
-      title: "Tu clínica o consultorio califica",
+      title: "Tu proyecto califica",
       subtitle: "Elige el día y la hora de tu llamada diagnóstico de 15 minutos.",
     },
     datos: {
@@ -110,12 +116,14 @@ const content: DiagnosticoContent = {
 
   datosForm: {
     nombrePlaceholder: "Ej. Dr. Roberto Méndez",
-    clinicaLabel: "Nombre de la clínica o consultorio *",
+    clinicaLabel: "Nombre de tu clínica o proyecto *",
     ciudadPlaceholder: "Ej. Monterrey, NL",
     whatsappHint: "Aquí te llegará el mensaje para confirmar tu cita. Verifica que sea correcto.",
     whatsappPreview: "Te confirmaremos a este WhatsApp:",
+    whatsappCountryName: "número de México",
     messages: {
-      clinica: "Escribe el nombre de tu clínica o consultorio (entre 2 y 120 caracteres).",
+      whatsappCountryCode: "Usa un número de WhatsApp de México.",
+      clinica: "Escribe el nombre de tu clínica o proyecto (entre 2 y 120 caracteres).",
       ciudad: "Escribe tu ciudad y estado (entre 2 y 120 caracteres).",
     },
     consentConfirmacion: {
@@ -139,7 +147,7 @@ const content: DiagnosticoContent = {
     releaseNote:
       "Confírmala por WhatsApp en un toque. Si no confirmas, el espacio se libera para otra clínica o consultorio.",
     callDescription:
-      "15 minutos para conocer tu clínica o consultorio: qué tienes en regla, qué te falta y en qué necesitas apoyo. Si tiene sentido para ambos, te proponemos el siguiente paso.",
+      "15 minutos para conocer tu clínica o proyecto: qué tienes en regla, qué te falta y en qué necesitas apoyo. Si tiene sentido para ambos, te proponemos el siguiente paso.",
     featuredEyebrow: "Así le fue a otro dueño de clínica o consultorio",
   },
 
@@ -170,135 +178,66 @@ const content: DiagnosticoContent = {
 
 const questions: DiagnosticoQuestion[] = [
   {
-    id: "q1",
-    text: "Solo trabajamos con profesionales de la salud, dueños y directores de clínicas o consultorios de medicina estética y regenerativa.",
+    id: QUESTION_IDS.perfil,
+    text: "¿Cuál es tu perfil?",
     multiple: false,
     options: [
-      { id: "si", label: "Sí, ese es mi perfil" },
-      {
-        id: "no",
-        label: "No, ese no es mi perfil.",
-        exit: true,
-      },
+      { id: "profesional", label: "Profesional de la salud (médico o especialista)" },
+      { id: "dueno", label: "Dueño o director de una clínica" },
+      { id: "inversionista", label: "Inversionista con capital para abrir una clínica" },
+      { id: "ninguno", label: "Ninguno de los anteriores", exit: true },
     ],
   },
+  STAGE_QUESTION,
   {
-    id: "q2",
-    text: "¿Qué tipo de establecimiento diriges actualmente?",
+    id: QUESTION_IDS.establecimiento,
+    text: "¿Qué tipo de establecimiento tienes o quieres abrir?",
     multiple: false,
     options: [
-      { id: "estetica", label: "Consultorio o clínica de medicina estética" },
-      { id: "regenerativa", label: "Clínica o consultorio de medicina regenerativa" },
-      {
-        id: "multiespecialidad",
-        label: "Clínica o consultorio multiespecialidad (medicina estética y regenerativa)",
-      },
-      { id: "por_abrir", label: "Estoy por abrir mi clínica" },
+      { id: "estetica", label: "Consultorio o clínica de medicina estética (sin cirugía)" },
+      { id: "med_spa", label: "Med spa" },
+      { id: "regenerativa", label: "Medicina regenerativa" },
+      { id: "quirurgica", label: "Clínica con procedimientos quirúrgicos" },
+      { id: "multiespecialidad", label: "Multiespecialidad" },
       OTHER_OPTION,
     ],
   },
   {
-    id: "q3",
-    text: "¿Cuántas personas trabajan en tu clínica?",
-    multiple: false,
-    options: [
-      { id: "solo_yo", label: "Solo yo" },
-      { id: "2_5", label: "De 2 a 5 personas" },
-      { id: "6_15", label: "De 6 a 15 personas" },
-      { id: "16_50", label: "De 16 a 50 personas" },
-      { id: "mas_50", label: "Más de 50 personas" },
-    ],
-  },
-  {
-    id: "q4",
-    text: "¿En qué te gustaría recibir ayuda?",
+    id: QUESTION_IDS.necesidades,
+    text: "¿Qué necesitas resolver?",
     multiple: true,
     options: [
-      { id: "diagnostico", label: "Diagnóstico completo de mi clínica" },
-      {
-        id: "licencia_regenerativa",
-        label: "Licencia sanitaria para establecimientos de salud en medicina regenerativa",
-      },
-      {
-        id: "visto_bueno",
-        label: "Visto bueno de seguridad y operación de las instalaciones",
-      },
-      { id: "proyecto_general", label: "Proyecto general para establecimiento de salud" },
-      { id: "aviso_funcionamiento", label: "Aviso de funcionamiento del establecimiento" },
-      { id: "publicidad", label: "Permiso de publicidad para servicios de salud" },
-      {
-        id: "aviso_responsable",
-        label:
-          "Aviso de funcionamiento y responsable sanitario del establecimiento de servicios de salud",
-      },
+      { id: "desde_cero", label: "Abrir mi clínica desde cero" },
+      { id: "cofepris", label: "Permisos COFEPRIS (avisos, licencia, responsable sanitario)" },
+      { id: "proteccion_civil", label: "Protección civil, uso de suelo e instalaciones" },
+      { id: "manuales", label: "Manuales, protocolos y bitácoras" },
+      { id: "rentabilidad", label: "Costos, precios y rentabilidad" },
+      { id: "publicidad", label: "Publicidad con permiso y captación de pacientes" },
       OTHER_OPTION,
     ],
   },
+  SUPPORT_QUESTION,
   {
-    id: "q5",
-    text: "¿Qué tipo de servicio te interesa?",
-    multiple: true,
-    options: [
-      { id: "entrevista", label: "Entrevista de análisis y diagnóstico" },
-      { id: "visita", label: "Visita a las instalaciones" },
-      {
-        id: "inicio_proyecto",
-        label: "Inicio de proyecto (apertura o regularización de la clínica)",
-      },
-      {
-        id: "auditorias",
-        label:
-          "Auditorías internas mensuales para verificar cumplimiento y actualizaciones",
-      },
-      OTHER_OPTION,
-    ],
-  },
-  {
-    id: "q6",
-    text: "¿Qué inversión piensas destinar a este proyecto?",
+    id: QUESTION_IDS.inversion,
+    text: INVESTMENT_QUESTION_TEXT,
     multiple: false,
     options: [
       { id: "500_1000", label: `De ${CURRENCY} 500 a ${CURRENCY} 1,000` },
       { id: "1000_2000", label: `De ${CURRENCY} 1,000 a ${CURRENCY} 2,000` },
       { id: "2000_3000", label: `De ${CURRENCY} 2,000 a ${CURRENCY} 3,000` },
-      { id: "3000_4000", label: `De ${CURRENCY} 3,000 a ${CURRENCY} 4,000` },
+      { id: "3000_5000", label: `De ${CURRENCY} 3,000 a ${CURRENCY} 5,000` },
       { id: "mas_5000", label: `Más de ${CURRENCY} 5,000` },
     ],
   },
-  {
-    id: "q7",
-    text: "¿Qué tan pronto necesitas empezar?",
-    multiple: false,
-    options: [
-      {
-        id: "ya",
-        label: "Ya. Tengo una verificación, trámite o apertura pendiente.",
-      },
-      {
-        id: "proximo_mes",
-        label: "En el próximo mes, quiero moverme rápido.",
-      },
-      {
-        id: "3_meses",
-        label: "En los próximos 3 meses, cuando arme presupuesto.",
-      },
-      {
-        id: "explorando",
-        label: "Solo estoy explorando, no tengo urgencia definida.",
-        exit: true,
-      },
-      {
-        id: "no_seguro",
-        label: "No estoy seguro de invertir en esto todavía.",
-        exit: true,
-      },
-    ],
-  },
+  URGENCY_QUESTION,
 ];
 
 export const MX_MARKET: DiagnosticoMarket = {
   id: "mx",
   label: "México",
+
+  basePath: "/diagnostico",
+  storageKey: "diagnostico",
 
   timeZone: "America/Mexico_City",
   timeZoneLabel: "Centro de México",
@@ -315,6 +254,7 @@ export const MX_MARKET: DiagnosticoMarket = {
   whatsappNumber: "525566308602",
   privacyUrl: "/privacy/",
 
+  // México y USA: el equipo atiende desde Houston.
   holidayCalendars: ["mx", "us"],
 
   // Horario de Cal.com en hora de Houston: lunes a viernes de 10:00 a 15:00, una llamada cada 30 min.
@@ -334,7 +274,6 @@ export const MX_MARKET: DiagnosticoMarket = {
     scheduleId: 2481982,
   },
 
-  // Encendidos con los textos de ejemplo; se reemplazan en content cuando lleguen los reales.
   showTestimonials: true,
 
   content,

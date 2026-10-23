@@ -16,7 +16,6 @@ import {
   updateLeadStatus,
   type ManualLeadStatus,
 } from "@/lib/firestore/leads-client";
-import { DIAGNOSTICO_QUESTIONS } from "@/lib/diagnostico/questions";
 import { getTimeZoneLabel } from "@/lib/diagnostico/slots";
 import type { Lead } from "@/types/lead";
 import ConfirmDialog from "./ConfirmDialog";
@@ -33,6 +32,7 @@ import {
   formatLongDate,
   formatTime,
   phoneLabel,
+  questionsOf,
   startOf,
 } from "./lead-utils";
 import { WHATSAPP_TEMPLATES, fillWhatsappTemplate, whatsappLink } from "./whatsapp-templates";
@@ -77,8 +77,8 @@ function AppointmentDetail({ lead }: { lead: Lead }) {
           {formatLongDate(start, CDMX_TIME_ZONE)}, {formatTime(start, CDMX_TIME_ZONE)}
         </span>
       </Field>
-      {/* Solo leads anteriores, cuando la persona podía elegir otra zona. */}
-      {clientZone !== CDMX_TIME_ZONE && (
+      {/* Solo leads anteriores, cuando la persona podía elegir otra zona (USA ya es Houston). */}
+      {clientZone !== CDMX_TIME_ZONE && clientZone !== HOUSTON_TIME_ZONE && (
         <Field label="Hora del cliente">
           {formatLongDate(start, clientZone)}, {formatTime(start, clientZone)} ({getTimeZoneLabel(clientZone)})
         </Field>
@@ -273,7 +273,7 @@ export default function LeadDetailSheet({
 
             <Section title="Respuestas">
               <ol className="flex flex-col gap-3">
-                {DIAGNOSTICO_QUESTIONS.map((question, index) => {
+                {questionsOf(lead).map((question, index) => {
                   const answer = lead.answers.find((a) => a.questionId === question.id);
                   return (
                     <li key={question.id} className="flex flex-col gap-0.5 text-sm">

@@ -5,18 +5,14 @@ import { Clock, Globe, Video } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import AgendaCalendar from "./AgendaCalendar";
 import { cn } from "@/lib/utils";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
-import { MARKET } from "@/lib/diagnostico/market";
+import type { MarketId } from "@/lib/diagnostico/market";
 import {
   formatDayKeyLabel,
   formatSlotTime,
-  getTimeZoneLabel,
   type AgendaDay,
   type Slot,
 } from "@/lib/diagnostico/slots";
-
-const { agenda: texts } = DIAGNOSTICO_CONTENT;
-const { whatsappNumber } = MARKET;
+import { useMarket } from "./MarketContext";
 
 const pillButton =
   "min-h-[52px] rounded-full text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
@@ -30,8 +26,11 @@ type LoadStatus = "loading" | "ready" | "error";
 // mostrar el aviso; mientras tanto se sigue viendo "Cargando horarios…".
 const AUTO_RETRY_DELAY_MS = 1_500;
 
-async function fetchAgendaDays(signal?: AbortSignal): Promise<AgendaDay[]> {
-  const response = await fetch("/api/diagnostico/slots/", { cache: "no-store", signal });
+async function fetchAgendaDays(market: MarketId, signal?: AbortSignal): Promise<AgendaDay[]> {
+  const response = await fetch(`/api/diagnostico/slots/?market=${market}`, {
+    cache: "no-store",
+    signal,
+  });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data: { days: AgendaDay[] } = await response.json();
   return data.days;
@@ -69,6 +68,8 @@ export default function AgendaStep({
   onBack,
   onContinue,
 }: AgendaStepProps) {
+  const market = useMarket();
+  const { agenda: texts } = market.content;
   const [days, setDays] = useState<AgendaDay[]>([]);
   const [status, setStatus] = useState<LoadStatus>("loading");
 
@@ -76,7 +77,7 @@ export default function AgendaStep({
     setStatus("loading");
     for (let attempt = 1; attempt <= 2; attempt++) {
       try {
-        setDays(await fetchAgendaDays(signal));
+        setDays(await fetchAgendaDays(market.id, signal));
         setStatus("ready");
         return;
       } catch (error) {
@@ -87,7 +88,7 @@ export default function AgendaStep({
       }
     }
     setStatus("error");
-  }, []);
+  }, [market.id]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -114,7 +115,7 @@ export default function AgendaStep({
 
   const hasAnySlots = days.some((day) => day.slots.length > 0);
   const selectedDay = days.find((day) => day.date === selectedDayKey);
-  const zoneLabel = getTimeZoneLabel(timeZone);
+  const zoneLabel = market.timeZoneLabel;
 
   // Libres y "Agendado" en un solo orden por hora: un horario ocupado queda en su lugar, en gris.
   const daySlots = useMemo(
@@ -127,7 +128,7 @@ export default function AgendaStep({
         : [],
     [selectedDay]
   );
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(texts.noSlotsWhatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/${market.whatsappNumber}?text=${encodeURIComponent(texts.noSlotsWhatsappMessage)}`;
 
   return (
     <>

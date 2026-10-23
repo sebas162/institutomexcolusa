@@ -85,7 +85,10 @@ export async function POST(request: Request) {
   const slotStart = new Date(body.slotStart).toISOString();
 
   try {
-    const days = await getAgendaDays(new Date(), ADMIN_RESCHEDULE_DAYS, getCalAdminSlotsEventTypeId());
+    const days = await getAgendaDays({
+      dayCount: ADMIN_RESCHEDULE_DAYS,
+      eventTypeId: getCalAdminSlotsEventTypeId(),
+    });
     if (!isSlotInAgenda(days, slotStart)) {
       return NextResponse.json({ error: "slot_unavailable" }, { status: 409 });
     }

@@ -1,7 +1,8 @@
 // Cliente de la API v2 de Cal.com. Solo para el servidor: CAL_API_KEY no lleva
 // NEXT_PUBLIC_, así que nunca llega al navegador. No registrar la llave ni los headers.
 
-import { MARKET } from "@/lib/diagnostico/market";
+// Todos los países usan por ahora el mismo evento y horario de Cal.com (los del país por defecto).
+import { DEFAULT_MARKET } from "@/lib/diagnostico/market";
 import type { Slot } from "@/lib/diagnostico/slots";
 
 const CAL_API_BASE = "https://api.cal.com";
@@ -31,7 +32,7 @@ export class CalcomError extends Error {
 
 export function getCalEventTypeId(): number {
   const value = Number(process.env.CAL_EVENT_TYPE_ID);
-  return Number.isInteger(value) && value > 0 ? value : MARKET.calcom.eventTypeId;
+  return Number.isInteger(value) && value > 0 ? value : DEFAULT_MARKET.calcom.eventTypeId;
 }
 
 /**
@@ -41,12 +42,12 @@ export function getCalEventTypeId(): number {
  */
 export function getCalAdminSlotsEventTypeId(): number {
   const value = Number(process.env.CAL_ADMIN_SLOTS_EVENT_TYPE_ID);
-  return Number.isInteger(value) && value > 0 ? value : MARKET.calcom.adminSlotsEventTypeId;
+  return Number.isInteger(value) && value > 0 ? value : DEFAULT_MARKET.calcom.adminSlotsEventTypeId;
 }
 
 export function getCalScheduleId(): number {
   const value = Number(process.env.CAL_SCHEDULE_ID);
-  return Number.isInteger(value) && value > 0 ? value : MARKET.calcom.scheduleId;
+  return Number.isInteger(value) && value > 0 ? value : DEFAULT_MARKET.calcom.scheduleId;
 }
 
 function getApiKey(): string {

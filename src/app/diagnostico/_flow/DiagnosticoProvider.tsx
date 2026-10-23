@@ -11,14 +11,14 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { trackMetaEvent } from "@/lib/analytics/meta-pixel";
+import { useMarket } from "@/components/diagnostico/MarketContext";
 import {
-  DIAGNOSTICO_QUESTIONS,
   OTHER_TEXT_MAX,
   getSelectedTextOption,
   isExitAnswer,
+  type DiagnosticoQuestion,
 } from "@/lib/diagnostico/questions";
-import { MARKET } from "@/lib/diagnostico/market";
-import { DEFAULT_DATOS_VALUES, type DatosValues } from "@/lib/diagnostico/schema";
+import { getDefaultDatosValues, type DatosValues } from "@/lib/diagnostico/schema";
 import {
   AGENDA_TIME_ZONE,
   toDayKey,
@@ -47,9 +47,10 @@ export interface StoredConfirmation extends PendingLead {
 }
 
 // Avance del flujo: respuestas, zona, horario, UTM y el lead pendiente. Nunca nombre, teléfono ni correo.
-// v2: cambiaron las opciones de P2, P4 y P5; un avance v1 se ignora.
-const PROGRESS_KEY = "diagnostico:progreso:v2";
-const CONFIRMATION_KEY = "diagnostico:confirmacion:v1";
+// Las claves llevan el prefijo del país (market.storageKey): México y USA no comparten avance.
+// v3: preguntas nuevas con otros IDs; un avance v2 se ignora.
+const progressKey = (storageKey: string) => `${storageKey}:progreso:v3`;
+const confirmationKey = (storageKey: string) => `${storageKey}:confirmacion:v1`;
 
 interface StoredProgress {
   answers: Record<string, string[]>;
@@ -109,11 +110,12 @@ function readUtmFromUrl(): LeadUtm {
 
 /** El texto de "Otro" está escrito (o la pregunta no lo pide). */
 export function isOtherTextValid(
+  questions: DiagnosticoQuestion[],
   questionId: string,
   answers: Record<string, string[]>,
   otherTexts: Record<string, string>
 ): boolean {
-  const question = DIAGNOSTICO_QUESTIONS.find((q) => q.id === questionId);
+  const question = questions.find((q) => q.id === questionId);
   if (!question || !getSelectedTextOption(question, answers[questionId] ?? [])) return true;
 
   const text = (otherTexts[questionId] ?? "").trim();
@@ -122,10 +124,11 @@ export function isOtherTextValid(
 
 /** Las 7 preguntas respondidas con opciones válidas, ninguna de salida y "Otro" con su texto. */
 export function isQualified(
+  questions: DiagnosticoQuestion[],
   answers: Record<string, string[]>,
   otherTexts: Record<string, string>
 ): boolean {
-  return DIAGNOSTICO_QUESTIONS.every((question) => {
+  return questions.every((question) => {
     const selected = answers[question.id] ?? [];
     const validIds = question.options.map((option) => option.id);
     const countOk = question.multiple ? selected.length >= 1 : selected.length === 1;
@@ -133,17 +136,18 @@ export function isQualified(
     return (
       countOk &&
       selected.every((id) => validIds.includes(id)) &&
-      !isExitAnswer(question.id, selected) &&
-      isOtherTextValid(question.id, answers, otherTexts)
+      !isExitAnswer(questions, question.id, selected) &&
+      isOtherTextValid(questions, question.id, answers, otherTexts)
     );
   });
 }
 
-function firstUnansweredIndex(answers: Record<string, string[]>): number {
-  const index = DIAGNOSTICO_QUESTIONS.findIndex(
-    (question) => (answers[question.id] ?? []).length === 0
-  );
-  return index === -1 ? DIAGNOSTICO_QUESTIONS.length - 1 : index;
+function firstUnansweredIndex(
+  questions: DiagnosticoQuestion[],
+  answers: Record<string, string[]>
+): number {
+  const index = questions.findIndex((question) => (answers[question.id] ?? []).length === 0);
+  return index === -1 ? questions.length - 1 : index;
 }
 
 interface DiagnosticoContextValue {
@@ -184,15 +188,19 @@ interface DiagnosticoContextValue {
 const DiagnosticoContext = createContext<DiagnosticoContextValue | undefined>(undefined);
 
 export function DiagnosticoProvider({ children }: { children: ReactNode }) {
+  const market = useMarket();
+  const { questions, storageKey } = market;
+  const progressStorageKey = progressKey(storageKey);
+  const confirmationStorageKey = confirmationKey(storageKey);
   const [hydrated, setHydrated] = useState(false);
-  const timeZone = MARKET.timeZone;
+  const timeZone = market.timeZone;
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
   const [otherTexts, setOtherTexts] = useState<Record<string, string>>({});
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedDayKey, setSelectedDayKey] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlotState] = useState<Slot | null>(null);
   const [agendaStage, setAgendaStage] = useState<AgendaStage>("agenda");
-  const [datosValues, setDatosValues] = useState<DatosValues>(DEFAULT_DATOS_VALUES);
+  const [datosValues, setDatosValues] = useState<DatosValues>(() => getDefaultDatosValues(market));
   const [utm, setUtm] = useState<LeadUtm>({});
   const [pendingLead, setPendingLead] = useState<PendingLead | null>(null);
   const [slotTakenNotice, setSlotTakenNotice] = useState(false);
@@ -201,13 +209,13 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
 
   // Restaura el avance guardado (recarga de la pestaña) y lee las UTM de la URL.
   useEffect(() => {
-    const progress = readStorage<StoredProgress>(PROGRESS_KEY);
+    const progress = readStorage<StoredProgress>(progressStorageKey);
     const urlUtm = readUtmFromUrl();
 
     if (progress) {
       setAnswers(progress.answers ?? {});
       setOtherTexts(progress.otherTexts ?? {});
-      setQuestionIndex(firstUnansweredIndex(progress.answers ?? {}));
+      setQuestionIndex(firstUnansweredIndex(questions, progress.answers ?? {}));
       if (progress.selectedSlot) {
         setSelectedSlotState(progress.selectedSlot);
         setSelectedDayKey(toDayKey(new Date(progress.selectedSlot.start), AGENDA_TIME_ZONE));
@@ -216,9 +224,9 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     }
 
     setUtm(Object.keys(urlUtm).length > 0 ? urlUtm : (progress?.utm ?? {}));
-    setStoredConfirmation(readStorage<StoredConfirmation>(CONFIRMATION_KEY));
+    setStoredConfirmation(readStorage<StoredConfirmation>(confirmationStorageKey));
     setHydrated(true);
-  }, []);
+  }, [progressStorageKey, confirmationStorageKey, questions]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -226,11 +234,11 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     // Sin avance no se guarda nada. Además evita volver a escribir la clave justo
     // después de que /confirmacion/ o /gracias/ la borran al recargar la página.
     if (Object.keys(answers).length === 0 && !selectedSlot) {
-      removeStorage(PROGRESS_KEY);
+      removeStorage(progressStorageKey);
       return;
     }
 
-    writeStorage(PROGRESS_KEY, {
+    writeStorage(progressStorageKey, {
       answers,
       otherTexts,
       timeZone,
@@ -238,10 +246,10 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
       utm,
       pendingLead,
     } satisfies StoredProgress);
-  }, [hydrated, answers, otherTexts, timeZone, selectedSlot, utm, pendingLead]);
+  }, [progressStorageKey, hydrated, answers, otherTexts, timeZone, selectedSlot, utm, pendingLead]);
 
   // El píxel base solo registra PageView en la primera carga; las navegaciones
-  // del cliente dentro de /diagnostico se registran aquí.
+  // del cliente dentro de /diagnostico (y /diagnostico/usa) se registran aquí.
   const pathname = usePathname();
   const lastPathname = useRef<string | null>(null);
 
@@ -258,7 +266,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
 
   const toggleOption = useCallback(
     (questionId: string, optionId: string) => {
-      const question = DIAGNOSTICO_QUESTIONS.find((q) => q.id === questionId);
+      const question = questions.find((q) => q.id === questionId);
       if (!question) return;
 
       setAnswers((current) => {
@@ -271,7 +279,7 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         return { ...current, [questionId]: next };
       });
     },
-    []
+    [questions]
   );
 
   const setOtherText = useCallback((questionId: string, text: string) => {
@@ -311,16 +319,16 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
         timeZone,
         nombre: datosValues.nombre.trim(),
       };
-      writeStorage(CONFIRMATION_KEY, confirmation);
+      writeStorage(confirmationStorageKey, confirmation);
       setStoredConfirmation(confirmation);
 
       trackMetaEvent("Lead", { content_name: "Llamada diagnóstico" }, result.leadId);
       trackMetaEvent("Schedule", { content_name: "Llamada diagnóstico" }, result.leadId);
     },
-    [timeZone, datosValues.nombre]
+    [confirmationStorageKey, timeZone, datosValues.nombre]
   );
 
-  const clearProgress = useCallback(() => removeStorage(PROGRESS_KEY), []);
+  const clearProgress = useCallback(() => removeStorage(progressStorageKey), [progressStorageKey]);
 
   const resetAnswers = useCallback(() => {
     setAnswers({});
@@ -331,8 +339,8 @@ export function DiagnosticoProvider({ children }: { children: ReactNode }) {
     setAgendaStage("agenda");
     setPendingLead(null);
     setSlotTakenNotice(false);
-    removeStorage(PROGRESS_KEY);
-  }, []);
+    removeStorage(progressStorageKey);
+  }, [progressStorageKey]);
 
   return (
     <DiagnosticoContext.Provider

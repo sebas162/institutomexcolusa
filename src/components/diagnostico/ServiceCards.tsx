@@ -1,16 +1,16 @@
-import { ClipboardCheck, FileText, Megaphone, ShieldCheck, type LucideIcon } from "lucide-react";
+import { BadgeCheck, Building2, ClipboardList, TrendingUp, type LucideIcon } from "lucide-react";
 import type { DiagnosticoService, ServiceIcon } from "@/lib/diagnostico/content";
 
 const ICONS: Record<ServiceIcon, LucideIcon> = {
-  permisos: ShieldCheck,
-  documentacion: FileText,
-  auditorias: ClipboardCheck,
-  publicidad: Megaphone,
+  abrir: Building2,
+  regla: BadgeCheck,
+  operacion: ClipboardList,
+  rentable: TrendingUp,
 };
 
 export default function ServiceCards({ services }: { services: DiagnosticoService[] }) {
   return (
-    <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3 pt-2">
+    <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3">
       {services.map((service) => {
         const Icon = ICONS[service.icon];
 

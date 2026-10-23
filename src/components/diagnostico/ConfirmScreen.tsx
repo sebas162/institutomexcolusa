@@ -1,14 +1,12 @@
 import { AlertTriangle, Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { trackMetaEvent } from "@/lib/analytics/meta-pixel";
-import { DIAGNOSTICO_CONTENT } from "@/lib/diagnostico/content";
-import { MARKET } from "@/lib/diagnostico/market";
 import {
   formatConfirmationDate,
   formatSlotLabel,
-  getTimeZoneLabel,
   type Slot,
 } from "@/lib/diagnostico/slots";
+import { useMarket } from "./MarketContext";
 import { FeaturedTestimonial } from "./Testimonials";
 import LandingLogo from "./LandingLogo";
 
@@ -38,12 +36,12 @@ export default function ConfirmScreen({
   leadId,
   nombre,
 }: ConfirmScreenProps) {
-  const { featuredTestimonial, confirmacion } = DIAGNOSTICO_CONTENT;
-  const { whatsappNumber } = MARKET;
+  const { content, whatsappNumber, timeZoneLabel, showTestimonials } = useMarket();
+  const { featuredTestimonial, confirmacion } = content;
   const message = confirmacion.buildWhatsappMessage({
     nombre,
     fecha: formatConfirmationDate(slot, timeZone),
-    zona: getTimeZoneLabel(timeZone),
+    zona: timeZoneLabel,
   });
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
@@ -90,7 +88,7 @@ export default function ConfirmScreen({
             <div className="flex flex-col gap-1">
               <span className="text-[13px] text-muted-foreground">Fecha y hora</span>
               <strong className="text-[17px] text-primary">{formatSlotLabel(slot, timeZone)}</strong>
-              <span className="text-[13px] text-muted-foreground">{getTimeZoneLabel(timeZone)}</span>
+              <span className="text-[13px] text-muted-foreground">{timeZoneLabel}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-[13px] text-muted-foreground">Duración</span>
@@ -139,7 +137,7 @@ export default function ConfirmScreen({
             </p>
           </div>
 
-          {MARKET.showTestimonials && (
+          {showTestimonials && featuredTestimonial && (
             <FeaturedTestimonial
               eyebrow={confirmacion.featuredEyebrow}
               testimonial={featuredTestimonial}

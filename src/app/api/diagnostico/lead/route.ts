@@ -10,7 +10,6 @@ import {
 import { getAgendaDays, isSlotInAgenda } from "@/lib/diagnostico/agenda-window";
 import {
   DIAGNOSTICO_FORM_ID,
-  DIAGNOSTICO_QUESTIONS,
   OTHER_TEXT_MAX,
   formatOtherLabel,
   getSelectedTextOption,
@@ -18,7 +17,13 @@ import {
   type DiagnosticoQuestion,
 } from "@/lib/diagnostico/questions";
 import { toE164 } from "@/lib/diagnostico/schema";
-import { MARKET } from "@/lib/diagnostico/market";
+import {
+  DEFAULT_MARKET_ID,
+  MARKETS,
+  getMarket,
+  type DiagnosticoMarket,
+  type MarketId,
+} from "@/lib/diagnostico/market";
 import type { CreateLeadInput, LeadAnswer, LeadUtm } from "@/types/lead";
 
 // Revalida horarios (hasta dos intentos de 8 s), reserva (hasta 10 s) y, si falla, revisa otra vez.
@@ -39,75 +44,83 @@ function buildOptionIdsSchema(question: DiagnosticoQuestion) {
   );
 }
 
-const answersSchema = z.object(
-  Object.fromEntries(
-    DIAGNOSTICO_QUESTIONS.map((question) => [
-      question.id,
-      buildOptionIdsSchema(question),
-    ])
-  )
-);
-
-// Texto de "Otro (escribe cuál)", solo en las preguntas que tienen esa opción.
-const otherTextsSchema = z
-  .object(
-    Object.fromEntries(
-      DIAGNOSTICO_QUESTIONS.filter((question) =>
-        question.options.some((option) => option.requiresText)
-      ).map((question) => [question.id, z.string().trim().max(OTHER_TEXT_MAX).optional()])
-    )
-  )
-  .strict();
-
 const utmFieldSchema = z.string().trim().max(200).optional();
 
-const leadSchema = z.object({
-  nombre: z.string().trim().min(2).max(100),
-  // Landing de un solo país: solo su lada.
-  whatsappCountryCode: z.literal(MARKET.phone.countryCode),
-  whatsappNumber: z
-    .string()
-    .max(30)
-    .transform((value) => value.replace(/\D/g, ""))
-    .pipe(z.string().length(10)),
-  email: z.string().trim().toLowerCase().email().max(150),
-  clinica: z.string().trim().min(2).max(120),
-  ciudad: z.string().trim().min(2).max(120),
-  answers: answersSchema,
-  otherTexts: otherTextsSchema.optional(),
-  consentConfirmacion: z.literal(true),
-  consentMarketing: z.boolean(),
-  utm: z
-    .object({
-      source: utmFieldSchema,
-      medium: utmFieldSchema,
-      campaign: utmFieldSchema,
-      content: utmFieldSchema,
-      term: utmFieldSchema,
-      fbclid: utmFieldSchema,
-    })
-    .optional(),
-  slotStart: z.string().datetime({ offset: true }),
-  // Se acepta por compatibilidad, pero la zona siempre es la del país (MARKET.timeZone).
-  timeZone: z.string().max(64).optional(),
-  // Reintento tras un horario ocupado: el lead ya creado se reutiliza.
-  leadId: z.string().regex(/^[A-Za-z0-9]{1,64}$/).optional(),
-  confirmationCode: z.string().max(8).optional(),
-}).superRefine((data, ctx) => {
-  // "Otro" marcado exige su texto.
-  const answers = data.answers as Record<string, string[]>;
-  const otherTexts = (data.otherTexts ?? {}) as Record<string, string | undefined>;
+// Las preguntas y la lada dependen del país de la landing.
+function buildLeadSchema(market: DiagnosticoMarket) {
+  const questions = market.questions;
 
-  for (const question of DIAGNOSTICO_QUESTIONS) {
-    if (getSelectedTextOption(question, answers[question.id] ?? []) && !otherTexts[question.id]) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["otherTexts", question.id],
-        message: "other_text_required",
-      });
+  const answersSchema = z.object(
+    Object.fromEntries(
+      questions.map((question) => [question.id, buildOptionIdsSchema(question)])
+    )
+  );
+
+  // Texto de "Otro (escribe cuál)", solo en las preguntas que tienen esa opción.
+  const otherTextsSchema = z
+    .object(
+      Object.fromEntries(
+        questions
+          .filter((question) => question.options.some((option) => option.requiresText))
+          .map((question) => [question.id, z.string().trim().max(OTHER_TEXT_MAX).optional()])
+      )
+    )
+    .strict();
+
+  return z.object({
+    // Sin market (página abierta antes de existir el campo): México.
+    market: z.literal(market.id).optional(),
+    nombre: z.string().trim().min(2).max(100),
+    // Landing de un solo país: solo su lada.
+    whatsappCountryCode: z.literal(market.phone.countryCode),
+    whatsappNumber: z
+      .string()
+      .max(30)
+      .transform((value) => value.replace(/\D/g, ""))
+      .pipe(z.string().length(10)),
+    email: z.string().trim().toLowerCase().email().max(150),
+    clinica: z.string().trim().min(2).max(120),
+    ciudad: z.string().trim().min(2).max(120),
+    answers: answersSchema,
+    otherTexts: otherTextsSchema.optional(),
+    consentConfirmacion: z.literal(true),
+    consentMarketing: z.boolean(),
+    utm: z
+      .object({
+        source: utmFieldSchema,
+        medium: utmFieldSchema,
+        campaign: utmFieldSchema,
+        content: utmFieldSchema,
+        term: utmFieldSchema,
+        fbclid: utmFieldSchema,
+      })
+      .optional(),
+    slotStart: z.string().datetime({ offset: true }),
+    // Se acepta por compatibilidad, pero la zona siempre es la del país (market.timeZone).
+    timeZone: z.string().max(64).optional(),
+    // Reintento tras un horario ocupado: el lead ya creado se reutiliza.
+    leadId: z.string().regex(/^[A-Za-z0-9]{1,64}$/).optional(),
+    confirmationCode: z.string().max(8).optional(),
+  }).superRefine((data, ctx) => {
+    // "Otro" marcado exige su texto.
+    const answers = data.answers as Record<string, string[]>;
+    const otherTexts = (data.otherTexts ?? {}) as Record<string, string | undefined>;
+
+    for (const question of questions) {
+      if (getSelectedTextOption(question, answers[question.id] ?? []) && !otherTexts[question.id]) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["otherTexts", question.id],
+          message: "other_text_required",
+        });
+      }
     }
-  }
-});
+  });
+}
+
+const LEAD_SCHEMAS = new Map<MarketId, ReturnType<typeof buildLeadSchema>>(
+  MARKETS.map((market) => [market.id, buildLeadSchema(market)])
+);
 
 function formatFieldErrors(error: z.ZodError): Record<string, string[]> {
   const fields: Record<string, string[]> = {};
@@ -166,6 +179,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true }, { status: 200 });
   }
 
+  const marketId =
+    body !== null && typeof body === "object" && "market" in body && typeof body.market === "string"
+      ? body.market
+      : DEFAULT_MARKET_ID;
+  const market = getMarket(marketId);
+  const leadSchema = market && LEAD_SCHEMAS.get(market.id);
+
+  if (!market || !leadSchema) {
+    return NextResponse.json(
+      { error: "invalid", fields: { market: ["invalid_market"] } },
+      { status: 400 }
+    );
+  }
+
   const parsed = leadSchema.safeParse(body);
 
   if (!parsed.success) {
@@ -179,16 +206,16 @@ export async function POST(request: Request) {
   const answers = data.answers as Record<string, string[]>;
   const otherTexts = (data.otherTexts ?? {}) as Record<string, string | undefined>;
 
-  const isNotQualified = DIAGNOSTICO_QUESTIONS.some((question) =>
-    isExitAnswer(question.id, answers[question.id])
+  const isNotQualified = market.questions.some((question) =>
+    isExitAnswer(market.questions, question.id, answers[question.id])
   );
 
   if (isNotQualified) {
     return NextResponse.json({ error: "not_qualified" }, { status: 400 });
   }
 
-  // Textos tomados de questions.ts, nunca del cliente; solo "Otro" lleva lo que escribió.
-  const leadAnswers: LeadAnswer[] = DIAGNOSTICO_QUESTIONS.map((question) => {
+  // Textos tomados de market/<país>.ts, nunca del cliente; solo "Otro" lleva lo que escribió.
+  const leadAnswers: LeadAnswer[] = market.questions.map((question) => {
     const selected = question.options.filter((option) =>
       answers[question.id].includes(option.id)
     );
@@ -219,14 +246,14 @@ export async function POST(request: Request) {
     consentConfirmacion: data.consentConfirmacion,
     consentMarketing: data.consentMarketing,
     utm: cleanUtm(data.utm),
-    timeZone: MARKET.timeZone,
-    market: MARKET.id,
+    timeZone: market.timeZone,
+    market: market.id,
   };
   const slotStart = new Date(data.slotStart).toISOString();
 
   // 1. El horario tiene que seguir libre y dentro de la ventana (festivos incluidos).
   try {
-    const days = await getAgendaDays();
+    const days = await getAgendaDays({ market });
     if (!isSlotInAgenda(days, slotStart)) {
       return NextResponse.json({ error: "slot_unavailable" }, { status: 409 });
     }
@@ -272,7 +299,7 @@ export async function POST(request: Request) {
       name: data.nombre,
       email: data.email,
       phoneE164,
-      timeZone: MARKET.timeZone,
+      timeZone: market.timeZone,
       leadId,
       notes: buildBookingNotes(leadInput),
     });
@@ -288,7 +315,7 @@ export async function POST(request: Request) {
 
     // En un choque simultáneo Cal.com puede responder con un error genérico: si el horario
     // ya no está libre, para el visitante es lo mismo que un horario ocupado.
-    const slotStillFree = await getAgendaDays()
+    const slotStillFree = await getAgendaDays({ market })
       .then((days) => isSlotInAgenda(days, slotStart))
       .catch(() => true);
 
@@ -315,7 +342,7 @@ export async function POST(request: Request) {
         endTime: new Date(booking.end),
         meetingUrl: booking.meetingUrl,
       },
-      timeZone: MARKET.timeZone,
+      timeZone: market.timeZone,
       source: "landing",
     });
   } catch (error) {

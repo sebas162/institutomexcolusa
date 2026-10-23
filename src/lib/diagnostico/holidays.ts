@@ -1,8 +1,8 @@
 // Festivos de México y USA en los que no se agendan llamadas. Se calculan por año,
 // sin listas fijas, a partir de las reglas aprobadas por la clienta. Cuáles aplican lo define
-// el país de la landing (MARKET.holidayCalendars).
+// el país de la landing (market.holidayCalendars); sin país, los de todos.
 
-import { MARKET } from "@/lib/diagnostico/market";
+import { ALL_HOLIDAY_CALENDARS } from "@/lib/diagnostico/market";
 import type { HolidayCalendar } from "@/lib/diagnostico/market/types";
 
 export interface Holiday {
@@ -119,7 +119,7 @@ const holidaysCache = new Map<string, Holiday[]>();
  */
 export function getHolidays(
   year: number,
-  calendars: HolidayCalendar[] = MARKET.holidayCalendars
+  calendars: HolidayCalendar[] = ALL_HOLIDAY_CALENDARS
 ): Holiday[] {
   const cacheKey = `${year}|${calendars.join(",")}`;
   const cached = holidaysCache.get(cacheKey);
@@ -135,7 +135,10 @@ export function getHolidays(
   return holidays;
 }
 
-export function isHoliday(dayKey: string): boolean {
+export function isHoliday(
+  dayKey: string,
+  calendars: HolidayCalendar[] = ALL_HOLIDAY_CALENDARS
+): boolean {
   const year = Number(dayKey.slice(0, 4));
-  return getHolidays(year).some((holiday) => holiday.date === dayKey);
+  return getHolidays(year, calendars).some((holiday) => holiday.date === dayKey);
 }

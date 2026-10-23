@@ -3,27 +3,26 @@ import type { DiagnosticoTestimonial } from "@/lib/diagnostico/content";
 
 interface TestimonialsProps {
   eyebrow: string;
-  subtitle: string;
+  title: string;
   testimonials: DiagnosticoTestimonial[];
 }
 
-export default function Testimonials({ eyebrow, subtitle, testimonials }: TestimonialsProps) {
+export default function Testimonials({ eyebrow, title, testimonials }: TestimonialsProps) {
   return (
     <section
       aria-labelledby="testimonios-titulo"
       className="flex flex-col items-center gap-8 border-b border-border bg-white pb-14 pt-16"
     >
       <div className="flex w-full max-w-[720px] flex-col items-center gap-3 px-4 text-center">
-        {/* La etiqueta es el encabezado de la sección: no lleva título aparte. */}
+        <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary">
+          {eyebrow}
+        </span>
         <h2
           id="testimonios-titulo"
-          className="text-[13px] font-bold uppercase tracking-[0.14em] text-primary"
+          className="text-[clamp(26px,3.6vw,36px)] font-extrabold leading-[1.15] tracking-[-0.02em] text-foreground"
         >
-          {eyebrow}
+          {title}
         </h2>
-        <p className="text-[clamp(18px,2.4vw,22px)] font-semibold leading-snug text-foreground">
-          {subtitle}
-        </p>
       </div>
 
       <div className="flex w-full max-w-[1128px] snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 pt-1 md:grid md:grid-cols-3 md:overflow-visible">

@@ -1,6 +1,7 @@
 // Plantillas de WhatsApp del panel. Para cambiar un texto, edita solo `text`.
 // Variables disponibles: {nombre}, {fecha}, {hora}, {zona}. Fecha, hora y zona salen de la cita
-// en la hora del país del cliente (México: "Centro de México"), aunque el admin muestre Houston.
+// en la hora del país del cliente (México: "Centro de México"; USA: "Centro, Houston"), aunque
+// el admin muestre Houston.
 
 import { getMarket } from "@/lib/diagnostico/market";
 import { getTimeZoneLabel } from "@/lib/diagnostico/slots";
@@ -24,12 +25,13 @@ export type WhatsappTemplateId = (typeof WHATSAPP_TEMPLATES)[number]["id"];
 
 export function fillWhatsappTemplate(text: string, lead: Lead): string {
   const start = startOf(lead);
-  const timeZone = getMarket(lead.market)?.timeZone ?? CDMX_TIME_ZONE;
+  const market = getMarket(lead.market);
+  const timeZone = market?.timeZone ?? CDMX_TIME_ZONE;
   const values: Record<string, string> = {
     nombre: lead.nombre,
     fecha: start ? formatLongDate(start, timeZone) : "",
     hora: start ? formatTime(start, timeZone) : "",
-    zona: getTimeZoneLabel(timeZone),
+    zona: market?.timeZoneLabel ?? getTimeZoneLabel(timeZone),
   };
 
   return text.replace(/\{(\w+)\}/g, (match, key: string) => values[key] ?? match);

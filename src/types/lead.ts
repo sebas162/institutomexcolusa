@@ -57,7 +57,7 @@ export interface LeadUtm {
 export interface Lead {
   id: string;
   formId: string;
-  /** País de la landing ("mx"). Los leads anteriores no lo tienen: son de México. */
+  /** País de la landing ("mx" o "us"). Los leads anteriores no lo tienen: son de México. */
   market: MarketId;
   status: LeadStatus;
   nombre: string;

@@ -1,6 +1,7 @@
 // Solo servidor. Carga los festivos de holidays.ts como días bloqueados (override 00:00–00:00)
 // en el horario de Cal.com, para que su página de reservar y reprogramar los salte igual que
-// la landing. Agrega lo que falte y nunca borra overrides existentes.
+// la landing. Agrega lo que falte y nunca borra overrides existentes. Como México y USA
+// comparten el horario, se cargan los festivos de los dos países.
 
 import { getCalScheduleOverrides, setCalScheduleOverrides, type CalScheduleOverride } from "@/lib/calcom";
 import { getHolidays } from "@/lib/diagnostico/holidays";

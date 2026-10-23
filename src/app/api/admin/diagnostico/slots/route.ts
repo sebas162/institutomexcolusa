@@ -16,7 +16,10 @@ export async function GET(request: Request) {
   if (!check.ok) return check.response;
 
   try {
-    const days = await getAgendaDays(new Date(), ADMIN_RESCHEDULE_DAYS, getCalAdminSlotsEventTypeId());
+    const days = await getAgendaDays({
+      dayCount: ADMIN_RESCHEDULE_DAYS,
+      eventTypeId: getCalAdminSlotsEventTypeId(),
+    });
     return NextResponse.json({ days }, { headers: NO_STORE });
   } catch (error) {
     console.error("Error loading admin slots:", error instanceof Error ? error.message : error);
